@@ -4,18 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="面向 Codex 的 Matt Pocock Skills 非官方中文速查：按项目工作场景查命令、复制提示词。">
-  <meta name="theme-color" content="#171717">
+  <meta name="theme-color" content="#fbfaf6">
   <meta property="og:title" content="Matt Pocock Skills — Codex 中文速查">
   <meta property="og:description" content="按项目工作场景查命令，并复制可直接贴进 Codex 的提示词。">
   <meta property="og:type" content="article">
   <link rel="canonical" href="https://sunnirvana.github.io/cheatsheets/matt-pocock-skills/">
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
   <title>Matt Pocock Skills — Codex 中文速查</title>
+  <script>
+    try {
+      if (localStorage.getItem("tools-site-theme") === "dark") document.documentElement.dataset.theme = "dark";
+    } catch {}
+  </script>
   <script src="../../assets/site-config.js" defer></script>
   <script src="../../assets/site.js" defer></script>
   <style>
     :root {
-      color-scheme: light dark;
+      color-scheme: light;
       --paper: #fbfaf6;
       --ink: #171717;
       --muted: #67645f;
@@ -71,6 +76,12 @@
 
     .site-nav span {
       color: var(--muted);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     header {
@@ -199,6 +210,20 @@
     .print-link:active {
       transform: translate(2px, 2px);
       box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .site-nav .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 8px;
+      font: 700 11px var(--mono);
+    }
+
+    .theme-toggle-mark {
+      color: var(--green);
+      font-size: 14px;
+      line-height: 1;
     }
 
     .toolbar {
@@ -560,41 +585,55 @@
       outline-offset: 3px;
     }
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --paper: #181817;
-        --ink: #f3f0e8;
-        --muted: #c7c1b5;
-        --line: #605c54;
-        --soft: #2b2a27;
-        --soft-2: #233438;
-        --green: #72d1c8;
-        --red: #ff8b80;
-        --blue: #8badff;
-        --amber: #f3c466;
-        --shadow: 0 20px 60px rgba(0, 0, 0, 0.32);
-      }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #181817;
+      --ink: #f3f0e8;
+      --muted: #c7c1b5;
+      --line: #605c54;
+      --soft: #2b2a27;
+      --soft-2: #233438;
+      --green: #72d1c8;
+      --red: #ff8b80;
+      --blue: #8badff;
+      --amber: #f3c466;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.32);
+      --paper-ink: #1e1d1a;
+      --paper-line: #bdb6aa;
+      --table-head: #393731;
+    }
 
-      .version-pill,
-      button,
-      .print-link,
-      input[type="search"],
-      .step,
-      .card,
-      .recipe,
-      .note-box,
-      .reference-table {
-        background: #242320;
-        color: var(--ink);
-      }
+    :root[data-theme="dark"] .version-pill,
+    :root[data-theme="dark"] button,
+    :root[data-theme="dark"] .print-link,
+    :root[data-theme="dark"] input[type="search"],
+    :root[data-theme="dark"] .step,
+    :root[data-theme="dark"] .card,
+    :root[data-theme="dark"] .recipe,
+    :root[data-theme="dark"] .note-box,
+    :root[data-theme="dark"] .reference-table {
+      background: #242320;
+      color: var(--ink);
+    }
 
-      button:hover,
-      .print-link:hover { background: #33312c; }
-      .toolbar { background: rgba(24, 24, 23, .92); }
-      .command-primer { background: #f3f0e8; color: #181817; }
-      .primer-label, .primer-note { color: #5c574f; }
-      .primer-command { color: #18413e; }
-      .toast { background: #f3f0e8; color: #181817; }
+    :root[data-theme="dark"] button:hover,
+    :root[data-theme="dark"] .print-link:hover { background: #33312c; }
+    :root[data-theme="dark"] .toolbar { background: rgba(24, 24, 23, .92); }
+    :root[data-theme="dark"] .command-primer { background: #f3f0e8; color: #181817; }
+    :root[data-theme="dark"] .primer-label,
+    :root[data-theme="dark"] .primer-note { color: #5c574f; }
+    :root[data-theme="dark"] .primer-command { color: #18413e; }
+    :root[data-theme="dark"] .toast { background: #f3f0e8; color: #181817; }
+    :root[data-theme="dark"] .tag,
+    :root[data-theme="dark"] .flow-line span {
+      background: #f3f0e8;
+      color: var(--paper-ink);
+      border-color: var(--paper-line);
+    }
+    :root[data-theme="dark"] .reference-table th {
+      background: var(--table-head);
+      color: #f3f0e8;
+      border-color: var(--table-head);
     }
 
     @media (max-width: 880px) {
@@ -667,7 +706,13 @@
   <main class="page">
     <nav class="site-nav" aria-label="站点导航">
       <a href="../../">← Tools 首页</a>
-      <span>非官方中文速查</span>
+      <div class="nav-actions">
+        <span>非官方中文速查</span>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
+          <span class="theme-toggle-mark" aria-hidden="true">◐</span>
+          <span data-theme-toggle-label>模式：浅色</span>
+        </button>
+      </div>
     </nav>
     <header>
       <div class="title-panel">

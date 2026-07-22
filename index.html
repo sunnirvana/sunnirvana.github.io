@@ -4,18 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="sunnirvana 的个人效率工具与中文 CheatSheet。">
-  <meta name="theme-color" content="#171717">
+  <meta name="theme-color" content="#f6f2e8">
   <meta property="og:title" content="Tools — 个人工具箱">
   <meta property="og:description" content="小工具、工作流与能直接用上的中文 CheatSheet。">
   <meta property="og:type" content="website">
   <link rel="canonical" href="https://sunnirvana.github.io/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <title>Tools — 个人工具箱</title>
+  <script>
+    try {
+      if (localStorage.getItem("tools-site-theme") === "dark") document.documentElement.dataset.theme = "dark";
+    } catch {}
+  </script>
   <script src="assets/site-config.js" defer></script>
   <script src="assets/site.js" defer></script>
   <style>
     :root {
-      color-scheme: light dark;
+      color-scheme: light;
       --paper: #f6f2e8;
       --ink: #171717;
       --muted: #645f56;
@@ -54,7 +59,25 @@
     }
     .wordmark { text-decoration: none; font: 700 14px var(--mono); letter-spacing: -.04em; }
     .wordmark span { color: var(--aqua); }
+    .masthead-actions { display: flex; align-items: center; gap: 14px; }
     .status { color: var(--muted); font: 12px var(--mono); text-transform: uppercase; letter-spacing: .04em; }
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid var(--ink);
+      padding: 7px 9px;
+      color: var(--ink);
+      background: transparent;
+      font: 700 11px var(--mono);
+      letter-spacing: .02em;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--ink);
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+    .theme-toggle:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); background: var(--card); }
+    .theme-toggle:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+    .theme-toggle-mark { color: var(--aqua); font-size: 14px; line-height: 1; }
     .hero {
       display: grid;
       grid-template-columns: minmax(0, 1.35fr) minmax(250px, .65fr);
@@ -101,12 +124,19 @@
     footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; padding: 22px 0 36px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
     footer a { text-underline-offset: 3px; }
 
-    @media (prefers-color-scheme: dark) {
-      :root { --paper: #171716; --ink: #f2eee4; --muted: #c1baac; --line: #5f594e; --card: rgba(35, 34, 31, .9); --aqua: #6fc9bf; }
-      .tool-card:hover { background: #292721; }
-      .manifesto { background: #f2eee4; color: #171716; }
-      .manifesto small { color: #565148; }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #171716;
+      --ink: #f2eee4;
+      --muted: #c1baac;
+      --line: #5f594e;
+      --card: rgba(35, 34, 31, .9);
+      --aqua: #6fc9bf;
     }
+    :root[data-theme="dark"] .tool-card:hover { background: #292721; }
+    :root[data-theme="dark"] .manifesto { background: #f2eee4; color: #171716; }
+    :root[data-theme="dark"] .manifesto small { color: #565148; }
+
     @media (max-width: 720px) {
       .shell { width: min(100% - 28px, 1180px); }
       .hero { grid-template-columns: 1fr; padding-top: 68px; }
@@ -123,7 +153,13 @@
   <div class="shell">
     <header class="masthead">
       <a class="wordmark" href="./" aria-label="Tools 首页">SUNNIRVANA<span>/</span>TOOLS</a>
-      <span class="status">Personal utilities · Open shelf</span>
+      <div class="masthead-actions">
+        <span class="status">Personal utilities · Open shelf</span>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
+          <span class="theme-toggle-mark" aria-hidden="true">◐</span>
+          <span data-theme-toggle-label>模式：浅色</span>
+        </button>
+      </div>
     </header>
 
     <main>

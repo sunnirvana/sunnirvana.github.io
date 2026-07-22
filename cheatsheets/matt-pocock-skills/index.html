@@ -1,0 +1,1305 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="面向 Codex 的 Matt Pocock Skills 非官方中文速查：按项目工作场景查命令、复制提示词。">
+  <meta name="theme-color" content="#171717">
+  <meta property="og:title" content="Matt Pocock Skills — Codex 中文速查">
+  <meta property="og:description" content="按项目工作场景查命令，并复制可直接贴进 Codex 的提示词。">
+  <meta property="og:type" content="article">
+  <link rel="canonical" href="https://sunnirvana.github.io/cheatsheets/matt-pocock-skills/">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <title>Matt Pocock Skills — Codex 中文速查</title>
+  <script src="../../assets/site-config.js" defer></script>
+  <script src="../../assets/site.js" defer></script>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: #fbfaf6;
+      --ink: #171717;
+      --muted: #67645f;
+      --line: #d9d4ca;
+      --soft: #efede5;
+      --soft-2: #e4eef0;
+      --green: #0f766e;
+      --red: #b42318;
+      --blue: #1d4ed8;
+      --amber: #a16207;
+      --shadow: 0 20px 60px rgba(23, 23, 23, 0.08);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: ui-sans-serif, "SF Pro Text", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --serif: Georgia, "Songti SC", "STSong", serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(23,23,23,0.035) 1px, transparent 1px) 0 0 / 34px 34px,
+        linear-gradient(rgba(23,23,23,0.03) 1px, transparent 1px) 0 0 / 34px 34px,
+        var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.55;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 56px;
+    }
+
+    .site-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 22px;
+      font: 12px var(--mono);
+    }
+
+    .site-nav a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 2px;
+    }
+
+    .site-nav span {
+      color: var(--muted);
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: stretch;
+      min-height: 310px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 26px;
+    }
+
+    .title-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 310px;
+    }
+
+    .kicker {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--ink);
+      padding: 5px 9px;
+      font-size: 12px;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      background: var(--soft);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    h1 {
+      margin: 28px 0 14px;
+      font-family: var(--serif);
+      font-size: clamp(44px, 8vw, 92px);
+      line-height: 0.92;
+      letter-spacing: 0;
+      max-width: 900px;
+    }
+
+    .subtitle {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .version-strip {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .version-pill {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      padding: 4px 8px;
+      font: 12px var(--mono);
+    }
+
+    .command-primer {
+      background: var(--ink);
+      color: #fff;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 310px;
+      box-shadow: var(--shadow);
+    }
+
+    .primer-label {
+      color: #d6d3cc;
+      margin: 0 0 10px;
+      font-size: 13px;
+    }
+
+    .primer-command {
+      display: block;
+      font-family: var(--mono);
+      font-size: clamp(22px, 3vw, 34px);
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+      color: #f7f2df;
+    }
+
+    .primer-note {
+      color: #cac7c0;
+      margin: 22px 0 0;
+      font-size: 14px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    button,
+    .print-link {
+      border: 1px solid var(--ink);
+      background: #fff;
+      color: var(--ink);
+      padding: 9px 12px;
+      font: 700 13px var(--sans);
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--ink);
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    button:hover,
+    .print-link:hover {
+      background: #f4f1e8;
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    button:active,
+    .print-link:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      margin: 22px 0 26px;
+      padding: 14px;
+      background: rgba(251, 250, 246, 0.92);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-wrap span {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    input[type="search"] {
+      width: 100%;
+      border: 1px solid var(--ink);
+      background: #fff;
+      color: var(--ink);
+      padding: 12px 12px 12px 38px;
+      font: 16px var(--sans);
+      outline: none;
+    }
+
+    input[type="search"]:focus {
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.18);
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    section {
+      margin-top: 34px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 32px;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 520px;
+      text-align: right;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .step {
+      border: 1px solid var(--ink);
+      background: #fff;
+      padding: 15px;
+      min-height: 190px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .step::before {
+      content: attr(data-step);
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      border-left: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      background: var(--soft-2);
+      padding: 5px 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .step h3,
+    .card h3,
+    .recipe h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .step p,
+    .card p,
+    .recipe p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    code {
+      font-family: var(--mono);
+      background: rgba(23, 23, 23, 0.06);
+      padding: 1px 4px;
+    }
+
+    .cmd {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      margin-top: 14px;
+      border-top: 1px dashed var(--line);
+      padding-top: 12px;
+    }
+
+    .cmd code {
+      display: block;
+      background: transparent;
+      padding: 0;
+      overflow-wrap: anywhere;
+      font-size: 13px;
+      color: var(--ink);
+    }
+
+    .copy {
+      padding: 6px 8px;
+      box-shadow: 2px 2px 0 var(--ink);
+      min-width: 48px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.88);
+      padding: 16px;
+      min-height: 205px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card.strong {
+      border-color: var(--ink);
+      box-shadow: 6px 6px 0 var(--soft);
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin: 12px 0 0;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      padding: 3px 7px;
+      font-size: 12px;
+      color: var(--muted);
+      background: #fff;
+    }
+
+    .accent-green {
+      border-top: 5px solid var(--green);
+    }
+
+    .accent-red {
+      border-top: 5px solid var(--red);
+    }
+
+    .accent-blue {
+      border-top: 5px solid var(--blue);
+    }
+
+    .accent-amber {
+      border-top: 5px solid var(--amber);
+    }
+
+    .recipes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .recipe {
+      border: 1px solid var(--ink);
+      background: var(--soft);
+      padding: 16px;
+    }
+
+    .flow-line {
+      margin: 14px 0 0;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 13px;
+    }
+
+    .flow-line span {
+      background: #fff;
+      border: 1px solid var(--ink);
+      padding: 5px 7px;
+    }
+
+    .flow-line b {
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .reference-table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+      background: #fff;
+      border: 1px solid var(--ink);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--ink);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .table-wrap .reference-table {
+      border: 0;
+    }
+
+    .reference-table th,
+    .reference-table td {
+      border-bottom: 1px solid var(--line);
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    .reference-table th {
+      background: var(--ink);
+      color: #fff;
+      font-size: 13px;
+      letter-spacing: 0;
+    }
+
+    .reference-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .reference-table td:first-child {
+      font-family: var(--mono);
+      white-space: nowrap;
+    }
+
+    .note-box {
+      border: 1px solid var(--ink);
+      background: #fff;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .note-box strong {
+      font-family: var(--serif);
+      font-size: 22px;
+      line-height: 1.1;
+    }
+
+    .note-box p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      background: var(--ink);
+      color: #fff;
+      padding: 10px 12px;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: opacity 150ms ease, transform 150ms ease;
+      z-index: 10;
+      font-size: 14px;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .page-footer {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 28px;
+      margin-top: 38px;
+      padding-top: 18px;
+      border-top: 1px solid var(--ink);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .page-footer p {
+      margin: 0;
+      max-width: 790px;
+    }
+
+    .page-footer a {
+      color: inherit;
+      text-underline-offset: 3px;
+    }
+
+    .page-footer .footer-mark {
+      color: var(--ink);
+      font: 12px var(--mono);
+      white-space: nowrap;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--green);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #181817;
+        --ink: #f3f0e8;
+        --muted: #c7c1b5;
+        --line: #605c54;
+        --soft: #2b2a27;
+        --soft-2: #233438;
+        --green: #72d1c8;
+        --red: #ff8b80;
+        --blue: #8badff;
+        --amber: #f3c466;
+        --shadow: 0 20px 60px rgba(0, 0, 0, 0.32);
+      }
+
+      .version-pill,
+      button,
+      .print-link,
+      input[type="search"],
+      .step,
+      .card,
+      .recipe,
+      .note-box,
+      .reference-table {
+        background: #242320;
+        color: var(--ink);
+      }
+
+      button:hover,
+      .print-link:hover { background: #33312c; }
+      .toolbar { background: rgba(24, 24, 23, .92); }
+      .command-primer { background: #f3f0e8; color: #181817; }
+      .primer-label, .primer-note { color: #5c574f; }
+      .primer-command { color: #18413e; }
+      .toast { background: #f3f0e8; color: #181817; }
+    }
+
+    @media (max-width: 880px) {
+      header,
+      .workflow,
+      .cards,
+      .recipes,
+      .note-box {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        text-align: left;
+        margin-top: 8px;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .hint {
+        white-space: normal;
+      }
+
+      .command-primer,
+      .title-panel {
+        min-height: 0;
+      }
+
+      .page-footer {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .toolbar,
+      .copy,
+      .top-actions,
+      .site-nav,
+      .page-footer,
+      .toast {
+        display: none !important;
+      }
+
+      .page {
+        width: 100%;
+        padding: 0;
+      }
+
+      header,
+      .card,
+      .step,
+      .recipe,
+      .note-box,
+      .reference-table {
+        box-shadow: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="site-nav" aria-label="站点导航">
+      <a href="../../">← Tools 首页</a>
+      <span>非官方中文速查</span>
+    </nav>
+    <header>
+      <div class="title-panel">
+        <div>
+          <span class="kicker">Codex Cheatsheet</span>
+          <h1>Matt Pocock Skills</h1>
+          <p class="subtitle">按项目工作场景查命令。先初始化一次，然后按“想清楚、拆任务、写代码、调问题、改结构、做 code review”选择对应 skill。</p>
+          <div class="version-strip" aria-label="version information">
+            <span class="version-pill">upstream v1.1.0</span>
+            <span class="version-pill">整理于 2026-07-22</span>
+            <span class="version-pill">41 skills indexed</span>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button type="button" data-copy="$ask-matt 我现在要做的事是：">复制万能入口</button>
+          <button id="print-page" type="button">打印</button>
+        </div>
+      </div>
+
+      <aside class="command-primer">
+        <div>
+          <p class="primer-label">只想记一个命令</p>
+          <code class="primer-command">$ask-matt 我现在想做……应该用哪个 skill？</code>
+        </div>
+        <p class="primer-note">Codex 里显式调用 skill 用 <code>$skill-name</code>。README 里的 <code>/skill-name</code> 是跨 agent 写法，日常在 Codex 里优先用美元符号。</p>
+      </aside>
+    </header>
+
+    <div class="toolbar">
+      <label class="search-wrap">
+        <span>⌕</span>
+        <input id="search" type="search" placeholder="搜索：bug、需求、spec、ticket、架构、测试、review、初始化">
+      </label>
+      <span class="hint">所有复制按钮都会复制可直接贴进 Codex 的提示词</span>
+    </div>
+
+    <section>
+      <div class="section-head">
+        <h2>最短记忆</h2>
+        <p>不用记全套。v1.1.0 的主线从 spec/tickets 开始组织工作。</p>
+      </div>
+      <div class="workflow">
+        <article class="step searchable" data-step="01" data-keywords="初始化 setup 项目 第一次 配置 issue tracker labels domain docs">
+          <div>
+            <h3>项目只跑一次</h3>
+            <p>配置 issue tracker、triage labels、领域文档位置。之后其他 engineering skills 会读这些约定。</p>
+          </div>
+          <div class="cmd">
+            <code>$setup-matt-pocock-skills</code>
+            <button class="copy" type="button" data-copy="$setup-matt-pocock-skills">复制</button>
+          </div>
+        </article>
+
+        <article class="step searchable" data-step="02" data-keywords="需求 澄清 计划 设计 面试 grill docs context adr">
+          <div>
+            <h3>先把需求问清楚</h3>
+            <p>新功能、重要改动、方案还模糊时用。会一边追问，一边沉淀术语、ADR 和上下文。</p>
+          </div>
+          <div class="cmd">
+            <code>$grill-with-docs 我想做……</code>
+            <button class="copy" type="button" data-copy="$grill-with-docs 我想做这个功能：">复制</button>
+          </div>
+        </article>
+
+        <article class="step searchable" data-step="03" data-keywords="拆任务 issue ticket tickets prd spec vertical slices 任务 分解">
+          <div>
+            <h3>拆成 tickets</h3>
+            <p>把方案、spec 或讨论结果拆成 tracer-bullet tickets，并声明 blocking edges。</p>
+          </div>
+          <div class="cmd">
+            <code>$to-tickets 把上面的方案拆成 tickets</code>
+            <button class="copy" type="button" data-copy="$to-tickets 把上面的方案拆成可以独立实现的 tickets">复制</button>
+          </div>
+        </article>
+
+        <article class="step searchable" data-step="04" data-keywords="实现 测试 TDD red green refactor 写代码 bug feature">
+          <div>
+            <h3>用测试驱动实现</h3>
+            <p>开始写代码或修 bug 时用。强调一个行为一个测试，红绿重构，避免一次性写一大坨。</p>
+          </div>
+          <div class="cmd">
+            <code>$tdd 实现第一个任务</code>
+            <button class="copy" type="button" data-copy="$tdd 请用测试驱动方式实现这个任务：">复制</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>按场景查</h2>
+        <p>你不需要记 skill 名。先找当前场景，再复制对应提示。</p>
+      </div>
+      <div class="cards">
+        <article class="card strong accent-green searchable" data-keywords="不知道用哪个 skill 选择 路由 ask matt">
+          <div>
+            <h3>不知道该用哪个</h3>
+            <p>万能入口。把你要做的事说出来，让它推荐流程。</p>
+            <div class="tag-row"><span class="tag">路由</span><span class="tag">新手优先</span></div>
+          </div>
+          <div class="cmd">
+            <code>$ask-matt 我现在想……应该怎么走？</code>
+            <button class="copy" type="button" data-copy="$ask-matt 我现在想做这件事，应该用哪个 skill 或流程？">复制</button>
+          </div>
+        </article>
+
+        <article class="card strong accent-blue searchable" data-keywords="新功能 需求 产品 PRD 文档 ADR glossary context">
+          <div>
+            <h3>准备做新功能</h3>
+            <p>先用文档化追问对齐需求，再需要的话转 spec 或 tickets。</p>
+            <div class="tag-row"><span class="tag">需求</span><span class="tag">领域语言</span><span class="tag">ADR</span></div>
+          </div>
+          <div class="cmd">
+            <code>$grill-with-docs 我想做……</code>
+            <button class="copy" type="button" data-copy="$grill-with-docs 我想做这个新功能，请先把需求、边界和设计问题问清楚：">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-blue searchable" data-keywords="batch grill me frontier questions 一次问 多问题 需求 澄清 round">
+          <div>
+            <h3>一次问完当前问题</h3>
+            <p>像 grill-me，但按 frontier 分轮批量提问。适合你想快速回答一组当前可独立决策的问题。</p>
+            <div class="tag-row"><span class="tag">batch</span><span class="tag">grill</span><span class="tag">in-progress</span></div>
+          </div>
+          <div class="cmd">
+            <code>$batch-grill-me 我想梳理……</code>
+            <button class="copy" type="button" data-copy="$batch-grill-me 我想梳理这个计划，请按 frontier 一轮一轮批量提问：">复制</button>
+          </div>
+        </article>
+
+        <article class="card strong accent-red searchable" data-keywords="bug debug diagnose 500 错误 性能 失败 failing slow">
+          <div>
+            <h3>遇到 bug 或性能问题</h3>
+            <p>按复现、最小化、假设、插桩、修复、回归测试的诊断循环走。</p>
+            <div class="tag-row"><span class="tag">debug</span><span class="tag">性能</span><span class="tag">回归测试</span></div>
+          </div>
+          <div class="cmd">
+            <code>$diagnosing-bugs 这个问题是……</code>
+            <button class="copy" type="button" data-copy="$diagnosing-bugs 这个问题是：">复制</button>
+          </div>
+        </article>
+
+        <article class="card strong accent-green searchable" data-keywords="review code-review pr branch diff standards spec pull request 代码审查">
+          <div>
+            <h3>Code review 一个分支或 PR</h3>
+            <p>从指定 commit、branch、tag 或 merge-base 开始，对 diff 做 standards 和 spec 两条线审查。</p>
+            <div class="tag-row"><span class="tag">code-review</span><span class="tag">PR</span><span class="tag">diff</span></div>
+          </div>
+          <div class="cmd">
+            <code>$code-review since main</code>
+            <button class="copy" type="button" data-copy="$code-review 请 review 从 main 到当前 HEAD 的改动">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-amber searchable" data-keywords="架构 复杂 模块 deep module codebase design 重构">
+          <div>
+            <h3>代码开始变乱</h3>
+            <p>扫描代码库，找最值得做的架构改进点，再选择一个深入讨论。</p>
+            <div class="tag-row"><span class="tag">架构</span><span class="tag">复杂度</span><span class="tag">模块边界</span></div>
+          </div>
+          <div class="cmd">
+            <code>$improve-codebase-architecture</code>
+            <button class="copy" type="button" data-copy="$improve-codebase-architecture 请扫描这个项目，找出最值得改进的架构问题">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-green searchable" data-keywords="PRD spec 文档 产品需求 方案 整理 conversation to-prd to-spec">
+          <div>
+            <h3>把讨论变 spec</h3>
+            <p>不继续采访，直接把当前对话和项目理解整理成 spec，并发布到项目配置的 issue tracker。</p>
+            <div class="tag-row"><span class="tag">spec</span><span class="tag">原 PRD</span></div>
+          </div>
+          <div class="cmd">
+            <code>$to-spec 把上面的讨论整理成 spec</code>
+            <button class="copy" type="button" data-copy="$to-spec 把上面的讨论整理成 spec">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-green searchable" data-keywords="questionnaire 问卷 异步 访谈 专家 stakeholder 需求 facts decisions">
+          <div>
+            <h3>把问题交给别人填</h3>
+            <p>当关键事实或决策在别人那里时，生成一份 async discovery questionnaire。</p>
+            <div class="tag-row"><span class="tag">questionnaire</span><span class="tag">async</span><span class="tag">in-progress</span></div>
+          </div>
+          <div class="cmd">
+            <code>$to-questionnaire 为……生成问卷</code>
+            <button class="copy" type="button" data-copy="$to-questionnaire 我需要把这个无法独自回答的问题交给别人填写：">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-blue searchable" data-keywords="实现 PRD issues implement work 开发">
+          <div>
+            <h3>按 spec 或 tickets 开发</h3>
+            <p>当你已经有明确 spec 或 tickets，想让 Codex 按工作项实现时用。</p>
+            <div class="tag-row"><span class="tag">实现</span><span class="tag">已有任务</span></div>
+          </div>
+          <div class="cmd">
+            <code>$implement 实现这个 ticket</code>
+            <button class="copy" type="button" data-copy="$implement 请实现这个 spec 或 ticket：">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-blue searchable" data-keywords="wayfinder huge feature greenfield large project planning decision map 大项目">
+          <div>
+            <h3>规划很大的工作</h3>
+            <p>当一个 greenfield 项目或巨大功能超出单轮上下文时，用 wayfinder 做共享路线图。</p>
+            <div class="tag-row"><span class="tag">wayfinder</span><span class="tag">大项目</span></div>
+          </div>
+          <div class="cmd">
+            <code>$wayfinder 我想规划……</code>
+            <button class="copy" type="button" data-copy="$wayfinder 我想规划这个超过单轮上下文的大工作：">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-green searchable" data-keywords="research primary sources docs source specs background agent">
+          <div>
+            <h3>让后台 agent 做研究</h3>
+            <p>针对官方文档、源码、规范、第一方 API 做 primary-source research，并留下引用文档。</p>
+            <div class="tag-row"><span class="tag">research</span><span class="tag">primary sources</span></div>
+          </div>
+          <div class="cmd">
+            <code>$research 调查……</code>
+            <button class="copy" type="button" data-copy="$research 请基于 primary sources 调查这个问题并写成引用文档：">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-red searchable" data-keywords="qa session report bugs file issues 用户测试 提 issue">
+          <div>
+            <h3>边测试边报问题</h3>
+            <p>交互式 QA 会话。你口述遇到的问题，它负责追问、补上下文并创建 durable issues。</p>
+            <div class="tag-row"><span class="tag">QA</span><span class="tag">报 bug</span><span class="tag">建 issue</span></div>
+          </div>
+          <div class="cmd">
+            <code>$qa 开始一个 QA session</code>
+            <button class="copy" type="button" data-copy="$qa 开始一个 QA session，我会逐条报告问题">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-amber searchable" data-keywords="refactor plan request rfc tiny commits 重构计划">
+          <div>
+            <h3>先规划重构</h3>
+            <p>通过访谈和代码探索生成小步提交的 refactor plan，并写成 GitHub issue。</p>
+            <div class="tag-row"><span class="tag">重构计划</span><span class="tag">RFC</span></div>
+          </div>
+          <div class="cmd">
+            <code>$request-refactor-plan</code>
+            <button class="copy" type="button" data-copy="$request-refactor-plan 我想规划这次重构：">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-red searchable" data-keywords="merge conflict rebase 冲突 合并 解决">
+          <div>
+            <h3>解决 merge/rebase 冲突</h3>
+            <p>读取双方改动的原始意图，再处理冲突，适合正在 merge 或 rebase 的状态。</p>
+            <div class="tag-row"><span class="tag">git</span><span class="tag">冲突</span></div>
+          </div>
+          <div class="cmd">
+            <code>$resolving-merge-conflicts</code>
+            <button class="copy" type="button" data-copy="$resolving-merge-conflicts 请帮我解决当前 merge/rebase 冲突">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-amber searchable" data-keywords="prototype 原型 UI 状态模型 设计 验证">
+          <div>
+            <h3>先做个原型验证</h3>
+            <p>用一次性原型回答设计问题。适合状态模型、交互体验、UI 方向不确定时。</p>
+            <div class="tag-row"><span class="tag">原型</span><span class="tag">探索</span></div>
+          </div>
+          <div class="cmd">
+            <code>$prototype 我想验证……</code>
+            <button class="copy" type="button" data-copy="$prototype 我想用一个 throwaway prototype 验证这个设计问题：">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-green searchable" data-keywords="交接 handoff 总结 另一个 agent 继续 上下文">
+          <div>
+            <h3>把上下文交给下一轮</h3>
+            <p>把当前对话压缩成 handoff 文档，适合换线程或让另一个 agent 接着做。</p>
+            <div class="tag-row"><span class="tag">交接</span><span class="tag">总结</span></div>
+          </div>
+          <div class="cmd">
+            <code>$handoff 下一轮要继续……</code>
+            <button class="copy" type="button" data-copy="$handoff 下一轮会用来继续这件事：">复制</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>常用流程</h2>
+        <p>把多个 skill 串起来用，适合真实项目。</p>
+      </div>
+      <div class="recipes">
+        <article class="recipe searchable" data-keywords="新功能 完整流程 grill spec tickets tdd implement code-review prd issues">
+          <h3>新功能从想法到代码</h3>
+          <p>先对齐，再文档化，再拆 tickets，再实现，最后 review。</p>
+          <div class="flow-line">
+            <span>$grill-with-docs</span><b>→</b><span>$to-spec</span><b>→</b><span>$to-tickets</span><b>→</b><span>$implement</span><b>→</b><span>$code-review</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="修 bug bugfix diagnose tdd regression test">
+          <h3>修一个难复现 bug</h3>
+          <p>先诊断，确认根因后用回归测试锁住行为。</p>
+          <div class="flow-line">
+            <span>$diagnosing-bugs</span><b>→</b><span>$tdd</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="review code-review pr diff branch tdd standards spec">
+          <h3>实现后做 code review</h3>
+          <p>先把实现跑通，再从固定点审查 diff 是否符合标准和规格。</p>
+          <div class="flow-line">
+            <span>$implement</span><b>→</b><span>$code-review since main</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="架构 重构 improve codebase architecture design tdd">
+          <h3>做一轮架构整理</h3>
+          <p>先找机会点，再设计边界，最后用测试保护改动。</p>
+          <div class="flow-line">
+            <span>$improve-codebase-architecture</span><b>→</b><span>$codebase-design</span><b>→</b><span>$tdd</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="不知道如何开始 ask matt router">
+          <h3>不知道从哪开始</h3>
+          <p>把目标说清楚，让路由 skill 选流程。</p>
+          <div class="flow-line">
+            <span>$ask-matt</span><b>→</b><span>按它建议继续</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>完整索引</h2>
+        <p>以 upstream v1.1.0 为版本参考整理的 41 个 skills。部分标为 in-progress、deprecated 或 personal，日常优先用上面的主流程。</p>
+      </div>
+      <div class="table-wrap" tabindex="0" aria-label="完整 Skills 索引，可横向滚动">
+      <table class="reference-table">
+        <thead>
+          <tr>
+            <th>Skill</th>
+            <th>什么时候用</th>
+            <th>典型提示</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="searchable" data-keywords="setup 初始化 配置 issue tracker labels domain docs">
+            <td>$setup-matt-pocock-skills</td>
+            <td>每个项目第一次使用这套工程 skills 前。</td>
+            <td>配置 issue tracker、triage labels、domain docs。</td>
+          </tr>
+          <tr class="searchable" data-keywords="ask matt router 选择 skill">
+            <td>$ask-matt</td>
+            <td>不确定该用哪个 skill 或流程。</td>
+            <td>我想做……应该怎么走？</td>
+          </tr>
+          <tr class="searchable" data-keywords="batch grill me frontier questions round design tree">
+            <td>$batch-grill-me</td>
+            <td>按 design tree 的 frontier 分轮批量追问，一轮问完当前可问的问题。</td>
+            <td>请按 frontier 一轮一轮批量提问。</td>
+          </tr>
+          <tr class="searchable" data-keywords="wayfinder decision mapping idea investigation tickets plan research greenfield huge feature">
+            <td>$wayfinder</td>
+            <td>规划一个超过单轮上下文的大项目、greenfield 项目或巨大功能。</td>
+            <td>把这个目标做成 wayfinder map。</td>
+          </tr>
+          <tr class="searchable" data-keywords="grill docs 需求 设计 context adr">
+            <td>$grill-with-docs</td>
+            <td>新功能、重要变更、需求不清楚。</td>
+            <td>我想做……先帮我把问题问清楚。</td>
+          </tr>
+          <tr class="searchable" data-keywords="grilling interview plan design stress test">
+            <td>$grilling</td>
+            <td>底层追问循环，通常由 $grill-me 或 $grill-with-docs 调用。</td>
+            <td>请逐个问题追问这个计划。</td>
+          </tr>
+          <tr class="searchable" data-keywords="grill me 非代码 计划 设计">
+            <td>$grill-me</td>
+            <td>非代码计划或设计也需要被追问。</td>
+            <td>我有个计划……请拷问我。</td>
+          </tr>
+          <tr class="searchable" data-keywords="tdd 测试 red green refactor 实现 bug feature">
+            <td>$tdd</td>
+            <td>写功能或修 bug，希望测试先行。</td>
+            <td>请用测试驱动实现……</td>
+          </tr>
+          <tr class="searchable" data-keywords="diagnosing bugs debug performance slow failing 500">
+            <td>$diagnosing-bugs</td>
+            <td>问题复杂、偶发、报错、慢、难定位。</td>
+            <td>这个问题是……请按诊断流程定位。</td>
+          </tr>
+          <tr class="searchable" data-keywords="architecture improve codebase 架构 复杂度">
+            <td>$improve-codebase-architecture</td>
+            <td>想主动发现代码库架构问题。</td>
+            <td>扫描这个项目，找出最值得改进的点。</td>
+          </tr>
+          <tr class="searchable" data-keywords="codebase design deep module 模块 边界 接口">
+            <td>$codebase-design</td>
+            <td>设计模块接口、边界、可测试性。</td>
+            <td>帮我设计这个模块的接口和边界。</td>
+          </tr>
+          <tr class="searchable" data-keywords="design interface api options design it twice module shape">
+            <td>$design-an-interface</td>
+            <td>想比较多个模块/API/interface 设计方案。</td>
+            <td>帮我为这个模块设计几个不同接口方案。</td>
+          </tr>
+          <tr class="searchable" data-keywords="domain modeling glossary ubiquitous language context adr">
+            <td>$domain-modeling</td>
+            <td>需要沉淀项目术语、领域模型、ADR。</td>
+            <td>帮我梳理这个领域概念并更新文档。</td>
+          </tr>
+          <tr class="searchable" data-keywords="ubiquitous language ddd glossary domain terms">
+            <td>$ubiquitous-language</td>
+            <td>从当前对话提取 DDD 风格术语表。</td>
+            <td>把我们讨论的领域术语整理成 glossary。</td>
+          </tr>
+          <tr class="searchable" data-keywords="prototype throwaway UI state model 原型">
+            <td>$prototype</td>
+            <td>想用一次性原型验证设计想法。</td>
+            <td>我想验证这个交互或状态模型……</td>
+          </tr>
+          <tr class="searchable" data-keywords="to spec to-prd 产品需求 prd spec 整理">
+            <td>$to-spec</td>
+            <td>把已有讨论整理成 spec。v1.1.0 中替代原来的 $to-prd。</td>
+            <td>把上面的讨论整理成 spec。</td>
+          </tr>
+          <tr class="searchable" data-keywords="to tickets to-issues 拆任务 issue ticket tickets vertical slice blocking edges">
+            <td>$to-tickets</td>
+            <td>把 plan、spec 或 conversation 拆成 tracer-bullet tickets 和 blocking edges。</td>
+            <td>把这个 spec 拆成可实现的 tickets。</td>
+          </tr>
+          <tr class="searchable" data-keywords="to questionnaire 问卷 async recipient stakeholder facts decisions">
+            <td>$to-questionnaire</td>
+            <td>把用户无法独自回答的问题转成给某个人填写的 discovery questionnaire。</td>
+            <td>为这个问题生成一份 questionnaire。</td>
+          </tr>
+          <tr class="searchable" data-keywords="triage issue label ready agent human info wontfix">
+            <td>$triage</td>
+            <td>处理 issue 队列、分类和补充上下文。</td>
+            <td>帮我 triage 当前 issues。</td>
+          </tr>
+          <tr class="searchable" data-keywords="implement 实现 PRD issue">
+            <td>$implement</td>
+            <td>已经有 PRD 或 issue，要直接实现。</td>
+            <td>请实现这个 issue。</td>
+          </tr>
+          <tr class="searchable" data-keywords="review branch pr diff standards spec code review fowler smells">
+            <td>$code-review</td>
+            <td>审查一个 branch、PR、WIP 或从某个固定点之后的改动。v1.1.0 中替代原来的 $review。</td>
+            <td>请 review 从 main 到当前 HEAD 的改动。</td>
+          </tr>
+          <tr class="searchable" data-keywords="research primary sources official docs source code specs background agent cited markdown">
+            <td>$research</td>
+            <td>让后台 agent 基于 primary sources 调查问题，并写成带引用的 Markdown。</td>
+            <td>请基于 primary sources 调查这个问题。</td>
+          </tr>
+          <tr class="searchable" data-keywords="qa session bugs report issues github">
+            <td>$qa</td>
+            <td>用户边测边口述问题，agent 帮忙追问并创建 issues。</td>
+            <td>开始 QA session，我会逐条报告问题。</td>
+          </tr>
+          <tr class="searchable" data-keywords="request refactor plan rfc tiny commits issue">
+            <td>$request-refactor-plan</td>
+            <td>先把重构计划拆成很小、可安全提交的步骤。</td>
+            <td>我想规划这次重构……</td>
+          </tr>
+          <tr class="searchable" data-keywords="resolving merge conflicts rebase git 冲突">
+            <td>$resolving-merge-conflicts</td>
+            <td>当前处于 merge 或 rebase 冲突。</td>
+            <td>请解决当前冲突并解释取舍。</td>
+          </tr>
+          <tr class="searchable" data-keywords="git guardrails claude code hooks block push reset clean">
+            <td>$git-guardrails-claude-code</td>
+            <td>为 Claude Code 设置 hooks，阻止危险 git 命令。</td>
+            <td>帮我设置 Claude Code 的 git guardrails。</td>
+          </tr>
+          <tr class="searchable" data-keywords="migrate shoehorn tests typescript as assertions">
+            <td>$migrate-to-shoehorn</td>
+            <td>把测试里的 TypeScript <code>as</code> 断言迁移到 @total-typescript/shoehorn。</td>
+            <td>把这些测试迁移到 shoehorn。</td>
+          </tr>
+          <tr class="searchable" data-keywords="scaffold exercises course problems solutions explainers">
+            <td>$scaffold-exercises</td>
+            <td>创建课程练习目录、题目、答案和讲解结构。</td>
+            <td>帮我 scaffold 这一节 exercises。</td>
+          </tr>
+          <tr class="searchable" data-keywords="setup pre commit husky lint staged prettier typecheck tests">
+            <td>$setup-pre-commit</td>
+            <td>配置 Husky pre-commit、lint-staged、Prettier、typecheck 和 tests。</td>
+            <td>帮这个项目设置 pre-commit hooks。</td>
+          </tr>
+          <tr class="searchable" data-keywords="setup ts deep modules typescript codebase design deep module">
+            <td>$setup-ts-deep-modules</td>
+            <td>为 TypeScript 项目设置 deep modules 相关约定和脚手架。</td>
+            <td>帮这个 TypeScript 项目设置 deep modules 约定。</td>
+          </tr>
+          <tr class="searchable" data-keywords="wizard bash manual procedure env github secrets setup">
+            <td>$wizard</td>
+            <td>把第三方设置、一次性迁移等手工流程做成交互式 bash wizard。</td>
+            <td>帮我生成一个配置 X 的 wizard。</td>
+          </tr>
+          <tr class="searchable" data-keywords="loop me workflow specs recurring loops delegate">
+            <td>$loop-me</td>
+            <td>梳理可重复、可委托的工作流规格。</td>
+            <td>帮我把这个反复做的流程梳理成 workflow spec。</td>
+          </tr>
+          <tr class="searchable" data-keywords="handoff 交接 上下文 总结 another agent">
+            <td>$handoff</td>
+            <td>需要把当前上下文交给下一轮或另一个 agent。</td>
+            <td>下一轮要继续……请写 handoff。</td>
+          </tr>
+          <tr class="searchable" data-keywords="claude handoff 交接 claude code context summary">
+            <td>$claude-handoff</td>
+            <td>面向 Claude Code 的 handoff 变体，用于交接上下文。</td>
+            <td>帮我写一个 Claude handoff。</td>
+          </tr>
+          <tr class="searchable" data-keywords="teach learn concept stateful workspace">
+            <td>$teach</td>
+            <td>让 agent 在当前 workspace 里持续教你一个概念或技能。</td>
+            <td>教我……</td>
+          </tr>
+          <tr class="searchable" data-keywords="writing great skills skill authoring predictable">
+            <td>$writing-great-skills</td>
+            <td>写或改 agent skills 时参考的原则和词汇。</td>
+            <td>帮我改进这个 skill。</td>
+          </tr>
+          <tr class="searchable" data-keywords="edit article revise improve prose structure">
+            <td>$edit-article</td>
+            <td>编辑、重组、润色文章草稿。</td>
+            <td>帮我编辑这篇文章。</td>
+          </tr>
+          <tr class="searchable" data-keywords="writing fragments explore raw material notes">
+            <td>$writing-fragments</td>
+            <td>写作探索阶段，先收集原始片段，不急着定结构。</td>
+            <td>帮我围绕这个主题挖写作 fragments。</td>
+          </tr>
+          <tr class="searchable" data-keywords="writing shape article structure paragraph exploit">
+            <td>$writing-shape</td>
+            <td>把已有素材塑造成一篇文章，逐段成稿。</td>
+            <td>把这些素材 shape 成文章。</td>
+          </tr>
+          <tr class="searchable" data-keywords="writing beats article journey outline beats">
+            <td>$writing-beats</td>
+            <td>把素材组织成文章节奏和叙事 beats。</td>
+            <td>帮我把这些素材组织成 writing beats。</td>
+          </tr>
+          <tr class="searchable" data-keywords="obsidian vault notes wikilinks index">
+            <td>$obsidian-vault</td>
+            <td>管理 Obsidian vault 里的 notes、wikilinks 和索引。</td>
+            <td>帮我在 Obsidian 里整理这些 notes。</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="note-box">
+        <strong>使用习惯</strong>
+        <p>在真实项目根目录中启动 Codex，然后先跑 <code>$setup-matt-pocock-skills</code>。以后不确定时先用 <code>$ask-matt</code>。如果当前任务已经非常明确，直接用 <code>$tdd</code>、<code>$diagnosing-bugs</code> 或 <code>$grill-with-docs</code>。</p>
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <p>非官方中文速查，依据 <a href="https://github.com/mattpocock/skills/releases/tag/v1.1.0" target="_blank" rel="noreferrer">mattpocock/skills v1.1.0</a> 整理；Codex 的通用 Skill 调用机制以 <a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noreferrer">OpenAI 文档</a> 为准。内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <span class="footer-mark">TOOLS / CHEATSHEETS</span>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast">已复制</div>
+
+  <script>
+    const toast = document.getElementById("toast");
+    let toastTimer = null;
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1300);
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("已复制到剪贴板");
+      } catch {
+        const area = document.createElement("textarea");
+        area.value = text;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+        showToast("已复制");
+      }
+    }
+
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        await copyText(button.dataset.copy);
+        window.ToolsSiteAnalytics?.track("copy_prompt", { page_section: "skills_cheatsheet" });
+      });
+    });
+
+    const search = document.getElementById("search");
+    const items = Array.from(document.querySelectorAll(".searchable"));
+
+    let searchTracked = false;
+    search.addEventListener("input", () => {
+      const query = search.value.trim().toLowerCase();
+      items.forEach((item) => {
+        const haystack = [
+          item.textContent,
+          item.dataset.keywords || ""
+        ].join(" ").toLowerCase();
+        item.classList.toggle("hidden", query && !haystack.includes(query));
+      });
+      if (query && !searchTracked) {
+        searchTracked = true;
+        window.ToolsSiteAnalytics?.track("use_search", { page_section: "skills_cheatsheet" });
+      }
+    });
+
+    document.getElementById("print-page").addEventListener("click", () => {
+      window.ToolsSiteAnalytics?.track("print_page", { page_section: "skills_cheatsheet" });
+      window.print();
+    });
+  </script>
+</body>
+</html>

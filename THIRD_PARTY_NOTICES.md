@@ -4,8 +4,9 @@
 
 The content in `cheatsheets/matt-pocock-skills/` is an unofficial Simplified
 Chinese cheatsheet derived from the public [mattpocock/skills][skills] project,
-using its [v1.1.0 release][release] as its version reference. It is not an
-official Codex or Matt Pocock publication.
+using its [v1.1.0 release][release] as a baseline and [main@2ab9580][commit]
+as the most recently checked revision (2026-07-31). It is not an official Codex
+or Matt Pocock publication.
 
 `mattpocock/skills` is licensed under the MIT License:
 
@@ -31,4 +32,4 @@ official Codex or Matt Pocock publication.
 
 [skills]: https://github.com/mattpocock/skills
 [release]: https://github.com/mattpocock/skills/releases/tag/v1.1.0
-
+[commit]: https://github.com/mattpocock/skills/commit/2ab9580

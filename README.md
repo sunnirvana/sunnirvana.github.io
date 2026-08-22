@@ -9,10 +9,11 @@
 .
 ├── index.html                         # 首页目录
 ├── cheatsheets/
-│   └── matt-pocock-skills/index.html  # 首个中文 CheatSheet
+│   ├── matt-pocock-skills/index.html  # Matt Pocock Skills 中文 CheatSheet
+│   └── hermes-agent/index.html        # Hermes Agent 中文 CheatSheet
 ├── tools/                             # 未来独立小工具放在 tools/<name>/
 ├── assets/                            # 共享图标、公开运行配置与脚本
-└── .github/workflows/deploy.yml       # main 自动发布到 GitHub Pages
+└── .github/workflows/deploy.yml       # master 自动发布到 GitHub Pages
 ```
 
 ## 本地预览
@@ -34,7 +35,7 @@ python3 -m http.server 8000
 
 ## 发布到 GitHub Pages
 
-推送到 `main` 后，GitHub Actions 会部署整个仓库。首次启用时，请在仓库 **Settings → Pages → Build and deployment** 中选择 **GitHub Actions** 作为 Source。部署完成后，站点地址为：
+推送到 `master` 后，GitHub Actions 会部署整个仓库。首次启用时，请在仓库 **Settings → Pages → Build and deployment** 中选择 **GitHub Actions** 作为 Source。部署完成后，站点地址为：
 
 `https://sunnirvana.github.io/`
 
@@ -52,4 +53,4 @@ Measurement ID 本身是公开站点配置，不是密钥。启用后，本站�
 
 ## 内容来源与许可
 
-本站自行编写的代码与页面框架采用 [MIT License](LICENSE)。`Matt Pocock Skills` CheatSheet 是对公开 `mattpocock/skills` 项目的非官方中文整理，具体归属、上游版本与许可证见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+本站自行编写的代码与页面框架采用 [MIT License](LICENSE)。CheatSheet 是对公开上游项目的非官方中文整理，具体归属、上游版本与许可证见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。

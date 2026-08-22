@@ -1,0 +1,1368 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Nous Research Hermes Agent 非官方中文速查：安装、CLI、slash 命令、记忆文件与常用工作流。">
+  <meta name="theme-color" content="#fbfaf6">
+  <meta property="og:title" content="Hermes Agent — 中文速查">
+  <meta property="og:description" content="按场景查安装、CLI、slash 命令、记忆文件和 gateway 流程。">
+  <meta property="og:type" content="article">
+  <link rel="canonical" href="https://sunnirvana.github.io/cheatsheets/hermes-agent/">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <title>Hermes Agent — 中文速查</title>
+  <script>
+    try {
+      if (localStorage.getItem("tools-site-theme") === "dark") document.documentElement.dataset.theme = "dark";
+    } catch {}
+  </script>
+  <script src="../../assets/site-config.js" defer></script>
+  <script src="../../assets/site.js" defer></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #fbfaf6;
+      --ink: #171717;
+      --muted: #67645f;
+      --line: #d9d4ca;
+      --soft: #efede5;
+      --soft-2: #e4eef0;
+      --green: #0f766e;
+      --red: #b42318;
+      --blue: #1d4ed8;
+      --amber: #a16207;
+      --shadow: 0 20px 60px rgba(23, 23, 23, 0.08);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: ui-sans-serif, "SF Pro Text", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --serif: Georgia, "Songti SC", "STSong", serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(23,23,23,0.035) 1px, transparent 1px) 0 0 / 34px 34px,
+        linear-gradient(rgba(23,23,23,0.03) 1px, transparent 1px) 0 0 / 34px 34px,
+        var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.55;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 56px;
+    }
+
+    .site-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 22px;
+      font: 12px var(--mono);
+    }
+
+    .site-nav a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 2px;
+    }
+
+    .site-nav span {
+      color: var(--muted);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: stretch;
+      min-height: 310px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 26px;
+    }
+
+    .title-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 310px;
+    }
+
+    .kicker {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--ink);
+      padding: 5px 9px;
+      font-size: 12px;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      background: var(--soft);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    h1 {
+      margin: 28px 0 14px;
+      font-family: var(--serif);
+      font-size: clamp(44px, 8vw, 92px);
+      line-height: 0.92;
+      letter-spacing: 0;
+      max-width: 900px;
+    }
+
+    .subtitle {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .version-strip {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .version-pill {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      padding: 4px 8px;
+      font: 12px var(--mono);
+    }
+
+    .command-primer {
+      background: var(--ink);
+      color: #fff;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 310px;
+      box-shadow: var(--shadow);
+    }
+
+    .primer-label {
+      color: #d6d3cc;
+      margin: 0 0 10px;
+      font-size: 13px;
+    }
+
+    .primer-command {
+      display: block;
+      font-family: var(--mono);
+      font-size: clamp(22px, 3vw, 34px);
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+      color: #f7f2df;
+    }
+
+    .primer-note {
+      color: #cac7c0;
+      margin: 22px 0 0;
+      font-size: 14px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    button,
+    .print-link {
+      border: 1px solid var(--ink);
+      background: #fff;
+      color: var(--ink);
+      padding: 9px 12px;
+      font: 700 13px var(--sans);
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--ink);
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    button:hover,
+    .print-link:hover {
+      background: #f4f1e8;
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    button:active,
+    .print-link:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .site-nav .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 8px;
+      font: 700 11px var(--mono);
+    }
+
+    .theme-toggle-mark {
+      color: var(--green);
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      margin: 22px 0 26px;
+      padding: 14px;
+      background: rgba(251, 250, 246, 0.92);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-wrap span {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    input[type="search"] {
+      width: 100%;
+      border: 1px solid var(--ink);
+      background: #fff;
+      color: var(--ink);
+      padding: 12px 12px 12px 38px;
+      font: 16px var(--sans);
+      outline: none;
+    }
+
+    input[type="search"]:focus {
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.18);
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    section {
+      margin-top: 34px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 32px;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 520px;
+      text-align: right;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .step {
+      border: 1px solid var(--ink);
+      background: #fff;
+      padding: 15px;
+      min-height: 190px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .step::before {
+      content: attr(data-step);
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      border-left: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      background: var(--soft-2);
+      padding: 5px 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .step h3,
+    .card h3,
+    .recipe h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .step p,
+    .card p,
+    .recipe p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    code {
+      font-family: var(--mono);
+      background: rgba(23, 23, 23, 0.06);
+      padding: 1px 4px;
+    }
+
+    .cmd {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      margin-top: 14px;
+      border-top: 1px dashed var(--line);
+      padding-top: 12px;
+    }
+
+    .cmd code {
+      display: block;
+      background: transparent;
+      padding: 0;
+      overflow-wrap: anywhere;
+      font-size: 13px;
+      color: var(--ink);
+    }
+
+    .copy {
+      padding: 6px 8px;
+      box-shadow: 2px 2px 0 var(--ink);
+      min-width: 48px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.88);
+      padding: 16px;
+      min-height: 205px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card.strong {
+      border-color: var(--ink);
+      box-shadow: 6px 6px 0 var(--soft);
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin: 12px 0 0;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      padding: 3px 7px;
+      font-size: 12px;
+      color: var(--muted);
+      background: #fff;
+    }
+
+    .accent-green {
+      border-top: 5px solid var(--green);
+    }
+
+    .accent-red {
+      border-top: 5px solid var(--red);
+    }
+
+    .accent-blue {
+      border-top: 5px solid var(--blue);
+    }
+
+    .accent-amber {
+      border-top: 5px solid var(--amber);
+    }
+
+    .recipes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .recipe {
+      border: 1px solid var(--ink);
+      background: var(--soft);
+      padding: 16px;
+    }
+
+    .flow-line {
+      margin: 14px 0 0;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 13px;
+    }
+
+    .flow-line span {
+      background: #fff;
+      border: 1px solid var(--ink);
+      padding: 5px 7px;
+    }
+
+    .flow-line b {
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .reference-table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+      background: #fff;
+      border: 1px solid var(--ink);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--ink);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .table-wrap .reference-table {
+      border: 0;
+    }
+
+    .reference-table th,
+    .reference-table td {
+      border-bottom: 1px solid var(--line);
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    .reference-table th {
+      background: var(--ink);
+      color: #fff;
+      font-size: 13px;
+      letter-spacing: 0;
+    }
+
+    .reference-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .reference-table td:first-child {
+      font-family: var(--mono);
+      white-space: nowrap;
+    }
+
+    .note-box {
+      border: 1px solid var(--ink);
+      background: #fff;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .note-box strong {
+      font-family: var(--serif);
+      font-size: 22px;
+      line-height: 1.1;
+    }
+
+    .note-box p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      background: var(--ink);
+      color: #fff;
+      padding: 10px 12px;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: opacity 150ms ease, transform 150ms ease;
+      z-index: 10;
+      font-size: 14px;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .page-footer {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 28px;
+      margin-top: 38px;
+      padding-top: 18px;
+      border-top: 1px solid var(--ink);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .page-footer p {
+      margin: 0;
+      max-width: 790px;
+    }
+
+    .page-footer a {
+      color: inherit;
+      text-underline-offset: 3px;
+    }
+
+    .page-footer .footer-mark {
+      color: var(--ink);
+      font: 12px var(--mono);
+      white-space: nowrap;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--green);
+      outline-offset: 3px;
+    }
+
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #181817;
+      --ink: #f3f0e8;
+      --muted: #c7c1b5;
+      --line: #605c54;
+      --soft: #2b2a27;
+      --soft-2: #233438;
+      --green: #72d1c8;
+      --red: #ff8b80;
+      --blue: #8badff;
+      --amber: #f3c466;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.32);
+      --paper-ink: #1e1d1a;
+      --paper-line: #bdb6aa;
+      --table-head: #393731;
+    }
+
+    :root[data-theme="dark"] .version-pill,
+    :root[data-theme="dark"] button,
+    :root[data-theme="dark"] .print-link,
+    :root[data-theme="dark"] input[type="search"],
+    :root[data-theme="dark"] .step,
+    :root[data-theme="dark"] .card,
+    :root[data-theme="dark"] .recipe,
+    :root[data-theme="dark"] .note-box,
+    :root[data-theme="dark"] .reference-table {
+      background: #242320;
+      color: var(--ink);
+    }
+
+    :root[data-theme="dark"] button:hover,
+    :root[data-theme="dark"] .print-link:hover { background: #33312c; }
+    :root[data-theme="dark"] .toolbar { background: rgba(24, 24, 23, .92); }
+    :root[data-theme="dark"] .command-primer { background: #f3f0e8; color: #181817; }
+    :root[data-theme="dark"] .primer-label,
+    :root[data-theme="dark"] .primer-note { color: #5c574f; }
+    :root[data-theme="dark"] .primer-command { color: #18413e; }
+    :root[data-theme="dark"] .toast { background: #f3f0e8; color: #181817; }
+    :root[data-theme="dark"] .tag,
+    :root[data-theme="dark"] .flow-line span {
+      background: #f3f0e8;
+      color: var(--paper-ink);
+      border-color: var(--paper-line);
+    }
+    :root[data-theme="dark"] .reference-table th {
+      background: var(--table-head);
+      color: #f3f0e8;
+      border-color: var(--table-head);
+    }
+
+    @media (max-width: 880px) {
+      header,
+      .workflow,
+      .cards,
+      .recipes,
+      .note-box {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        text-align: left;
+        margin-top: 8px;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .hint {
+        white-space: normal;
+      }
+
+      .command-primer,
+      .title-panel {
+        min-height: 0;
+      }
+
+      .page-footer {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .toolbar,
+      .copy,
+      .top-actions,
+      .site-nav,
+      .page-footer,
+      .toast {
+        display: none !important;
+      }
+
+      .page {
+        width: 100%;
+        padding: 0;
+      }
+
+      header,
+      .card,
+      .step,
+      .recipe,
+      .note-box,
+      .reference-table {
+        box-shadow: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="site-nav" aria-label="站点导航">
+      <a href="../../">← Tools 首页</a>
+      <div class="nav-actions">
+        <span>非官方中文速查</span>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
+          <span class="theme-toggle-mark" aria-hidden="true">◐</span>
+          <span data-theme-toggle-label>模式：浅色</span>
+        </button>
+      </div>
+    </nav>
+    <header>
+      <div class="title-panel">
+        <div>
+          <span class="kicker">Hermes Agent Cheatsheet</span>
+          <h1>Hermes Agent</h1>
+          <p class="subtitle">Nous Research 的自改进 agent。先装好、先聊通，再叠 gateway、skills、cron。按场景查命令，复制后贴进终端或会话。</p>
+          <div class="version-strip" aria-label="version information">
+            <span class="version-pill">v0.20.5</span>
+            <span class="version-pill">tag v2026.8.19</span>
+            <span class="version-pill">更新于 2026-08-21</span>
+            <span class="version-pill">官方文档快照</span>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button type="button" data-copy="hermes setup --portal">复制最快安装路径</button>
+          <button id="print-page" type="button">打印</button>
+        </div>
+      </div>
+
+      <aside class="command-primer">
+        <div>
+          <p class="primer-label">只想记一个命令</p>
+          <code class="primer-command">hermes setup --portal</code>
+        </div>
+        <p class="primer-note">一次 OAuth 覆盖模型，以及 Tool Gateway 的 web search、生图、TTS、云浏览器。聊通之前不要叠 gateway / cron / MCP。</p>
+      </aside>
+    </header>
+
+    <div class="toolbar">
+      <label class="search-wrap">
+        <span>⌕</span>
+        <input id="search" type="search" placeholder="搜索：安装、model、gateway、memory、skill、cron、doctor、SOUL">
+      </label>
+      <span class="hint">复制按钮会复制可直接贴进终端或 Hermes 会话的命令</span>
+    </div>
+
+    <section>
+      <div class="section-head">
+        <h2>最短记忆</h2>
+        <p>Windows / macOS 优先用 Desktop 安装器；命令行安装后再跑 setup。</p>
+      </div>
+      <div class="workflow">
+        <article class="step searchable" data-step="01" data-keywords="安装 install windows macos linux wsl powershell curl desktop">
+          <div>
+            <h3>先装上</h3>
+            <p>Desktop 安装器同时给 CLI 和桌面端。纯命令行：Linux/macOS/WSL 用 install.sh，Windows 原生用 install.ps1。</p>
+          </div>
+          <div class="cmd">
+            <code>iex (irm https://hermes-agent.nousresearch.com/install.ps1)</code>
+            <button class="copy" type="button" data-copy="iex (irm https://hermes-agent.nousresearch.com/install.ps1)">复制</button>
+          </div>
+        </article>
+
+        <article class="step searchable" data-step="02" data-keywords="setup portal nous oauth 模型 provider">
+          <div>
+            <h3>一次配好模型和工具</h3>
+            <p>推荐 Nous Portal。需要自带密钥时用 <code>hermes setup</code> 或 <code>hermes model</code>。</p>
+          </div>
+          <div class="cmd">
+            <code>hermes setup --portal</code>
+            <button class="copy" type="button" data-copy="hermes setup --portal">复制</button>
+          </div>
+        </article>
+
+        <article class="step searchable" data-step="03" data-keywords="聊天 tui cli 第一次 conversation">
+          <div>
+            <h3>先聊通一轮</h3>
+            <p>经典 CLI 用 <code>hermes</code>，推荐 TUI 用 <code>hermes --tui</code>。模型至少 64K 上下文。</p>
+          </div>
+          <div class="cmd">
+            <code>hermes --tui</code>
+            <button class="copy" type="button" data-copy="hermes --tui">复制</button>
+          </div>
+        </article>
+
+        <article class="step searchable" data-step="04" data-keywords="doctor 排障 出问题 验证">
+          <div>
+            <h3>坏了先诊断</h3>
+            <p>顺序：<code>hermes doctor</code> → <code>hermes model</code> → <code>hermes setup</code>。聊天不通时不要加功能。</p>
+          </div>
+          <div class="cmd">
+            <code>hermes doctor</code>
+            <button class="copy" type="button" data-copy="hermes doctor">复制</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>按场景查</h2>
+        <p>先找当前要做的事，再复制对应命令。</p>
+      </div>
+      <div class="cards">
+        <article class="card strong accent-green searchable" data-keywords="linux macos wsl termux install.sh 安装">
+          <div>
+            <h3>在 Linux / macOS / WSL 安装</h3>
+            <p>官方一键脚本。装完 <code>source ~/.bashrc</code> 或对应 shell rc。</p>
+            <div class="tag-row"><span class="tag">install</span><span class="tag">unix</span></div>
+          </div>
+          <div class="cmd">
+            <code>curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash</code>
+            <button class="copy" type="button" data-copy="curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash">复制</button>
+          </div>
+        </article>
+
+        <article class="card strong accent-blue searchable" data-keywords="model 换模型 provider oauth api key">
+          <div>
+            <h3>换模型或加 provider</h3>
+            <p>终端里跑 <code>hermes model</code> 才能加新 provider / 走 OAuth。会话里的 <code>/model</code> 只能在已配置的模型之间切。</p>
+            <div class="tag-row"><span class="tag">model</span><span class="tag">provider</span></div>
+          </div>
+          <div class="cmd">
+            <code>hermes model</code>
+            <button class="copy" type="button" data-copy="hermes model">复制</button>
+          </div>
+        </article>
+
+        <article class="card strong accent-amber searchable" data-keywords="gateway telegram discord slack whatsapp bot 消息">
+          <div>
+            <h3>接到 Telegram / Discord / Slack</h3>
+            <p>先保证 CLI 能聊。WSL 用 <code>hermes gateway run</code>，不要用 <code>start</code>。</p>
+            <div class="tag-row"><span class="tag">gateway</span><span class="tag">messaging</span></div>
+          </div>
+          <div class="cmd">
+            <code>hermes gateway setup</code>
+            <button class="copy" type="button" data-copy="hermes gateway setup">复制</button>
+          </div>
+        </article>
+
+        <article class="card strong accent-red searchable" data-keywords="记忆 memory 忘记 SOUL USER MEMORY AGENTS 文件">
+          <div>
+            <h3>它好像忘了我刚说的</h3>
+            <p><code>USER.md</code> / <code>MEMORY.md</code> 在会话开始时冻结进 system prompt。存盘立刻生效，但注入要等下一轮会话。</p>
+            <div class="tag-row"><span class="tag">memory</span><span class="tag">snapshot</span></div>
+          </div>
+          <div class="cmd">
+            <code>/new</code>
+            <button class="copy" type="button" data-copy="/new">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-green searchable" data-keywords="skills browse install hub 技能">
+          <div>
+            <h3>装或用 skill</h3>
+            <p>已安装 skill 会变成 <code>/skill-name</code>。Hub 安装会先做安全扫描。</p>
+            <div class="tag-row"><span class="tag">skills</span><span class="tag">hub</span></div>
+          </div>
+          <div class="cmd">
+            <code>hermes skills browse</code>
+            <button class="copy" type="button" data-copy="hermes skills browse">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-blue searchable" data-keywords="continue resume session 继续 会话">
+          <div>
+            <h3>接着上次聊</h3>
+            <p><code>-c</code> 恢复最近一次会话。按标题或 ID 用 <code>--resume</code>。</p>
+            <div class="tag-row"><span class="tag">session</span></div>
+          </div>
+          <div class="cmd">
+            <code>hermes --continue</code>
+            <button class="copy" type="button" data-copy="hermes --continue">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-amber searchable" data-keywords="cron 定时 自动化 heartbeat 调度">
+          <div>
+            <h3>定时任务</h3>
+            <p>跨会话、要投递到 messenger 用 <code>hermes cron</code>。只在当前会话空闲时叮一声，用 <code>/heartbeat</code>。</p>
+            <div class="tag-row"><span class="tag">cron</span><span class="tag">heartbeat</span></div>
+          </div>
+          <div class="cmd">
+            <code>hermes cron</code>
+            <button class="copy" type="button" data-copy="hermes cron">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-red searchable" data-keywords="docker ssh sandbox 沙箱 安全 terminal backend">
+          <div>
+            <h3>把终端关进沙箱</h3>
+            <p>默认 <code>local</code>。Docker / SSH / Modal / Daytona 都是 terminal backend，不是另装一份 Hermes。</p>
+            <div class="tag-row"><span class="tag">sandbox</span><span class="tag">docker</span></div>
+          </div>
+          <div class="cmd">
+            <code>hermes config set terminal.backend docker</code>
+            <button class="copy" type="button" data-copy="hermes config set terminal.backend docker">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-green searchable" data-keywords="worktree 并行 git 隔离">
+          <div>
+            <h3>并行改同一个仓库</h3>
+            <p>启动时 <code>hermes -w</code>，会话中 <code>/worktree new</code>。文件和终端工具会切到隔离 checkout。</p>
+            <div class="tag-row"><span class="tag">worktree</span><span class="tag">并行</span></div>
+          </div>
+          <div class="cmd">
+            <code>hermes -w</code>
+            <button class="copy" type="button" data-copy="hermes -w">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-blue searchable" data-keywords="oneshot -z 脚本 ci 管道">
+          <div>
+            <h3>脚本里只要最终答案</h3>
+            <p><code>hermes -z</code> 只把最终回复打到 stdout，无 banner / spinner。需要工具过程用 <code>hermes chat -q</code>。</p>
+            <div class="tag-row"><span class="tag">oneshot</span><span class="tag">脚本</span></div>
+          </div>
+          <div class="cmd">
+            <code>hermes -z "Summarize this repo"</code>
+            <button class="copy" type="button" data-copy="hermes -z &quot;Summarize this repo&quot;">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-amber searchable" data-keywords="update 更新 升级">
+          <div>
+            <h3>更新到最新版</h3>
+            <p><code>--check</code> 只预览。<code>--backup</code> 会在拉取前给 <code>HERMES_HOME</code> 做快照。</p>
+            <div class="tag-row"><span class="tag">update</span></div>
+          </div>
+          <div class="cmd">
+            <code>hermes update</code>
+            <button class="copy" type="button" data-copy="hermes update">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-green searchable" data-keywords="goal ralph 持续 目标">
+          <div>
+            <h3>让它围着一个目标继续干</h3>
+            <p>Hermes 对 Ralph loop 的实现。辅助模型判断是否完成；真人消息会打断循环。</p>
+            <div class="tag-row"><span class="tag">goal</span><span class="tag">session</span></div>
+          </div>
+          <div class="cmd">
+            <code>/goal 把测试修到全绿</code>
+            <button class="copy" type="button" data-copy="/goal 把测试修到全绿">复制</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>常用流程</h2>
+        <p>把几条命令串起来，覆盖真实使用。</p>
+      </div>
+      <div class="recipes">
+        <article class="recipe searchable" data-keywords="首次 安装 windows 第一次">
+          <h3>Windows 从零到能聊</h3>
+          <p>先装，再 Portal，再用 TUI 验证一轮真实对话。</p>
+          <div class="flow-line">
+            <span>install.ps1</span><b>→</b><span>hermes setup --portal</span><b>→</b><span>hermes --tui</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="日常 开发 continue tui">
+          <h3>日常接着干</h3>
+          <p>回到最近会话。换目录时加 <code>--in</code>。</p>
+          <div class="flow-line">
+            <span>hermes --tui --continue</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="telegram bot gateway 团队">
+          <h3>做成常驻 bot</h3>
+          <p>CLI 通了再接 messenger。WSL 用 foreground <code>run</code>。</p>
+          <div class="flow-line">
+            <span>hermes</span><b>→</b><span>hermes gateway setup</span><b>→</b><span>hermes gateway run</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="出问题 doctor 排障">
+          <h3>感觉它变笨了</h3>
+          <p>先确认不是模型切错、上下文爆了、或记忆快照过期。</p>
+          <div class="flow-line">
+            <span>hermes doctor</span><b>→</b><span>/status</span><b>→</b><span>/context</span><b>→</b><span>hermes model</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="skills 自改进 refine memory">
+          <h3>把这次流程沉淀成 skill</h3>
+          <p>不必等自动回顾。会话里立刻跑 refine。</p>
+          <div class="flow-line">
+            <span>/refine 把这个部署流程存成 skill</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>这些文件各管什么</h2>
+        <p>搞混 SOUL / USER / MEMORY / AGENTS，是“它忘了”的最常见原因。</p>
+      </div>
+      <div class="table-wrap" tabindex="0" aria-label="Hermes 文件地图，可横向滚动">
+      <table class="reference-table">
+        <thead>
+          <tr>
+            <th>文件</th>
+            <th>装什么</th>
+            <th>谁写</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="searchable" data-keywords="SOUL 人格 personality 语气">
+            <td>SOUL.md</td>
+            <td>agent 是谁：人格、语气、风格禁忌。全局 <code>~/.hermes/SOUL.md</code>。</td>
+            <td>你写。会话开始注入 slot #1。</td>
+          </tr>
+          <tr class="searchable" data-keywords="USER 用户 偏好 名字">
+            <td>USER.md</td>
+            <td>你是谁：名字、角色、偏好。</td>
+            <td>agent 用 memory 工具写。会话开始时冻结快照。</td>
+          </tr>
+          <tr class="searchable" data-keywords="MEMORY 记忆 学到 约定">
+            <td>MEMORY.md</td>
+            <td>它学到的环境事实、项目约定、工具坑。</td>
+            <td>agent 写。同样是会话开始冻结快照。</td>
+          </tr>
+          <tr class="searchable" data-keywords="AGENTS hermes.md CLAUDE cursorrules 项目">
+            <td>.hermes.md / AGENTS.md</td>
+            <td>这个项目要什么。优先级：<code>.hermes.md</code> → <code>AGENTS.md</code> → <code>CLAUDE.md</code> → <code>.cursorrules</code>，只加载一种。</td>
+            <td>你（或项目作者）写。</td>
+          </tr>
+          <tr class="searchable" data-keywords="config yaml env 密钥">
+            <td>config.yaml / .env</td>
+            <td>非密钥配置 vs 密钥。用 <code>hermes config set</code> 会自动分流。</td>
+            <td>你，或 setup / model 向导。</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>CLI 索引</h2>
+        <p>在系统终端运行，不在 Hermes 会话里。权威来源是官方 CLI Commands 文档。</p>
+      </div>
+      <div class="table-wrap" tabindex="0" aria-label="Hermes CLI 索引，可横向滚动">
+      <table class="reference-table">
+        <thead>
+          <tr>
+            <th>命令</th>
+            <th>什么时候用</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="searchable" data-keywords="hermes tui cli 聊天">
+            <td>hermes / hermes --tui</td>
+            <td>开始聊天。TUI 是推荐界面。</td>
+            <td><code>--cli</code> 可强制经典 REPL。</td>
+          </tr>
+          <tr class="searchable" data-keywords="setup portal wizard">
+            <td>hermes setup --portal</td>
+            <td>最快路径：Nous 登录 + Tool Gateway。</td>
+            <td>也有 Full Setup 和 Blank Slate。</td>
+          </tr>
+          <tr class="searchable" data-keywords="model provider oauth">
+            <td>hermes model</td>
+            <td>加 provider、OAuth、改默认模型。</td>
+            <td>不要和会话里的 /model 搞混。</td>
+          </tr>
+          <tr class="searchable" data-keywords="continue resume -c -r">
+            <td>hermes -c / --resume</td>
+            <td>恢复最近或指定会话。</td>
+            <td><code>--in dir</code> 先切目录再查会话。</td>
+          </tr>
+          <tr class="searchable" data-keywords="chat -q query oneshot">
+            <td>hermes chat -q "…"</td>
+            <td>一次性提问，保留工具过程输出。</td>
+            <td>只要最终文本用 <code>hermes -z</code>。</td>
+          </tr>
+          <tr class="searchable" data-keywords="gateway 消息 bot">
+            <td>hermes gateway setup|run|status</td>
+            <td>配置并运行 messaging gateway。</td>
+            <td>WSL 用 run，不要 start。</td>
+          </tr>
+          <tr class="searchable" data-keywords="tools toolsets">
+            <td>hermes tools</td>
+            <td>按平台开关 toolset。</td>
+            <td>单次会话也可用 <code>--toolsets</code>。</td>
+          </tr>
+          <tr class="searchable" data-keywords="skills browse install">
+            <td>hermes skills browse|install</td>
+            <td>浏览 Skills Hub、安装 skill。</td>
+            <td>安装前会跑安全扫描。</td>
+          </tr>
+          <tr class="searchable" data-keywords="cron 定时">
+            <td>hermes cron</td>
+            <td>持久定时任务。</td>
+            <td>会话内心跳用 /heartbeat。</td>
+          </tr>
+          <tr class="searchable" data-keywords="doctor 诊断">
+            <td>hermes doctor</td>
+            <td>配置和依赖出问题。</td>
+            <td>排障第一步。</td>
+          </tr>
+          <tr class="searchable" data-keywords="config set yaml env">
+            <td>hermes config set …</td>
+            <td>改配置或密钥。</td>
+            <td>自动写入 yaml 或 .env。</td>
+          </tr>
+          <tr class="searchable" data-keywords="update 升级">
+            <td>hermes update</td>
+            <td>拉最新代码并重装依赖。</td>
+            <td><code>--check</code> 预览，<code>--backup</code> 先快照。</td>
+          </tr>
+          <tr class="searchable" data-keywords="backup import 迁移">
+            <td>hermes backup / import</td>
+            <td>整机搬家。</td>
+            <td>单 profile 用 profile export/import。</td>
+          </tr>
+          <tr class="searchable" data-keywords="dashboard web">
+            <td>hermes dashboard</td>
+            <td>用网页管配置、密钥、会话、cron、skills。</td>
+            <td></td>
+          </tr>
+          <tr class="searchable" data-keywords="acp 编辑器">
+            <td>hermes acp</td>
+            <td>把 Hermes 接到 ACP 兼容编辑器。</td>
+            <td></td>
+          </tr>
+          <tr class="searchable" data-keywords="mcp 服务器">
+            <td>hermes mcp</td>
+            <td>管理 MCP server，或让 Hermes 自己当 MCP server。</td>
+            <td></td>
+          </tr>
+          <tr class="searchable" data-keywords="profile 多实例">
+            <td>hermes profile</td>
+            <td>多套隔离实例：不同模型、记忆、bot。</td>
+            <td><code>-p name</code> 选 profile。</td>
+          </tr>
+          <tr class="searchable" data-keywords="kanban 多 agent">
+            <td>hermes kanban</td>
+            <td>多 profile 协作看板。</td>
+            <td></td>
+          </tr>
+          <tr class="searchable" data-keywords="send 发消息 脚本">
+            <td>hermes send --to telegram "…"</td>
+            <td>脚本/cron 往 messenger 发一条，不跑 agent。</td>
+            <td></td>
+          </tr>
+          <tr class="searchable" data-keywords="sessions list 会话">
+            <td>hermes sessions</td>
+            <td>浏览、导出、清理会话。</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>常用 slash</h2>
+        <p>在 CLI / TUI / 多数 messenger 里输入 <code>/</code>。已安装 skill 也会出现在这个菜单里。</p>
+      </div>
+      <div class="table-wrap" tabindex="0" aria-label="Hermes slash 命令索引，可横向滚动">
+      <table class="reference-table">
+        <thead>
+          <tr>
+            <th>命令</th>
+            <th>什么时候用</th>
+            <th>典型提示</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="searchable" data-keywords="help 帮助">
+            <td>/help</td>
+            <td>看当前表面能用的命令。</td>
+            <td>/help</td>
+          </tr>
+          <tr class="searchable" data-keywords="model 切换 会话">
+            <td>/model</td>
+            <td>在已配置模型之间切换。无参数打开模糊搜索 picker。</td>
+            <td>/model --global</td>
+          </tr>
+          <tr class="searchable" data-keywords="new reset 新会话">
+            <td>/new [name]</td>
+            <td>开新会话。别名 /reset。加 now/-y 跳过确认。</td>
+            <td>/new my-experiment</td>
+          </tr>
+          <tr class="searchable" data-keywords="resume sessions 恢复">
+            <td>/resume · /sessions</td>
+            <td>恢复或浏览会话。TUI 里 /sessions 是实时切换器。</td>
+            <td>/resume</td>
+          </tr>
+          <tr class="searchable" data-keywords="status 状态 recap">
+            <td>/status</td>
+            <td>模型、profile、目录、token、最近工具和文件。本地计算，不打 LLM。</td>
+            <td>/status</td>
+          </tr>
+          <tr class="searchable" data-keywords="context ctx 窗口 压缩">
+            <td>/context [all]</td>
+            <td>上下文占用可视化。/context all 会列出 skill 和 toolset 成本。</td>
+            <td>/context all</td>
+          </tr>
+          <tr class="searchable" data-keywords="compress 压缩 总结">
+            <td>/compress</td>
+            <td>手动压缩。/compress here 2 保留最近两轮原文。</td>
+            <td>/compress here 2</td>
+          </tr>
+          <tr class="searchable" data-keywords="rollback checkpoint 回滚">
+            <td>/rollback</td>
+            <td>列出或恢复文件系统 checkpoint。</td>
+            <td>/rollback 1</td>
+          </tr>
+          <tr class="searchable" data-keywords="diff git 改动">
+            <td>/diff [session]</td>
+            <td>看工作区或本会话累计 diff。</td>
+            <td>/diff session --stat</td>
+          </tr>
+          <tr class="searchable" data-keywords="steer 中途 纠偏">
+            <td>/steer</td>
+            <td>不打断当前 tool loop，等下一次 tool 结果后注入提醒。</td>
+            <td>/steer 先只改 auth 模块</td>
+          </tr>
+          <tr class="searchable" data-keywords="queue 排队">
+            <td>/queue · /q</td>
+            <td>下一轮再问，不打断当前回复。</td>
+            <td>/q 接着写测试</td>
+          </tr>
+          <tr class="searchable" data-keywords="background bg btw 后台">
+            <td>/background · /btw</td>
+            <td>另开后台会话跑这件事，当前会话继续。</td>
+            <td>/btw 调研这个 API</td>
+          </tr>
+          <tr class="searchable" data-keywords="goal subgoal ralph">
+            <td>/goal · /subgoal</td>
+            <td>跨 turn 追求一个目标，直到 judge 认为完成。</td>
+            <td>/goal 把 CI 修绿</td>
+          </tr>
+          <tr class="searchable" data-keywords="heartbeat 心跳 会话内">
+            <td>/heartbeat</td>
+            <td>会话空闲时按间隔重新注入 prompt。最短 60s。</td>
+            <td>/heartbeat every 10m 检查部署</td>
+          </tr>
+          <tr class="searchable" data-keywords="refine 自改进 skill memory">
+            <td>/refine</td>
+            <td>立刻跑记忆/skill 自改进，不必等回合结束。</td>
+            <td>/refine 把部署流程存成 skill</td>
+          </tr>
+          <tr class="searchable" data-keywords="yolo approvals 审批">
+            <td>/yolo · /approvals</td>
+            <td>跳过或设置危险命令审批。</td>
+            <td>/approvals smart</td>
+          </tr>
+          <tr class="searchable" data-keywords="personality 人格">
+            <td>/personality</td>
+            <td>会话级人格覆盖，不改 SOUL.md。</td>
+            <td>/personality none</td>
+          </tr>
+          <tr class="searchable" data-keywords="focus verbose 显示">
+            <td>/focus · /verbose</td>
+            <td>只显示最终回复，或循环工具输出详细程度。</td>
+            <td>/focus on</td>
+          </tr>
+          <tr class="searchable" data-keywords="worktree 并行 git">
+            <td>/worktree new</td>
+            <td>CLI only。会话中切到隔离 git worktree。</td>
+            <td>/worktree new fix-auth</td>
+          </tr>
+          <tr class="searchable" data-keywords="handoff telegram discord 交接平台">
+            <td>/handoff &lt;platform&gt;</td>
+            <td>CLI only。把当前会话交到 messenger，要求 gateway 已运行。</td>
+            <td>/handoff telegram</td>
+          </tr>
+          <tr class="searchable" data-keywords="plan skill 计划">
+            <td>/plan</td>
+            <td>捆绑 skill：打开 plan mode，计划写到 <code>.hermes/plans/</code>。</td>
+            <td>/plan</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="note-box">
+        <strong>使用习惯</strong>
+        <p>先让一次普通聊天跑通，再叠加 gateway、cron、MCP。改 <code>SOUL.md</code> / <code>AGENTS.md</code> 或刚写入的记忆，要新开会话才进入 system prompt。<code>hermes model</code> 负责加 provider，<code>/model</code> 只负责已经配好的模型。</p>
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <p>非官方中文速查，依据 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.8.19" target="_blank" rel="noreferrer">Hermes Agent v0.20.5 (v2026.8.19)</a> 与 <a href="https://hermes-agent.nousresearch.com/docs/" target="_blank" rel="noreferrer">官方文档</a> 整理，并于 2026-08-21 校对。命令与行为以官方文档为准；内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <span class="footer-mark">TOOLS / CHEATSHEETS</span>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast">已复制</div>
+
+  <script>
+    const toast = document.getElementById("toast");
+    let toastTimer = null;
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1300);
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("已复制到剪贴板");
+      } catch {
+        const area = document.createElement("textarea");
+        area.value = text;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+        showToast("已复制");
+      }
+    }
+
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        await copyText(button.dataset.copy);
+        window.ToolsSiteAnalytics?.track("copy_prompt", { page_section: "hermes_cheatsheet" });
+      });
+    });
+
+    const search = document.getElementById("search");
+    const items = Array.from(document.querySelectorAll(".searchable"));
+
+    let searchTracked = false;
+    search.addEventListener("input", () => {
+      const query = search.value.trim().toLowerCase();
+      items.forEach((item) => {
+        const haystack = [
+          item.textContent,
+          item.dataset.keywords || ""
+        ].join(" ").toLowerCase();
+        item.classList.toggle("hidden", query && !haystack.includes(query));
+      });
+      if (query && !searchTracked) {
+        searchTracked = true;
+        window.ToolsSiteAnalytics?.track("use_search", { page_section: "hermes_cheatsheet" });
+      }
+    });
+
+    document.getElementById("print-page").addEventListener("click", () => {
+      window.ToolsSiteAnalytics?.track("print_page", { page_section: "hermes_cheatsheet" });
+      window.print();
+    });
+  </script>
+</body>
+</html>

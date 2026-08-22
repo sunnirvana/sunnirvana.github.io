@@ -717,14 +717,14 @@
     <header>
       <div class="title-panel">
         <div>
-          <span class="kicker">Codex Cheatsheet</span>
+          <span class="kicker">Codex / Claude Code Cheatsheet</span>
           <h1>Matt Pocock Skills</h1>
-          <p class="subtitle">按项目工作场景查命令。先初始化一次，然后按“想清楚、拆任务、写代码、调问题、改结构、做 code review”选择对应 skill。</p>
+          <p class="subtitle">按项目工作场景查命令。先初始化一次，然后按“想清楚、拆成 spec/tickets、写代码、调问题、改结构、做 code review”选择对应 skill。</p>
           <div class="version-strip" aria-label="version information">
-            <span class="version-pill">upstream v1.1.0</span>
-            <span class="version-pill">main@2ab9580</span>
-            <span class="version-pill">更新于 2026-07-31</span>
-            <span class="version-pill">41 skills indexed</span>
+            <span class="version-pill">upstream v1.2.3</span>
+            <span class="version-pill">main@5b15a47</span>
+            <span class="version-pill">更新于 2026-08-21</span>
+            <span class="version-pill">36 skills indexed</span>
           </div>
         </div>
         <div class="top-actions">
@@ -745,7 +745,7 @@
     <div class="toolbar">
       <label class="search-wrap">
         <span>⌕</span>
-        <input id="search" type="search" placeholder="搜索：bug、需求、spec、ticket、架构、测试、review、初始化">
+        <input id="search" type="search" placeholder="搜索：bug、需求、spec、ticket、架构、测试、review、wait-what、初始化">
       </label>
       <span class="hint">所有复制按钮都会复制可直接贴进 Codex 的提示词</span>
     </div>
@@ -753,7 +753,7 @@
     <section>
       <div class="section-head">
         <h2>最短记忆</h2>
-        <p>不用记全套。v1.1.0 的主线从 spec/tickets 开始组织工作。</p>
+        <p>不用记全套。v1.2.3 的主线仍是 grill → spec → tickets → implement；grilling 现在按 frontier 分轮提问。</p>
       </div>
       <div class="workflow">
         <article class="step searchable" data-step="01" data-keywords="初始化 setup 项目 第一次 配置 issue tracker labels domain docs">
@@ -832,22 +832,22 @@
           </div>
         </article>
 
-        <article class="card accent-blue searchable" data-keywords="batch grill me frontier questions 一次问 多问题 需求 澄清 round">
+        <article class="card strong accent-amber searchable" data-keywords="wait what 看不懂 太啰嗦 重说 简化 上下文 verbosity 没听懂">
           <div>
-            <h3>一次问完当前问题</h3>
-            <p>像 grill-me，但按 frontier 分轮批量提问。适合你想快速回答一组当前可独立决策的问题。</p>
-            <div class="tag-row"><span class="tag">batch</span><span class="tag">grill</span><span class="tag">in-progress</span></div>
+            <h3>上一句没听懂</h3>
+            <p>立刻纠正啰嗦。让它带一点上下文、用简化英语、并用项目术语重说上一句。只修这一条，不防下一句。</p>
+            <div class="tag-row"><span class="tag">wait-what</span><span class="tag">纠偏</span></div>
           </div>
           <div class="cmd">
-            <code>$batch-grill-me 我想梳理……</code>
-            <button class="copy" type="button" data-copy="$batch-grill-me 我想梳理这个计划，请按 frontier 一轮一轮批量提问：">复制</button>
+            <code>$wait-what</code>
+            <button class="copy" type="button" data-copy="$wait-what 上一句没听懂，请带一点上下文重说。">复制</button>
           </div>
         </article>
 
         <article class="card strong accent-red searchable" data-keywords="bug debug diagnose 500 错误 性能 失败 failing slow">
           <div>
             <h3>遇到 bug 或性能问题</h3>
-            <p>按复现、最小化、假设、插桩、修复、回归测试的诊断循环走。</p>
+            <p>按复现、最小化、假设、插桩、修复、回归测试的诊断循环走。命令、输出和捕获物先脱敏，再展示。</p>
             <div class="tag-row"><span class="tag">debug</span><span class="tag">性能</span><span class="tag">回归测试</span></div>
           </div>
           <div class="cmd">
@@ -871,7 +871,7 @@
         <article class="card accent-amber searchable" data-keywords="架构 复杂 模块 deep module codebase design 重构">
           <div>
             <h3>代码开始变乱</h3>
-            <p>扫描代码库，找最值得做的架构改进点，再选择一个深入讨论。</p>
+            <p>扫描正在改的区域，找 deepening 机会。先看你指定的方向，否则看最近约 20 条 commit，不扫没人动的角落。</p>
             <div class="tag-row"><span class="tag">架构</span><span class="tag">复杂度</span><span class="tag">模块边界</span></div>
           </div>
           <div class="cmd">
@@ -907,7 +907,7 @@
         <article class="card accent-blue searchable" data-keywords="实现 PRD issues implement work 开发">
           <div>
             <h3>按 spec 或 tickets 开发</h3>
-            <p>当你已经有明确 spec 或 tickets，想让 Codex 按工作项实现时用。</p>
+            <p>已经有 spec 或 tickets 时用。在预先约定的 seam 上跑 <code>$tdd</code>，收尾再 <code>$code-review</code>。</p>
             <div class="tag-row"><span class="tag">实现</span><span class="tag">已有任务</span></div>
           </div>
           <div class="cmd">
@@ -919,7 +919,7 @@
         <article class="card accent-blue searchable" data-keywords="wayfinder huge feature greenfield large project planning decision map 大项目">
           <div>
             <h3>规划很大的工作</h3>
-            <p>当一个 greenfield 项目或巨大功能超出单轮上下文时，用 wayfinder 做共享路线图。</p>
+            <p>工作超出单轮上下文时，用 wayfinder 画 <strong>decision tickets</strong> 地图。地图清完后走 <code>$to-spec</code>，不要直接 <code>$implement</code>。</p>
             <div class="tag-row"><span class="tag">wayfinder</span><span class="tag">大项目</span></div>
           </div>
           <div class="cmd">
@@ -940,27 +940,27 @@
           </div>
         </article>
 
-        <article class="card accent-red searchable" data-keywords="qa session report bugs file issues 用户测试 提 issue">
+        <article class="card accent-amber searchable" data-keywords="wizard bash 手工 密钥 secrets dashboard 一次性 迁移 配置 人类才能做">
           <div>
-            <h3>边测试边报问题</h3>
-            <p>交互式 QA 会话。你口述遇到的问题，它负责追问、补上下文并创建 durable issues。</p>
-            <div class="tag-row"><span class="tag">QA</span><span class="tag">报 bug</span><span class="tag">建 issue</span></div>
+            <h3>只有人能点的步骤</h3>
+            <p>第三方后台、CI secrets、一次性迁移这类 agent 点不了的步骤，做成交互式 bash wizard。</p>
+            <div class="tag-row"><span class="tag">wizard</span><span class="tag">人工操作</span></div>
           </div>
           <div class="cmd">
-            <code>$qa 开始一个 QA session</code>
-            <button class="copy" type="button" data-copy="$qa 开始一个 QA session，我会逐条报告问题">复制</button>
+            <code>$wizard 帮我生成配置……的 wizard</code>
+            <button class="copy" type="button" data-copy="$wizard 帮我生成一个只覆盖人类才能完成的步骤的 wizard：">复制</button>
           </div>
         </article>
 
-        <article class="card accent-amber searchable" data-keywords="refactor plan request rfc tiny commits 重构计划">
+        <article class="card accent-green searchable" data-keywords="writing for agents skill AGENTS.md CLAUDE.md 文档 写作 可预测">
           <div>
-            <h3>先规划重构</h3>
-            <p>通过访谈和代码探索生成小步提交的 refactor plan，并写成 GitHub issue。</p>
-            <div class="tag-row"><span class="tag">重构计划</span><span class="tag">RFC</span></div>
+            <h3>写给 agent 看的文档</h3>
+            <p>写或改 skills、<code>AGENTS.md</code> / <code>CLAUDE.md</code> 时用。强调正向表述、环境即真相，不要把配置再抄进文档。</p>
+            <div class="tag-row"><span class="tag">writing-for-agents</span><span class="tag">文档</span></div>
           </div>
           <div class="cmd">
-            <code>$request-refactor-plan</code>
-            <button class="copy" type="button" data-copy="$request-refactor-plan 我想规划这次重构：">复制</button>
+            <code>$writing-for-agents 帮我改这个文档</code>
+            <button class="copy" type="button" data-copy="$writing-for-agents 帮我按 writing-for-agents 原则改这份给 agent 看的文档：">复制</button>
           </div>
         </article>
 
@@ -979,7 +979,7 @@
         <article class="card accent-amber searchable" data-keywords="prototype 原型 UI 状态模型 设计 验证">
           <div>
             <h3>先做个原型验证</h3>
-            <p>用一次性原型回答设计问题。适合状态模型、交互体验、UI 方向不确定时。</p>
+            <p>用一个可分享的 HTML 文件回答设计问题。原型是 primary source：丢到 <code>prototype/&lt;name&gt;</code> 分支上，结论再写进 issue/ADR。</p>
             <div class="tag-row"><span class="tag">原型</span><span class="tag">探索</span></div>
           </div>
           <div class="cmd">
@@ -1012,37 +1012,37 @@
           <h3>新功能从想法到代码</h3>
           <p>先对齐，再文档化，再拆 tickets，再实现，最后 review。</p>
           <div class="flow-line">
-            <span>$grill-with-docs</span><b>→</b><span>$to-spec</span><b>→</b><span>$to-tickets</span><b>→</b><span>$implement</span><b>→</b><span>$code-review</span>
+            <span>$grill-with-docs</span><b>→</b><span>$to-spec</span><b>→</b><span>$to-tickets</span><b>→</b><span>$implement</span>
           </div>
         </article>
 
         <article class="recipe searchable" data-keywords="修 bug bugfix diagnose tdd regression test">
           <h3>修一个难复现 bug</h3>
-          <p>先诊断，确认根因后用回归测试锁住行为。</p>
+          <p>先诊断，确认根因后用回归测试锁住行为。命令和输出先脱敏。</p>
           <div class="flow-line">
             <span>$diagnosing-bugs</span><b>→</b><span>$tdd</span>
           </div>
         </article>
 
-        <article class="recipe searchable" data-keywords="review code-review pr diff branch tdd standards spec">
-          <h3>实现后做 code review</h3>
-          <p>先把实现跑通，再从固定点审查 diff 是否符合标准和规格。</p>
+        <article class="recipe searchable" data-keywords="wayfinder 大项目 greenfield to-spec implement decision tickets">
+          <h3>规划超出单轮的大工作</h3>
+          <p>wayfinder 只做决策地图。地图清完后并回主流程，不要从地图直跳实现。</p>
           <div class="flow-line">
-            <span>$implement</span><b>→</b><span>$code-review since main</span>
+            <span>$wayfinder</span><b>→</b><span>$to-spec</span><b>→</b><span>$to-tickets</span><b>→</b><span>$implement</span>
           </div>
         </article>
 
         <article class="recipe searchable" data-keywords="架构 重构 improve codebase architecture design tdd">
           <h3>做一轮架构整理</h3>
-          <p>先找机会点，再设计边界，最后用测试保护改动。</p>
+          <p>先找正在改的路径上的 deepening 机会，再设计边界，最后用测试保护改动。</p>
           <div class="flow-line">
             <span>$improve-codebase-architecture</span><b>→</b><span>$codebase-design</span><b>→</b><span>$tdd</span>
           </div>
         </article>
 
-        <article class="recipe searchable" data-keywords="不知道如何开始 ask matt router">
+        <article class="recipe searchable" data-keywords="不知道如何开始 ask matt router wait-what">
           <h3>不知道从哪开始</h3>
-          <p>把目标说清楚，让路由 skill 选流程。</p>
+          <p>把目标说清楚，让路由 skill 选流程。看不懂回复时立刻 <code>$wait-what</code>。</p>
           <div class="flow-line">
             <span>$ask-matt</span><b>→</b><span>按它建议继续</span>
           </div>
@@ -1053,7 +1053,7 @@
     <section>
       <div class="section-head">
         <h2>完整索引</h2>
-        <p>基于 upstream v1.1.0 / main@2ab9580 整理的 41 个 skills。部分标为 in-progress、deprecated 或 personal，日常优先用上面的主流程。</p>
+        <p>基于 upstream v1.2.3 / main@5b15a47 整理的 36 个 skills。Claude Code 插件只带 25 个 promoted skills；in-progress 与 misc 需单独安装。日常优先用上面的主流程。</p>
       </div>
       <div class="table-wrap" tabindex="0" aria-label="完整 Skills 索引，可横向滚动">
       <table class="reference-table">
@@ -1067,82 +1067,72 @@
         <tbody>
           <tr class="searchable" data-keywords="setup 初始化 配置 issue tracker labels domain docs">
             <td>$setup-matt-pocock-skills</td>
-            <td>每个项目第一次使用这套工程 skills 前。</td>
+            <td>每个项目第一次使用这套工程 skills 前。User-invoked。</td>
             <td>配置 issue tracker、triage labels、domain docs。</td>
           </tr>
           <tr class="searchable" data-keywords="ask matt router 选择 skill">
             <td>$ask-matt</td>
-            <td>不确定该用哪个 skill 或流程。</td>
+            <td>不确定该用哪个 skill 或流程。User-invoked 路由器。</td>
             <td>我想做……应该怎么走？</td>
           </tr>
-          <tr class="searchable" data-keywords="batch grill me frontier questions round design tree">
-            <td>$batch-grill-me</td>
-            <td>按 design tree 的 frontier 分轮批量追问，一轮问完当前可问的问题。</td>
-            <td>请按 frontier 一轮一轮批量提问。</td>
+          <tr class="searchable" data-keywords="wait what 看不懂 太啰嗦 重说 简化 verbosity">
+            <td>$wait-what</td>
+            <td>上一句没落地。让它带上下文、用简化英语和项目术语重说。User-invoked。</td>
+            <td>上一句没听懂，请重说。</td>
           </tr>
           <tr class="searchable" data-keywords="wayfinder decision mapping idea investigation tickets plan research greenfield huge feature">
             <td>$wayfinder</td>
-            <td>规划一个超过单轮上下文的大项目、greenfield 项目或巨大功能。</td>
+            <td>规划超过单轮上下文的大工作。产出 decision tickets，清完后走 $to-spec。</td>
             <td>把这个目标做成 wayfinder map。</td>
           </tr>
           <tr class="searchable" data-keywords="grill docs 需求 设计 context adr">
             <td>$grill-with-docs</td>
-            <td>新功能、重要变更、需求不清楚。</td>
+            <td>新功能、重要变更、需求不清楚。会边问边沉淀术语和 ADR。</td>
             <td>我想做……先帮我把问题问清楚。</td>
           </tr>
-          <tr class="searchable" data-keywords="grilling interview plan design stress test">
+          <tr class="searchable" data-keywords="grilling interview plan design stress test frontier round">
             <td>$grilling</td>
-            <td>底层追问循环，通常由 $grill-me 或 $grill-with-docs 调用。</td>
-            <td>请逐个问题追问这个计划。</td>
+            <td>底层追问循环。按 frontier 分轮提问；事实交给环境，决策留给人。</td>
+            <td>请按 frontier 分轮追问。</td>
           </tr>
           <tr class="searchable" data-keywords="grill me 非代码 计划 设计">
             <td>$grill-me</td>
-            <td>非代码计划或设计也需要被追问。</td>
+            <td>非代码计划或设计也需要被追问。不在工作目录时用它，而不是 $grill-with-docs。</td>
             <td>我有个计划……请拷问我。</td>
           </tr>
-          <tr class="searchable" data-keywords="tdd 测试 red green refactor 实现 bug feature">
+          <tr class="searchable" data-keywords="tdd 测试 red green refactor 实现 bug feature seam">
             <td>$tdd</td>
-            <td>写功能或修 bug，希望测试先行。</td>
+            <td>写功能或修 bug。红绿循环，只在预先约定的 seam 上测。</td>
             <td>请用测试驱动实现……</td>
           </tr>
-          <tr class="searchable" data-keywords="diagnosing bugs debug performance slow failing 500">
+          <tr class="searchable" data-keywords="diagnosing bugs debug performance slow failing 500 redact secrets">
             <td>$diagnosing-bugs</td>
-            <td>问题复杂、偶发、报错、慢、难定位。</td>
+            <td>问题复杂、偶发、报错、慢、难定位。展示命令和输出前先脱敏。</td>
             <td>这个问题是……请按诊断流程定位。</td>
           </tr>
-          <tr class="searchable" data-keywords="architecture improve codebase 架构 复杂度">
+          <tr class="searchable" data-keywords="architecture improve codebase 架构 复杂度 yagni">
             <td>$improve-codebase-architecture</td>
-            <td>想主动发现代码库架构问题。</td>
+            <td>扫描正在改的区域，找 deepening 机会，再选一个深入讨论。</td>
             <td>扫描这个项目，找出最值得改进的点。</td>
           </tr>
-          <tr class="searchable" data-keywords="codebase design deep module 模块 边界 接口">
+          <tr class="searchable" data-keywords="codebase design deep module 模块 边界 接口 design it twice">
             <td>$codebase-design</td>
-            <td>设计模块接口、边界、可测试性。</td>
+            <td>设计模块接口、边界、可测试性。含 design-it-twice。</td>
             <td>帮我设计这个模块的接口和边界。</td>
-          </tr>
-          <tr class="searchable" data-keywords="design interface api options design it twice module shape">
-            <td>$design-an-interface</td>
-            <td>想比较多个模块/API/interface 设计方案。</td>
-            <td>帮我为这个模块设计几个不同接口方案。</td>
           </tr>
           <tr class="searchable" data-keywords="domain modeling glossary ubiquitous language context adr">
             <td>$domain-modeling</td>
-            <td>需要沉淀项目术语、领域模型、ADR。</td>
+            <td>需要沉淀项目术语、领域模型、ADR。吸收了原 $ubiquitous-language。</td>
             <td>帮我梳理这个领域概念并更新文档。</td>
           </tr>
-          <tr class="searchable" data-keywords="ubiquitous language ddd glossary domain terms">
-            <td>$ubiquitous-language</td>
-            <td>从当前对话提取 DDD 风格术语表。</td>
-            <td>把我们讨论的领域术语整理成 glossary。</td>
-          </tr>
-          <tr class="searchable" data-keywords="prototype throwaway UI state model 原型">
+          <tr class="searchable" data-keywords="prototype throwaway UI state model 原型 html primary source">
             <td>$prototype</td>
-            <td>想用一次性原型验证设计想法。</td>
+            <td>用单个可分享 HTML 验证设计问题，并作为 primary source 留在 throwaway 分支。</td>
             <td>我想验证这个交互或状态模型……</td>
           </tr>
           <tr class="searchable" data-keywords="to spec to-prd 产品需求 prd spec 整理">
             <td>$to-spec</td>
-            <td>把已有讨论整理成 spec。v1.1.0 中替代原来的 $to-prd。</td>
+            <td>把已有讨论整理成 spec，并发布到配置好的 issue tracker。</td>
             <td>把上面的讨论整理成 spec。</td>
           </tr>
           <tr class="searchable" data-keywords="to tickets to-issues 拆任务 issue ticket tickets vertical slice blocking edges">
@@ -1152,22 +1142,27 @@
           </tr>
           <tr class="searchable" data-keywords="to questionnaire 问卷 async recipient stakeholder facts decisions">
             <td>$to-questionnaire</td>
-            <td>把用户无法独自回答的问题转成给某个人填写的 discovery questionnaire。</td>
+            <td>把你无法独自回答的问题转成给某个人填写的 questionnaire。追问的是“寄给谁、要什么”，不是主题本身。</td>
             <td>为这个问题生成一份 questionnaire。</td>
           </tr>
           <tr class="searchable" data-keywords="triage issue label ready agent human info wontfix">
             <td>$triage</td>
-            <td>处理 issue 队列、分类和补充上下文。</td>
+            <td>处理 issue 队列、分类和补充上下文。原 $qa 的职责并到这里和 $to-tickets。</td>
             <td>帮我 triage 当前 issues。</td>
           </tr>
-          <tr class="searchable" data-keywords="implement 实现 PRD issue">
+          <tr class="searchable" data-keywords="implement 实现 spec issue tickets tdd code-review">
             <td>$implement</td>
-            <td>已经有 PRD 或 issue，要直接实现。</td>
-            <td>请实现这个 issue。</td>
+            <td>已经有 spec 或 tickets。在约定 seam 上跑 $tdd，完成后 $code-review 再提交。</td>
+            <td>请实现这个 spec 或 ticket。</td>
+          </tr>
+          <tr class="searchable" data-keywords="implement-spec 实现 spec tickets worktree 并发 in-progress">
+            <td>$implement-spec</td>
+            <td>in-progress。用子 agent + worktree 按 ticket graph 并发实现整份 spec，收口成一个 PR。</td>
+            <td>请按 spec 和 tickets 实现并开 PR。</td>
           </tr>
           <tr class="searchable" data-keywords="review branch pr diff standards spec code review fowler smells">
             <td>$code-review</td>
-            <td>审查一个 branch、PR、WIP 或从某个固定点之后的改动。v1.1.0 中替代原来的 $review。</td>
+            <td>从固定点审查 diff：Standards 与 Spec 两条线并行。Standards 含 Fowler smell baseline。</td>
             <td>请 review 从 main 到当前 HEAD 的改动。</td>
           </tr>
           <tr class="searchable" data-keywords="research primary sources official docs source code specs background agent cited markdown">
@@ -1175,64 +1170,54 @@
             <td>让后台 agent 基于 primary sources 调查问题，并写成带引用的 Markdown。</td>
             <td>请基于 primary sources 调查这个问题。</td>
           </tr>
-          <tr class="searchable" data-keywords="qa session bugs report issues github">
-            <td>$qa</td>
-            <td>用户边测边口述问题，agent 帮忙追问并创建 issues。</td>
-            <td>开始 QA session，我会逐条报告问题。</td>
-          </tr>
-          <tr class="searchable" data-keywords="request refactor plan rfc tiny commits issue">
-            <td>$request-refactor-plan</td>
-            <td>先把重构计划拆成很小、可安全提交的步骤。</td>
-            <td>我想规划这次重构……</td>
-          </tr>
           <tr class="searchable" data-keywords="resolving merge conflicts rebase git 冲突">
             <td>$resolving-merge-conflicts</td>
-            <td>当前处于 merge 或 rebase 冲突。</td>
+            <td>当前处于 merge 或 rebase 冲突。按双方原始意图解决，不 --abort。</td>
             <td>请解决当前冲突并解释取舍。</td>
+          </tr>
+          <tr class="searchable" data-keywords="wizard bash manual procedure env github secrets setup dashboard">
+            <td>$wizard</td>
+            <td>把只有人类能完成的步骤做成交互式 bash wizard。Model-invoked。</td>
+            <td>帮我生成一个配置 X 的 wizard。</td>
           </tr>
           <tr class="searchable" data-keywords="git guardrails claude code hooks block push reset clean">
             <td>$git-guardrails-claude-code</td>
-            <td>为 Claude Code 设置 hooks，阻止危险 git 命令。</td>
+            <td>misc。为 Claude Code 设置 hooks，阻止危险 git 命令。</td>
             <td>帮我设置 Claude Code 的 git guardrails。</td>
           </tr>
           <tr class="searchable" data-keywords="migrate shoehorn tests typescript as assertions">
             <td>$migrate-to-shoehorn</td>
-            <td>把测试里的 TypeScript <code>as</code> 断言迁移到 @total-typescript/shoehorn。</td>
+            <td>misc。把测试里的 TypeScript <code>as</code> 断言迁移到 @total-typescript/shoehorn。</td>
             <td>把这些测试迁移到 shoehorn。</td>
           </tr>
           <tr class="searchable" data-keywords="scaffold exercises course problems solutions explainers">
             <td>$scaffold-exercises</td>
-            <td>创建课程练习目录、题目、答案和讲解结构。</td>
+            <td>misc。创建课程练习目录、题目、答案和讲解结构。</td>
             <td>帮我 scaffold 这一节 exercises。</td>
           </tr>
           <tr class="searchable" data-keywords="setup pre commit husky lint staged prettier typecheck tests">
             <td>$setup-pre-commit</td>
-            <td>配置 Husky pre-commit、lint-staged、Prettier、typecheck 和 tests。</td>
+            <td>misc。配置 Husky pre-commit、lint-staged、Prettier、typecheck 和 tests。</td>
             <td>帮这个项目设置 pre-commit hooks。</td>
           </tr>
-          <tr class="searchable" data-keywords="setup ts deep modules typescript codebase design deep module">
+          <tr class="searchable" data-keywords="setup ts deep modules typescript codebase design deep module in-progress">
             <td>$setup-ts-deep-modules</td>
-            <td>为 TypeScript 项目设置 deep modules 相关约定和脚手架。</td>
+            <td>in-progress。为 TypeScript 项目设置 deep modules 相关约定和脚手架。</td>
             <td>帮这个 TypeScript 项目设置 deep modules 约定。</td>
           </tr>
-          <tr class="searchable" data-keywords="wizard bash manual procedure env github secrets setup">
-            <td>$wizard</td>
-            <td>把第三方设置、一次性迁移等手工流程做成交互式 bash wizard。</td>
-            <td>帮我生成一个配置 X 的 wizard。</td>
-          </tr>
-          <tr class="searchable" data-keywords="loop me workflow specs recurring loops delegate">
+          <tr class="searchable" data-keywords="loop me workflow specs recurring loops delegate in-progress">
             <td>$loop-me</td>
-            <td>梳理可重复、可委托的工作流规格。</td>
+            <td>in-progress。梳理可重复、可委托的工作流规格。</td>
             <td>帮我把这个反复做的流程梳理成 workflow spec。</td>
           </tr>
           <tr class="searchable" data-keywords="handoff 交接 上下文 总结 another agent">
             <td>$handoff</td>
-            <td>需要把当前上下文交给下一轮或另一个 agent。</td>
+            <td>上下文需要搬走时用：新 harness、新目录、同事、或中途分叉。同一会话内优先 /compact。</td>
             <td>下一轮要继续……请写 handoff。</td>
           </tr>
-          <tr class="searchable" data-keywords="claude handoff 交接 claude code context summary">
+          <tr class="searchable" data-keywords="claude handoff 交接 claude code context summary in-progress">
             <td>$claude-handoff</td>
-            <td>面向 Claude Code 的 handoff 变体，用于交接上下文。</td>
+            <td>in-progress。面向 Claude Code 的 handoff 变体。</td>
             <td>帮我写一个 Claude handoff。</td>
           </tr>
           <tr class="searchable" data-keywords="teach learn concept stateful workspace">
@@ -1240,35 +1225,25 @@
             <td>让 agent 在当前 workspace 里持续教你一个概念或技能。</td>
             <td>教我……</td>
           </tr>
-          <tr class="searchable" data-keywords="writing great skills skill authoring predictable">
-            <td>$writing-great-skills</td>
-            <td>写或改 agent skills 时参考的原则和词汇。</td>
-            <td>帮我改进这个 skill。</td>
+          <tr class="searchable" data-keywords="writing for agents skill authoring predictable AGENTS.md CLAUDE.md">
+            <td>$writing-for-agents</td>
+            <td>写给 agent 看的文档：skills、AGENTS.md/CLAUDE.md。v1.2.0 由 $writing-great-skills 改名。</td>
+            <td>帮我改进这个 skill 或 agent 文档。</td>
           </tr>
-          <tr class="searchable" data-keywords="edit article revise improve prose structure">
-            <td>$edit-article</td>
-            <td>编辑、重组、润色文章草稿。</td>
-            <td>帮我编辑这篇文章。</td>
-          </tr>
-          <tr class="searchable" data-keywords="writing fragments explore raw material notes">
+          <tr class="searchable" data-keywords="writing fragments explore raw material notes in-progress">
             <td>$writing-fragments</td>
-            <td>写作探索阶段，先收集原始片段，不急着定结构。</td>
+            <td>in-progress。写作探索阶段，先收集原始片段。</td>
             <td>帮我围绕这个主题挖写作 fragments。</td>
           </tr>
-          <tr class="searchable" data-keywords="writing shape article structure paragraph exploit">
+          <tr class="searchable" data-keywords="writing shape article structure paragraph exploit in-progress">
             <td>$writing-shape</td>
-            <td>把已有素材塑造成一篇文章，逐段成稿。</td>
+            <td>in-progress。把已有素材塑造成一篇文章，逐段成稿。</td>
             <td>把这些素材 shape 成文章。</td>
           </tr>
-          <tr class="searchable" data-keywords="writing beats article journey outline beats">
+          <tr class="searchable" data-keywords="writing beats article journey outline beats in-progress">
             <td>$writing-beats</td>
-            <td>把素材组织成文章节奏和叙事 beats。</td>
+            <td>in-progress。把素材组织成文章节奏和叙事 beats。</td>
             <td>帮我把这些素材组织成 writing beats。</td>
-          </tr>
-          <tr class="searchable" data-keywords="obsidian vault notes wikilinks index">
-            <td>$obsidian-vault</td>
-            <td>管理 Obsidian vault 里的 notes、wikilinks 和索引。</td>
-            <td>帮我在 Obsidian 里整理这些 notes。</td>
           </tr>
         </tbody>
       </table>
@@ -1278,12 +1253,12 @@
     <section>
       <div class="note-box">
         <strong>使用习惯</strong>
-        <p>在真实项目根目录中启动 Codex，然后先跑 <code>$setup-matt-pocock-skills</code>。以后不确定时先用 <code>$ask-matt</code>。如果当前任务已经非常明确，直接用 <code>$tdd</code>、<code>$diagnosing-bugs</code> 或 <code>$grill-with-docs</code>。</p>
+        <p>在真实项目根目录中启动 Codex 或 Claude Code，然后先跑 <code>$setup-matt-pocock-skills</code>。不确定时用 <code>$ask-matt</code>。看不懂上一句用 <code>$wait-what</code>。同一 harness、同一目录、到了阶段边界时，优先继续或 <code>/compact</code>，<code>$handoff</code> 只在上下文需要搬走时用。</p>
       </div>
     </section>
 
     <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/mattpocock/skills/releases/tag/v1.1.0" target="_blank" rel="noreferrer">mattpocock/skills v1.1.0</a> 整理，并于 2026-07-31 按 <a href="https://github.com/mattpocock/skills/commit/2ab9580" target="_blank" rel="noreferrer">main@2ab9580</a> 校对；Codex 的通用 Skill 调用机制以 <a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noreferrer">OpenAI 文档</a> 为准。内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <p>非官方中文速查，依据 <a href="https://github.com/mattpocock/skills/releases/tag/v1.2.3" target="_blank" rel="noreferrer">mattpocock/skills v1.2.3</a> 整理，并于 2026-08-21 按 <a href="https://github.com/mattpocock/skills/commit/5b15a47f2d7150f545fbcacbfe381787fc0230dc" target="_blank" rel="noreferrer">main@5b15a47</a> 校对；Codex 的通用 Skill 调用机制以 <a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noreferrer">OpenAI 文档</a> 为准。内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

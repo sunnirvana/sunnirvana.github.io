@@ -101,6 +101,7 @@
     .collection-head { display: flex; justify-content: space-between; gap: 20px; align-items: baseline; margin-bottom: 18px; }
     h2 { margin: 0; font: 32px/1 var(--serif); letter-spacing: -.04em; }
     .collection-head p { margin: 0; color: var(--muted); font-size: 14px; }
+    .tool-stack { display: grid; gap: 16px; }
     .tool-card {
       position: relative;
       display: grid;
@@ -178,17 +179,28 @@
       <section class="collection" aria-labelledby="collection-title">
         <div class="collection-head">
           <h2 id="collection-title">On the shelf</h2>
-          <p>01 个已发布页面</p>
+          <p>02 个已发布页面</p>
         </div>
+        <div class="tool-stack">
         <a class="tool-card" href="cheatsheets/matt-pocock-skills/">
           <span class="card-index" aria-hidden="true">01</span>
           <span>
-            <span class="card-type">CheatSheet · Codex</span>
+            <span class="card-type">CheatSheet · Codex / Claude Code</span>
             <h3>Matt Pocock Skills</h3>
-            <span class="card-description">按项目场景查找 Skill；包含工作流、命令示例和可复制的提示词。</span>
+            <span class="card-description">按项目场景查找 Skill；包含工作流、命令示例和可复制的提示词。基于 v1.2.3。</span>
           </span>
           <span class="arrow" aria-hidden="true">↗</span>
         </a>
+        <a class="tool-card" href="cheatsheets/hermes-agent/">
+          <span class="card-index" aria-hidden="true">02</span>
+          <span>
+            <span class="card-type">CheatSheet · Hermes Agent</span>
+            <h3>Hermes Agent</h3>
+            <span class="card-description">安装、CLI、slash 命令、记忆文件和 gateway 流程；复制后可直接贴进终端。</span>
+          </span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+        </div>
         <p class="empty-note">更多工具会在确实值得被重复使用时，放上这个架子。</p>
       </section>
     </main>

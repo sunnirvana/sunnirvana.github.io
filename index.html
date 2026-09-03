@@ -80,24 +80,33 @@
     .theme-toggle-mark { color: var(--aqua); font-size: 14px; line-height: 1; }
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(250px, .65fr);
-      gap: 28px;
-      padding: clamp(54px, 10vw, 112px) 0 58px;
+      grid-template-columns: minmax(0, 1.35fr) minmax(220px, .65fr);
+      gap: 18px;
+      align-items: center;
+      padding: clamp(28px, 5vw, 48px) 0 28px;
       border-bottom: 2px solid var(--ink);
     }
-    .eyebrow { margin: 0 0 20px; color: var(--aqua); font: 700 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
-    h1 { max-width: 800px; margin: 0; font-family: var(--serif); font-size: clamp(58px, 10vw, 126px); line-height: .82; letter-spacing: -.075em; }
-    .hero-copy { max-width: 590px; margin: 30px 0 0; color: var(--muted); font-size: clamp(17px, 2vw, 21px); line-height: 1.7; }
-    .manifesto {
-      align-self: end;
-      padding: 21px;
-      background: var(--ink);
-      color: #f8f2e4;
-      box-shadow: 8px 8px 0 var(--signal);
+    .eyebrow { margin: 0 0 10px; color: var(--aqua); font: 700 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+    h1 { max-width: none; margin: 0; font-family: var(--serif); font-size: clamp(28px, 4.5vw, 48px); line-height: 1.05; letter-spacing: -.04em; white-space: nowrap; }
+    .hero-copy { max-width: 590px; margin: 14px 0 0; color: var(--muted); font-size: clamp(14px, 1.6vw, 17px); line-height: 1.55; }
+    .hero-visual {
+      align-self: stretch;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid var(--ink);
+      background: var(--card);
+      box-shadow: 5px 5px 0 var(--signal);
     }
-    .manifesto p { margin: 0; font: 500 18px/1.55 var(--serif); }
-    .manifesto small { display: block; margin-top: 26px; color: #c9c2b4; font: 11px var(--mono); text-transform: uppercase; letter-spacing: .06em; }
-    .collection { padding: 32px 0 72px; }
+    .hero-visual img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-height: 220px;
+      object-fit: cover;
+    }
+    .collection { padding: 28px 0 56px; }
     .collection-head { display: flex; justify-content: space-between; gap: 20px; align-items: baseline; margin-bottom: 18px; }
     h2 { margin: 0; font: 32px/1 var(--serif); letter-spacing: -.04em; }
     .collection-head p { margin: 0; color: var(--muted); font-size: 14px; }
@@ -135,14 +144,14 @@
       --aqua: #6fc9bf;
     }
     :root[data-theme="dark"] .tool-card:hover { background: #292721; }
-    :root[data-theme="dark"] .manifesto { background: #f2eee4; color: #171716; }
-    :root[data-theme="dark"] .manifesto small { color: #565148; }
+    :root[data-theme="dark"] .hero-visual { background: #242320; }
 
     @media (max-width: 720px) {
       .shell { width: min(100% - 28px, 1180px); }
-      .hero { grid-template-columns: 1fr; padding-top: 68px; }
-      h1 { font-size: clamp(58px, 19vw, 104px); }
-      .manifesto { max-width: 430px; }
+      .hero { grid-template-columns: 1fr; padding: 24px 0 22px; }
+      h1 { font-size: clamp(24px, 7.5vw, 36px); white-space: normal; }
+      .hero-visual { max-width: 360px; }
+      .hero-visual img { max-height: 260px; }
       .tool-card { grid-template-columns: auto 1fr; }
       .arrow { display: none; }
       .status { display: none; }
@@ -167,19 +176,18 @@
       <section class="hero" aria-labelledby="site-title">
         <div>
           <p class="eyebrow">Small utilities / clear thinking</p>
-          <h1 id="site-title">Tools<br>worth<br>keeping.</h1>
+          <h1 id="site-title">Tools worth keeping.</h1>
           <p class="hero-copy">给自己留一张可随时翻开的工作台：小工具、清楚的流程，和真正能直接用上的中文速查表。</p>
         </div>
-        <aside class="manifesto" aria-label="站点说明">
-          <p>不追踪输入，不制造账户，不把简单事情变复杂。</p>
-          <small>Public by default · local when possible</small>
+        <aside class="hero-visual" aria-label="收集工具示意">
+          <img src="assets/collecting-tools.gif" alt="工具被逐一收进工具箱的循环动画" width="360" height="360" loading="eager">
         </aside>
       </section>
 
       <section class="collection" aria-labelledby="collection-title">
         <div class="collection-head">
           <h2 id="collection-title">On the shelf</h2>
-          <p>02 个已发布页面</p>
+          <p>03 个已发布页面</p>
         </div>
         <div class="tool-stack">
         <a class="tool-card" href="cheatsheets/matt-pocock-skills/">
@@ -197,6 +205,15 @@
             <span class="card-type">CheatSheet · Hermes Agent</span>
             <h3>Hermes Agent</h3>
             <span class="card-description">安装、CLI、slash 命令、记忆文件和 gateway 流程；复制后可直接贴进终端。</span>
+          </span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="tool-card" href="cheatsheets/trellis/">
+          <span class="card-index" aria-hidden="true">03</span>
+          <span>
+            <span class="card-type">CheatSheet · Trellis</span>
+            <h3>Trellis</h3>
+            <span class="card-description">安装、init、continue / finish-work、Spec 与 task.py；覆盖 AI 编码工程化工作流。基于 v0.6.16。</span>
           </span>
           <span class="arrow" aria-hidden="true">↗</span>
         </a>

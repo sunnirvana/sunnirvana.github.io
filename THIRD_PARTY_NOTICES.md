@@ -67,3 +67,28 @@ and its [official documentation][hermes-docs], using the
 [hermes]: https://github.com/NousResearch/hermes-agent
 [hermes-docs]: https://hermes-agent.nousresearch.com/docs/
 [hermes-release]: https://github.com/NousResearch/hermes-agent/releases/tag/v2026.8.19
+
+## Trellis
+
+The content in `cheatsheets/trellis/` is an unofficial Simplified Chinese
+cheatsheet derived from the public [mindfold-ai/Trellis][trellis] project,
+its [npm package `@mindfoldhq/trellis`][trellis-npm], and its
+[official documentation][trellis-docs], using the [v0.6.16 release][trellis-npm]
+as a baseline (checked 2026-09-02). It is not an official Mindfold publication.
+
+`Trellis` is licensed under the GNU Affero General Public License v3.0
+(AGPL-3.0). The full license text is available in the upstream repository:
+
+- [LICENSE][trellis-license]
+- [COPYRIGHT][trellis-copyright]
+
+This site redistributes an independent Chinese reference summary of public
+commands, workflows, and file paths; it does not redistribute Trellis source
+code. For rights and obligations when using or modifying Trellis itself, follow
+the upstream AGPL-3.0 terms.
+
+[trellis]: https://github.com/mindfold-ai/Trellis
+[trellis-npm]: https://www.npmjs.com/package/@mindfoldhq/trellis
+[trellis-docs]: https://docs.trytrellis.app/
+[trellis-license]: https://github.com/mindfold-ai/Trellis/blob/main/LICENSE
+[trellis-copyright]: https://github.com/mindfold-ai/Trellis/blob/main/COPYRIGHT

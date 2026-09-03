@@ -10,7 +10,8 @@
 ├── index.html                         # 首页目录
 ├── cheatsheets/
 │   ├── matt-pocock-skills/index.html  # Matt Pocock Skills 中文 CheatSheet
-│   └── hermes-agent/index.html        # Hermes Agent 中文 CheatSheet
+│   ├── hermes-agent/index.html        # Hermes Agent 中文 CheatSheet
+│   └── trellis/index.html             # Trellis 中文 CheatSheet
 ├── tools/                             # 未来独立小工具放在 tools/<name>/
 ├── assets/                            # 共享图标、公开运行配置与脚本
 └── .github/workflows/deploy.yml       # master 自动发布到 GitHub Pages

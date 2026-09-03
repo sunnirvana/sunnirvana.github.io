@@ -86,19 +86,26 @@
 
     header {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 24px;
+      grid-template-columns: minmax(0, 1.4fr) minmax(220px, 0.75fr);
+      gap: 14px;
       align-items: stretch;
-      min-height: 310px;
       border-bottom: 2px solid var(--ink);
-      padding-bottom: 26px;
+      padding-bottom: 12px;
     }
 
     .title-panel {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      min-height: 310px;
+      justify-content: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 12px;
     }
 
     .kicker {
@@ -107,35 +114,46 @@
       align-items: center;
       gap: 8px;
       border: 1px solid var(--ink);
-      padding: 5px 9px;
-      font-size: 12px;
+      padding: 3px 7px;
+      font-size: 11px;
       letter-spacing: 0;
       text-transform: uppercase;
       background: var(--soft);
-      box-shadow: 4px 4px 0 var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
     }
 
     h1 {
-      margin: 28px 0 14px;
+      margin: 0;
       font-family: var(--serif);
-      font-size: clamp(44px, 8vw, 92px);
-      line-height: 0.92;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1;
       letter-spacing: 0;
-      max-width: 900px;
     }
 
     .subtitle {
       max-width: 720px;
       color: var(--muted);
-      font-size: 18px;
+      font-size: 13px;
+      line-height: 1.4;
       margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 10px;
     }
 
     .version-strip {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
-      margin-top: 18px;
+      margin-top: 0;
     }
 
     .version-pill {
@@ -144,31 +162,31 @@
       border: 1px solid var(--line);
       background: #fff;
       color: var(--muted);
-      padding: 4px 8px;
-      font: 12px var(--mono);
+      padding: 2px 6px;
+      font: 11px var(--mono);
     }
 
     .command-primer {
       background: var(--ink);
       color: #fff;
-      padding: 22px;
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      min-height: 310px;
+      justify-content: center;
+      gap: 4px;
       box-shadow: var(--shadow);
     }
 
     .primer-label {
       color: #d6d3cc;
-      margin: 0 0 10px;
-      font-size: 13px;
+      margin: 0;
+      font-size: 11px;
     }
 
     .primer-command {
       display: block;
       font-family: var(--mono);
-      font-size: clamp(22px, 3vw, 34px);
+      font-size: clamp(16px, 2vw, 22px);
       line-height: 1.2;
       overflow-wrap: anywhere;
       color: #f7f2df;
@@ -176,15 +194,20 @@
 
     .primer-note {
       color: #cac7c0;
-      margin: 22px 0 0;
-      font-size: 14px;
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .top-actions {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
-      margin-top: 22px;
+      margin-top: 0;
     }
 
     button,
@@ -192,10 +215,10 @@
       border: 1px solid var(--ink);
       background: #fff;
       color: var(--ink);
-      padding: 9px 12px;
-      font: 700 13px var(--sans);
+      padding: 6px 10px;
+      font: 700 12px var(--sans);
       cursor: pointer;
-      box-shadow: 3px 3px 0 var(--ink);
+      box-shadow: 2px 2px 0 var(--ink);
       transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
     }
 
@@ -662,11 +685,6 @@
         white-space: normal;
       }
 
-      .command-primer,
-      .title-panel {
-        min-height: 0;
-      }
-
       .page-footer {
         grid-template-columns: 1fr;
       }
@@ -716,29 +734,28 @@
     </nav>
     <header>
       <div class="title-panel">
-        <div>
+        <div class="title-row">
           <span class="kicker">Codex / Claude Code Cheatsheet</span>
           <h1>Matt Pocock Skills</h1>
-          <p class="subtitle">按项目工作场景查命令。先初始化一次，然后按“想清楚、拆成 spec/tickets、写代码、调问题、改结构、做 code review”选择对应 skill。</p>
+        </div>
+        <p class="subtitle">按项目工作场景查命令。先初始化一次，再按“想清楚、拆 spec/tickets、写代码、调问题、改结构、做 review”选 skill。</p>
+        <div class="meta-row">
           <div class="version-strip" aria-label="version information">
             <span class="version-pill">upstream v1.2.3</span>
             <span class="version-pill">main@5b15a47</span>
             <span class="version-pill">更新于 2026-08-21</span>
-            <span class="version-pill">36 skills indexed</span>
           </div>
-        </div>
-        <div class="top-actions">
-          <button type="button" data-copy="$ask-matt 我现在要做的事是：">复制万能入口</button>
-          <button id="print-page" type="button">打印</button>
+          <div class="top-actions">
+            <button type="button" data-copy="$ask-matt 我现在要做的事是：">复制万能入口</button>
+            <button id="print-page" type="button">打印</button>
+          </div>
         </div>
       </div>
 
       <aside class="command-primer">
-        <div>
-          <p class="primer-label">只想记一个命令</p>
-          <code class="primer-command">$ask-matt 我现在想做……应该用哪个 skill？</code>
-        </div>
-        <p class="primer-note">Codex 里显式调用 skill 用 <code>$skill-name</code>。README 里的 <code>/skill-name</code> 是跨 agent 写法，日常在 Codex 里优先用美元符号。</p>
+        <p class="primer-label">只想记一个命令</p>
+        <code class="primer-command">$ask-matt 我现在想做……应该用哪个 skill？</code>
+        <p class="primer-note">Codex 里显式调用用 <code>$skill-name</code>；README 的 <code>/skill-name</code> 是跨 agent 写法。</p>
       </aside>
     </header>
 

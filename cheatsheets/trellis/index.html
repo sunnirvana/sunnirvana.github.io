@@ -1,0 +1,1388 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mindfold Trellis 非官方中文速查：安装、init、slash 命令、skill、task.py 与四阶段工作流。">
+  <meta name="theme-color" content="#fbfaf6">
+  <meta property="og:title" content="Trellis — 中文速查">
+  <meta property="og:description" content="按场景查 Trellis 安装、init、continue / finish-work、spec 与任务管理。">
+  <meta property="og:type" content="article">
+  <link rel="canonical" href="https://sunnirvana.github.io/cheatsheets/trellis/">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <title>Trellis — 中文速查</title>
+  <script>
+    try {
+      if (localStorage.getItem("tools-site-theme") === "dark") document.documentElement.dataset.theme = "dark";
+    } catch {}
+  </script>
+  <script src="../../assets/site-config.js" defer></script>
+  <script src="../../assets/site.js" defer></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #fbfaf6;
+      --ink: #171717;
+      --muted: #67645f;
+      --line: #d9d4ca;
+      --soft: #efede5;
+      --soft-2: #e4eef0;
+      --green: #0f766e;
+      --red: #b42318;
+      --blue: #1d4ed8;
+      --amber: #a16207;
+      --shadow: 0 20px 60px rgba(23, 23, 23, 0.08);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: ui-sans-serif, "SF Pro Text", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --serif: Georgia, "Songti SC", "STSong", serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(23,23,23,0.035) 1px, transparent 1px) 0 0 / 34px 34px,
+        linear-gradient(rgba(23,23,23,0.03) 1px, transparent 1px) 0 0 / 34px 34px,
+        var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.55;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 56px;
+    }
+
+    .site-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 22px;
+      font: 12px var(--mono);
+    }
+
+    .site-nav a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 2px;
+    }
+
+    .site-nav span {
+      color: var(--muted);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(220px, 0.75fr);
+      gap: 14px;
+      align-items: stretch;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 12px;
+    }
+
+    .title-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 12px;
+    }
+
+    .kicker {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--ink);
+      padding: 3px 7px;
+      font-size: 11px;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      background: var(--soft);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 10px;
+    }
+
+    .version-strip {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 0;
+    }
+
+    .version-pill {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      padding: 2px 6px;
+      font: 11px var(--mono);
+    }
+
+    .command-primer {
+      background: var(--ink);
+      color: #fff;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      box-shadow: var(--shadow);
+    }
+
+    .primer-label {
+      color: #d6d3cc;
+      margin: 0;
+      font-size: 11px;
+    }
+
+    .primer-command {
+      display: block;
+      font-family: var(--mono);
+      font-size: clamp(16px, 2vw, 22px);
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+      color: #f7f2df;
+    }
+
+    .primer-note {
+      color: #cac7c0;
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 0;
+    }
+
+    button,
+    .print-link {
+      border: 1px solid var(--ink);
+      background: #fff;
+      color: var(--ink);
+      padding: 6px 10px;
+      font: 700 12px var(--sans);
+      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--ink);
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    button:hover,
+    .print-link:hover {
+      background: #f4f1e8;
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    button:active,
+    .print-link:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+
+    .site-nav .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 8px;
+      font: 700 11px var(--mono);
+    }
+
+    .theme-toggle-mark {
+      color: var(--green);
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      margin: 22px 0 26px;
+      padding: 14px;
+      background: rgba(251, 250, 246, 0.92);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-wrap span {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    input[type="search"] {
+      width: 100%;
+      border: 1px solid var(--ink);
+      background: #fff;
+      color: var(--ink);
+      padding: 12px 12px 12px 38px;
+      font: 16px var(--sans);
+      outline: none;
+    }
+
+    input[type="search"]:focus {
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.18);
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    section {
+      margin-top: 34px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 32px;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 520px;
+      text-align: right;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .step {
+      border: 1px solid var(--ink);
+      background: #fff;
+      padding: 15px;
+      min-height: 190px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .step::before {
+      content: attr(data-step);
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      border-left: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      background: var(--soft-2);
+      padding: 5px 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .step h3,
+    .card h3,
+    .recipe h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+
+    .step p,
+    .card p,
+    .recipe p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    code {
+      font-family: var(--mono);
+      background: rgba(23, 23, 23, 0.06);
+      padding: 1px 4px;
+    }
+
+    .cmd {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      margin-top: 14px;
+      border-top: 1px dashed var(--line);
+      padding-top: 12px;
+    }
+
+    .cmd code {
+      display: block;
+      background: transparent;
+      padding: 0;
+      overflow-wrap: anywhere;
+      font-size: 13px;
+      color: var(--ink);
+    }
+
+    .copy {
+      padding: 6px 8px;
+      box-shadow: 2px 2px 0 var(--ink);
+      min-width: 48px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.88);
+      padding: 16px;
+      min-height: 205px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card.strong {
+      border-color: var(--ink);
+      box-shadow: 6px 6px 0 var(--soft);
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin: 12px 0 0;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      padding: 3px 7px;
+      font-size: 12px;
+      color: var(--muted);
+      background: #fff;
+    }
+
+    .accent-green {
+      border-top: 5px solid var(--green);
+    }
+
+    .accent-red {
+      border-top: 5px solid var(--red);
+    }
+
+    .accent-blue {
+      border-top: 5px solid var(--blue);
+    }
+
+    .accent-amber {
+      border-top: 5px solid var(--amber);
+    }
+
+    .recipes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .recipe {
+      border: 1px solid var(--ink);
+      background: var(--soft);
+      padding: 16px;
+    }
+
+    .flow-line {
+      margin: 14px 0 0;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 13px;
+    }
+
+    .flow-line span {
+      background: #fff;
+      border: 1px solid var(--ink);
+      padding: 5px 7px;
+    }
+
+    .flow-line b {
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .reference-table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+      background: #fff;
+      border: 1px solid var(--ink);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--ink);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .table-wrap .reference-table {
+      border: 0;
+    }
+
+    .reference-table th,
+    .reference-table td {
+      border-bottom: 1px solid var(--line);
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    .reference-table th {
+      background: var(--ink);
+      color: #fff;
+      font-size: 13px;
+      letter-spacing: 0;
+    }
+
+    .reference-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .reference-table td:first-child {
+      font-family: var(--mono);
+      white-space: nowrap;
+    }
+
+    .note-box {
+      border: 1px solid var(--ink);
+      background: #fff;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .note-box strong {
+      font-family: var(--serif);
+      font-size: 22px;
+      line-height: 1.1;
+    }
+
+    .note-box p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      background: var(--ink);
+      color: #fff;
+      padding: 10px 12px;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: opacity 150ms ease, transform 150ms ease;
+      z-index: 10;
+      font-size: 14px;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .page-footer {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 28px;
+      margin-top: 38px;
+      padding-top: 18px;
+      border-top: 1px solid var(--ink);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .page-footer p {
+      margin: 0;
+      max-width: 790px;
+    }
+
+    .page-footer a {
+      color: inherit;
+      text-underline-offset: 3px;
+    }
+
+    .page-footer .footer-mark {
+      color: var(--ink);
+      font: 12px var(--mono);
+      white-space: nowrap;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--green);
+      outline-offset: 3px;
+    }
+
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #181817;
+      --ink: #f3f0e8;
+      --muted: #c7c1b5;
+      --line: #605c54;
+      --soft: #2b2a27;
+      --soft-2: #233438;
+      --green: #72d1c8;
+      --red: #ff8b80;
+      --blue: #8badff;
+      --amber: #f3c466;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.32);
+      --paper-ink: #1e1d1a;
+      --paper-line: #bdb6aa;
+      --table-head: #393731;
+    }
+
+    :root[data-theme="dark"] .version-pill,
+    :root[data-theme="dark"] button,
+    :root[data-theme="dark"] .print-link,
+    :root[data-theme="dark"] input[type="search"],
+    :root[data-theme="dark"] .step,
+    :root[data-theme="dark"] .card,
+    :root[data-theme="dark"] .recipe,
+    :root[data-theme="dark"] .note-box,
+    :root[data-theme="dark"] .reference-table {
+      background: #242320;
+      color: var(--ink);
+    }
+
+    :root[data-theme="dark"] button:hover,
+    :root[data-theme="dark"] .print-link:hover { background: #33312c; }
+    :root[data-theme="dark"] .toolbar { background: rgba(24, 24, 23, .92); }
+    :root[data-theme="dark"] .command-primer { background: #f3f0e8; color: #181817; }
+    :root[data-theme="dark"] .primer-label,
+    :root[data-theme="dark"] .primer-note { color: #5c574f; }
+    :root[data-theme="dark"] .primer-command { color: #18413e; }
+    :root[data-theme="dark"] .toast { background: #f3f0e8; color: #181817; }
+    :root[data-theme="dark"] .tag,
+    :root[data-theme="dark"] .flow-line span {
+      background: #f3f0e8;
+      color: var(--paper-ink);
+      border-color: var(--paper-line);
+    }
+    :root[data-theme="dark"] .reference-table th {
+      background: var(--table-head);
+      color: #f3f0e8;
+      border-color: var(--table-head);
+    }
+
+    @media (max-width: 880px) {
+      header,
+      .workflow,
+      .cards,
+      .recipes,
+      .note-box {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        text-align: left;
+        margin-top: 8px;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .hint {
+        white-space: normal;
+      }
+
+      .page-footer {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .toolbar,
+      .copy,
+      .top-actions,
+      .site-nav,
+      .page-footer,
+      .toast {
+        display: none !important;
+      }
+
+      .page {
+        width: 100%;
+        padding: 0;
+      }
+
+      header,
+      .card,
+      .step,
+      .recipe,
+      .note-box,
+      .reference-table {
+        box-shadow: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="site-nav" aria-label="站点导航">
+      <a href="../../">← Tools 首页</a>
+      <div class="nav-actions">
+        <span>非官方中文速查</span>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
+          <span class="theme-toggle-mark" aria-hidden="true">◐</span>
+          <span data-theme-toggle-label>模式：浅色</span>
+        </button>
+      </div>
+    </nav>
+    <header>
+      <div class="title-panel">
+        <div class="title-row">
+          <span class="kicker">Trellis Cheatsheet</span>
+          <h1>Trellis</h1>
+        </div>
+        <p class="subtitle">Mindfold 的 AI 编码工程化框架。把 Spec、任务、记忆沉淀进仓库；按场景查命令，复制后可贴进终端或会话。</p>
+        <div class="meta-row">
+          <div class="version-strip" aria-label="version information">
+            <span class="version-pill">v0.6.16</span>
+            <span class="version-pill">npm @mindfoldhq/trellis</span>
+            <span class="version-pill">更新于 2026-09-02</span>
+          </div>
+          <div class="top-actions">
+            <button type="button" data-copy="npm install -g @mindfoldhq/trellis@latest">复制安装命令</button>
+            <button id="print-page" type="button">打印</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="command-primer">
+        <p class="primer-label">只想记一个命令</p>
+        <code class="primer-command">/trellis:continue</code>
+        <p class="primer-note">自然语言推进工作流；收尾用 <code>/trellis:finish-work</code>。</p>
+      </aside>
+    </header>
+
+    <div class="toolbar">
+      <label class="search-wrap">
+        <span>⌕</span>
+        <input id="search" type="search" placeholder="搜索：init、continue、finish-work、spec、task、upgrade、ablate、brainstorm">
+      </label>
+      <span class="hint">复制按钮会复制可直接贴进终端或 Agent 会话的命令</span>
+    </div>
+
+    <section>
+      <div class="section-head">
+        <h2>最短记忆</h2>
+        <p>Node.js ≥ 18，Python ≥ 3.9。先装 CLI，再在仓库里 init。</p>
+      </div>
+      <div class="workflow">
+        <article class="step searchable" data-step="01" data-keywords="安装 install npm node python">
+          <div>
+            <h3>先装 CLI</h3>
+            <p>全局安装最新版。旧 CLI 也可用 <code>trellis upgrade</code>。</p>
+          </div>
+          <div class="cmd">
+            <code>npm install -g @mindfoldhq/trellis@latest</code>
+            <button class="copy" type="button" data-copy="npm install -g @mindfoldhq/trellis@latest">复制</button>
+          </div>
+        </article>
+
+        <article class="step searchable" data-step="02" data-keywords="init 初始化 平台 cursor claude">
+          <div>
+            <h3>在仓库里初始化</h3>
+            <p><code>-u</code> 是开发者身份。可加平台 flag，如 <code>--cursor --codex</code>。</p>
+          </div>
+          <div class="cmd">
+            <code>trellis init -u your-name</code>
+            <button class="copy" type="button" data-copy="trellis init -u your-name">复制</button>
+          </div>
+        </article>
+
+        <article class="step searchable" data-step="03" data-keywords="continue 工作流 brainstorm 自然语言">
+          <div>
+            <h3>自然语言 + continue</h3>
+            <p>描述需求 → AI brainstorm 写 PRD → 一路 <code>continue</code> 推进实现与检查。</p>
+          </div>
+          <div class="cmd">
+            <code>/trellis:continue</code>
+            <button class="copy" type="button" data-copy="/trellis:continue">复制</button>
+          </div>
+        </article>
+
+        <article class="step searchable" data-step="04" data-keywords="finish-work 收尾 归档 journal">
+          <div>
+            <h3>做完再收尾</h3>
+            <p>先 commit 工作改动，再 <code>finish-work</code>：归档任务并写 journal。</p>
+          </div>
+          <div class="cmd">
+            <code>/trellis:finish-work</code>
+            <button class="copy" type="button" data-copy="/trellis:finish-work">复制</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>按场景查</h2>
+        <p>先找当前要做的事，再复制对应命令。</p>
+      </div>
+      <div class="cards">
+        <article class="card strong accent-green searchable" data-keywords="init 首次 bootstrap 新项目">
+          <div>
+            <h3>第一次给项目装 Trellis</h3>
+            <p>创建 <code>.trellis/</code>、默认 Spec 模板，以及 <code>00-bootstrap-guidelines</code> 任务。别跳过 bootstrap。</p>
+            <div class="tag-row"><span class="tag">init</span><span class="tag">bootstrap</span></div>
+          </div>
+          <div class="cmd">
+            <code>trellis init -u your-name --claude</code>
+            <button class="copy" type="button" data-copy="trellis init -u your-name --claude">复制</button>
+          </div>
+        </article>
+
+        <article class="card strong accent-blue searchable" data-keywords="平台 platform cursor opencode codex 多平台">
+          <div>
+            <h3>给已有项目加平台</h3>
+            <p>在已有 <code>.trellis/</code> 上叠加平台配置目录，不新建任务。</p>
+            <div class="tag-row"><span class="tag">platform</span><span class="tag">cursor</span></div>
+          </div>
+          <div class="cmd">
+            <code>trellis init --cursor --opencode --codex</code>
+            <button class="copy" type="button" data-copy="trellis init --cursor --opencode --codex">复制</button>
+          </div>
+        </article>
+
+        <article class="card strong accent-amber searchable" data-keywords="joiner 新成员 clone 加入">
+          <div>
+            <h3>新人 clone 已有 Trellis 项目</h3>
+            <p>有 <code>.trellis/</code> 但没有本机 <code>.developer</code> 时，会生成 <code>00-join-&lt;slug&gt;</code> 入职任务。</p>
+            <div class="tag-row"><span class="tag">joiner</span><span class="tag">onboard</span></div>
+          </div>
+          <div class="cmd">
+            <code>trellis init -u their-name</code>
+            <button class="copy" type="button" data-copy="trellis init -u their-name">复制</button>
+          </div>
+        </article>
+
+        <article class="card strong accent-red searchable" data-keywords="upgrade update 升级 migrate">
+          <div>
+            <h3>升级 CLI 和项目模板</h3>
+            <p>两步：先升全局 CLI，再在项目里 sync。出现 <code>MIGRATION REQUIRED</code> 时加 <code>--migrate</code>。</p>
+            <div class="tag-row"><span class="tag">upgrade</span><span class="tag">update</span></div>
+          </div>
+          <div class="cmd">
+            <code>trellis upgrade && trellis update</code>
+            <button class="copy" type="button" data-copy="trellis upgrade && trellis update">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-green searchable" data-keywords="continue 卡住 stall 下一步">
+          <div>
+            <h3>AI 卡住或跳步了</h3>
+            <p>按当前 task 状态和 workflow breadcrumb 推进下一步。不必自己记阶段命令。</p>
+            <div class="tag-row"><span class="tag">continue</span></div>
+          </div>
+          <div class="cmd">
+            <code>/trellis:continue</code>
+            <button class="copy" type="button" data-copy="/trellis:continue">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-blue searchable" data-keywords="finish-work 收尾 journal archive commit">
+          <div>
+            <h3>会话结束 / 上下文快满</h3>
+            <p>要求工作改动已 commit。会归档完成任务并追加 journal。</p>
+            <div class="tag-row"><span class="tag">finish-work</span><span class="tag">journal</span></div>
+          </div>
+          <div class="cmd">
+            <code>/trellis:finish-work</code>
+            <button class="copy" type="button" data-copy="/trellis:finish-work">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-amber searchable" data-keywords="template 模板 marketplace registry spec">
+          <div>
+            <h3>用 Spec 模板起步</h3>
+            <p>官方 marketplace 或自定义 registry。已有 Spec 时用 <code>--overwrite</code> / <code>--append</code>。</p>
+            <div class="tag-row"><span class="tag">template</span><span class="tag">spec</span></div>
+          </div>
+          <div class="cmd">
+            <code>trellis init -u your-name --template electron-fullstack</code>
+            <button class="copy" type="button" data-copy="trellis init -u your-name --template electron-fullstack">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-red searchable" data-keywords="ablate restore 对比 临时关闭">
+          <div>
+            <h3>临时对比有无 Trellis</h3>
+            <p>消融会备份后移除项目级表面；对比完 <code>restore</code>。不同于永久 <code>uninstall</code>。</p>
+            <div class="tag-row"><span class="tag">ablate</span><span class="tag">restore</span></div>
+          </div>
+          <div class="cmd">
+            <code>trellis ablate --dry-run</code>
+            <button class="copy" type="button" data-copy="trellis ablate --dry-run">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-green searchable" data-keywords="task.py create 任务 list">
+          <div>
+            <h3>手动创建 / 查看任务</h3>
+            <p>通常 AI 会调 <code>task.py</code>。需要手操时直接跑脚本。</p>
+            <div class="tag-row"><span class="tag">task</span></div>
+          </div>
+          <div class="cmd">
+            <code>./.trellis/scripts/task.py list --mine</code>
+            <button class="copy" type="button" data-copy="./.trellis/scripts/task.py list --mine">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-blue searchable" data-keywords="hooks TRELLIS_HOOKS 关闭 hook">
+          <div>
+            <h3>只关 hooks，不卸 Trellis</h3>
+            <p>临时禁用会话注入 hooks。消融 / 卸载是更重的操作。</p>
+            <div class="tag-row"><span class="tag">hooks</span></div>
+          </div>
+          <div class="cmd">
+            <code>TRELLIS_HOOKS=0</code>
+            <button class="copy" type="button" data-copy="TRELLIS_HOOKS=0">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-amber searchable" data-keywords="codex hooks config.toml AGENTS">
+          <div>
+            <h3>Codex 要先开 hooks</h3>
+            <p>否则 <code>/</code> 菜单看不到 Trellis 命令。开完再跑一次 <code>/hooks</code> 批准。</p>
+            <div class="tag-row"><span class="tag">codex</span><span class="tag">hooks</span></div>
+          </div>
+          <div class="cmd">
+            <code>features.hooks = true  # ~/.codex/config.toml</code>
+            <button class="copy" type="button" data-copy="[features]&#10;hooks = true">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-green searchable" data-keywords="get_context 上下文 context">
+          <div>
+            <h3>看当前上下文快照</h3>
+            <p>身份、git 状态、活跃任务、Spec 索引。收尾模式用 <code>--mode record</code>。</p>
+            <div class="tag-row"><span class="tag">context</span></div>
+          </div>
+          <div class="cmd">
+            <code>./.trellis/scripts/get_context.py</code>
+            <button class="copy" type="button" data-copy="./.trellis/scripts/get_context.py">复制</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>常用流程</h2>
+        <p>把几条命令串起来，覆盖真实使用。</p>
+      </div>
+      <div class="recipes">
+        <article class="recipe searchable" data-keywords="首次 安装 从零 bootstrap">
+          <h3>从零到第一次任务</h3>
+          <p>装 CLI → init → 跑完 bootstrap 填 Spec → 用自然语言开第一个真实任务。</p>
+          <div class="flow-line">
+            <span>npm i -g @mindfoldhq/trellis@latest</span><b>→</b><span>trellis init -u you</span><b>→</b><span>bootstrap Spec</span><b>→</b><span>描述需求</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="日常 continue finish-work">
+          <h3>日常一个完整任务</h3>
+          <p>skill-first：你几乎只需要自然语言和两个 slash。</p>
+          <div class="flow-line">
+            <span>描述需求</span><b>→</b><span>/trellis:continue</span><b>→</b><span>…</span><b>→</b><span>/trellis:finish-work</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="升级 upgrade update migrate">
+          <h3>跟上新版本</h3>
+          <p>CLI 与项目模板版本分开。有 breaking 变更再 <code>--migrate</code>。</p>
+          <div class="flow-line">
+            <span>trellis upgrade</span><b>→</b><span>trellis update</span><b>→</b><span>必要时 --migrate</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="四阶段 plan implement verify finish">
+          <h3>内部四阶段循环</h3>
+          <p>多数由 auto-trigger skill / sub-agent 自动跑，用户侧靠 continue 推进。</p>
+          <div class="flow-line">
+            <span>brainstorm</span><b>→</b><span>implement</span><b>→</b><span>check</span><b>→</b><span>update-spec</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="ablate 对比 restore">
+          <h3>做有无 Trellis 的对照实验</h3>
+          <p>消融后请新开 agent 会话；结束后精确恢复。</p>
+          <div class="flow-line">
+            <span>trellis ablate</span><b>→</b><span>新开会话对比</span><b>→</b><span>trellis restore</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="多平台 multi-platform cursor claude">
+          <h3>同一仓库服务多个 Agent</h3>
+          <p><code>.trellis/</code> 核心共享；各平台只差 commands / skills / hooks 目录。</p>
+          <div class="flow-line">
+            <span>trellis init --claude</span><b>→</b><span>trellis init --cursor --codex</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>这些路径各管什么</h2>
+        <p>搞混 Spec / Task / Workspace，是“AI 不记得项目约定”的最常见原因。</p>
+      </div>
+      <div class="table-wrap" tabindex="0" aria-label="Trellis 文件地图，可横向滚动">
+      <table class="reference-table">
+        <thead>
+          <tr>
+            <th>路径</th>
+            <th>装什么</th>
+            <th>谁写</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="searchable" data-keywords="spec 规范 conventions">
+            <td>.trellis/spec/</td>
+            <td>项目编码规范与可执行契约。会话里按任务注入相关层。</td>
+            <td>你 + <code>trellis-update-spec</code>。建议版本化进 git。</td>
+          </tr>
+          <tr class="searchable" data-keywords="tasks prd 任务">
+            <td>.trellis/tasks/</td>
+            <td>任务单元：<code>task.json</code>、<code>prd.md</code>、可选 design/implement、jsonl、research。</td>
+            <td>AI 经 <code>task.py</code> 创建；完成后进 <code>archive/</code>。</td>
+          </tr>
+          <tr class="searchable" data-keywords="workspace journal 记忆">
+            <td>.trellis/workspace/{name}/</td>
+            <td>个人会话 journal。跨会话记忆靠这里。</td>
+            <td><code>finish-work</code> 调用 <code>add_session.py</code> 追加。</td>
+          </tr>
+          <tr class="searchable" data-keywords="workflow.md 契约">
+            <td>.trellis/workflow.md</td>
+            <td>开发工作流契约。每次会话起点。</td>
+            <td>Trellis 模板；可用 <code>trellis update</code> 同步。</td>
+          </tr>
+          <tr class="searchable" data-keywords="config.yaml hooks packages">
+            <td>.trellis/config.yaml</td>
+            <td>packages、update.skip、任务生命周期 hooks。</td>
+            <td>你。hooks 默认注释掉。</td>
+          </tr>
+          <tr class="searchable" data-keywords="developer 身份">
+            <td>.trellis/.developer</td>
+            <td>本机开发者身份。gitignored，不进仓库。</td>
+            <td><code>trellis init -u</code> 写入。新人 clone 后没有它。</td>
+          </tr>
+          <tr class="searchable" data-keywords="runtime session 当前任务">
+            <td>.trellis/.runtime/sessions/</td>
+            <td>每个 AI 会话/窗口的当前任务指针。</td>
+            <td><code>task.py start/finish</code>；gitignored。</td>
+          </tr>
+          <tr class="searchable" data-keywords="claude commands skills agents">
+            <td>.claude/ · .cursor/ · …</td>
+            <td>平台适配：commands、skills、agents、hooks。</td>
+            <td><code>trellis init</code> / <code>update</code> 生成。</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>CLI 索引</h2>
+        <p>在系统终端运行。权威来源是官方文档与 <code>trellis --help</code>。</p>
+      </div>
+      <div class="table-wrap" tabindex="0" aria-label="Trellis CLI 索引，可横向滚动">
+      <table class="reference-table">
+        <thead>
+          <tr>
+            <th>命令</th>
+            <th>什么时候用</th>
+            <th>备注</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="searchable" data-keywords="init 初始化">
+            <td>trellis init -u name</td>
+            <td>首次装到仓库、加平台、或新人加入。</td>
+            <td>按 <code>.trellis/</code> × <code>.developer</code> 三路分发。</td>
+          </tr>
+          <tr class="searchable" data-keywords="upgrade 升级 cli">
+            <td>trellis upgrade</td>
+            <td>升级全局 CLI package。</td>
+            <td><code>--tag latest</code> / <code>--dry-run</code>。</td>
+          </tr>
+          <tr class="searchable" data-keywords="update 同步 migrate">
+            <td>trellis update</td>
+            <td>把项目模板同步到本地 CLI 版本。</td>
+            <td>breaking 时加 <code>--migrate</code>。</td>
+          </tr>
+          <tr class="searchable" data-keywords="ablate 消融">
+            <td>trellis ablate</td>
+            <td>临时移除项目级 Trellis 表面做对照。</td>
+            <td>先在项目外做恢复事务。</td>
+          </tr>
+          <tr class="searchable" data-keywords="restore 恢复">
+            <td>trellis restore</td>
+            <td>从 ablate 事务精确恢复。</td>
+            <td>受管路径被改过会拒绝写入。</td>
+          </tr>
+          <tr class="searchable" data-keywords="uninstall 卸载">
+            <td>trellis uninstall</td>
+            <td>永久移除项目级 Trellis。</td>
+            <td>不同于 ablate / <code>TRELLIS_HOOKS=0</code>。</td>
+          </tr>
+          <tr class="searchable" data-keywords="version 版本">
+            <td>trellis --version</td>
+            <td>确认本地 CLI 版本。</td>
+            <td>和项目 <code>.trellis/.version</code> 可能不同。</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Slash / Skill / Sub-agent</h2>
+        <p>0.5+ 是 skill-first：用户侧主要记 <code>continue</code> 与 <code>finish-work</code>。平台调用写法略有差异。</p>
+      </div>
+      <div class="table-wrap" tabindex="0" aria-label="Trellis slash 与 skill 索引，可横向滚动">
+      <table class="reference-table">
+        <thead>
+          <tr>
+            <th>名称</th>
+            <th>类型</th>
+            <th>什么时候用</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="searchable" data-keywords="start 开启会话">
+            <td>/trellis:start</td>
+            <td>Command</td>
+            <td>无自动注入的平台手动加载上下文。多数 hook 平台不装用户可见 start。</td>
+          </tr>
+          <tr class="searchable" data-keywords="continue 推进">
+            <td>/trellis:continue</td>
+            <td>Command</td>
+            <td>当前任务内推进下一步。Cursor 等写作 <code>/trellis-continue</code>。</td>
+          </tr>
+          <tr class="searchable" data-keywords="finish-work 收尾">
+            <td>/trellis:finish-work</td>
+            <td>Command</td>
+            <td>工作 commit 之后：归档 + journal。工作区有未提交代码改动会拒绝。</td>
+          </tr>
+          <tr class="searchable" data-keywords="brainstorm prd">
+            <td>trellis-brainstorm</td>
+            <td>Skill</td>
+            <td>同意建任务后：逐题澄清需求，写 <code>prd.md</code>，需要时派 research。</td>
+          </tr>
+          <tr class="searchable" data-keywords="before-dev 编码前">
+            <td>trellis-before-dev</td>
+            <td>Skill</td>
+            <td>动手改代码前自动读相关 Spec。</td>
+          </tr>
+          <tr class="searchable" data-keywords="check 验证 lint test">
+            <td>trellis-check</td>
+            <td>Skill / Sub-agent</td>
+            <td>对照 Spec 审 diff，跑 lint / typecheck / test，自修复。</td>
+          </tr>
+          <tr class="searchable" data-keywords="update-spec 沉淀">
+            <td>trellis-update-spec</td>
+            <td>Skill</td>
+            <td>把决策 / 约定 / gotcha 写回 <code>.trellis/spec/</code>。</td>
+          </tr>
+          <tr class="searchable" data-keywords="break-loop 根因">
+            <td>trellis-break-loop</td>
+            <td>Skill</td>
+            <td>修完难 bug 后做 5 维根因与预防分析。</td>
+          </tr>
+          <tr class="searchable" data-keywords="implement 实现 sub-agent">
+            <td>trellis-implement</td>
+            <td>Sub-agent</td>
+            <td>按 PRD + jsonl 上下文写代码，不 git commit。</td>
+          </tr>
+          <tr class="searchable" data-keywords="research 调研 只读">
+            <td>trellis-research</td>
+            <td>Sub-agent</td>
+            <td>只读搜索代码 / 文档；发现写入任务 <code>research/</code>。</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>task.py 速查</h2>
+        <p>脚本在 <code>.trellis/scripts/task.py</code>。日常多由 AI 调用；下面是手操索引。</p>
+      </div>
+      <div class="table-wrap" tabindex="0" aria-label="task.py 子命令索引，可横向滚动">
+      <table class="reference-table">
+        <thead>
+          <tr>
+            <th>子命令</th>
+            <th>什么时候用</th>
+            <th>示例</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="searchable" data-keywords="create 创建任务">
+            <td>create</td>
+            <td>新建任务目录 + 默认 prd.md。</td>
+            <td>task.py create "新增登录" --slug user-login -p P1</td>
+          </tr>
+          <tr class="searchable" data-keywords="add-context jsonl">
+            <td>add-context</td>
+            <td>往 implement/check jsonl 加 Spec 或 research 路径。</td>
+            <td>task.py add-context "$DIR" implement ".trellis/spec/…" "原因"</td>
+          </tr>
+          <tr class="searchable" data-keywords="validate list-context">
+            <td>validate / list-context</td>
+            <td>校验 jsonl 引用存在；查看全部条目。</td>
+            <td>task.py validate "$DIR"</td>
+          </tr>
+          <tr class="searchable" data-keywords="start finish 当前任务">
+            <td>start / finish</td>
+            <td>设置或清除本 AI 会话的当前任务。</td>
+            <td>task.py start "$DIR"</td>
+          </tr>
+          <tr class="searchable" data-keywords="set-branch set-scope base">
+            <td>set-branch / set-scope</td>
+            <td>写分支名、PR 目标、commit scope。</td>
+            <td>task.py set-scope "$DIR" "auth"</td>
+          </tr>
+          <tr class="searchable" data-keywords="subtask parent children">
+            <td>add-subtask / remove-subtask</td>
+            <td>链接或解除父子任务。子任务是独立目录。</td>
+            <td>task.py add-subtask parent-dir child-dir</td>
+          </tr>
+          <tr class="searchable" data-keywords="list archive">
+            <td>list / archive / list-archive</td>
+            <td>列活跃任务、归档、按月看归档。</td>
+            <td>task.py list --mine --status review</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>平台调用差异（摘）</h2>
+        <p>同一语义，不同平台写法不同。完整表见官方 Appendix B。</p>
+      </div>
+      <div class="table-wrap" tabindex="0" aria-label="平台命令差异，可横向滚动">
+      <table class="reference-table">
+        <thead>
+          <tr>
+            <th>平台</th>
+            <th>Continue</th>
+            <th>Finish</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="searchable" data-keywords="claude opencode gemini">
+            <td>Claude Code / OpenCode / Gemini / CodeBuddy / Droid</td>
+            <td>/trellis:continue</td>
+            <td>/trellis:finish-work</td>
+          </tr>
+          <tr class="searchable" data-keywords="cursor pi qoder">
+            <td>Cursor / Pi Agent / Qoder</td>
+            <td>/trellis-continue</td>
+            <td>/trellis-finish-work</td>
+          </tr>
+          <tr class="searchable" data-keywords="kiro">
+            <td>Kiro</td>
+            <td>@trellis:continue</td>
+            <td>@trellis:finish-work</td>
+          </tr>
+          <tr class="searchable" data-keywords="kilo">
+            <td>Kilo</td>
+            <td>/continue.md</td>
+            <td>/finish-work.md</td>
+          </tr>
+          <tr class="searchable" data-keywords="copilot">
+            <td>GitHub Copilot</td>
+            <td>Run Prompt → trellis-continue</td>
+            <td>Run Prompt → trellis-finish-work</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="note-box">
+        <strong>使用习惯</strong>
+        <p>先跑通 bootstrap 把 Spec 从空模板填成真实约定，再开业务任务。日常几乎只要自然语言 + <code>continue</code>；阶段 slash（如 before-backend-dev）在 0.5 已移除。升级永远是 <code>upgrade</code>（CLI）再 <code>update</code>（项目）。对照实验用 <code>ablate</code>/<code>restore</code>，不要和 <code>uninstall</code> 搞混。</p>
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <p>非官方中文速查，依据 <a href="https://www.npmjs.com/package/@mindfoldhq/trellis" target="_blank" rel="noreferrer">@mindfoldhq/trellis v0.6.16</a>、<a href="https://github.com/mindfold-ai/Trellis" target="_blank" rel="noreferrer">mindfold-ai/Trellis</a> 与 <a href="https://docs.trytrellis.app/" target="_blank" rel="noreferrer">官方文档</a> 整理，并于 2026-09-02 校对。命令与行为以官方文档为准；内容为静态快照，更新时会在源项目校对后手动同步。上游项目采用 AGPL-3.0。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <span class="footer-mark">TOOLS / CHEATSHEETS</span>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast">已复制</div>
+
+  <script>
+    const toast = document.getElementById("toast");
+    let toastTimer = null;
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1300);
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("已复制到剪贴板");
+      } catch {
+        const area = document.createElement("textarea");
+        area.value = text;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+        showToast("已复制");
+      }
+    }
+
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        await copyText(button.dataset.copy);
+        window.ToolsSiteAnalytics?.track("copy_prompt", { page_section: "trellis_cheatsheet" });
+      });
+    });
+
+    const search = document.getElementById("search");
+    const items = Array.from(document.querySelectorAll(".searchable"));
+
+    let searchTracked = false;
+    search.addEventListener("input", () => {
+      const query = search.value.trim().toLowerCase();
+      items.forEach((item) => {
+        const haystack = [
+          item.textContent,
+          item.dataset.keywords || ""
+        ].join(" ").toLowerCase();
+        item.classList.toggle("hidden", query && !haystack.includes(query));
+      });
+      if (query && !searchTracked) {
+        searchTracked = true;
+        window.ToolsSiteAnalytics?.track("use_search", { page_section: "trellis_cheatsheet" });
+      }
+    });
+
+    document.getElementById("print-page").addEventListener("click", () => {
+      window.ToolsSiteAnalytics?.track("print_page", { page_section: "trellis_cheatsheet" });
+      window.print();
+    });
+  </script>
+</body>
+</html>

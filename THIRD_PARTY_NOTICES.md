@@ -39,8 +39,7 @@ Claude Code, or Matt Pocock publication.
 The content in `cheatsheets/hermes-agent/` is an unofficial Simplified Chinese
 cheatsheet derived from the public [NousResearch/hermes-agent][hermes] project
 and its [official documentation][hermes-docs], using the
-[v0.20.5 / v2026.8.19 release][hermes-release] as a baseline (checked
-2026-08-21). It is not an official Nous Research publication.
+[v0.21.2 / v2026.9.11 release][hermes-release] as a baseline (checked 2026-09-14). It is not an official Nous Research publication.
 
 `hermes-agent` is licensed under the MIT License:
 
@@ -66,15 +65,15 @@ and its [official documentation][hermes-docs], using the
 
 [hermes]: https://github.com/NousResearch/hermes-agent
 [hermes-docs]: https://hermes-agent.nousresearch.com/docs/
-[hermes-release]: https://github.com/NousResearch/hermes-agent/releases/tag/v2026.8.19
+[hermes-release]: https://github.com/NousResearch/hermes-agent/releases/tag/v2026.9.11
 
 ## Trellis
 
 The content in `cheatsheets/trellis/` is an unofficial Simplified Chinese
 cheatsheet derived from the public [mindfold-ai/Trellis][trellis] project,
 its [npm package `@mindfoldhq/trellis`][trellis-npm], and its
-[official documentation][trellis-docs], using the [v0.6.16 release][trellis-npm]
-as a baseline (checked 2026-09-02). It is not an official Mindfold publication.
+[official documentation][trellis-docs], using the [v0.6.17 release][trellis-npm]
+as a baseline (checked 2026-09-14). It is not an official Mindfold publication.
 
 `Trellis` is licensed under the GNU Affero General Public License v3.0
 (AGPL-3.0). The full license text is available in the upstream repository:

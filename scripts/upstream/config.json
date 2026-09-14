@@ -13,9 +13,9 @@
       "pinned": {
         "version": "1.2.3",
         "tag": "v1.2.3",
-        "commit": "5b15a47f2d7150f545fbcacbfe381787fc0230dc",
-        "commitShort": "5b15a47",
-        "checkedAtUtc": "2026-08-21"
+        "commit": "3cca18b368ae95cdbdebbff572ccafa662551015",
+        "commitShort": "3cca18b",
+        "checkedAtUtc": "2026-09-14"
       },
       "versionStrip": {
         "releasePillPrefix": "upstream v",

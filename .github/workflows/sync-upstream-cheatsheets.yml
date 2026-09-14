@@ -1,9 +1,8 @@
 name: Sync upstream cheatsheets
 
 on:
-  schedule:
-    # 08:00 UTC daily
-    - cron: "0 8 * * *"
+  # Schedule disabled: content updates are done by the assistant via LLM rewrite + PR.
+  # Keep manual dispatch for optional mechanical dry-run / pin checks only.
   workflow_dispatch:
     inputs:
       dry_run:

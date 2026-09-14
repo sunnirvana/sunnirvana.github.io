@@ -58,7 +58,7 @@ Measurement ID 本身是公开站点配置，不是密钥。启用后，本站�
 
 ## 上游 CheatSheet 自动同步
 
-站点上的非官方中文速查会**钉住**上游版本（见 `scripts/upstream/config.json`）。每天 08:00 UTC，GitHub Action `Sync upstream cheatsheets` 会对比：
+站点上的非官方中文速查会**钉住**上游版本（见 `scripts/upstream/config.json`）。日常内容更新由助手定期用大模型对照上游重写 HTML 并开 PR。仓库里的 `Sync upstream cheatsheets` Action **已关闭定时**，仅保留手动 `workflow_dispatch` 做机械对比（版本钉 / 摘要），**不作为正文更新来源**。对比上游：
 
 | id | 上游 | 版本来源 |
 | --- | --- | --- |

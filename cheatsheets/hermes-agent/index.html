@@ -741,9 +741,9 @@
         <p class="subtitle">Nous Research 的自改进 agent。先装好、先聊通，再叠 gateway、skills、cron。按场景查命令，复制后贴进终端或会话。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
-            <span class="version-pill">v0.20.5</span>
-            <span class="version-pill">tag v2026.8.19</span>
-            <span class="version-pill">更新于 2026-08-21</span>
+            <span class="version-pill">v0.21.2</span>
+            <span class="version-pill">tag v2026.9.11</span>
+            <span class="version-pill">更新于 2026-09-14</span>
           </div>
           <div class="top-actions">
             <button type="button" data-copy="hermes setup --portal">复制最快安装路径</button>
@@ -1316,8 +1316,31 @@
       </div>
     </section>
 
-    <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.8.19" target="_blank" rel="noreferrer">Hermes Agent v0.20.5 (v2026.8.19)</a> 与 <a href="https://hermes-agent.nousresearch.com/docs/" target="_blank" rel="noreferrer">官方文档</a> 整理，并于 2026-08-21 校对。命令与行为以官方文档为准；内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+    
+    <section id="upstream-changelog" class="upstream-changelog" aria-labelledby="upstream-changelog-title">
+      <h2 id="upstream-changelog-title">上游变更摘要</h2>
+      <p class="upstream-changelog-meta">来源：<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.9.11" target="_blank" rel="noreferrer">Hermes Agent v0.21.2 (v2026.9.11)</a></p>
+      <div class="upstream-changelog-body">
+<p>Hermes Agent v0.21.2 (v2026.9.11) — The state.db Patch Release</p>
+<p>Release Date: September 11, 2026</p>
+<p>Patch release. v0.21.0 shipped a large rewrite of the session store&#39;s connection handling, and for some installs it made state.db fragile: second writers cancelling each other&#39;s locks, healthy databases reported as corrupt, one bad row killing sessions list. This release closes that class and rolls up everything else that landed on main in the four days since v0.21.1.</p>
+<p>About this release</p>
+<p>Measured at commit 04dd80a977f40b05e5b2054111747af07a61886a, the window since v0.21.1 contains 947 non-merge commits across 1,869 changed files (+182,504 / −15,564) and 312 merged PRs. 140 contributors appear in commits, co-author trailers, or salvage credits.</p>
+<p>✨ Highlights</p>
+<p>state.db reliability campaign (six PRs, 44 issues closed)</p>
+<p>If your state.db broke after 0.21.0, this is the release for you. Six PRs fix the root causes rather than the symptoms:</p>
+<p>- No more second writers. Profile gateways wrote hosted-room state into the root state.db every 5 seconds; the dashboard opened a writable handle on startup; cron&#39;s lifecycle guard did a raw open() on a live database (which cancels the gateway&#39;s POSIX locks — the classic &quot;how to corrupt SQLite&quot; recipe); doctor --fix would checkpoint under a live holder. All four are gone: hosted rooms live in shared-state.db, the dashboard opens read-only first, the guard goes through the tracked connection registry, and doctor --fix refuses a checkpoint it can&#39;t prove is safe. (#108076 — salvage #103489 @RikETS, #102682 @JoaoMarcos44, #108012 @Halldrix, #105428 @TaoMasterCoder)</p>
+<p>- Healthy WAL databases stop wedging. OpenZFS (deleted) dentries and a close() racing an append_message both produced a sticky DeletedWalGenerationError on a perfectly good store; the read pool was handed out under an unconfirmed journal mode; a transient disk I/O error on WSL2 killed get_session on the first attempt; and a &quot;state.db locked&quot; banner was broadcast after the lock had already cleared. (#108082 — salvage #107411 @chelsealong, #105578 @ca-shrimp, #105711 @gaoanze888, #106958 @nikkoxgonzales; co-authored @QDung210, @fangliquanflq, @Sahilvishnaliya)</p>
+<p>- FTS damage no longer kills your turn. An error scoped to the full-text-search index was classified as whole-file corruption and fail-closed the conversation. It&#39;s now fts_index: search degrades, the index rebuilds later, the transcript store is untouched. Same PR: doctor names structural damage honestly instead of &quot;FTS write corruption&quot;, the FTS write probe catches the stale-index shape that passed every check while every write failed, .recover output no longer fails startup on orphan FTS5 shadow tables, header-zeroed databases recover instead of being refused, and the dashboard analytics poller returns a 503 instead of 520K tracebacks a day. (#108130 — salvage #97843 @SulthanZahran1 + #97841 @Finn763, #88604 #56824 #103657 @liuhao1024, #106890 @nftpoetrist, #103321 @jangomango76, #91413 @leegunwoo98, #102808 @TaoMasterCoder)</p>
+<p>- One corrupt row no longer kills sessions list, export, or insights. A TEXT timestamp or a 1e30 epoch used to crash the whole listing; malformed marker JSON crashed json_extract; more than 999 ids crashed bulk delete/prune. One coerce_epoch() helper on every reader (bad rows render ? with a WARNING naming the session), a json_valid guard, IN-list chunking, and batched export hydration. (#108086 — salvage #106071 @Xipong, #101726 @efe-arv, #94701 @liuhao1024, #102679 @mssteuer, #100658 @Mi55ed)</p>
+<p>- Sessions never bind to or read another profile&#39;s database. The Desktop launch backend could pin itself to the wrong profile&#39;s state.db under a HERMES_HOME override race; session_search by bare ID silently scanned every profile and returned someone else&#39;s transcript; recovery guidance pointed at the wrong file; profile delete kept a handle open (WinError 32). (#108074 — salvage #102534 @HexLab98, #106975 @Sora-bluesky)</p>
+<p>- Opening state.db no longer takes the write lock…</p>
+      </div>
+      <p class="upstream-changelog-note">命令表仍为人工/静态整理，发布说明仅供对照，合并前请抽查关键路径。</p>
+    </section>
+
+<footer class="page-footer">
+      <p>非官方中文速查，依据 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.9.11" target="_blank" rel="noreferrer">Hermes Agent v0.21.2 (v2026.9.11)</a> 与 <a href="https://hermes-agent.nousresearch.com/docs/" target="_blank" rel="noreferrer">官方文档</a> 整理，并于 2026-09-14 校对。命令与行为以官方文档为准；内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

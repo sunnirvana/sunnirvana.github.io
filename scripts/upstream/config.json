@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "updatedAtUtc": "2026-09-14",
+  "sources": [
+    {
+      "id": "matt-pocock-skills",
+      "displayName": "Matt Pocock Skills",
+      "githubRepo": "mattpocock/skills",
+      "versionStrategy": "github-release",
+      "cheatsheetPath": "cheatsheets/matt-pocock-skills/index.html",
+      "noticeHeading": "## Matt Pocock Skills",
+      "homepageVersionPattern": "基于 v{version}",
+      "pinned": {
+        "version": "1.2.3",
+        "tag": "v1.2.3",
+        "commit": "5b15a47f2d7150f545fbcacbfe381787fc0230dc",
+        "commitShort": "5b15a47",
+        "checkedAtUtc": "2026-08-21"
+      },
+      "versionStrip": {
+        "releasePillPrefix": "upstream v",
+        "commitPillTemplate": "main@{short}"
+      },
+      "defaultBranch": "main"
+    },
+    {
+      "id": "hermes-agent",
+      "displayName": "Hermes Agent",
+      "githubRepo": "NousResearch/hermes-agent",
+      "versionStrategy": "github-release",
+      "cheatsheetPath": "cheatsheets/hermes-agent/index.html",
+      "noticeHeading": "## Hermes Agent",
+      "homepageVersionPattern": null,
+      "pinned": {
+        "version": "0.21.2",
+        "tag": "v2026.9.11",
+        "checkedAtUtc": "2026-09-14"
+      },
+      "versionStrip": {
+        "releasePillPrefix": "v",
+        "tagPillTemplate": "tag {tag}"
+      },
+      "semverFromReleaseTitle": true
+    },
+    {
+      "id": "trellis",
+      "displayName": "Trellis",
+      "githubRepo": "mindfold-ai/Trellis",
+      "versionStrategy": "npm",
+      "npmPackage": "@mindfoldhq/trellis",
+      "cheatsheetPath": "cheatsheets/trellis/index.html",
+      "noticeHeading": "## Trellis",
+      "homepageVersionPattern": "基于 v{version}",
+      "pinned": {
+        "version": "0.6.17",
+        "tag": "v0.6.17",
+        "checkedAtUtc": "2026-09-14"
+      },
+      "versionStrip": {
+        "releasePillPrefix": "v",
+        "secondaryPill": "npm @mindfoldhq/trellis"
+      }
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+name: Sync upstream cheatsheets
+
+on:
+  schedule:
+    # 08:00 UTC daily
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Compare only; do not write files or open a PR"
+        type: boolean
+        default: false
+      force:
+        description: "Treat all configured sources as needing an update (testing)"
+        type: boolean
+        default: false
+      only:
+        description: "Optional comma-separated source ids (e.g. hermes-agent,trellis)"
+        type: string
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-upstream-cheatsheets
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Run upstream sync
+        id: sync
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UPSTREAM_ONLY: ${{ github.event_name == 'workflow_dispatch' && inputs.only || '' }}
+          SYNC_REPORT_PATH: /tmp/upstream-sync-report.json
+          INPUT_DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}
+          INPUT_FORCE: ${{ github.event_name == 'workflow_dispatch' && inputs.force || false }}
+        run: |
+          set -euo pipefail
+          ARGS=()
+          if [ "${INPUT_DRY_RUN}" = "true" ]; then
+            ARGS+=(--dry-run)
+          fi
+          if [ "${INPUT_FORCE}" = "true" ]; then
+            ARGS+=(--force)
+          fi
+          if [ ${#ARGS[@]} -gt 0 ]; then
+            node scripts/upstream/sync.mjs "${ARGS[@]}"
+          else
+            node scripts/upstream/sync.mjs
+          fi
+
+      - name: Write job summary
+        id: report
+        if: always()
+        run: |
+          set -euo pipefail
+          REPORT=/tmp/upstream-sync-report.json
+          if [ ! -f "$REPORT" ]; then
+            echo "No sync report produced." >> "$GITHUB_STEP_SUMMARY"
+            echo "updated=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          {
+            echo "## Upstream cheatsheet sync"
+            echo
+            echo '```json'
+            cat "$REPORT"
+            echo
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          UPDATED=$(node -e 'const r=JSON.parse(require("fs").readFileSync("/tmp/upstream-sync-report.json","utf8")); console.log(r.updated?"true":"false")')
+          echo "updated=${UPDATED}" >> "$GITHUB_OUTPUT"
+
+      - name: Create or update pull request
+        if: ${{ steps.report.outputs.updated == 'true' && !(github.event_name == 'workflow_dispatch' && inputs.dry_run == true) }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          DATE_UTC=$(date -u +%Y%m%d)
+          RUN_ID="${{ github.run_id }}"
+          NEW_BRANCH="chore/sync-upstream-${DATE_UTC}-${RUN_ID}"
+          PREFIX="chore/sync-upstream-"
+
+          PR_TITLE=$(node -e 'console.log(JSON.parse(require("fs").readFileSync("/tmp/upstream-sync-report.json","utf8")).prTitle)')
+          node -e 'const r=JSON.parse(require("fs").readFileSync("/tmp/upstream-sync-report.json","utf8")); require("fs").writeFileSync("/tmp/pr-body.md", r.prBody)'
+
+          # Ephemeral report must not be committed
+          rm -f scripts/upstream/last-sync-report.json
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          DEFAULT_BRANCH="${{ github.event.repository.default_branch }}"
+          DEFAULT_BRANCH="${DEFAULT_BRANCH:-master}"
+
+          # Reuse an open sync PR branch (same prefix) when one exists
+          mapfile -t OPEN_SYNC < <(gh pr list --state open --json number,headRefName --jq ".[] | select(.headRefName|startswith(\"${PREFIX}\")) | [.number,.headRefName] | @tsv" || true)
+          TARGET_BRANCH="${NEW_BRANCH}"
+          EXISTING_NUM=""
+          if [ ${#OPEN_SYNC[@]} -gt 0 ] && [ -n "${OPEN_SYNC[0]}" ]; then
+            EXISTING_NUM=$(printf '%s\n' "${OPEN_SYNC[0]}" | cut -f1)
+            TARGET_BRANCH=$(printf '%s\n' "${OPEN_SYNC[0]}" | cut -f2)
+            echo "Reusing open PR #${EXISTING_NUM} on ${TARGET_BRANCH}"
+          fi
+
+          git checkout -B "${TARGET_BRANCH}"
+
+          git add \
+            scripts/upstream/config.json \
+            index.html \
+            THIRD_PARTY_NOTICES.md \
+            cheatsheets/matt-pocock-skills/index.html \
+            cheatsheets/hermes-agent/index.html \
+            cheatsheets/trellis/index.html
+
+          if git diff --cached --quiet; then
+            echo "::notice::No file changes to commit after sync; skipping PR."
+            exit 0
+          fi
+
+          git commit -m "${PR_TITLE}"
+          git push -u origin "HEAD:${TARGET_BRANCH}"
+
+          if [ -n "${EXISTING_NUM}" ]; then
+            gh pr edit "${EXISTING_NUM}" --title "${PR_TITLE}" --body-file /tmp/pr-body.md
+            echo "::notice::Updated existing PR #${EXISTING_NUM}"
+          else
+            gh pr create \
+              --title "${PR_TITLE}" \
+              --body-file /tmp/pr-body.md \
+              --base "${DEFAULT_BRANCH}" \
+              --head "${TARGET_BRANCH}"
+            echo "::notice::Opened new upstream sync PR on ${TARGET_BRANCH}"
+          fi

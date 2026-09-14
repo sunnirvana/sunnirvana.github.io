@@ -762,7 +762,7 @@
     <div class="toolbar">
       <label class="search-wrap">
         <span>⌕</span>
-        <input id="search" type="search" placeholder="搜索：init、continue、finish-work、spec、task、upgrade、ablate、brainstorm">
+        <input id="search" type="search" placeholder="搜索：init、continue、finish-work、mem、rename、devin、spec、task、ablate">
       </label>
       <span class="hint">复制按钮会复制可直接贴进终端或 Agent 会话的命令</span>
     </div>
@@ -770,10 +770,10 @@
     <section>
       <div class="section-head">
         <h2>最短记忆</h2>
-        <p>Node.js ≥ 18，Python ≥ 3.9。先装 CLI，再在仓库里 init。</p>
+        <p>Node.js ≥ 18，Python ≥ 3.9。先装 CLI，再在仓库里 init；0.6.17 升 CLI 后跑 <code>trellis update</code> 即可，无需 <code>--migrate</code>。</p>
       </div>
       <div class="workflow">
-        <article class="step searchable" data-step="01" data-keywords="安装 install npm node python">
+        <article class="step searchable" data-step="01" data-keywords="安装 install npm node python upgrade">
           <div>
             <h3>先装 CLI</h3>
             <p>全局安装最新版。旧 CLI 也可用 <code>trellis upgrade</code>。</p>
@@ -822,7 +822,7 @@
     <section>
       <div class="section-head">
         <h2>按场景查</h2>
-        <p>先找当前要做的事，再复制对应命令。</p>
+        <p>先找当前要做的事，再复制对应命令。v0.6.16–0.6.17 新增消融、mem、rename、上下文门禁等已并入。</p>
       </div>
       <div class="cards">
         <article class="card strong accent-green searchable" data-keywords="init 首次 bootstrap 新项目">
@@ -861,10 +861,10 @@
           </div>
         </article>
 
-        <article class="card strong accent-red searchable" data-keywords="upgrade update 升级 migrate">
+        <article class="card strong accent-red searchable" data-keywords="upgrade update 升级 migrate 0.6.17">
           <div>
             <h3>升级 CLI 和项目模板</h3>
-            <p>两步：先升全局 CLI，再在项目里 sync。出现 <code>MIGRATION REQUIRED</code> 时加 <code>--migrate</code>。</p>
+            <p>两步：先升全局 CLI，再在项目里 sync。0.6.17 无 breaking，一般不用 <code>--migrate</code>；出现 <code>MIGRATION REQUIRED</code> 时再加。</p>
             <div class="tag-row"><span class="tag">upgrade</span><span class="tag">update</span></div>
           </div>
           <div class="cmd">
@@ -897,7 +897,43 @@
           </div>
         </article>
 
-        <article class="card accent-amber searchable" data-keywords="template 模板 marketplace registry spec">
+        <article class="card accent-amber searchable" data-keywords="mem search recall 记忆 会话 devin opencode">
+          <div>
+            <h3>跨会话找回以前聊过什么</h3>
+            <p><code>trellis mem</code> 只读本地平台会话库。0.6.17 起支持 Cognition Devin CLI（<code>--platform devin</code>），别和 <code>init --devin</code>（Desktop）搞混。</p>
+            <div class="tag-row"><span class="tag">mem</span><span class="tag">devin</span></div>
+          </div>
+          <div class="cmd">
+            <code>trellis mem search "deadlock" --global --limit 20</code>
+            <button class="copy" type="button" data-copy="trellis mem search &quot;deadlock&quot; --global --limit 20">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-red searchable" data-keywords="rename 重命名 slug task">
+          <div>
+            <h3>改任务 slug / 目录名</h3>
+            <p>0.6.16+：<code>task.py rename</code> 会改目录、改写 <code>task.json</code> 身份与父子引用、以及 jsonl。先 <code>--dry-run</code>。</p>
+            <div class="tag-row"><span class="tag">rename</span><span class="tag">task</span></div>
+          </div>
+          <div class="cmd">
+            <code>./.trellis/scripts/task.py rename add-login add-sso --dry-run</code>
+            <button class="copy" type="button" data-copy="./.trellis/scripts/task.py rename add-login add-sso --dry-run">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-green searchable" data-keywords="allow-empty-context validate jsonl 门禁 start 上下文">
+          <div>
+            <h3>start 被空 jsonl 拦住</h3>
+            <p>子代理平台上，空的 <code>implement.jsonl</code>/<code>check.jsonl</code> 会让 <code>validate</code>/<code>start</code> 失败。先 <code>add-context</code> 策展；刻意空跑才加 <code>--allow-empty-context</code>。</p>
+            <div class="tag-row"><span class="tag">validate</span><span class="tag">start</span></div>
+          </div>
+          <div class="cmd">
+            <code>./.trellis/scripts/task.py start "$DIR" --allow-empty-context</code>
+            <button class="copy" type="button" data-copy="./.trellis/scripts/task.py start &quot;$DIR&quot; --allow-empty-context">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-blue searchable" data-keywords="template 模板 marketplace registry spec">
           <div>
             <h3>用 Spec 模板起步</h3>
             <p>官方 marketplace 或自定义 registry。已有 Spec 时用 <code>--overwrite</code> / <code>--append</code>。</p>
@@ -909,7 +945,7 @@
           </div>
         </article>
 
-        <article class="card accent-red searchable" data-keywords="ablate restore 对比 临时关闭">
+        <article class="card accent-amber searchable" data-keywords="ablate restore 对比 临时关闭">
           <div>
             <h3>临时对比有无 Trellis</h3>
             <p>消融会备份后移除项目级表面；对比完 <code>restore</code>。不同于永久 <code>uninstall</code>。</p>
@@ -921,11 +957,11 @@
           </div>
         </article>
 
-        <article class="card accent-green searchable" data-keywords="task.py create 任务 list">
+        <article class="card accent-red searchable" data-keywords="task.py create 任务 list description">
           <div>
             <h3>手动创建 / 查看任务</h3>
-            <p>通常 AI 会调 <code>task.py</code>。需要手操时直接跑脚本。</p>
-            <div class="tag-row"><span class="tag">task</span></div>
+            <p>通常 AI 会调 <code>task.py</code>。手操时 <code>create</code> 需要非空 <code>--description</code>（归档也会拒绝空描述）。</p>
+            <div class="tag-row"><span class="tag">task</span><span class="tag">create</span></div>
           </div>
           <div class="cmd">
             <code>./.trellis/scripts/task.py list --mine</code>
@@ -933,7 +969,7 @@
           </div>
         </article>
 
-        <article class="card accent-blue searchable" data-keywords="hooks TRELLIS_HOOKS 关闭 hook">
+        <article class="card accent-green searchable" data-keywords="hooks TRELLIS_HOOKS 关闭 hook">
           <div>
             <h3>只关 hooks，不卸 Trellis</h3>
             <p>临时禁用会话注入 hooks。消融 / 卸载是更重的操作。</p>
@@ -945,7 +981,7 @@
           </div>
         </article>
 
-        <article class="card accent-amber searchable" data-keywords="codex hooks config.toml AGENTS">
+        <article class="card accent-blue searchable" data-keywords="codex hooks config.toml AGENTS">
           <div>
             <h3>Codex 要先开 hooks</h3>
             <p>否则 <code>/</code> 菜单看不到 Trellis 命令。开完再跑一次 <code>/hooks</code> 批准。</p>
@@ -957,11 +993,11 @@
           </div>
         </article>
 
-        <article class="card accent-green searchable" data-keywords="get_context 上下文 context">
+        <article class="card accent-amber searchable" data-keywords="get_context 上下文 context session 绑定">
           <div>
             <h3>看当前上下文快照</h3>
-            <p>身份、git 状态、活跃任务、Spec 索引。收尾模式用 <code>--mode record</code>。</p>
-            <div class="tag-row"><span class="tag">context</span></div>
+            <p>身份、git 状态、活跃任务、Spec 索引。收尾模式用 <code>--mode record</code>。0.6.17：缺 session id 时不再自动绑到「项目里唯一会话」的任务。</p>
+            <div class="tag-row"><span class="tag">context</span><span class="tag">session</span></div>
           </div>
           <div class="cmd">
             <code>./.trellis/scripts/get_context.py</code>
@@ -993,9 +1029,9 @@
           </div>
         </article>
 
-        <article class="recipe searchable" data-keywords="升级 upgrade update migrate">
+        <article class="recipe searchable" data-keywords="升级 upgrade update migrate 0.6.17">
           <h3>跟上新版本</h3>
-          <p>CLI 与项目模板版本分开。有 breaking 变更再 <code>--migrate</code>。</p>
+          <p>CLI 与项目模板版本分开。0.6.17 无文件迁移；有 breaking 变更再 <code>--migrate</code>。</p>
           <div class="flow-line">
             <span>trellis upgrade</span><b>→</b><span>trellis update</span><b>→</b><span>必要时 --migrate</span>
           </div>
@@ -1006,6 +1042,14 @@
           <p>多数由 auto-trigger skill / sub-agent 自动跑，用户侧靠 continue 推进。</p>
           <div class="flow-line">
             <span>brainstorm</span><b>→</b><span>implement</span><b>→</b><span>check</span><b>→</b><span>update-spec</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="mem recall 找回 会话">
+          <h3>从旧会话捞上下文</h3>
+          <p>先 <code>projects</code>/<code>search</code> 定位，再用 <code>context</code>/<code>extract</code> 抽对话。Devin CLI 加 <code>--platform devin</code>。</p>
+          <div class="flow-line">
+            <span>mem projects</span><b>→</b><span>mem search</span><b>→</b><span>mem context / extract</span>
           </div>
         </article>
 
@@ -1022,6 +1066,14 @@
           <p><code>.trellis/</code> 核心共享；各平台只差 commands / skills / hooks 目录。</p>
           <div class="flow-line">
             <span>trellis init --claude</span><b>→</b><span>trellis init --cursor --codex</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="jsonl add-context start 子代理">
+          <h3>子代理任务：策展后再 start</h3>
+          <p>create 会 seed 空 jsonl；策展 Spec/research 进 manifest，validate 通过后再 start。</p>
+          <div class="flow-line">
+            <span>create</span><b>→</b><span>add-context</span><b>→</b><span>validate</span><b>→</b><span>start</span>
           </div>
         </article>
       </div>
@@ -1047,7 +1099,7 @@
             <td>项目编码规范与可执行契约。会话里按任务注入相关层。</td>
             <td>你 + <code>trellis-update-spec</code>。建议版本化进 git。</td>
           </tr>
-          <tr class="searchable" data-keywords="tasks prd 任务">
+          <tr class="searchable" data-keywords="tasks prd 任务 jsonl">
             <td>.trellis/tasks/</td>
             <td>任务单元：<code>task.json</code>、<code>prd.md</code>、可选 design/implement、jsonl、research。</td>
             <td>AI 经 <code>task.py</code> 创建；完成后进 <code>archive/</code>。</td>
@@ -1064,7 +1116,7 @@
           </tr>
           <tr class="searchable" data-keywords="config.yaml hooks packages">
             <td>.trellis/config.yaml</td>
-            <td>packages、update.skip、任务生命周期 hooks。</td>
+            <td>packages、update.skip、任务生命周期 hooks、OMP <code>prompt_injection.skip_keyword</code> 等。</td>
             <td>你。hooks 默认注释掉。</td>
           </tr>
           <tr class="searchable" data-keywords="developer 身份">
@@ -1072,10 +1124,15 @@
             <td>本机开发者身份。gitignored，不进仓库。</td>
             <td><code>trellis init -u</code> 写入。新人 clone 后没有它。</td>
           </tr>
-          <tr class="searchable" data-keywords="runtime session 当前任务">
+          <tr class="searchable" data-keywords="runtime session 当前任务 绑定">
             <td>.trellis/.runtime/sessions/</td>
-            <td>每个 AI 会话/窗口的当前任务指针。</td>
+            <td>每个 AI 会话/窗口的当前任务指针。缺 session id 时不再单会话 fallback 误绑（0.6.17）。</td>
             <td><code>task.py start/finish</code>；gitignored。</td>
+          </tr>
+          <tr class="searchable" data-keywords="mem sessions.db 平台会话">
+            <td>~/.claude · ~/.codex · ~/.local/share/devin/cli · …</td>
+            <td>各平台本机会话存储。<code>trellis mem</code> 只读索引，不写回。</td>
+            <td>平台 CLI；Trellis 不拥有这些文件。</td>
           </tr>
           <tr class="searchable" data-keywords="claude commands skills agents">
             <td>.claude/ · .cursor/ · …</td>
@@ -1115,12 +1172,17 @@
           <tr class="searchable" data-keywords="update 同步 migrate">
             <td>trellis update</td>
             <td>把项目模板同步到本地 CLI 版本。</td>
-            <td>breaking 时加 <code>--migrate</code>。</td>
+            <td>breaking 时加 <code>--migrate</code>；0.6.17 不需要。</td>
+          </tr>
+          <tr class="searchable" data-keywords="mem search list extract context projects devin">
+            <td>trellis mem …</td>
+            <td>跨平台检索本机 AI 会话（list / search / context / extract / projects）。</td>
+            <td><code>--platform claude|codex|devin|grok|opencode|pi|zcode|all</code>。devin = Cognition CLI，不是 Desktop。</td>
           </tr>
           <tr class="searchable" data-keywords="ablate 消融">
             <td>trellis ablate</td>
             <td>临时移除项目级 Trellis 表面做对照。</td>
-            <td>先在项目外做恢复事务。</td>
+            <td>先在项目外做恢复事务；建议 <code>--dry-run</code>。</td>
           </tr>
           <tr class="searchable" data-keywords="restore 恢复">
             <td>trellis restore</td>
@@ -1197,6 +1259,11 @@
             <td>Skill</td>
             <td>修完难 bug 后做 5 维根因与预防分析。</td>
           </tr>
+          <tr class="searchable" data-keywords="session-insight mem">
+            <td>trellis-session-insight</td>
+            <td>Skill</td>
+            <td>需要回忆旧会话时驱动 <code>trellis mem</code>（含 <code>--platform devin</code> 说明）。</td>
+          </tr>
           <tr class="searchable" data-keywords="implement 实现 sub-agent">
             <td>trellis-implement</td>
             <td>Sub-agent</td>
@@ -1215,7 +1282,7 @@
     <section>
       <div class="section-head">
         <h2>task.py 速查</h2>
-        <p>脚本在 <code>.trellis/scripts/task.py</code>。日常多由 AI 调用；下面是手操索引。</p>
+        <p>脚本在 <code>.trellis/scripts/task.py</code>。日常多由 AI 调用；下面是手操索引（含 0.6.16+ rename / 门禁）。</p>
       </div>
       <div class="table-wrap" tabindex="0" aria-label="task.py 子命令索引，可横向滚动">
       <table class="reference-table">
@@ -1227,29 +1294,34 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="searchable" data-keywords="create 创建任务">
+          <tr class="searchable" data-keywords="create 创建任务 description">
             <td>create</td>
-            <td>新建任务目录 + 默认 prd.md。</td>
-            <td>task.py create "新增登录" --slug user-login -p P1</td>
+            <td>新建任务目录 + 默认 prd.md。需要非空 <code>--description</code>；子代理平台 seed 空 jsonl。</td>
+            <td>task.py create "新增登录" --description "邮箱密码" --slug user-login -p P1</td>
           </tr>
           <tr class="searchable" data-keywords="add-context jsonl">
             <td>add-context</td>
-            <td>往 implement/check jsonl 加 Spec 或 research 路径。</td>
+            <td>往 implement/check jsonl 加 Spec 或 research 路径（策展主路径）。</td>
             <td>task.py add-context "$DIR" implement ".trellis/spec/…" "原因"</td>
           </tr>
-          <tr class="searchable" data-keywords="validate list-context">
+          <tr class="searchable" data-keywords="validate list-context 空 jsonl">
             <td>validate / list-context</td>
-            <td>校验 jsonl 引用存在；查看全部条目。</td>
+            <td>校验 jsonl 引用存在；已 seed 但 0 条策展条目会失败。</td>
             <td>task.py validate "$DIR"</td>
           </tr>
-          <tr class="searchable" data-keywords="start finish 当前任务">
-            <td>start / finish</td>
-            <td>设置或清除本 AI 会话的当前任务。</td>
+          <tr class="searchable" data-keywords="start finish current 当前任务 allow-empty">
+            <td>start / current / finish</td>
+            <td>设置、查看或清除本 AI 会话的当前任务。空 jsonl 需 <code>--allow-empty-context</code>。</td>
             <td>task.py start "$DIR"</td>
           </tr>
-          <tr class="searchable" data-keywords="set-branch set-scope base">
-            <td>set-branch / set-scope</td>
-            <td>写分支名、PR 目标、commit scope。</td>
+          <tr class="searchable" data-keywords="rename 重命名 dry-run">
+            <td>rename</td>
+            <td>改 slug/目录，并重写身份、父子引用与 jsonl。</td>
+            <td>task.py rename add-login add-sso --dry-run</td>
+          </tr>
+          <tr class="searchable" data-keywords="set-branch set-scope set-meta base">
+            <td>set-branch / set-scope / set-meta</td>
+            <td>写分支名、PR 目标、commit scope、任意 metadata。</td>
             <td>task.py set-scope "$DIR" "auth"</td>
           </tr>
           <tr class="searchable" data-keywords="subtask parent children">
@@ -1257,10 +1329,60 @@
             <td>链接或解除父子任务。子任务是独立目录。</td>
             <td>task.py add-subtask parent-dir child-dir</td>
           </tr>
-          <tr class="searchable" data-keywords="list archive">
+          <tr class="searchable" data-keywords="list archive 分支校验">
             <td>list / archive / list-archive</td>
-            <td>列活跃任务、归档、按月看归档。</td>
+            <td>列活跃任务、归档、按月看归档。archive 会校验分支元数据；中断时会恢复子任务 parent 链接（0.6.17）。</td>
             <td>task.py list --mine --status review</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>trellis mem 速查</h2>
+        <p>只读本机会话。权威 flag 以 <code>trellis mem help</code> 为准。</p>
+      </div>
+      <div class="table-wrap" tabindex="0" aria-label="trellis mem 子命令，可横向滚动">
+      <table class="reference-table">
+        <thead>
+          <tr>
+            <th>子命令</th>
+            <th>什么时候用</th>
+            <th>示例</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="searchable" data-keywords="mem list 列表">
+            <td>list</td>
+            <td>按时间列会话。无子命令时的默认行为。</td>
+            <td>trellis mem list --limit 20</td>
+          </tr>
+          <tr class="searchable" data-keywords="mem search 搜索">
+            <td>search</td>
+            <td>关键词检索清洗后的对话（多 token 为 AND）。</td>
+            <td>trellis mem search "lock" --global</td>
+          </tr>
+          <tr class="searchable" data-keywords="mem context 上下文">
+            <td>context</td>
+            <td>钻进单会话：命中 turn + 前后文，可限字符预算。</td>
+            <td>trellis mem context &lt;id&gt; --grep "auth" --turns 5</td>
+          </tr>
+          <tr class="searchable" data-keywords="mem extract brainstorm">
+            <td>extract</td>
+            <td>导出清洗对话；可按 <code>--phase brainstorm|implement|all</code> 切片。</td>
+            <td>trellis mem extract &lt;id&gt; --phase brainstorm</td>
+          </tr>
+          <tr class="searchable" data-keywords="mem projects cwd">
+            <td>projects</td>
+            <td>列出本机各项目 cwd 与会话数，便于再传 <code>--cwd</code>。</td>
+            <td>trellis mem projects</td>
+          </tr>
+          <tr class="searchable" data-keywords="mem platform devin opencode">
+            <td>--platform</td>
+            <td>过滤平台。0.6.17：<code>devin</code> = <code>~/.local/share/devin/cli/sessions.db</code>。</td>
+            <td>trellis mem list --platform devin</td>
           </tr>
         </tbody>
       </table>
@@ -1302,10 +1424,20 @@
             <td>/continue.md</td>
             <td>/finish-work.md</td>
           </tr>
+          <tr class="searchable" data-keywords="antigravity devin desktop">
+            <td>Antigravity / Devin Desktop</td>
+            <td>workflow picker → continue</td>
+            <td>workflow picker → finish-work</td>
+          </tr>
           <tr class="searchable" data-keywords="copilot">
             <td>GitHub Copilot</td>
             <td>Run Prompt → trellis-continue</td>
             <td>Run Prompt → trellis-finish-work</td>
+          </tr>
+          <tr class="searchable" data-keywords="codex">
+            <td>Codex</td>
+            <td>skill / prompt（需 features.hooks）</td>
+            <td>skill / prompt</td>
           </tr>
         </tbody>
       </table>
@@ -1315,22 +1447,12 @@
     <section>
       <div class="note-box">
         <strong>使用习惯</strong>
-        <p>先跑通 bootstrap 把 Spec 从空模板填成真实约定，再开业务任务。日常几乎只要自然语言 + <code>continue</code>；阶段 slash（如 before-backend-dev）在 0.5 已移除。升级永远是 <code>upgrade</code>（CLI）再 <code>update</code>（项目）。对照实验用 <code>ablate</code>/<code>restore</code>，不要和 <code>uninstall</code> 搞混。</p>
+        <p>先跑通 bootstrap 把 Spec 从空模板填成真实约定，再开业务任务。日常几乎只要自然语言 + <code>continue</code>；阶段 slash（如 before-backend-dev）在 0.5 已移除。升级永远是 <code>upgrade</code>（CLI）再 <code>update</code>（项目）——0.6.17 无需 <code>--migrate</code>。子代理任务务必策展 jsonl 再 <code>start</code>。对照实验用 <code>ablate</code>/<code>restore</code>，不要和 <code>uninstall</code> 搞混。<code>mem --platform devin</code> 读的是 Devin CLI 会话库，不是 <code>init --devin</code>。</p>
       </div>
     </section>
 
-    
-    <section id="upstream-changelog" class="upstream-changelog" aria-labelledby="upstream-changelog-title">
-      <h2 id="upstream-changelog-title">上游变更摘要</h2>
-      <p class="upstream-changelog-meta">来源：<a href="https://github.com/mindfold-ai/Trellis/releases/tag/v0.6.17" target="_blank" rel="noreferrer">v0.6.17</a></p>
-      <div class="upstream-changelog-body">
-<p>0.6.17</p>
-      </div>
-      <p class="upstream-changelog-note">命令表仍为人工/静态整理，发布说明仅供对照，合并前请抽查关键路径。</p>
-    </section>
-
-<footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://www.npmjs.com/package/@mindfoldhq/trellis" target="_blank" rel="noreferrer">@mindfoldhq/trellis v0.6.17</a>、<a href="https://github.com/mindfold-ai/Trellis" target="_blank" rel="noreferrer">mindfold-ai/Trellis</a> 与 <a href="https://docs.trytrellis.app/" target="_blank" rel="noreferrer">官方文档</a> 整理，并于 2026-09-14 校对。命令与行为以官方文档为准；内容为静态快照，更新时会在源项目校对后手动同步。上游项目采用 AGPL-3.0。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+    <footer class="page-footer">
+      <p>非官方中文速查，依据 <a href="https://www.npmjs.com/package/@mindfoldhq/trellis" target="_blank" rel="noreferrer">@mindfoldhq/trellis v0.6.17</a>、<a href="https://github.com/mindfold-ai/Trellis" target="_blank" rel="noreferrer">mindfold-ai/Trellis</a> 与 <a href="https://docs.trytrellis.app/" target="_blank" rel="noreferrer">官方文档</a>（含 <a href="https://docs.trytrellis.app/changelog/v0.6.17" target="_blank" rel="noreferrer">v0.6.17 changelog</a>）整理，并于 2026-09-14 校对。命令与行为以官方文档为准；内容为静态快照，更新时会在源项目校对后手动同步。上游项目采用 AGPL-3.0。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

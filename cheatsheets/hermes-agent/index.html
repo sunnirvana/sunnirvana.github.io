@@ -739,12 +739,12 @@
           <span class="kicker">Hermes Agent Cheatsheet</span>
           <h1>Hermes Agent</h1>
         </div>
-        <p class="subtitle">Nous Research 的自改进 agent。先装好、先聊通，再叠 gateway、Bot Mode、skills、cron。按场景查命令；会话库（state.db）坏了先 doctor / recover，不要硬叠功能。</p>
+        <p class="subtitle">Nous Research 的自改进 agent。先装好、先聊通，再叠 gateway、Bot Mode、skills、cron。v0.21.3 重点修了 Desktop/Cloud 刷新会话与长驻进程的 state.db 写柄泄漏；会话库异常仍先 doctor / recover。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
-            <span class="version-pill">v0.21.2</span>
-            <span class="version-pill">tag v2026.9.11</span>
-            <span class="version-pill">更新于 2026-09-14</span>
+            <span class="version-pill">v0.21.3</span>
+            <span class="version-pill">tag v2026.9.14</span>
+            <span class="version-pill">更新于 2026-09-15</span>
           </div>
           <div class="top-actions">
             <button type="button" data-copy="hermes setup --portal">复制最快安装路径</button>
@@ -756,14 +756,14 @@
       <aside class="command-primer">
         <p class="primer-label">只想记一个命令</p>
         <code class="primer-command">hermes setup --portal</code>
-        <p class="primer-note">一次 OAuth 覆盖模型与 Tool Gateway。聊通之前不要叠 gateway / cron / MCP；state.db 异常先跑 doctor。</p>
+        <p class="primer-note">一次 OAuth 覆盖模型与 Tool Gateway。聊通之前不要叠 gateway / cron / MCP。Desktop 远程看板醒来连刷不再误踢会话；state.db 异常先跑 doctor。</p>
       </aside>
     </header>
 
     <div class="toolbar">
       <label class="search-wrap">
         <span>⌕</span>
-        <input id="search" type="search" placeholder="搜索：安装、model、gateway、state.db、recover、peer、plugins、memory、cron、doctor、SOUL">
+        <input id="search" type="search" placeholder="搜索：安装、model、gateway、state.db、recover、Desktop、MCP、peer、plugins、memory、cron、doctor、SOUL、reasoning">
       </label>
       <span class="hint">复制按钮会复制可直接贴进终端或 Hermes 会话的命令</span>
     </div>
@@ -771,13 +771,13 @@
     <section>
       <div class="section-head">
         <h2>最短记忆</h2>
-        <p>Windows / macOS 优先 Desktop；命令行装完再 setup。会话存在 <code>~/.hermes/state.db</code>。</p>
+        <p>Windows / macOS 优先 Desktop；命令行装完再 setup。会话存在 <code>~/.hermes/state.db</code>。0.21.3 起读写柄按进程内注册表共享，健康拓扑不应再刷「N live SessionDB handles」。</p>
       </div>
       <div class="workflow">
         <article class="step searchable" data-step="01" data-keywords="安装 install windows macos linux wsl powershell curl desktop">
           <div>
             <h3>先装上</h3>
-            <p>Desktop 安装器同时给 CLI 和桌面端。纯命令行：Linux/macOS/WSL 用 install.sh，Windows 原生用 install.ps1。</p>
+            <p>Desktop 安装器同时给 CLI 和桌面端。纯命令行：Linux/macOS/WSL 用 install.sh，Windows 原生用 install.ps1（可捆绑 MinGit）。</p>
           </div>
           <div class="cmd">
             <code>iex (irm https://hermes-agent.nousresearch.com/install.ps1)</code>
@@ -785,10 +785,10 @@
           </div>
         </article>
 
-        <article class="step searchable" data-step="02" data-keywords="setup portal nous oauth 模型 provider login">
+        <article class="step searchable" data-step="02" data-keywords="setup portal nous oauth 模型 provider login openrouter pkce">
           <div>
             <h3>一次配好模型和工具</h3>
-            <p>推荐 Nous Portal。会话里也可用 <code>/login</code> 补登。自带密钥用 <code>hermes setup</code> / <code>hermes model</code> / <code>hermes auth</code>。</p>
+            <p>推荐 Nous Portal。OpenRouter 可用 <code>hermes auth add openrouter --type oauth</code>（PKCE 代发密钥）。会话里也可用 <code>/login</code> 补登。</p>
           </div>
           <div class="cmd">
             <code>hermes setup --portal</code>
@@ -796,10 +796,10 @@
           </div>
         </article>
 
-        <article class="step searchable" data-step="03" data-keywords="聊天 tui cli 第一次 conversation">
+        <article class="step searchable" data-step="03" data-keywords="聊天 tui cli 第一次 conversation reasoning effort">
           <div>
             <h3>先聊通一轮</h3>
-            <p>经典 CLI 用 <code>hermes</code>，推荐 TUI 用 <code>hermes --tui</code>。模型至少 64K 上下文。Ctrl+P 打开命令面板。</p>
+            <p>经典 CLI 用 <code>hermes</code>，推荐 TUI 用 <code>hermes --tui</code>。模型至少 64K 上下文。每个模型 picker 都可设 reasoning effort（minimal…ultra / Disable / Skip）。</p>
           </div>
           <div class="cmd">
             <code>hermes --tui</code>
@@ -807,10 +807,10 @@
           </div>
         </article>
 
-        <article class="step searchable" data-step="04" data-keywords="doctor 排障 出问题 验证 state.db recover">
+        <article class="step searchable" data-step="04" data-keywords="doctor 排障 出问题 验证 state.db recover writer handle">
           <div>
             <h3>坏了先诊断</h3>
-            <p>顺序：<code>hermes doctor</code> →（会话库问题）<code>hermes sessions recover --inspect-only</code> → <code>hermes model</code>。gateway 在跑时不要 <code>doctor --fix</code>。</p>
+            <p>顺序：<code>hermes doctor</code> →（会话库）<code>hermes sessions recover --inspect-only</code> → <code>hermes model</code>。gateway 在跑时不要 <code>doctor --fix</code>；跨 VM 文件系统上 WAL 会被拒绝。</p>
           </div>
           <div class="cmd">
             <code>hermes doctor</code>
@@ -823,13 +823,13 @@
     <section>
       <div class="section-head">
         <h2>按场景查</h2>
-        <p>先找当前要做的事，再复制对应命令。</p>
+        <p>先找当前要做的事，再复制对应命令。0.21.3 是 patch rollup；完整功能笔记留给 v0.22.0，下面只收操作者会摸到的增量。</p>
       </div>
       <div class="cards">
         <article class="card strong accent-green searchable" data-keywords="linux macos wsl termux install.sh 安装">
           <div>
             <h3>在 Linux / macOS / WSL 安装</h3>
-            <p>官方一键脚本。装完 <code>source ~/.bashrc</code> 或对应 shell rc。已有安装用 <code>hermes update</code>。</p>
+            <p>官方一键脚本。装完 <code>source ~/.bashrc</code> 或对应 shell rc。已有安装用 <code>hermes update</code>；Docker 镜像跟 tag <code>v2026.9.14</code>。</p>
             <div class="tag-row"><span class="tag">install</span><span class="tag">unix</span></div>
           </div>
           <div class="cmd">
@@ -838,11 +838,11 @@
           </div>
         </article>
 
-        <article class="card strong accent-blue searchable" data-keywords="model 换模型 provider oauth api key auth">
+        <article class="card strong accent-blue searchable" data-keywords="model 换模型 provider oauth api key auth reasoning effort openrouter pkce">
           <div>
             <h3>换模型或加 provider</h3>
-            <p>终端跑 <code>hermes model</code> / <code>hermes auth</code> 才能加 provider 或 OAuth。会话里 <code>/model</code> 只切已配置模型（模糊搜索）。</p>
-            <div class="tag-row"><span class="tag">model</span><span class="tag">provider</span></div>
+            <p>终端跑 <code>hermes model</code> / <code>hermes auth</code> 才能加 provider。保存模型后会跟一步 reasoning effort。OpenRouter：<code>hermes auth add openrouter --type oauth</code>。会话里 <code>/model</code> 只切已配置模型。</p>
+            <div class="tag-row"><span class="tag">model</span><span class="tag">reasoning</span></div>
           </div>
           <div class="cmd">
             <code>hermes model</code>
@@ -853,7 +853,7 @@
         <article class="card strong accent-amber searchable" data-keywords="gateway telegram discord slack whatsapp signal bot 消息">
           <div>
             <h3>接到 Telegram / Discord / Slack</h3>
-            <p>先保证 CLI 能聊。WSL / Docker / Termux 用 <code>hermes gateway run</code>，不要用 <code>start</code>。也支持 Signal、WhatsApp 等。</p>
+            <p>先保证 CLI 能聊。WSL / Docker / Termux 用 <code>hermes gateway run</code>，不要用 <code>start</code>。也支持 Signal、WhatsApp 等；Slack 可贴表格。</p>
             <div class="tag-row"><span class="tag">gateway</span><span class="tag">messaging</span></div>
           </div>
           <div class="cmd">
@@ -862,10 +862,22 @@
           </div>
         </article>
 
-        <article class="card strong accent-red searchable" data-keywords="state.db recover doctor 会话库 损坏 corrupt FTS shared-state WAL">
+        <article class="card strong accent-red searchable" data-keywords="desktop cloud dashboard refresh token coalesce 会话过期 wake 远程看板">
+          <div>
+            <h3>Desktop / Cloud 看板刷新后掉线</h3>
+            <p>v0.21.3：gateway 的 cookie / bearer 刷新路径会合并同一 rotating refresh token 的并发请求，Desktop 醒来连刷不再把已旋转 token 打进 Portal 复用检测从而整段踢下线。慢 IDP 也不再卡死 <code>/api/status</code>。</p>
+            <div class="tag-row"><span class="tag">desktop</span><span class="tag">refresh</span></div>
+          </div>
+          <div class="cmd">
+            <code>hermes update</code>
+            <button class="copy" type="button" data-copy="hermes update">复制</button>
+          </div>
+        </article>
+
+        <article class="card strong accent-red searchable" data-keywords="state.db recover doctor 会话库 损坏 corrupt FTS shared-state WAL writer handle registry cross-VM">
           <div>
             <h3>state.db 报错 / 会话列表挂了</h3>
-            <p>v0.21.x 重写了会话库连接。先停 gateway，再 doctor；结构损坏用 recover（不改源库），FTS 损坏通常可降级搜索。托管房间写在 <code>shared-state.db</code>，不抢根库锁。</p>
+            <p>先停 gateway，再 doctor；结构损坏用 recover（不改源库）。0.21.3：gateway / dashboard / ACP / CLI 读者只读挂载，进程内写者共享注册表句柄，健康拓扑不应再漏出重复 writer。跨 VM 文件系统会拒绝 WAL。</p>
             <div class="tag-row"><span class="tag">state.db</span><span class="tag">recover</span></div>
           </div>
           <div class="cmd">
@@ -886,11 +898,11 @@
           </div>
         </article>
 
-        <article class="card accent-blue searchable" data-keywords="bot mode peer 多 agent 群聊 desktop 机器人">
+        <article class="card accent-blue searchable" data-keywords="bot mode peer 多 agent 群聊 desktop 机器人 multiplex profile">
           <div>
             <h3>Bot Mode / 让 bot 互聊</h3>
-            <p>Desktop 内置 Bot Mode：多 profile 有名字与头像，可建群聊。跨机 bot DM 用 <code>hermes peer</code>；本机也可用 <code>hermes -p name</code>。</p>
-            <div class="tag-row"><span class="tag">bot-mode</span><span class="tag">peer</span></div>
+            <p>Desktop 内置 Bot Mode：多 profile 有名字与头像，可建群聊。跨机 bot DM 用 <code>hermes peer</code>。multiplex 下凭证、白名单、cwd、cron、MCP 按 profile 隔离；served profile 都会进网关。</p>
+            <div class="tag-row"><span class="tag">bot-mode</span><span class="tag">multiplex</span></div>
           </div>
           <div class="cmd">
             <code>hermes peer list</code>
@@ -898,11 +910,11 @@
           </div>
         </article>
 
-        <article class="card accent-amber searchable" data-keywords="skills browse install hub 技能 plugins 插件 catalog">
+        <article class="card accent-amber searchable" data-keywords="skills browse install hub 技能 plugins 插件 catalog mcp oauth issuer reauth">
           <div>
-            <h3>装 skill 或 plugin</h3>
-            <p>已安装 skill 会变成 <code>/skill-name</code>。插件走 <code>hermes plugins</code>（目录 SHA 钉扎）；Hub / catalog 安装会先扫安全。</p>
-            <div class="tag-row"><span class="tag">skills</span><span class="tag">plugins</span></div>
+            <h3>装 skill / plugin / MCP</h3>
+            <p>已安装 skill 会变成 <code>/skill-name</code>。插件走 <code>hermes plugins</code>（目录 SHA 钉扎）。MCP OAuth refresh token 绑定签发 issuer，issuer 变更会丢弃旧 refresh；Desktop 有每日 MCP 重授权提醒，过期用 <code>hermes mcp login &lt;server&gt;</code>。</p>
+            <div class="tag-row"><span class="tag">skills</span><span class="tag">mcp</span></div>
           </div>
           <div class="cmd">
             <code>hermes plugins</code>
@@ -922,11 +934,11 @@
           </div>
         </article>
 
-        <article class="card accent-green searchable" data-keywords="cron 定时 自动化 heartbeat 调度 continuity monitor">
+        <article class="card accent-green searchable" data-keywords="cron 定时 自动化 heartbeat 调度 continuity monitor DST timezone IANA">
           <div>
             <h3>定时任务（会记住上次）</h3>
-            <p>v0.21 cron 会加载持久记忆；可开 continuity、每任务 notepad、monitor 模式（无变化可跳过 LLM）。会话内心跳仍用 <code>/heartbeat</code>。</p>
-            <div class="tag-row"><span class="tag">cron</span><span class="tag">continuity</span></div>
+            <p>cron 会加载持久记忆；可开 continuity、每任务 notepad、monitor 模式。0.21.3：croniter 锚定配置的 IANA 时区，跨 DST 不再漂。会话内心跳仍用 <code>/heartbeat</code>。</p>
+            <div class="tag-row"><span class="tag">cron</span><span class="tag">DST</span></div>
           </div>
           <div class="cmd">
             <code>hermes cron</code>
@@ -937,7 +949,7 @@
         <article class="card accent-blue searchable" data-keywords="docker ssh sandbox 沙箱 安全 terminal backend vercel daytona modal singularity">
           <div>
             <h3>把终端关进沙箱</h3>
-            <p>默认 <code>local</code>。另有 Docker / SSH / Singularity / Modal / Daytona / Vercel Sandbox。Docker 可再配 <code>hermes egress</code> 注入凭据。</p>
+            <p>默认 <code>local</code>。另有 Docker / SSH / Singularity / Modal / Daytona / Vercel Sandbox。Docker 可再配 <code>hermes egress</code> 注入凭据。state.db 不要放在跨 VM 共享盘上开 WAL。</p>
             <div class="tag-row"><span class="tag">sandbox</span><span class="tag">docker</span></div>
           </div>
           <div class="cmd">
@@ -949,7 +961,7 @@
         <article class="card accent-amber searchable" data-keywords="worktree 并行 git 隔离 delegate steer 子代理">
           <div>
             <h3>并行改仓库 / 管子代理</h3>
-            <p>启动 <code>hermes -w</code> 或会话中 <code>/worktree new</code>。子代理可中途 <code>/steer</code> 纠偏，不必打断当前 tool loop。</p>
+            <p>启动 <code>hermes -w</code> 或会话中 <code>/worktree new</code>。子代理可中途 <code>/steer</code> 纠偏；delegation 的 effort 可选 Inherit parent。</p>
             <div class="tag-row"><span class="tag">worktree</span><span class="tag">steer</span></div>
           </div>
           <div class="cmd">
@@ -970,10 +982,10 @@
           </div>
         </article>
 
-        <article class="card accent-green searchable" data-keywords="update 更新 升级 backup">
+        <article class="card accent-green searchable" data-keywords="update 更新 升级 backup docker cloud">
           <div>
             <h3>更新到最新版</h3>
-            <p><code>--check</code> 只预览。<code>--backup</code> 拉取前给 <code>HERMES_HOME</code> 快照。镜像/包管安装可能拒绝原地更新。</p>
+            <p><code>--check</code> / <code>--plan</code> 只预览。<code>--backup</code> 拉取前给 <code>HERMES_HOME</code> 快照。Cloud / Docker：拉 <code>nousresearch/hermes-agent:v2026.9.14</code>；镜像安装会拒绝原地 <code>hermes update</code>。</p>
             <div class="tag-row"><span class="tag">update</span></div>
           </div>
           <div class="cmd">
@@ -1022,9 +1034,9 @@
           </div>
         </article>
 
-        <article class="recipe searchable" data-keywords="日常 开发 continue tui palette">
+        <article class="recipe searchable" data-keywords="日常 开发 continue tui palette reasoning">
           <h3>日常接着干</h3>
-          <p>回到最近会话。换目录时加 <code>--in</code>。会话中 Ctrl+P / <code>/palette</code> 找命令。</p>
+          <p>回到最近会话。换目录时加 <code>--in</code>。会话中 Ctrl+P / <code>/palette</code> 找命令；换模型后可调 reasoning effort。</p>
           <div class="flow-line">
             <span>hermes --tui --continue</span>
           </div>
@@ -1038,9 +1050,17 @@
           </div>
         </article>
 
-        <article class="recipe searchable" data-keywords="state.db recover doctor 排障 会话库">
+        <article class="recipe searchable" data-keywords="desktop cloud refresh session update">
+          <h3>远程 Desktop 总被刷掉登录</h3>
+          <p>升到 0.21.3 / v2026.9.14 后，刷新 token 合并会消掉醒来连刷的误踢。Cloud 镜像跟同一 tag。</p>
+          <div class="flow-line">
+            <span>hermes update</span><b>→</b><span>重启 Desktop / dashboard</span><b>→</b><span>再连远程看板</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="state.db recover doctor 排障 会话库 writer">
           <h3>会话库坏了（0.21.x）</h3>
-          <p>先停 gateway，再 doctor 区分结构损坏 vs FTS。recover 只写到新库，不会自动替换活动库；确认后再人工切换。</p>
+          <p>先停 gateway，再 doctor 区分结构损坏 vs FTS。recover 只写到新库。若刷「N live SessionDB handles」且拓扑健康，先确认已升到 0.21.3 的句柄注册表修复。</p>
           <div class="flow-line">
             <span>hermes gateway stop</span><b>→</b><span>hermes doctor</span><b>→</b><span>sessions recover --inspect-only</span><b>→</b><span>recover --output …</span>
           </div>
@@ -1062,9 +1082,9 @@
           </div>
         </article>
 
-        <article class="recipe searchable" data-keywords="skills 自改进 refine memory plugins">
+        <article class="recipe searchable" data-keywords="skills 自改进 refine memory plugins mcp login">
           <h3>把这次流程沉淀成 skill</h3>
-          <p>不必等自动回顾。会话里立刻跑 refine；插件用 catalog 钉扎安装。</p>
+          <p>不必等自动回顾。会话里立刻跑 refine；MCP 过期先 <code>hermes mcp login</code>，插件用 catalog 钉扎安装。</p>
           <div class="flow-line">
             <span>/refine 把这个部署流程存成 skill</span>
           </div>
@@ -1107,9 +1127,9 @@
             <td>这个项目要什么。优先级：<code>.hermes.md</code> → <code>AGENTS.md</code> → <code>CLAUDE.md</code> → <code>.cursorrules</code>，只加载一种。</td>
             <td>你写。v0.21 起对 instruction/skills/memory 写操作常需审批。</td>
           </tr>
-          <tr class="searchable" data-keywords="state.db 会话 sqlite FTS WAL">
+          <tr class="searchable" data-keywords="state.db 会话 sqlite FTS WAL writer handle registry">
             <td>state.db</td>
-            <td>会话元数据 + 全文消息 + FTS5。默认 <code>~/.hermes/state.db</code>（WAL）。每 profile 隔离，不要跨 profile 共用。</td>
+            <td>会话元数据 + 全文消息 + FTS5。默认 <code>~/.hermes/state.db</code>（WAL）。每 profile 隔离。0.21.3：进程内写者共享句柄，读者只读；勿放跨 VM 盘。</td>
             <td>runtime 写。损坏时用 doctor / sessions recover|repair，勿随便 cp 拆开 -wal/-shm。</td>
           </tr>
           <tr class="searchable" data-keywords="shared-state.db 托管房间 bot mode multiplex">
@@ -1117,9 +1137,14 @@
             <td>托管房间等跨 profile 共享状态。v0.21.2 起不再每 5 秒写进根 <code>state.db</code>，避免第二写者撕锁。</td>
             <td>gateway / Bot Mode 写。</td>
           </tr>
-          <tr class="searchable" data-keywords="config yaml env 密钥">
+          <tr class="searchable" data-keywords="mcp-tokens oauth issuer refresh">
+            <td>mcp-tokens/*.json</td>
+            <td>MCP OAuth 令牌缓存（0o600）。refresh 绑定签发 issuer；issuer 变了会丢 refresh 并要求重授权。</td>
+            <td><code>hermes mcp login</code> / Desktop Authorize。</td>
+          </tr>
+          <tr class="searchable" data-keywords="config yaml env 密钥 reasoning_effort">
             <td>config.yaml / .env</td>
-            <td>非密钥配置 vs 密钥。用 <code>hermes config set</code> 会自动分流；备份目录现收敛在 <code>backups/config/</code>。</td>
+            <td>非密钥配置 vs 密钥。含 <code>agent.reasoning_effort</code> 与各 auxiliary effort。用 <code>hermes config set</code> 会自动分流；备份在 <code>backups/config/</code>。</td>
             <td>你，或 setup / model / auth 向导。</td>
           </tr>
         </tbody>
@@ -1152,10 +1177,10 @@
             <td>最快路径：Nous 登录 + Tool Gateway。</td>
             <td>也有 Full Setup 和 Blank Slate。</td>
           </tr>
-          <tr class="searchable" data-keywords="model provider oauth auth">
+          <tr class="searchable" data-keywords="model provider oauth auth reasoning effort">
             <td>hermes model · hermes auth</td>
-            <td>加 provider、OAuth、改默认模型；管凭据池。</td>
-            <td>不要和会话里的 /model、/login 搞混。</td>
+            <td>加 provider、OAuth、改默认模型；管凭据池。模型保存后跟 reasoning effort 步。</td>
+            <td>OpenRouter：<code>auth add openrouter --type oauth</code>。不要和会话里的 /model、/login 搞混。</td>
           </tr>
           <tr class="searchable" data-keywords="continue resume -c -r">
             <td>hermes -c / --resume</td>
@@ -1172,10 +1197,10 @@
             <td>配置并运行 messaging gateway。</td>
             <td>WSL 用 run，不要 start。<code>list</code> 看多 profile 网关。</td>
           </tr>
-          <tr class="searchable" data-keywords="sessions recover repair optimize pin state.db">
+          <tr class="searchable" data-keywords="sessions recover repair optimize pin state.db writer">
             <td>hermes sessions …</td>
             <td>list / export / prune / pin / optimize / repair / recover。</td>
-            <td>recover 离线重建到新文件；gateway 停稳再修。坏行不再拖垮 list。</td>
+            <td>recover 离线重建到新文件；gateway 停稳再修。0.21.3 写柄共享后，健康拓扑不再误报多写者。</td>
           </tr>
           <tr class="searchable" data-keywords="peer bot dm 跨机">
             <td>hermes peer add|dm|run|status</td>
@@ -1197,10 +1222,10 @@
             <td>浏览 Skills Hub、安装 skill。</td>
             <td>安装前会跑安全扫描。</td>
           </tr>
-          <tr class="searchable" data-keywords="cron 定时 continuity">
+          <tr class="searchable" data-keywords="cron 定时 continuity DST">
             <td>hermes cron</td>
             <td>持久定时任务；含 memory / continuity / monitor / notepad。</td>
-            <td>会话内心跳用 /heartbeat；<code>cron doctor</code> 查舰队健康。</td>
+            <td>会话内心跳用 /heartbeat；时区按 IANA；<code>cron doctor</code> 查舰队健康。</td>
           </tr>
           <tr class="searchable" data-keywords="doctor 诊断 fix state.db">
             <td>hermes doctor [--fix]</td>
@@ -1212,10 +1237,10 @@
             <td>改配置或密钥。</td>
             <td>自动写入 yaml 或 .env。</td>
           </tr>
-          <tr class="searchable" data-keywords="update 升级">
+          <tr class="searchable" data-keywords="update 升级 plan">
             <td>hermes update</td>
             <td>拉最新代码并重装依赖。</td>
-            <td><code>--check</code> 预览，<code>--backup</code> 先快照；失败原因更明确。</td>
+            <td><code>--check</code> / <code>--plan</code> 预览，<code>--backup</code> 先快照；镜像安装拒绝原地更新。</td>
           </tr>
           <tr class="searchable" data-keywords="backup import 迁移 snapshot">
             <td>hermes backup / import</td>
@@ -1237,20 +1262,20 @@
             <td>对 venv、插件依赖、钉扎 MCP 做 OSV 扫描。</td>
             <td>不扫全局包。</td>
           </tr>
-          <tr class="searchable" data-keywords="dashboard web">
+          <tr class="searchable" data-keywords="dashboard web refresh coalesce desktop">
             <td>hermes dashboard</td>
             <td>用网页管配置、密钥、会话、cron、skills、MCP。</td>
-            <td>v0.21.2 起优先只读打开会话库。</td>
+            <td>优先只读打开会话库；0.21.3 刷新 token 合并，远程 Desktop 醒来连刷不再踢会话。</td>
           </tr>
-          <tr class="searchable" data-keywords="mcp 服务器">
-            <td>hermes mcp</td>
-            <td>管理 MCP server，或让 Hermes 自己当 MCP server。</td>
-            <td>Desktop 有合并的 MCP 指挥台。</td>
+          <tr class="searchable" data-keywords="mcp 服务器 oauth login issuer">
+            <td>hermes mcp · mcp login</td>
+            <td>管理 MCP server，或让 Hermes 自己当 MCP server；过期 OAuth 重授权。</td>
+            <td>refresh 绑定 issuer；Desktop 有每日重授权提醒。</td>
           </tr>
-          <tr class="searchable" data-keywords="profile 多实例 隔离">
+          <tr class="searchable" data-keywords="profile 多实例 隔离 multiplex">
             <td>hermes profile · -p name</td>
             <td>多套隔离实例：不同模型、记忆、bot、state.db。</td>
-            <td>multiplex 下凭证/白名单不再串到默认 profile。</td>
+            <td>multiplex 下 served profile 全进网关；凭证/白名单/MCP 不串档。</td>
           </tr>
           <tr class="searchable" data-keywords="kanban 多 agent">
             <td>hermes kanban</td>
@@ -1265,7 +1290,7 @@
           <tr class="searchable" data-keywords="acp 编辑器 desktop serve">
             <td>hermes acp · desktop · serve</td>
             <td>接到 ACP 编辑器；启动 Desktop；无头后端服务。</td>
-            <td></td>
+            <td>长驻 serve/dashboard 共享 state.db 写柄注册表，避免重复 writer。</td>
           </tr>
         </tbody>
       </table>
@@ -1297,9 +1322,9 @@
             <td>会话内登 Nous。离回合：链接与码进会话，浏览器确认后生效。群聊会拒绝；Slack 用 /hermes login。</td>
             <td>/login</td>
           </tr>
-          <tr class="searchable" data-keywords="model 切换 会话">
+          <tr class="searchable" data-keywords="model 切换 会话 reasoning effort">
             <td>/model</td>
-            <td>在已配置模型之间切换。无参数打开模糊搜索 picker。</td>
+            <td>在已配置模型之间切换。无参数打开模糊搜索 picker；Desktop/TUI picker 可带 reasoning effort。</td>
             <td>/model --global</td>
           </tr>
           <tr class="searchable" data-keywords="new reset 新会话">
@@ -1384,7 +1409,7 @@
           </tr>
           <tr class="searchable" data-keywords="plugins mcp reload">
             <td>/plugins · /reload-mcp</td>
-            <td>会话里管插件；重载 MCP（CLI 侧）。</td>
+            <td>会话里管插件；重载 MCP（CLI 侧）。OAuth 过期后需先 mcp login 再 reload。</td>
             <td>/reload-mcp</td>
           </tr>
           <tr class="searchable" data-keywords="worktree 并行 git">
@@ -1410,12 +1435,12 @@
     <section>
       <div class="note-box">
         <strong>使用习惯</strong>
-        <p>先让一次普通聊天跑通，再叠加 gateway、Bot Mode、cron、MCP。改 <code>SOUL.md</code> / <code>AGENTS.md</code> 或刚写入的记忆，要新开会话才进入 system prompt。<code>hermes model</code> / <code>hermes auth</code> 负责加 provider；<code>/model</code> 只切已配好的模型；<code>/login</code> 补登 Nous。多 profile 时每个 <code>state.db</code> 隔离——会话搜索不会也不应串档。gateway 在跑时不要对活动库做 <code>doctor --fix</code> 或拆开复制 WAL。</p>
+        <p>先让一次普通聊天跑通，再叠加 gateway、Bot Mode、cron、MCP。改 <code>SOUL.md</code> / <code>AGENTS.md</code> 或刚写入的记忆，要新开会话才进入 system prompt。<code>hermes model</code> / <code>hermes auth</code> 负责加 provider 与 reasoning effort；<code>/model</code> 只切已配好的模型；<code>/login</code> 补登 Nous。多 profile 时每个 <code>state.db</code> 隔离——会话搜索不会也不应串档。gateway 在跑时不要对活动库做 <code>doctor --fix</code> 或拆开复制 WAL。Desktop 远程看板醒来连刷若仍被踢，确认已升到 v0.21.3。</p>
       </div>
     </section>
 
 <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.9.11" target="_blank" rel="noreferrer">Hermes Agent v0.21.2 (v2026.9.11)</a> 与 <a href="https://hermes-agent.nousresearch.com/docs/" target="_blank" rel="noreferrer">官方文档</a> 整理，并于 2026-09-14 校对。命令与行为以官方文档为准；内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <p>非官方中文速查，依据 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.9.14" target="_blank" rel="noreferrer">Hermes Agent v0.21.3 (v2026.9.14)</a> 与 <a href="https://hermes-agent.nousresearch.com/docs/" target="_blank" rel="noreferrer">官方文档</a> 整理，并于 2026-09-15 校对。0.21.3 为 patch rollup（完整 curated notes 留给 v0.22.0）；本页折叠操作者可见增量，并保留 0.21.2 的可靠性 / plugins / vault / 安装覆盖。命令与行为以官方文档为准；内容为静态快照。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

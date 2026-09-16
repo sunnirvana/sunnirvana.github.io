@@ -738,12 +738,12 @@
           <span class="kicker">Codex / Claude Code Cheatsheet</span>
           <h1>Matt Pocock Skills</h1>
         </div>
-        <p class="subtitle">按项目工作场景查命令。先初始化一次，再按“想清楚、拆 spec/tickets、写代码、调问题、改结构、做 review、收工复盘”选 skill。</p>
+        <p class="subtitle">按项目工作场景查命令。先初始化一次，再按“想清楚、拆 spec/tickets、写代码、调问题、改结构、做 review、收工复盘”选 skill；复盘时优先把机械问题落成 deterministic checks。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
             <span class="version-pill">upstream v1.2.3</span>
-            <span class="version-pill">main@3cca18b</span>
-            <span class="version-pill">更新于 2026-09-14</span>
+            <span class="version-pill">main@959a8e9</span>
+            <span class="version-pill">更新于 2026-09-16</span>
           </div>
           <div class="top-actions">
             <button type="button" data-copy="$ask-matt 我现在要做的事是：">复制万能入口</button>
@@ -770,7 +770,7 @@
     <section>
       <div class="section-head">
         <h2>最短记忆</h2>
-        <p>不用记全套。主线仍是 grill → spec → tickets → implement；grilling 按 frontier 分轮提问。会话结束后可用 in-progress 的 <code>$retro</code> 复盘 agent 环境（仍是 stub）。</p>
+        <p>不用记全套。主线仍是 grill → spec → tickets → implement；grilling 按 frontier 分轮提问。会话收工后，用 in-progress 的 <code>$retro</code> 复盘 agent 环境：机械问题优先落成 deterministic checks，而不是再堆一条 prose 规则（仍是 stub）。</p>
       </div>
       <div class="workflow">
         <article class="step searchable" data-step="01" data-keywords="初始化 setup 项目 第一次 配置 issue tracker labels domain docs">
@@ -1017,15 +1017,15 @@
           </div>
         </article>
 
-        <article class="card accent-blue searchable" data-keywords="retro retrospective 复盘 回顾 session environment steering AGENTS.md coding standards checks tooling information access openai.yaml in-progress stub">
+        <article class="card accent-blue searchable" data-keywords="retro retrospective 复盘 回顾 session environment steering AGENTS.md coding standards deterministic checks guardrail mechanical judgement linter pre-commit CI tooling information access openai.yaml in-progress stub">
           <div>
             <h3>给刚结束的会话做复盘</h3>
-            <p>in-progress stub。对照本轮 session（默认当前会话）找环境改进：导航指针、自动检查、coding standards、臃肿 AGENTS.md、tool 经济性、无效 steering，以及 Information access（日志 tee、只读第三方服务等）。按严重程度给出候选；实现与 review 分工不同，标准应压在 reviewer 侧。</p>
-            <div class="tag-row"><span class="tag">retro</span><span class="tag">in-progress</span><span class="tag">stub</span></div>
+            <p>in-progress stub。对照本轮 session（默认当前会话）找环境改进，并按严重程度给出候选。Automated checks 先读仓库已有的 lint/check/CI：已存在但未接线或静默坏掉的是 finding，不是再发明一套；完全没有 guardrail（无 pre-commit、也无 CI 跑 lint/typecheck/test）本身也是 finding。Coding standards 先分类：机械违规（固定语法、禁用 API、import 形态、文件落点）默认落成 deterministic check（linter 规则 / pre-commit / CI），优先建检查而不是写规则；<code>CODING_STANDARDS.md</code> 只留给真正需要判断的 judgement calls。其余仍看导航指针、臃肿 AGENTS.md、tool 经济性、no-ops、Information access。标准压在 reviewer 侧，不压实现 agent。</p>
+            <div class="tag-row"><span class="tag">retro</span><span class="tag">deterministic checks</span><span class="tag">in-progress</span><span class="tag">stub</span></div>
           </div>
           <div class="cmd">
             <code>$retro 复盘刚才这轮会话</code>
-            <button class="copy" type="button" data-copy="$retro 请对刚才这轮编码会话做 retrospective，按严重程度列出环境改进候选：">复制</button>
+            <button class="copy" type="button" data-copy="$retro 请对刚才这轮编码会话做 retrospective：机械问题优先落成 deterministic checks，按严重程度列出环境改进候选：">复制</button>
           </div>
         </article>
       </div>
@@ -1077,11 +1077,11 @@
           </div>
         </article>
 
-        <article class="recipe searchable" data-keywords="retro retrospective 复盘 writing-for-agents environment steering checks">
+        <article class="recipe searchable" data-keywords="retro retrospective 复盘 writing-for-agents environment steering deterministic checks guardrail CODING_STANDARDS">
           <h3>收工后复盘 agent 环境</h3>
-          <p>先写/改 agent 文档原则，再对刚结束的会话做 retrospective。upstream 标为 stub，适合试反馈，不要当稳定流程。</p>
+          <p>先按 writing-for-agents 原则写/改文档，再用 <code>$retro</code> 复盘刚结束的会话。把机械 finding 推成 linter / hook / CI，把 judgement calls 留给 <code>CODING_STANDARDS.md</code>。upstream 仍标 stub，适合试反馈，不要当稳定流程。</p>
           <div class="flow-line">
-            <span>$writing-for-agents</span><b>→</b><span>$retro</span>
+            <span>$writing-for-agents</span><b>→</b><span>$retro</span><b>→</b><span>deterministic check</span>
           </div>
         </article>
       </div>
@@ -1090,7 +1090,7 @@
     <section>
       <div class="section-head">
         <h2>完整索引</h2>
-        <p>基于 upstream v1.2.3 / main@3cca18b 整理的 37 个 skills（engineering 18 + productivity 7 + in-progress 8 + misc 4）。Claude Code 插件仍只带 25 个 promoted skills；in-progress 与 misc 需单独安装。本地 <code>scripts/link-skills.sh</code> 会链 promoted 与 in-progress，但不再把 <code>misc/</code> 链进日常 skill 目录。日常优先用上面的主流程。</p>
+        <p>基于 upstream v1.2.3 / main@959a8e9 整理的 37 个 skills（engineering 18 + productivity 7 + in-progress 8 + misc 4）。相对上一校对点，主变化在 in-progress 的 <code>$retro</code>：coding-standards finding 要先分机械 / 判断，机械项默认落成 deterministic checks。Claude Code 插件仍只带 25 个 promoted skills；in-progress 与 misc 需单独安装。本地 <code>scripts/link-skills.sh</code> 会链 promoted 与 in-progress，但不再把 <code>misc/</code> 链进日常 skill 目录。日常优先用上面的主流程。</p>
       </div>
       <div class="table-wrap" tabindex="0" aria-label="完整 Skills 索引，可横向滚动">
       <table class="reference-table">
@@ -1247,10 +1247,10 @@
             <td>in-progress。梳理可重复、可委托的工作流规格。</td>
             <td>帮我把这个反复做的流程梳理成 workflow spec。</td>
           </tr>
-          <tr class="searchable" data-keywords="retro retrospective 复盘 session environment steering AGENTS.md coding standards automated checks tool economy no-ops information access openai.yaml stub in-progress">
+          <tr class="searchable" data-keywords="retro retrospective 复盘 session environment steering AGENTS.md coding standards deterministic checks mechanical judgement guardrail automated checks linter pre-commit CI tool economy no-ops information access openai.yaml stub in-progress">
             <td>$retro</td>
-            <td>in-progress stub。对刚结束的编码会话做 retrospective，按严重程度建议改进 agent 环境（导航、checks、standards、AGENTS.md、tool 经济性、no-ops、Information access）。配有 <code>agents/openai.yaml</code>，显式调用。</td>
-            <td>请复盘刚才这轮会话，列出环境改进候选。</td>
+            <td>in-progress stub。对刚结束的编码会话做 retrospective：先读仓库已有 checks；无 guardrail 本身是 finding；机械 standards 默认落成 deterministic check，judgement calls 才进 <code>CODING_STANDARDS.md</code>。也覆盖导航、AGENTS.md、tool 经济性、no-ops、Information access。配有 <code>agents/openai.yaml</code>，显式调用。</td>
+            <td>请复盘刚才这轮会话；机械问题优先落成 deterministic checks。</td>
           </tr>
           <tr class="searchable" data-keywords="handoff 交接 上下文 总结 another agent">
             <td>$handoff</td>
@@ -1295,12 +1295,12 @@
     <section>
       <div class="note-box">
         <strong>使用习惯</strong>
-        <p>在真实项目根目录中启动 Codex 或 Claude Code，然后先跑 <code>$setup-matt-pocock-skills</code>。不确定时用 <code>$ask-matt</code>。看不懂上一句用 <code>$wait-what</code>。同一 harness、同一目录、到了阶段边界时，优先继续或 <code>/compact</code>，<code>$handoff</code> 只在上下文需要搬走时用。一轮编码收工后，可用 <code>$retro</code> 复盘 steering、checks、tooling 与信息获取；它是 in-progress stub，并配有 Codex 用的 <code>agents/openai.yaml</code>（显式调用，不隐式触发）。若你用仓库里的 <code>link-skills.sh</code> 做本地 symlink，现在只会链 promoted + in-progress，<code>misc/</code> 要单独安装。</p>
+        <p>在真实项目根目录中启动 Codex 或 Claude Code，然后先跑 <code>$setup-matt-pocock-skills</code>。不确定时用 <code>$ask-matt</code>。看不懂上一句用 <code>$wait-what</code>。同一 harness、同一目录、到了阶段边界时，优先继续或 <code>/compact</code>，<code>$handoff</code> 只在上下文需要搬走时用。一轮编码收工后，可用 <code>$retro</code> 复盘 steering、checks、tooling 与信息获取：先认清仓库已有的 lint/CI，再把机械 finding 建成 deterministic check，把真正需要判断的留给 <code>CODING_STANDARDS.md</code>。它仍是 in-progress stub，并配有 Codex 用的 <code>agents/openai.yaml</code>（显式调用，不隐式触发）。若你用仓库里的 <code>link-skills.sh</code> 做本地 symlink，现在只会链 promoted + in-progress，<code>misc/</code> 要单独安装。</p>
       </div>
     </section>
 
     <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/mattpocock/skills/releases/tag/v1.2.3" target="_blank" rel="noreferrer">mattpocock/skills v1.2.3</a> 整理，并于 2026-09-14 按 <a href="https://github.com/mattpocock/skills/commit/3cca18b368ae95cdbdebbff572ccafa662551015" target="_blank" rel="noreferrer">main@3cca18b</a> 校对；Codex 的通用 Skill 调用机制以 <a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noreferrer">OpenAI 文档</a> 为准。内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <p>非官方中文速查，依据 <a href="https://github.com/mattpocock/skills/releases/tag/v1.2.3" target="_blank" rel="noreferrer">mattpocock/skills v1.2.3</a> 整理，并于 2026-09-16 按 <a href="https://github.com/mattpocock/skills/commit/959a8e9f1edc3adbe2f7e3054bb6fbefa6696260" target="_blank" rel="noreferrer">main@959a8e9</a> 校对（相对 <code>3cca18b</code> 的主变化：<code>$retro</code> 将机械 coding-standards finding 推向 deterministic checks）；Codex 的通用 Skill 调用机制以 <a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noreferrer">OpenAI 文档</a> 为准。内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

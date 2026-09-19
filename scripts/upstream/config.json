@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-09-15",
+  "updatedAtUtc": "2026-09-18",
   "sources": [
     {
       "id": "matt-pocock-skills",
@@ -13,9 +13,9 @@
       "pinned": {
         "version": "1.2.3",
         "tag": "v1.2.3",
-        "commit": "3cca18b368ae95cdbdebbff572ccafa662551015",
-        "commitShort": "3cca18b",
-        "checkedAtUtc": "2026-09-14"
+        "commit": "74ca5fe077456a0b3b2f5310cf9430999fd0b5fd",
+        "commitShort": "74ca5fe",
+        "checkedAtUtc": "2026-09-18"
       },
       "versionStrip": {
         "releasePillPrefix": "upstream v",
@@ -34,7 +34,7 @@
       "pinned": {
         "version": "0.21.3",
         "tag": "v2026.9.14",
-        "checkedAtUtc": "2026-09-15"
+        "checkedAtUtc": "2026-09-18"
       },
       "versionStrip": {
         "releasePillPrefix": "v",
@@ -54,7 +54,7 @@
       "pinned": {
         "version": "0.6.17",
         "tag": "v0.6.17",
-        "checkedAtUtc": "2026-09-14"
+        "checkedAtUtc": "2026-09-18"
       },
       "versionStrip": {
         "releasePillPrefix": "v",

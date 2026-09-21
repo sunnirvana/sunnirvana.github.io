@@ -4,8 +4,8 @@
 
 The content in `cheatsheets/matt-pocock-skills/` is an unofficial Simplified
 Chinese cheatsheet derived from the public [mattpocock/skills][skills] project,
-using its [v1.2.3 release][skills-release] as a baseline and [main@74ca5fe][skills-commit]
-as the most recently checked revision (2026-09-18). It is not an official Codex,
+using its [v1.2.3 release][skills-release] as a baseline and [main@c55ee46][skills-commit]
+as the most recently checked revision (2026-09-21). It is not an official Codex,
 Claude Code, or Matt Pocock publication.
 
 `mattpocock/skills` is licensed under the MIT License:
@@ -32,7 +32,7 @@ Claude Code, or Matt Pocock publication.
 
 [skills]: https://github.com/mattpocock/skills
 [skills-release]: https://github.com/mattpocock/skills/releases/tag/v1.2.3
-[skills-commit]: https://github.com/mattpocock/skills/commit/74ca5fe077456a0b3b2f5310cf9430999fd0b5fd
+[skills-commit]: https://github.com/mattpocock/skills/commit/c55ee46073ed923f86ce59a5eb3b6d895095d1b7
 
 ## Hermes Agent
 

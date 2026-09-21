@@ -742,7 +742,7 @@
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
             <span class="version-pill">upstream v1.2.3</span>
-            <span class="version-pill">main@74ca5fe</span>
+            <span class="version-pill">main@c55ee46</span>
             <span class="version-pill">更新于 2026-09-18</span>
           </div>
           <div class="top-actions">
@@ -770,7 +770,7 @@
     <section>
       <div class="section-head">
         <h2>最短记忆</h2>
-        <p>不用记全套。主线仍是 grill → spec → tickets → implement；grilling 按 frontier 分轮提问。开 PR 前可用 in-progress 的 <code>$pr</code> 写正文（model-invoked 格式参考：Summary 视觉来自 primary source，Evidence before/after，Merge Danger）。会话收工后，用 <code>$retro</code> 复盘：机械问题优先落成 deterministic checks（仍是 stub）。</p>
+        <p>不用记全套。主线仍是 grill → spec → tickets → implement；grilling 按 frontier 分轮提问。开 PR 前可用 in-progress 的 <code>$pr</code> 写正文（model-invoked 格式参考：Summary 视觉来自 primary source，Evidence before/after，Merge Danger 的 Door / Blast Radius 分行可扫读）。会话收工后，用 <code>$retro</code> 复盘：机械问题优先落成 deterministic checks（仍是 stub）。</p>
       </div>
       <div class="workflow">
         <article class="step searchable" data-step="01" data-keywords="初始化 setup 项目 第一次 配置 issue tracker labels domain docs">
@@ -888,7 +888,7 @@
         <article class="card strong accent-blue searchable" data-keywords="pr pull request body summary evidence merge danger blast radius one-way two-way door screenshot show-me in-progress model-invoked 写 PR 正文">
           <div>
             <h3>写 PR 正文</h3>
-            <p>in-progress，model-invoked 格式参考（不是多步工作流）。先套模板：<strong>Summary</strong>（最小视觉：伪代码 / call tree / 组件树 / 文件树 / mermaid / diff sketch，内容来自 issue/spec 等 primary source，不要从 diff 推断）、<strong>Evidence</strong>（before/after：截图 S 档，失败→通过测试伪代码 A 档）、<strong>Merge Danger</strong>（one-way / two-way door + blast radius）。credits：show-me（Dex Horthy / Humanlayer）。安装：<code>npx skills@latest add mattpocock/skills --skill=pr</code>。</p>
+            <p>in-progress，model-invoked 格式参考（不是多步工作流）。先套模板：<strong>Summary</strong>（最小视觉：伪代码 / call tree / 组件树 / 文件树 / mermaid / diff sketch，内容来自 issue/spec 等 primary source，不要从 diff 推断）、<strong>Evidence</strong>（before/after：截图 S 档，失败→通过测试伪代码 A 档）、<strong>Merge Danger</strong>（Door：one-way / two-way，可附一句说明；Blast Radius：先一词概括影响面，再可选展开潜在后果——模板刻意分行，方便扫读）。credits：show-me（Dex Horthy / Humanlayer）。安装：<code>npx skills@latest add mattpocock/skills --skill=pr</code>。</p>
             <div class="tag-row"><span class="tag">pr</span><span class="tag">format reference</span><span class="tag">in-progress</span><span class="tag">model-invoked</span></div>
           </div>
           <div class="cmd">
@@ -1091,7 +1091,7 @@
 
         <article class="recipe searchable" data-keywords="pr pull request implement code-review summary evidence merge danger 开 PR">
           <h3>实现后开 PR</h3>
-          <p>实现并 review 完再写 PR 正文。<code>$pr</code> 是格式参考：先模板（Summary / Evidence / Merge Danger），Summary 来自 primary source，不要从 diff 推断。in-progress，model-invoked。</p>
+          <p>实现并 review 完再写 PR 正文。<code>$pr</code> 是格式参考：先模板（Summary / Evidence / Merge Danger），Summary 来自 primary source，不要从 diff 推断；Merge Danger 里 Door 与 Blast Radius 分行，Blast Radius 先一词再可选展开。in-progress，model-invoked。</p>
           <div class="flow-line">
             <span>$implement</span><b>→</b><span>$code-review</span><b>→</b><span>$pr</span>
           </div>
@@ -1110,7 +1110,7 @@
     <section>
       <div class="section-head">
         <h2>完整索引</h2>
-        <p>基于 upstream v1.2.3 / main@74ca5fe 整理的 38 个 skills（engineering 18 + productivity 7 + in-progress 9 + misc 4）。相对 live master 的 <code>3cca18b</code>：先有 <code>$retro</code> 把机械 coding-standards finding 推向 deterministic checks（原 PR #4 / <code>959a8e9</code>），本版再加 in-progress 的 <code>$pr</code>（写 PR 正文的 model-invoked 格式参考）。Claude Code 插件仍只带 25 个 promoted skills；in-progress 与 misc 需单独安装。本地 <code>scripts/link-skills.sh</code> 会链 promoted 与 in-progress，但不再把 <code>misc/</code> 链进日常 skill 目录。日常优先用上面的主流程。</p>
+        <p>基于 upstream v1.2.3 / main@c55ee46 整理的 38 个 skills（engineering 18 + productivity 7 + in-progress 9 + misc 4）。相对上一校对点 <code>74ca5fe</code>（已含 <code>$retro</code> deterministic checks 与 in-progress <code>$pr</code>）：本版仅收紧 <code>$pr</code> 模板里 Merge Danger 的扫读结构（Door / Blast Radius 分行，Blast Radius 先一词概括再可选展开）。Claude Code 插件仍只带 25 个 promoted skills；in-progress 与 misc 需单独安装。本地 <code>scripts/link-skills.sh</code> 会链 promoted 与 in-progress，但不再把 <code>misc/</code> 链进日常 skill 目录。日常优先用上面的主流程。</p>
       </div>
       <div class="table-wrap" tabindex="0" aria-label="完整 Skills 索引，可横向滚动">
       <table class="reference-table">
@@ -1224,7 +1224,7 @@
           </tr>
           <tr class="searchable" data-keywords="pr pull request body summary evidence merge danger blast radius one-way two-way door screenshot show-me format reference model-invoked in-progress openai.yaml">
             <td>$pr</td>
-            <td>in-progress，model-invoked。写 PR 正文的格式参考（非工作流）：模板先 Summary / Evidence / Merge Danger；Summary 最小视觉来自 primary source（非 diff 推断）；Evidence 要 before/after；Merge Danger 写 one-way/two-way door + blast radius。配有 <code>agents/openai.yaml</code>。安装 <code>--skill=pr</code>。</td>
+            <td>in-progress，model-invoked。写 PR 正文的格式参考（非工作流）：模板先 Summary / Evidence / Merge Danger；Summary 最小视觉来自 primary source（非 diff 推断）；Evidence 要 before/after；Merge Danger 中 Door（one-way/two-way，可附说明）与 Blast Radius（先一词概括，再可选展开后果）分行便于扫读。配有 <code>agents/openai.yaml</code>。安装 <code>--skill=pr</code>。</td>
             <td>请按 Summary / Evidence / Merge Danger 写这份 PR 正文。</td>
           </tr>
           <tr class="searchable" data-keywords="research primary sources official docs source code specs background agent cited markdown">
@@ -1320,12 +1320,12 @@
     <section>
       <div class="note-box">
         <strong>使用习惯</strong>
-        <p>在真实项目根目录中启动 Codex 或 Claude Code，然后先跑 <code>$setup-matt-pocock-skills</code>。不确定时用 <code>$ask-matt</code>。看不懂上一句用 <code>$wait-what</code>。同一 harness、同一目录、到了阶段边界时，优先继续或 <code>/compact</code>，<code>$handoff</code> 只在上下文需要搬走时用。实现并 <code>$code-review</code> 后、开 PR 前，可用 in-progress 的 <code>$pr</code> 写正文（model-invoked 格式参考：Summary 视觉来自 primary source，Evidence before/after，Merge Danger；单独安装 <code>--skill=pr</code>）。一轮编码收工后，可用 <code>$retro</code> 复盘 steering、checks、tooling 与信息获取：先认清仓库已有的 lint/CI，再把机械 finding 建成 deterministic check，把真正需要判断的留给 <code>CODING_STANDARDS.md</code>。它仍是 in-progress stub，并配有 Codex 用的 <code>agents/openai.yaml</code>（显式调用，不隐式触发）。若你用仓库里的 <code>link-skills.sh</code> 做本地 symlink，现在只会链 promoted + in-progress，<code>misc/</code> 要单独安装。</p>
+        <p>在真实项目根目录中启动 Codex 或 Claude Code，然后先跑 <code>$setup-matt-pocock-skills</code>。不确定时用 <code>$ask-matt</code>。看不懂上一句用 <code>$wait-what</code>。同一 harness、同一目录、到了阶段边界时，优先继续或 <code>/compact</code>，<code>$handoff</code> 只在上下文需要搬走时用。实现并 <code>$code-review</code> 后、开 PR 前，可用 in-progress 的 <code>$pr</code> 写正文（model-invoked 格式参考：Summary 视觉来自 primary source，Evidence before/after，Merge Danger 的 Door / Blast Radius 分行可扫读；单独安装 <code>--skill=pr</code>）。一轮编码收工后，可用 <code>$retro</code> 复盘 steering、checks、tooling 与信息获取：先认清仓库已有的 lint/CI，再把机械 finding 建成 deterministic check，把真正需要判断的留给 <code>CODING_STANDARDS.md</code>。它仍是 in-progress stub，并配有 Codex 用的 <code>agents/openai.yaml</code>（显式调用，不隐式触发）。若你用仓库里的 <code>link-skills.sh</code> 做本地 symlink，现在只会链 promoted + in-progress，<code>misc/</code> 要单独安装。</p>
       </div>
     </section>
 
     <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/mattpocock/skills/releases/tag/v1.2.3" target="_blank" rel="noreferrer">mattpocock/skills v1.2.3</a> 整理，并于 2026-09-18 按 <a href="https://github.com/mattpocock/skills/commit/74ca5fe077456a0b3b2f5310cf9430999fd0b5fd" target="_blank" rel="noreferrer">main@74ca5fe</a> 校对（相对 live <code>3cca18b</code>：含 <code>$retro</code> deterministic checks，以及新 in-progress skill <code>$pr</code> 写 PR 正文）；Codex 的通用 Skill 调用机制以 <a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noreferrer">OpenAI 文档</a> 为准。内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <p>非官方中文速查，依据 <a href="https://github.com/mattpocock/skills/releases/tag/v1.2.3" target="_blank" rel="noreferrer">mattpocock/skills v1.2.3</a> 整理，并于 2026-09-21 按 <a href="https://github.com/mattpocock/skills/commit/c55ee46073ed923f86ce59a5eb3b6d895095d1b7" target="_blank" rel="noreferrer">main@c55ee46</a> 校对（相对上一校对点 <code>74ca5fe</code>：仅 <code>$pr</code> Merge Danger 模板更易扫读——Door / Blast Radius 分行，Blast Radius 先一词再可选展开）；Codex 的通用 Skill 调用机制以 <a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noreferrer">OpenAI 文档</a> 为准。内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

@@ -4,8 +4,8 @@
 
 The content in `cheatsheets/matt-pocock-skills/` is an unofficial Simplified
 Chinese cheatsheet derived from the public [mattpocock/skills][skills] project,
-using its [v1.3.1 release][skills-release] as a baseline and [main@24fe0ef][skills-commit]
-as the most recently checked revision (2026-10-05). It is not an official Codex,
+using its [v1.3.1 release][skills-release] as a baseline and [main@49dd158][skills-commit]
+as the most recently checked revision (2026-10-12). It is not an official Codex,
 Claude Code, or Matt Pocock publication.
 
 `mattpocock/skills` is licensed under the MIT License:
@@ -32,14 +32,14 @@ Claude Code, or Matt Pocock publication.
 
 [skills]: https://github.com/mattpocock/skills
 [skills-release]: https://github.com/mattpocock/skills/releases/tag/v1.3.1
-[skills-commit]: https://github.com/mattpocock/skills/commit/24fe0ef7737efae15c87225755e9f6f5965e4888
+[skills-commit]: https://github.com/mattpocock/skills/commit/49dd158d1076134a641b33efb035946536778336
 
 ## Hermes Agent
 
 The content in `cheatsheets/hermes-agent/` is an unofficial Simplified Chinese
 cheatsheet derived from the public [NousResearch/hermes-agent][hermes] project
 and its [official documentation][hermes-docs], using the
-[v0.21.5 / v2026.9.24 release][hermes-release] as a baseline (checked 2026-09-28). It is not an official Nous Research publication.
+[v0.21.6 release][hermes-release] as a baseline (checked 2026-10-12). It is not an official Nous Research publication.
 
 `hermes-agent` is licensed under the MIT License:
 
@@ -65,7 +65,7 @@ and its [official documentation][hermes-docs], using the
 
 [hermes]: https://github.com/NousResearch/hermes-agent
 [hermes-docs]: https://hermes-agent.nousresearch.com/docs/
-[hermes-release]: https://github.com/NousResearch/hermes-agent/releases/tag/v2026.9.24
+[hermes-release]: https://github.com/NousResearch/hermes-agent/releases/tag/v0.21.6
 
 ## Trellis
 

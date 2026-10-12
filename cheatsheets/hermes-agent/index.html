@@ -739,12 +739,12 @@
           <span class="kicker">Hermes Agent Cheatsheet</span>
           <h1>Hermes Agent</h1>
         </div>
-        <p class="subtitle">Nous Research 的自改进 agent。先装好、先聊通，再叠 gateway、Bot Mode、skills、cron。v0.21.5（经 0.21.4）补上 CLI <code>--format stream-json</code>、<code>skills.auto_load</code>、Desktop Simple/Connectors、未授权 DM 的 <code>decline</code>，以及 multiplex 下单 profile 启停 / <code>gateway.standalone</code>；会话库异常仍先 doctor / recover。</p>
+        <p class="subtitle">Nous Research 的自改进 agent。先装好、先聊通，再叠 gateway、Bot Mode、skills、cron。v0.21.6 是首个走新稳定发布流水线的 tag（Docker / Cloud 先行），除 dashboard 登录、git filter、邮件网关三组安全修复外，把 0.21.5 之后约 2,100 个 PR 滚成 patch：摘要优先的 <code>hermes status</code>、流式转写、插件主机隔离等；0.21.5 的 <code>--format stream-json</code>、<code>skills.auto_load</code>、Desktop Simple/Connectors 仍有效；会话库异常仍先 doctor / recover。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
-            <span class="version-pill">v0.21.5</span>
-            <span class="version-pill">tag v2026.9.24</span>
-            <span class="version-pill">更新于 2026-09-28</span>
+            <span class="version-pill">v0.21.6</span>
+            <span class="version-pill">tag v0.21.6</span>
+            <span class="version-pill">更新于 2026-10-12</span>
           </div>
           <div class="top-actions">
             <button type="button" data-copy="hermes setup --portal">复制最快安装路径</button>
@@ -823,13 +823,13 @@
     <section>
       <div class="section-head">
         <h2>按场景查</h2>
-        <p>先找当前要做的事，再复制对应命令。0.21.4 / 0.21.5 仍是 patch rollup（完整 curated notes 留给 v0.22.0）；下面只收 0.21.3→0.21.5 操作者会摸到的增量。</p>
+        <p>先找当前要做的事，再复制对应命令。0.21.4 / 0.21.5 / 0.21.6 都是 patch rollup（完整 curated notes 留给 v0.22.0）；下面只收 0.21.3→0.21.6 操作者会摸到的增量。</p>
       </div>
       <div class="cards">
         <article class="card strong accent-green searchable" data-keywords="linux macos wsl termux install.sh 安装">
           <div>
             <h3>在 Linux / macOS / WSL 安装</h3>
-            <p>官方一键脚本。装完 <code>source ~/.bashrc</code> 或对应 shell rc。已有安装用 <code>hermes update</code>；Docker / Cloud 镜像跟 tag <code>v2026.9.24</code>。</p>
+            <p>官方一键脚本。装完 <code>source ~/.bashrc</code> 或对应 shell rc。已有安装用 <code>hermes update</code>；Docker / Cloud 镜像跟 <code>nousresearch/hermes-agent:stable</code>（0.21.6 起 tag 形如 <code>v0.21.6</code>，不再是日期 tag）。</p>
             <div class="tag-row"><span class="tag">install</span><span class="tag">unix</span></div>
           </div>
           <div class="cmd">
@@ -994,10 +994,34 @@
           </div>
         </article>
 
+        <article class="card accent-blue searchable" data-keywords="status 状态 摘要 short full 一眼">
+          <div>
+            <h3>先看状态摘要</h3>
+            <p>0.21.6：<code>hermes status</code> 改为摘要优先。日常用 <code>--short</code> 扫一眼；要全部细节再加 <code>--full</code>。cron 存储不可写时，<code>doctor</code>、cron 与 home-channel 也会给出警告。</p>
+            <div class="tag-row"><span class="tag">status</span><span class="tag">doctor</span></div>
+          </div>
+          <div class="cmd">
+            <code>hermes status --short</code>
+            <button class="copy" type="button" data-copy="hermes status --short">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-amber searchable" data-keywords="stt streaming 语音 转写 voice_chat plugins isolation 插件 隔离 host">
+          <div>
+            <h3>语音流式转写 / 插件主机隔离</h3>
+            <p>0.21.6 新增（官方发布说明只点名，细节留给 v0.22.0）：CLI、TUI、Desktop 可边说边转写（<code>stt.streaming</code>）；语音轮次可走独立模型 <code>auxiliary.voice_chat</code>，默认关推理；第三方插件可用 <code>plugins.isolation: host</code> 跑在每 profile 的插件主机里，设置页统一在 Settings ▸ Plugins。键名以官方文档为准。</p>
+            <div class="tag-row"><span class="tag">stt</span><span class="tag">plugins</span></div>
+          </div>
+          <div class="cmd">
+            <code>hermes config set stt.streaming true</code>
+            <button class="copy" type="button" data-copy="hermes config set stt.streaming true">复制</button>
+          </div>
+        </article>
+
         <article class="card accent-green searchable" data-keywords="update 更新 升级 backup docker cloud">
           <div>
             <h3>更新到最新版</h3>
-            <p><code>--check</code> / <code>--plan</code> 只预览。<code>--backup</code> 拉取前给 <code>HERMES_HOME</code> 快照。Cloud / Docker：拉 <code>nousresearch/hermes-agent:v2026.9.24</code>；镜像安装会拒绝原地 <code>hermes update</code>。</p>
+            <p><code>--check</code> / <code>--plan</code> 只预览。<code>--backup</code> 拉取前给 <code>HERMES_HOME</code> 快照。Cloud / Docker：拉 <code>nousresearch/hermes-agent:stable</code>（或 <code>:latest</code>）；镜像安装会拒绝原地 <code>hermes update</code>。0.21.6 含 dashboard 登录限流、登录跳转、git filter 与邮件发件人白名单等安全修复，暴露 dashboard 或开邮件网关的实例建议尽快升。桌面 App / Termux / Microsoft Store 本次不动，随下一个整合发布更新。</p>
             <div class="tag-row"><span class="tag">update</span></div>
           </div>
           <div class="cmd">
@@ -1009,7 +1033,7 @@
         <article class="card accent-blue searchable" data-keywords="vault secrets 1password bitwarden 密码 凭据 审批 AGENTS">
           <div>
             <h3>密钥与受保护写入</h3>
-            <p>密码盲填：1Password / Bitwarden / 本地 vault，agent 可不看见明文。写 AGENTS.md / skills / memory 常需审批；可用 <code>hermes approvals</code> 挖白名单。</p>
+            <p>密码盲填：1Password / Bitwarden / 本地 vault，agent 可不看见明文。写 AGENTS.md / skills / memory 常需审批；可用 <code>hermes approvals</code> 挖白名单。0.21.6 起，上传凭据、终端命令里夹隐形 Unicode 也会走审批标记。</p>
             <div class="tag-row"><span class="tag">secrets</span><span class="tag">approvals</span></div>
           </div>
           <div class="cmd">
@@ -1064,7 +1088,7 @@
 
         <article class="recipe searchable" data-keywords="desktop cloud refresh session update">
           <h3>远程 Desktop 总被刷掉登录</h3>
-          <p>0.21.3 起刷新 token 合并消掉醒来连刷的误踢；升到 0.21.5 / v2026.9.24 后还吃到 Connectors / Simple。Cloud 镜像跟同一 tag。</p>
+          <p>0.21.3 起刷新 token 合并消掉醒来连刷的误踢；升到 0.21.5 后还吃到 Connectors / Simple；0.21.6 另含 dashboard 登录加固。Cloud 镜像跟 stable tag。</p>
           <div class="flow-line">
             <span>hermes update</span><b>→</b><span>重启 Desktop / dashboard</span><b>→</b><span>再连远程看板</span>
           </div>
@@ -1460,7 +1484,7 @@
     </section>
 
 <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.9.24" target="_blank" rel="noreferrer">Hermes Agent v0.21.5 (v2026.9.24)</a>（自 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.9.14" target="_blank" rel="noreferrer">v0.21.3 / v2026.9.14</a> 起，经中间 tag v0.21.4 / v2026.9.21）与 <a href="https://hermes-agent.nousresearch.com/docs/" target="_blank" rel="noreferrer">官方文档</a> 整理，并于 2026-09-28 校对。0.21.4–0.21.5 为 patch rollup（完整 curated notes 留给 v0.22.0）；本页折叠操作者可见增量，并保留既有可靠性 / plugins / vault / 安装覆盖。命令与行为以官方文档为准；内容为静态快照。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <p>非官方中文速查，依据 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.21.6" target="_blank" rel="noreferrer">Hermes Agent v0.21.6</a>（自 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.9.14" target="_blank" rel="noreferrer">v0.21.3 / v2026.9.14</a> 起，经中间 tag v0.21.4 / v2026.9.21、v0.21.5 / v2026.9.24）与 <a href="https://hermes-agent.nousresearch.com/docs/" target="_blank" rel="noreferrer">官方文档</a> 整理，并于 2026-10-12 校对。0.21.4–0.21.6 为 patch rollup（完整 curated notes 留给 v0.22.0）；本页折叠操作者可见增量，并保留既有可靠性 / plugins / vault / 安装覆盖。命令与行为以官方文档为准；内容为静态快照。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

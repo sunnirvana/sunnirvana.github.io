@@ -739,12 +739,12 @@
           <span class="kicker">Hermes Agent Cheatsheet</span>
           <h1>Hermes Agent</h1>
         </div>
-        <p class="subtitle">Nous Research 的自改进 agent。先装好、先聊通，再叠 gateway、Bot Mode、skills、cron。v0.21.6 是首个走新稳定发布流水线的 tag（Docker / Cloud 先行），除 dashboard 登录、git filter、邮件网关三组安全修复外，把 0.21.5 之后约 2,100 个 PR 滚成 patch：摘要优先的 <code>hermes status</code>、流式转写、插件主机隔离等；0.21.5 的 <code>--format stream-json</code>、<code>skills.auto_load</code>、Desktop Simple/Connectors 仍有效；会话库异常仍先 doctor / recover。</p>
+        <p class="subtitle">Nous Research 的自改进 agent。先装好、先聊通，再叠 gateway、Bot Mode、skills、cron。v0.21.7 把 0.21.6 之后约 204 个 PR 滚成 patch，并覆盖桌面 App（macOS Apple silicon / Windows）、Microsoft Store、MSIX、安装器、Docker 与 Cloud：官方源码安装的 <code>hermes update</code> 默认跟最新 <code>vX.Y.Z</code>（追每个 main 提交用 <code>--set-channel main</code>），<code>--resume</code> 会回放已签名的 thinking，部分防火墙后的更新不再因 release 记录 403 失败。0.21.6 的 <code>hermes status</code> 摘要、流式转写、插件主机隔离，以及 0.21.5 的 <code>--format stream-json</code>、<code>skills.auto_load</code>、Desktop Simple/Connectors 仍有效；会话库异常仍先 doctor / recover。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
-            <span class="version-pill">v0.21.6</span>
-            <span class="version-pill">tag v0.21.6</span>
-            <span class="version-pill">更新于 2026-10-12</span>
+            <span class="version-pill">v0.21.7</span>
+            <span class="version-pill">tag v0.21.7</span>
+            <span class="version-pill">更新于 2026-10-14</span>
           </div>
           <div class="top-actions">
             <button type="button" data-copy="hermes setup --portal">复制最快安装路径</button>
@@ -763,7 +763,7 @@
     <div class="toolbar">
       <label class="search-wrap">
         <span>⌕</span>
-        <input id="search" type="search" placeholder="搜索：安装、model、gateway、state.db、recover、Desktop、Connectors、stream-json、auto_load、decline、MCP、peer、plugins、memory、cron、doctor、SOUL、reasoning">
+        <input id="search" type="search" placeholder="搜索：安装、model、gateway、state.db、recover、Desktop、Connectors、stream-json、auto_load、decline、MCP、peer、plugins、memory、cron、doctor、SOUL、reasoning、频道、防火墙">
       </label>
       <span class="hint">复制按钮会复制可直接贴进终端或 Hermes 会话的命令</span>
     </div>
@@ -823,13 +823,13 @@
     <section>
       <div class="section-head">
         <h2>按场景查</h2>
-        <p>先找当前要做的事，再复制对应命令。0.21.4 / 0.21.5 / 0.21.6 都是 patch rollup（完整 curated notes 留给 v0.22.0）；下面只收 0.21.3→0.21.6 操作者会摸到的增量。</p>
+        <p>先找当前要做的事，再复制对应命令。0.21.4 / 0.21.5 / 0.21.6 / 0.21.7 都是 patch rollup（完整 curated notes 留给 v0.22.0）；下面只收 0.21.3→0.21.7 操作者会摸到的增量。</p>
       </div>
       <div class="cards">
-        <article class="card strong accent-green searchable" data-keywords="linux macos wsl termux install.sh 安装">
+        <article class="card strong accent-green searchable" data-keywords="linux macos wsl termux install.sh 安装 update channel 频道">
           <div>
             <h3>在 Linux / macOS / WSL 安装</h3>
-            <p>官方一键脚本。装完 <code>source ~/.bashrc</code> 或对应 shell rc。已有安装用 <code>hermes update</code>；Docker / Cloud 镜像跟 <code>nousresearch/hermes-agent:stable</code>（0.21.6 起 tag 形如 <code>v0.21.6</code>，不再是日期 tag）。</p>
+            <p>官方一键脚本。装完 <code>source ~/.bashrc</code> 或对应 shell rc。已有安装用 <code>hermes update</code>（0.21.7 起官方源码安装默认跟最新 release tag）。Docker / Cloud 镜像跟 <code>nousresearch/hermes-agent:stable</code>（0.21.6 起 tag 形如 <code>v0.21.6</code>，不再是日期 tag）。</p>
             <div class="tag-row"><span class="tag">install</span><span class="tag">unix</span></div>
           </div>
           <div class="cmd">
@@ -934,10 +934,10 @@
           </div>
         </article>
 
-        <article class="card accent-red searchable" data-keywords="continue resume session 继续 会话 pin -z">
+        <article class="card accent-red searchable" data-keywords="continue resume session 继续 会话 pin -z reasoning thinking bedrock 回放">
           <div>
             <h3>接着上次聊</h3>
-            <p><code>-c</code> 恢复最近会话；按标题/ID 用 <code>--resume</code>。重要会话可 <code>hermes sessions pin</code>。脚本续跑：<code>hermes -z --resume …</code>。</p>
+            <p><code>-c</code> 恢复最近会话；按标题/ID 用 <code>--resume</code>。重要会话可 <code>hermes sessions pin</code>。脚本续跑：<code>hermes -z --resume …</code>。0.21.7：<code>hermes chat --resume</code> 与下一轮 gateway 会回放已签名的 thinking；Bedrock Converse 推理模型在恢复的会话上不再被拒绝。</p>
             <div class="tag-row"><span class="tag">session</span><span class="tag">pin</span></div>
           </div>
           <div class="cmd">
@@ -1018,10 +1018,22 @@
           </div>
         </article>
 
-        <article class="card accent-green searchable" data-keywords="update 更新 升级 backup docker cloud">
+        <article class="card accent-red searchable" data-keywords="update channel 频道 stable main set-channel 源码安装 桌面 About Updates fork mirror">
+          <div>
+            <h3>源码安装选更新频道</h3>
+            <p>0.21.7：官方仓库的源码安装，<code>hermes update</code> 与桌面端 git checkout 的更新器默认跟最新已发布的 <code>vX.Y.Z</code>，不再追 <code>main</code> 上的每个提交。已经比最新 release 新的安装停在原地，等待下一个 tag，不会被回退。要继续追每个提交：<code>hermes update --set-channel main</code>。fork 与 mirror 仍跟 <code>main</code>。Store、MSIX 与捆绑桌面安装没有这个开关。桌面源码安装也可在 Settings ▸ About ▸ Updates 切换 Stable releases / Every commit，更新对话框会标出当前频道。</p>
+            <div class="tag-row"><span class="tag">channel</span><span class="tag">stable</span></div>
+          </div>
+          <div class="cmd">
+            <code>hermes update --set-channel main</code>
+            <button class="copy" type="button" data-copy="hermes update --set-channel main">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-green searchable" data-keywords="update 更新 升级 backup docker cloud 防火墙 firewall github token 403">
           <div>
             <h3>更新到最新版</h3>
-            <p><code>--check</code> / <code>--plan</code> 只预览。<code>--backup</code> 拉取前给 <code>HERMES_HOME</code> 快照。Cloud / Docker：拉 <code>nousresearch/hermes-agent:stable</code>（或 <code>:latest</code>）；镜像安装会拒绝原地 <code>hermes update</code>。0.21.6 含 dashboard 登录限流、登录跳转、git filter 与邮件发件人白名单等安全修复，暴露 dashboard 或开邮件网关的实例建议尽快升。桌面 App / Termux / Microsoft Store 本次不动，随下一个整合发布更新。</p>
+            <p><code>--check</code> / <code>--plan</code> 只预览。<code>--backup</code> 拉取前给 <code>HERMES_HOME</code> 快照。Cloud / Docker：拉 <code>nousresearch/hermes-agent:stable</code>（或 <code>:latest</code>）；镜像安装会拒绝原地 <code>hermes update</code>。0.21.7：跟 <code>main</code> 的安装不再请求会被部分区域防火墙回 403 的 release 记录；stable 检查在设置了 <code>GITHUB_TOKEN</code> 或已 <code>gh auth login</code> 时带上 token，GitHub 限流会按限流报告。本 tag 覆盖桌面 App（macOS Apple silicon、Windows）、Microsoft Store 与 MSIX、安装器、Docker 与 Hermes Cloud。0.21.6 的 dashboard 登录限流与跳转、git filter、邮件发件人白名单修复也在这一版。</p>
             <div class="tag-row"><span class="tag">update</span></div>
           </div>
           <div class="cmd">
@@ -1070,9 +1082,9 @@
           </div>
         </article>
 
-        <article class="recipe searchable" data-keywords="日常 开发 continue tui palette reasoning">
+        <article class="recipe searchable" data-keywords="日常 开发 continue tui palette reasoning thinking resume">
           <h3>日常接着干</h3>
-          <p>回到最近会话。换目录时加 <code>--in</code>。会话中 Ctrl+P / <code>/palette</code> 找命令；换模型后可调 reasoning effort。</p>
+          <p>回到最近会话。换目录时加 <code>--in</code>。0.21.7 起恢复会话会带回已签名的 thinking。会话中 Ctrl+P / <code>/palette</code> 找命令；换模型后可调 reasoning effort。</p>
           <div class="flow-line">
             <span>hermes --tui --continue</span>
           </div>
@@ -1086,11 +1098,19 @@
           </div>
         </article>
 
-        <article class="recipe searchable" data-keywords="desktop cloud refresh session update">
+        <article class="recipe searchable" data-keywords="desktop cloud refresh session update store msix">
           <h3>远程 Desktop 总被刷掉登录</h3>
-          <p>0.21.3 起刷新 token 合并消掉醒来连刷的误踢；升到 0.21.5 后还吃到 Connectors / Simple；0.21.6 另含 dashboard 登录加固。Cloud 镜像跟 stable tag。</p>
+          <p>0.21.3 起刷新 token 合并消掉醒来连刷的误踢；升到 0.21.5 后还吃到 Connectors / Simple；0.21.6 另含 dashboard 登录加固。0.21.7 起桌面 App（macOS Apple silicon、Windows）、Microsoft Store 与 MSIX 也收到这批稳定发布。Cloud 镜像跟 stable tag。</p>
           <div class="flow-line">
             <span>hermes update</span><b>→</b><span>重启 Desktop / dashboard</span><b>→</b><span>再连远程看板</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="update channel 频道 stable main set-channel 防火墙 firewall github token">
+          <h3>源码安装要继续追 main</h3>
+          <p>0.21.7 起官方仓库的 <code>hermes update</code> 默认只到最新 <code>vX.Y.Z</code>。已经比最新 tag 新的安装会停在原地。桌面源码安装也可在 Settings ▸ About ▸ Updates 切换。防火墙后更新失败时，先 <code>gh auth login</code> 或设置 <code>GITHUB_TOKEN</code>。</p>
+          <div class="flow-line">
+            <span>hermes update --set-channel main</span><b>→</b><span>hermes update</span>
           </div>
         </article>
 
@@ -1226,10 +1246,10 @@
             <td>加 provider、OAuth、改默认模型；管凭据池。模型保存后跟 reasoning effort 步。</td>
             <td>OpenRouter：<code>auth add openrouter --type oauth</code>。不要和会话里的 /model、/login 搞混。</td>
           </tr>
-          <tr class="searchable" data-keywords="continue resume -c -r">
+          <tr class="searchable" data-keywords="continue resume -c -r thinking reasoning bedrock">
             <td>hermes -c / --resume</td>
             <td>恢复最近或指定会话。</td>
-            <td><code>--in dir</code> 先切目录再查会话。</td>
+            <td><code>--in dir</code> 先切目录再查会话。0.21.7：<code>hermes chat --resume</code> 与下一轮 gateway 回放已签名 thinking；Bedrock Converse 推理模型不再被拒。</td>
           </tr>
           <tr class="searchable" data-keywords="chat -q query oneshot">
             <td>hermes chat -q "…" · hermes -z</td>
@@ -1281,10 +1301,10 @@
             <td>改配置或密钥。</td>
             <td>自动写入 yaml 或 .env。</td>
           </tr>
-          <tr class="searchable" data-keywords="update 升级 plan">
+          <tr class="searchable" data-keywords="update 升级 plan channel 频道 set-channel 防火墙">
             <td>hermes update</td>
-            <td>拉最新代码并重装依赖。</td>
-            <td><code>--check</code> / <code>--plan</code> 预览，<code>--backup</code> 先快照；镜像安装拒绝原地更新。</td>
+            <td>按更新频道拉代码并重装依赖。</td>
+            <td>0.21.7 起官方源码安装默认跟最新 <code>vX.Y.Z</code>；追每个提交用 <code>--set-channel main</code>。<code>--check</code> / <code>--plan</code> 预览，<code>--backup</code> 先快照；镜像安装拒绝原地更新。</td>
           </tr>
           <tr class="searchable" data-keywords="backup import 迁移 snapshot">
             <td>hermes backup / import</td>
@@ -1484,7 +1504,7 @@
     </section>
 
 <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.21.6" target="_blank" rel="noreferrer">Hermes Agent v0.21.6</a>（自 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.9.14" target="_blank" rel="noreferrer">v0.21.3 / v2026.9.14</a> 起，经中间 tag v0.21.4 / v2026.9.21、v0.21.5 / v2026.9.24）与 <a href="https://hermes-agent.nousresearch.com/docs/" target="_blank" rel="noreferrer">官方文档</a> 整理，并于 2026-10-12 校对。0.21.4–0.21.6 为 patch rollup（完整 curated notes 留给 v0.22.0）；本页折叠操作者可见增量，并保留既有可靠性 / plugins / vault / 安装覆盖。命令与行为以官方文档为准；内容为静态快照。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <p>非官方中文速查，依据 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.21.7" target="_blank" rel="noreferrer">Hermes Agent v0.21.7</a>（自 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v2026.9.14" target="_blank" rel="noreferrer">v0.21.3 / v2026.9.14</a> 起，经中间 tag v0.21.4 / v2026.9.21、v0.21.5 / v2026.9.24、v0.21.6）与 <a href="https://hermes-agent.nousresearch.com/docs/" target="_blank" rel="noreferrer">官方文档</a> 整理，并于 2026-10-14 校对。0.21.4–0.21.7 为 patch rollup（完整 curated notes 留给 v0.22.0）；本页折叠操作者可见增量，并保留既有可靠性 / plugins / vault / 安装覆盖。命令与行为以官方文档为准；内容为静态快照。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

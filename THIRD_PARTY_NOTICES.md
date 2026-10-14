@@ -39,7 +39,7 @@ Claude Code, or Matt Pocock publication.
 The content in `cheatsheets/hermes-agent/` is an unofficial Simplified Chinese
 cheatsheet derived from the public [NousResearch/hermes-agent][hermes] project
 and its [official documentation][hermes-docs], using the
-[v0.21.6 release][hermes-release] as a baseline (checked 2026-10-12). It is not an official Nous Research publication.
+[v0.21.7 release][hermes-release] as a baseline (checked 2026-10-14). It is not an official Nous Research publication.
 
 `hermes-agent` is licensed under the MIT License:
 
@@ -65,7 +65,7 @@ and its [official documentation][hermes-docs], using the
 
 [hermes]: https://github.com/NousResearch/hermes-agent
 [hermes-docs]: https://hermes-agent.nousresearch.com/docs/
-[hermes-release]: https://github.com/NousResearch/hermes-agent/releases/tag/v0.21.6
+[hermes-release]: https://github.com/NousResearch/hermes-agent/releases/tag/v0.21.7
 
 ## Trellis
 

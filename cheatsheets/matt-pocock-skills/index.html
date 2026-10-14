@@ -738,12 +738,12 @@
           <span class="kicker">Codex / Claude Code Cheatsheet</span>
           <h1>Matt Pocock Skills</h1>
         </div>
-        <p class="subtitle">按项目工作场景查命令。先初始化一次，再按“想清楚、拆 spec/tickets、写代码、调问题、改结构、做 review、写 PR、收工复盘”选 skill；开 PR 可用 <code>$pr</code>，复盘时优先把机械问题落成 deterministic checks。</p>
+        <p class="subtitle">按项目工作场景查命令。先初始化一次，再按“想清楚、拆 spec/tickets、写代码（逐个 ticket 或整份 spec 并发）、调问题、改结构、做 review、写 PR、收工复盘”选 skill。v1.3 起 <code>$implement-spec</code>、<code>$pr</code>、<code>$retro</code> 转正进 engineering，术语表改名 <code>GLOSSARY.md</code>。同一 v1.3.1 之上的 main 修补（见下方各项）：<code>$implement</code> 先取 ticket 并复述标题，<code>$tdd</code> 的 seam 标注能抓什么 / 漏什么，<code>$grilling</code> 的问题改成「答 yes 即采纳推荐」。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
-            <span class="version-pill">upstream v1.2.3</span>
-            <span class="version-pill">main@c55ee46</span>
-            <span class="version-pill">更新于 2026-09-18</span>
+            <span class="version-pill">upstream v1.3.1</span>
+            <span class="version-pill">main@49dd158</span>
+            <span class="version-pill">更新于 2026-10-12</span>
           </div>
           <div class="top-actions">
             <button type="button" data-copy="$ask-matt 我现在要做的事是：">复制万能入口</button>
@@ -762,7 +762,7 @@
     <div class="toolbar">
       <label class="search-wrap">
         <span>⌕</span>
-        <input id="search" type="search" placeholder="搜索：bug、需求、spec、ticket、架构、测试、review、pr、retro、wait-what、初始化">
+        <input id="search" type="search" placeholder="搜索：bug、需求、spec、ticket、并发、架构、测试、review、pr、retro、glossary、wait-what、初始化">
       </label>
       <span class="hint">所有复制按钮都会复制可直接贴进 Codex 的提示词</span>
     </div>
@@ -770,13 +770,13 @@
     <section>
       <div class="section-head">
         <h2>最短记忆</h2>
-        <p>不用记全套。主线仍是 grill → spec → tickets → implement；grilling 按 frontier 分轮提问。开 PR 前可用 in-progress 的 <code>$pr</code> 写正文（model-invoked 格式参考：Summary 视觉来自 primary source，Evidence before/after，Merge Danger 的 Door / Blast Radius 分行可扫读）。会话收工后，用 <code>$retro</code> 复盘：机械问题优先落成 deterministic checks（仍是 stub）。</p>
+        <p>不用记全套。主线是 grill → spec → tickets → implement（逐个）或 implement-spec（整份并发）→ code-review → retro。开 PR 时 agent 会自动套 <code>$pr</code> 正文模板（model-invoked）。收工在同一会话里跑 <code>$retro</code>：机械问题落成 deterministic checks。老项目的 <code>CONTEXT.md</code> 记得 <code>git mv</code> 成 <code>GLOSSARY.md</code>。</p>
       </div>
       <div class="workflow">
-        <article class="step searchable" data-step="01" data-keywords="初始化 setup 项目 第一次 配置 issue tracker labels domain docs">
+        <article class="step searchable" data-step="01" data-keywords="初始化 setup 项目 第一次 配置 issue tracker labels domain docs glossary">
           <div>
             <h3>项目只跑一次</h3>
-            <p>配置 issue tracker、triage labels、领域文档位置。之后其他 engineering skills 会读这些约定。</p>
+            <p>配置 issue tracker、triage labels、领域文档位置（<code>GLOSSARY.md</code> + <code>docs/adr/</code>）。之后其他 engineering skills 会读这些约定。</p>
           </div>
           <div class="cmd">
             <code>$setup-matt-pocock-skills</code>
@@ -784,10 +784,10 @@
           </div>
         </article>
 
-        <article class="step searchable" data-step="02" data-keywords="需求 澄清 计划 设计 面试 grill docs context adr">
+        <article class="step searchable" data-step="02" data-keywords="需求 澄清 计划 设计 面试 grill docs glossary adr">
           <div>
             <h3>先把需求问清楚</h3>
-            <p>新功能、重要改动、方案还模糊时用。会一边追问，一边沉淀术语、ADR 和上下文。</p>
+            <p>新功能、重要改动、方案还模糊时用。会一边追问，一边把术语写进 <code>GLOSSARY.md</code>、把决定写成 ADR。</p>
           </div>
           <div class="cmd">
             <code>$grill-with-docs 我想做……</code>
@@ -795,10 +795,10 @@
           </div>
         </article>
 
-        <article class="step searchable" data-step="03" data-keywords="拆任务 issue ticket tickets prd spec vertical slices 任务 分解">
+        <article class="step searchable" data-step="03" data-keywords="拆任务 issue ticket tickets prd spec vertical slices 任务 分解 blocking">
           <div>
             <h3>拆成 tickets</h3>
-            <p>把方案、spec 或讨论结果拆成 tracer-bullet tickets，并声明 blocking edges。</p>
+            <p>把方案、spec 或讨论结果拆成 tracer-bullet tickets，并声明 blocking edges。这些边决定之后能并发跑哪些 ticket。</p>
           </div>
           <div class="cmd">
             <code>$to-tickets 把上面的方案拆成 tickets</code>
@@ -806,14 +806,14 @@
           </div>
         </article>
 
-        <article class="step searchable" data-step="04" data-keywords="实现 测试 TDD red green refactor 写代码 bug feature">
+        <article class="step searchable" data-step="04" data-keywords="实现 测试 TDD red green refactor 写代码 bug feature implement-spec 并发">
           <div>
             <h3>用测试驱动实现</h3>
-            <p>开始写代码或修 bug 时用。强调一个行为一个测试，红绿重构，避免一次性写一大坨。</p>
+            <p>逐个 ticket 用 <code>$implement</code>（内部跑 <code>$tdd</code>，ticket 之间清上下文）；想一次跑完整份 spec 就用 <code>$implement-spec</code>。</p>
           </div>
           <div class="cmd">
-            <code>$tdd 实现第一个任务</code>
-            <button class="copy" type="button" data-copy="$tdd 请用测试驱动方式实现这个任务：">复制</button>
+            <code>$implement 实现这个 ticket</code>
+            <button class="copy" type="button" data-copy="$implement 请实现这个 ticket：">复制</button>
           </div>
         </article>
       </div>
@@ -828,7 +828,7 @@
         <article class="card strong accent-green searchable" data-keywords="不知道用哪个 skill 选择 路由 ask matt">
           <div>
             <h3>不知道该用哪个</h3>
-            <p>万能入口。把你要做的事说出来，让它推荐流程。</p>
+            <p>万能入口。把你要做的事说出来，让它推荐流程。v1.3 起它也会把你路由到 <code>$implement-spec</code>、<code>$pr</code> 和 <code>$retro</code>。</p>
             <div class="tag-row"><span class="tag">路由</span><span class="tag">新手优先</span></div>
           </div>
           <div class="cmd">
@@ -837,10 +837,10 @@
           </div>
         </article>
 
-        <article class="card strong accent-blue searchable" data-keywords="新功能 需求 产品 PRD 文档 ADR glossary context">
+        <article class="card strong accent-blue searchable" data-keywords="新功能 需求 产品 PRD 文档 ADR glossary 术语">
           <div>
             <h3>准备做新功能</h3>
-            <p>先用文档化追问对齐需求，再需要的话转 spec 或 tickets。</p>
+            <p>先用文档化追问对齐需求（术语进 <code>GLOSSARY.md</code>，决定进 ADR），再需要的话转 spec 或 tickets。</p>
             <div class="tag-row"><span class="tag">需求</span><span class="tag">领域语言</span><span class="tag">ADR</span></div>
           </div>
           <div class="cmd">
@@ -849,10 +849,10 @@
           </div>
         </article>
 
-        <article class="card strong accent-amber searchable" data-keywords="wait what 看不懂 太啰嗦 重说 简化 上下文 verbosity 没听懂">
+        <article class="card strong accent-amber searchable" data-keywords="wait what 看不懂 太啰嗦 重说 简化 上下文 verbosity 没听懂 glossary">
           <div>
             <h3>上一句没听懂</h3>
-            <p>立刻纠正啰嗦。让它带一点上下文、用简化英语、并用项目术语重说上一句。只修这一条，不防下一句。</p>
+            <p>立刻纠正啰嗦。让它带一点上下文、用简化英语、并用 <code>GLOSSARY.md</code> 里的项目术语重说上一句（多上下文仓库会顺着 <code>GLOSSARY-MAP.md</code> 找对那份）。只修这一条，不防下一句。</p>
             <div class="tag-row"><span class="tag">wait-what</span><span class="tag">纠偏</span></div>
           </div>
           <div class="cmd">
@@ -861,15 +861,27 @@
           </div>
         </article>
 
-        <article class="card strong accent-red searchable" data-keywords="bug debug diagnose 500 错误 性能 失败 failing slow">
+        <article class="card strong accent-red searchable" data-keywords="bug debug diagnose 500 错误 性能 失败 failing slow retro">
           <div>
             <h3>遇到 bug 或性能问题</h3>
-            <p>按复现、最小化、假设、插桩、修复、回归测试的诊断循环走。命令、输出和捕获物先脱敏，再展示。</p>
+            <p>按复现、最小化、假设、插桩、修复、回归测试的诊断循环走。命令、输出和捕获物先脱敏。修好后在同一会话跑 <code>$retro</code> 问“什么能提前防住它”；若结论是缺一个能锁住它的 seam，再交给 <code>$improve-codebase-architecture</code>。</p>
             <div class="tag-row"><span class="tag">debug</span><span class="tag">性能</span><span class="tag">回归测试</span></div>
           </div>
           <div class="cmd">
             <code>$diagnosing-bugs 这个问题是……</code>
             <button class="copy" type="button" data-copy="$diagnosing-bugs 这个问题是：">复制</button>
+          </div>
+        </article>
+
+        <article class="card strong accent-blue searchable" data-keywords="implement-spec 整份 spec 并发 parallel task graph frontier worktree integration branch subagent 子 agent 合并 merger">
+          <div>
+            <h3>一次跑完整份 spec</h3>
+            <p>已有 spec + 带 blocking edges 的 tickets 时用（user-invoked）。把 tickets 当 <strong>task graph</strong>：对已就绪的 <strong>frontier</strong> 并发派 implementer 子 agent，各自在独立 worktree/分支上用 <code>$tdd</code> 实现，完成前先把 integration 分支最新提交并进自己分支，再由 merger 子 agent 合入同一条 <strong>integration branch</strong>；全部完成后跑一次 <code>$code-review</code> 并统一修复。目标是 integration 分支，不是 PR：只有 tracker 靠 PR 关单或你要求时，才在第一次合并后开 draft PR。没配 tracker 会让你先跑 <code>$setup-matt-pocock-skills</code>。</p>
+            <div class="tag-row"><span class="tag">implement-spec</span><span class="tag">并发</span><span class="tag">worktree</span></div>
+          </div>
+          <div class="cmd">
+            <code>$implement-spec 实现这份 spec</code>
+            <button class="copy" type="button" data-copy="$implement-spec 请按这份 spec 和它的 tickets，把整份 spec 实现到一条 integration 分支上：">复制</button>
           </div>
         </article>
 
@@ -885,11 +897,11 @@
           </div>
         </article>
 
-        <article class="card strong accent-blue searchable" data-keywords="pr pull request body summary evidence merge danger blast radius one-way two-way door screenshot show-me in-progress model-invoked 写 PR 正文">
+        <article class="card strong accent-blue searchable" data-keywords="pr pull request body summary evidence merge danger blast radius one-way two-way door screenshot show-me model-invoked 写 PR 正文 component tree">
           <div>
             <h3>写 PR 正文</h3>
-            <p>in-progress，model-invoked 格式参考（不是多步工作流）。先套模板：<strong>Summary</strong>（最小视觉：伪代码 / call tree / 组件树 / 文件树 / mermaid / diff sketch，内容来自 issue/spec 等 primary source，不要从 diff 推断）、<strong>Evidence</strong>（before/after：截图 S 档，失败→通过测试伪代码 A 档）、<strong>Merge Danger</strong>（Door：one-way / two-way，可附一句说明；Blast Radius：先一词概括影响面，再可选展开潜在后果——模板刻意分行，方便扫读）。credits：show-me（Dex Horthy / Humanlayer）。安装：<code>npx skills@latest add mattpocock/skills --skill=pr</code>。</p>
-            <div class="tag-row"><span class="tag">pr</span><span class="tag">format reference</span><span class="tag">in-progress</span><span class="tag">model-invoked</span></div>
+            <p>v1.3 起转正进 engineering，随 Claude Code 插件一起装；model-invoked，agent 写 PR 时会自己套用（是格式参考，不是多步工作流）。模板：<strong>Summary</strong>（最能说明改动的最小视觉：伪代码 / call tree / 组件树 / 文件树 / Mermaid / diff，内容来自 issue/spec 等 primary source，不从 diff 推断；组件树示例现为纯文本缩进）、<strong>Evidence</strong>（before/after 证明它能用）、<strong>Merge Danger</strong>（Door：one-way / two-way；Blast Radius：先一词概括影响面，再可选展开）。术语用 <code>GLOSSARY.md</code> 里的。credits：Dex Horthy 的 show-me。</p>
+            <div class="tag-row"><span class="tag">pr</span><span class="tag">format reference</span><span class="tag">model-invoked</span></div>
           </div>
           <div class="cmd">
             <code>$pr 按模板写这份 PR 正文</code>
@@ -897,10 +909,22 @@
           </div>
         </article>
 
-        <article class="card accent-amber searchable" data-keywords="架构 复杂 模块 deep module codebase design 重构">
+        <article class="card strong accent-amber searchable" data-keywords="retro retrospective 复盘 回顾 session environment steering AGENTS.md coding standards deterministic checks guardrail mechanical judgement linter pre-commit CI tooling information access 收工">
+          <div>
+            <h3>收工后给会话做复盘</h3>
+            <p>v1.3 起转正进 engineering，是主流程最后一步（<code>$code-review</code> 之后），user-invoked，不再标 stub。改的是 agent 的<strong>环境</strong>而不是代码：导航指针、自动检查、coding standards、steering 文件、tool 经济性、no-ops、信息获取，按严重程度排序。先读仓库已有的 lint/check/CI；完全没有 guardrail 本身就是 finding。机械违规默认落成 deterministic check（linter / pre-commit / CI），<code>CODING_STANDARDS.md</code> 只留给需要判断的 judgement calls。最好在被复盘的会话里、清上下文之前跑；清了就把会话日志指给它。</p>
+            <div class="tag-row"><span class="tag">retro</span><span class="tag">deterministic checks</span><span class="tag">主流程收尾</span></div>
+          </div>
+          <div class="cmd">
+            <code>$retro 复盘刚才这轮会话</code>
+            <button class="copy" type="button" data-copy="$retro 请对刚才这轮编码会话做 retrospective：机械问题优先落成 deterministic checks，按严重程度列出环境改进候选：">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-amber searchable" data-keywords="架构 复杂 模块 deep module codebase design 重构 seam">
           <div>
             <h3>代码开始变乱</h3>
-            <p>扫描正在改的区域，找 deepening 机会。先看你指定的方向，否则看最近约 20 条 commit，不扫没人动的角落。</p>
+            <p>扫描正在改的区域，找 deepening 机会。先看你指定的方向，否则沿 commit 历史找热点，不扫没人动的角落。领域命名以 <code>GLOSSARY.md</code> 为准。</p>
             <div class="tag-row"><span class="tag">架构</span><span class="tag">复杂度</span><span class="tag">模块边界</span></div>
           </div>
           <div class="cmd">
@@ -933,10 +957,10 @@
           </div>
         </article>
 
-        <article class="card accent-blue searchable" data-keywords="实现 PRD issues implement work 开发">
+        <article class="card accent-blue searchable" data-keywords="实现 PRD issues implement work 开发 ticket 逐个">
           <div>
-            <h3>按 spec 或 tickets 开发</h3>
-            <p>已经有 spec 或 tickets 时用。在预先约定的 seam 上跑 <code>$tdd</code>，收尾再 <code>$code-review</code>。</p>
+            <h3>逐个 ticket 开发</h3>
+            <p>已经有 spec 或 tickets、想自己一张张推进时用。在预先约定的 seam 上跑 <code>$tdd</code>，收尾再 <code>$code-review</code>；每张 ticket 之间清一次上下文。想让 agent 并发跑完整份 spec，改用 <code>$implement-spec</code>。</p>
             <div class="tag-row"><span class="tag">实现</span><span class="tag">已有任务</span></div>
           </div>
           <div class="cmd">
@@ -984,7 +1008,7 @@
         <article class="card accent-green searchable" data-keywords="writing for agents skill AGENTS.md CLAUDE.md 文档 写作 可预测">
           <div>
             <h3>写给 agent 看的文档</h3>
-            <p>写或改 skills、<code>AGENTS.md</code> / <code>CLAUDE.md</code> 时用。强调正向表述、环境即真相，不要把配置再抄进文档。</p>
+            <p>写或改 skills、<code>AGENTS.md</code> / <code>CLAUDE.md</code> 时用。强调正向表述、环境即真相，不要把配置再抄进文档。<code>$retro</code> 第一步也会先读它。</p>
             <div class="tag-row"><span class="tag">writing-for-agents</span><span class="tag">文档</span></div>
           </div>
           <div class="cmd">
@@ -993,15 +1017,15 @@
           </div>
         </article>
 
-        <article class="card accent-red searchable" data-keywords="merge conflict rebase 冲突 合并 解决">
+        <article class="card accent-red searchable" data-keywords="merge conflict rebase 冲突 合并 解决 resolving-merge-conflicts 已移除 removed">
           <div>
-            <h3>解决 merge/rebase 冲突</h3>
-            <p>读取双方改动的原始意图，再处理冲突，适合正在 merge 或 rebase 的状态。</p>
-            <div class="tag-row"><span class="tag">git</span><span class="tag">冲突</span></div>
+            <h3>merge/rebase 冲突</h3>
+            <p>v1.3.0 移除了 <code>$resolving-merge-conflicts</code>，没有替代 skill：upstream 认为 agent 不靠专门 skill 也能处理进行中的 merge/rebase 冲突。直接用普通提示让它处理即可。旧文档页仍在 aihero.dev，标为 archived。</p>
+            <div class="tag-row"><span class="tag">git</span><span class="tag">已移除</span></div>
           </div>
           <div class="cmd">
-            <code>$resolving-merge-conflicts</code>
-            <button class="copy" type="button" data-copy="$resolving-merge-conflicts 请帮我解决当前 merge/rebase 冲突">复制</button>
+            <code>当前有 merge 冲突，请解决</code>
+            <button class="copy" type="button" data-copy="当前处于 merge/rebase 冲突，请按双方改动的原始意图逐块解决，并完成这次操作，不要 --abort：">复制</button>
           </div>
         </article>
 
@@ -1017,6 +1041,30 @@
           </div>
         </article>
 
+        <article class="card accent-blue searchable" data-keywords="安装 install 更新 update 自动更新 claude code codex copilot vscode gemini skills.sh marketplace 插件">
+          <div>
+            <h3>安装与更新</h3>
+            <p>main@49dd158 起 README 先推「会自己更新」的安装。Claude Code：<code>claude plugin install mattpocock-skills@claude-plugins-official</code>，默认自动更新。Codex：先 <code>codex plugin marketplace add mattpocock/skills</code>，再 <code>codex plugin add mattpocock-skills@mattpocock</code>，启动时自动更新。Copilot CLI：同样 <code>marketplace add</code> + <code>install mattpocock-skills@mattpocock</code>，再在 <code>~/.copilot/settings.json</code> 里一次性开 <code>autoUpdate: true</code>；VS Code 用 Chat: Install Plugin From Source，每日更新。Gemini CLI 要按 bucket 各装一次且需手动重跑。其他 agent 用 skills.sh，手动 <code>npx skills@latest update</code>，新增 skill 要重新 <code>add</code>。插件和 skills.sh 二选一，别都装。</p>
+            <div class="tag-row"><span class="tag">安装</span><span class="tag">自动更新</span></div>
+          </div>
+          <div class="cmd">
+            <code>claude plugin install mattpocock-skills@claude-plugins-official</code>
+            <button class="copy" type="button" data-copy="claude plugin install mattpocock-skills@claude-plugins-official">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-amber searchable" data-keywords="issue 反馈 提 issue scope 范围 observed failure needs-info out-of-scope 贡献">
+          <div>
+            <h3>想给上游提 issue 或建议</h3>
+            <p>main@49dd158 新增 <code>SCOPE.md</code>：idea / 反馈 issue 只在同时满足两点时保持打开——有真实会话里的<strong>可观察失败</strong>（你跑了什么、skill 做了什么、你期望什么），且不属于 <code>.out-of-scope/</code> 已否决的概念或只服务个人工作流的调整。反应和 +1 不计。<code>misc/</code> 已冻结且 issue 全关；新增 skill 的提案和贡献关闭。无法判断的 issue 会被问一轮并打 <code>needs-info</code>，14 天无回复自动关闭。新 issue 一律先打 <code>needs-triage</code>，有表单（bug / idea）。问题和讨论去 GitHub Discussions。</p>
+            <div class="tag-row"><span class="tag">SCOPE.md</span><span class="tag">needs-info</span></div>
+          </div>
+          <div class="cmd">
+            <code>$triage</code>
+            <button class="copy" type="button" data-copy="$triage">复制</button>
+          </div>
+        </article>
+
         <article class="card accent-green searchable" data-keywords="交接 handoff 总结 另一个 agent 继续 上下文">
           <div>
             <h3>把上下文交给下一轮</h3>
@@ -1028,18 +1076,6 @@
             <button class="copy" type="button" data-copy="$handoff 下一轮会用来继续这件事：">复制</button>
           </div>
         </article>
-
-        <article class="card accent-blue searchable" data-keywords="retro retrospective 复盘 回顾 session environment steering AGENTS.md coding standards deterministic checks guardrail mechanical judgement linter pre-commit CI tooling information access openai.yaml in-progress stub">
-          <div>
-            <h3>给刚结束的会话做复盘</h3>
-            <p>in-progress stub。对照本轮 session（默认当前会话）找环境改进，并按严重程度给出候选。Automated checks 先读仓库已有的 lint/check/CI：已存在但未接线或静默坏掉的是 finding，不是再发明一套；完全没有 guardrail（无 pre-commit、也无 CI 跑 lint/typecheck/test）本身也是 finding。Coding standards 先分类：机械违规（固定语法、禁用 API、import 形态、文件落点）默认落成 deterministic check（linter 规则 / pre-commit / CI），优先建检查而不是写规则；<code>CODING_STANDARDS.md</code> 只留给真正需要判断的 judgement calls。其余仍看导航指针、臃肿 AGENTS.md、tool 经济性、no-ops、Information access。标准压在 reviewer 侧，不压实现 agent。</p>
-            <div class="tag-row"><span class="tag">retro</span><span class="tag">deterministic checks</span><span class="tag">in-progress</span><span class="tag">stub</span></div>
-          </div>
-          <div class="cmd">
-            <code>$retro 复盘刚才这轮会话</code>
-            <button class="copy" type="button" data-copy="$retro 请对刚才这轮编码会话做 retrospective：机械问题优先落成 deterministic checks，按严重程度列出环境改进候选：">复制</button>
-          </div>
-        </article>
       </div>
     </section>
 
@@ -1049,19 +1085,27 @@
         <p>把多个 skill 串起来用，适合真实项目。</p>
       </div>
       <div class="recipes">
-        <article class="recipe searchable" data-keywords="新功能 完整流程 grill spec tickets tdd implement code-review pr prd issues">
+        <article class="recipe searchable" data-keywords="新功能 完整流程 grill spec tickets tdd implement code-review pr retro prd issues">
           <h3>新功能从想法到代码</h3>
-          <p>先对齐，再文档化，再拆 tickets，再实现，最后 review；开 PR 前用 <code>$pr</code> 写正文。</p>
+          <p>先对齐，再文档化，再拆 tickets，逐个实现并 review；开 PR 时 agent 自动套 <code>$pr</code> 模板；最后在同一会话里 <code>$retro</code> 收尾。grill → tickets 这段尽量放在同一个上下文窗口里。</p>
           <div class="flow-line">
-            <span>$grill-with-docs</span><b>→</b><span>$to-spec</span><b>→</b><span>$to-tickets</span><b>→</b><span>$implement</span><b>→</b><span>$code-review</span><b>→</b><span>$pr</span>
+            <span>$grill-with-docs</span><b>→</b><span>$to-spec</span><b>→</b><span>$to-tickets</span><b>→</b><span>$implement</span><b>→</b><span>$code-review</span><b>→</b><span>$retro</span>
           </div>
         </article>
 
-        <article class="recipe searchable" data-keywords="修 bug bugfix diagnose tdd regression test">
-          <h3>修一个难复现 bug</h3>
-          <p>先诊断，确认根因后用回归测试锁住行为。命令和输出先脱敏。</p>
+        <article class="recipe searchable" data-keywords="implement-spec 并发 parallel 整份 spec integration branch worktree frontier">
+          <h3>整份 spec 并发实现</h3>
+          <p>tickets 已声明 blocking edges 时，让 <code>$implement-spec</code> 按 frontier 并发派子 agent，结果都落到一条 integration 分支上。它内部已含每张 ticket 的 <code>$tdd</code> 和最后一次 <code>$code-review</code>，不用再手动跑。</p>
           <div class="flow-line">
-            <span>$diagnosing-bugs</span><b>→</b><span>$tdd</span>
+            <span>$to-spec</span><b>→</b><span>$to-tickets</span><b>→</b><span>$implement-spec</span><b>→</b><span>$retro</span>
+          </div>
+        </article>
+
+        <article class="recipe searchable" data-keywords="修 bug bugfix diagnose tdd regression test retro">
+          <h3>修一个难复现 bug</h3>
+          <p>先诊断，确认根因后用回归测试锁住行为，命令和输出先脱敏。修好后同一会话跑 <code>$retro</code> 问能怎样提前防住；缺 seam 时再开 <code>$improve-codebase-architecture</code>。</p>
+          <div class="flow-line">
+            <span>$diagnosing-bugs</span><b>→</b><span>$tdd</span><b>→</b><span>$retro</span>
           </div>
         </article>
 
@@ -1091,17 +1135,17 @@
 
         <article class="recipe searchable" data-keywords="pr pull request implement code-review summary evidence merge danger 开 PR">
           <h3>实现后开 PR</h3>
-          <p>实现并 review 完再写 PR 正文。<code>$pr</code> 是格式参考：先模板（Summary / Evidence / Merge Danger），Summary 来自 primary source，不要从 diff 推断；Merge Danger 里 Door 与 Blast Radius 分行，Blast Radius 先一词再可选展开。in-progress，model-invoked。</p>
+          <p>实现并 review 完再写 PR 正文。<code>$pr</code> 现在是 engineering 里的 model-invoked 格式参考，agent 写 PR 时会自己调用；想强制用就显式写 <code>$pr</code>。Summary 来自 primary source，Merge Danger 里 Door 与 Blast Radius 分行。</p>
           <div class="flow-line">
             <span>$implement</span><b>→</b><span>$code-review</span><b>→</b><span>$pr</span>
           </div>
         </article>
 
-        <article class="recipe searchable" data-keywords="retro retrospective 复盘 writing-for-agents environment steering deterministic checks guardrail CODING_STANDARDS">
-          <h3>收工后复盘 agent 环境</h3>
-          <p>先按 writing-for-agents 原则写/改文档，再用 <code>$retro</code> 复盘刚结束的会话。把机械 finding 推成 linter / hook / CI，把 judgement calls 留给 <code>CODING_STANDARDS.md</code>。upstream 仍标 stub，适合试反馈，不要当稳定流程。</p>
+        <article class="recipe searchable" data-keywords="升级 upgrade v1.3 CONTEXT.md GLOSSARY.md CONTEXT-MAP.md GLOSSARY-MAP.md git mv rename 改名">
+          <h3>从 v1.2.x 升级到 v1.3</h3>
+          <p>v1.3.0 起所有 skill 只认 <code>GLOSSARY.md</code> / <code>GLOSSARY-MAP.md</code>，不再读 <code>CONTEXT.md</code> / <code>CONTEXT-MAP.md</code>。已有项目先改名，再更新 skills（插件现在带 27 个，含新转正的三个）。</p>
           <div class="flow-line">
-            <span>$writing-for-agents</span><b>→</b><span>$retro</span><b>→</b><span>deterministic check</span>
+            <span>git mv CONTEXT.md GLOSSARY.md</span><b>→</b><span>git mv CONTEXT-MAP.md GLOSSARY-MAP.md</span><b>→</b><span>更新插件</span>
           </div>
         </article>
       </div>
@@ -1110,7 +1154,7 @@
     <section>
       <div class="section-head">
         <h2>完整索引</h2>
-        <p>基于 upstream v1.2.3 / main@c55ee46 整理的 38 个 skills（engineering 18 + productivity 7 + in-progress 9 + misc 4）。相对上一校对点 <code>74ca5fe</code>（已含 <code>$retro</code> deterministic checks 与 in-progress <code>$pr</code>）：本版仅收紧 <code>$pr</code> 模板里 Merge Danger 的扫读结构（Door / Blast Radius 分行，Blast Radius 先一词概括再可选展开）。Claude Code 插件仍只带 25 个 promoted skills；in-progress 与 misc 需单独安装。本地 <code>scripts/link-skills.sh</code> 会链 promoted 与 in-progress，但不再把 <code>misc/</code> 链进日常 skill 目录。日常优先用上面的主流程。</p>
+        <p>基于 upstream v1.3.1 / main@49dd158 整理的 38 个 skills（engineering 20 + productivity 7 + in-progress 7 + misc 4）。main@49dd158 相对上一校对点 main@24fe0ef（release 仍为 v1.3.1）：新增 in-progress 的 <code>$chief-of-staff</code>；<code>$ask-matt</code>、<code>$code-review</code>、<code>$diagnosing-bugs</code>、<code>$grilling</code>、<code>$handoff</code>、<code>$implement</code>、<code>$setup-matt-pocock-skills</code>、<code>$tdd</code>、<code>$teach</code>、<code>$to-tickets</code>、<code>$wayfinder</code>、<code>$wizard</code>、<code>$claude-handoff</code> 各有措辞或流程修补；新增 <code>SCOPE.md</code> 与 issue 分流自动化；README 改为托管安装优先。更早的 v1.2.3 / main@c55ee46 → v1.3.1 变化：<code>$implement-spec</code>、<code>$pr</code>、<code>$retro</code> 从 in-progress 转正进 engineering；移除 <code>$resolving-merge-conflicts</code>；领域文档约定 <code>CONTEXT.md</code> 改名 <code>GLOSSARY.md</code>；<code>$ask-matt</code> 路由同步更新。Claude Code 插件从 25 个增至 27 个 promoted skills；in-progress 与 misc 仍需单独安装（<code>npx skills@latest add mattpocock/skills --skill=&lt;name&gt;</code>）。日常优先用上面的主流程。</p>
       </div>
       <div class="table-wrap" tabindex="0" aria-label="完整 Skills 索引，可横向滚动">
       <table class="reference-table">
@@ -1122,34 +1166,34 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="searchable" data-keywords="setup 初始化 配置 issue tracker labels domain docs">
+          <tr class="searchable" data-keywords="setup 初始化 配置 issue tracker labels domain docs glossary">
             <td>$setup-matt-pocock-skills</td>
-            <td>每个项目第一次使用这套工程 skills 前。User-invoked。</td>
+            <td>每个项目第一次使用这套工程 skills 前。User-invoked。配置 tracker、labels，以及 <code>GLOSSARY.md</code>（多上下文用 <code>GLOSSARY-MAP.md</code>）和 ADR 的位置。main@49dd158 起，在 GitHub / GitLab 上跑完 triage 配置段后会把 tracker 里缺的 label 自动建出来（<code>gh label create</code> / <code>glab label create</code>）；GitHub 列外部 PR 改走 REST pulls 接口，GitLab 列表改用 <code>-O json</code>。</td>
             <td>配置 issue tracker、triage labels、domain docs。</td>
           </tr>
-          <tr class="searchable" data-keywords="ask matt router 选择 skill">
+          <tr class="searchable" data-keywords="ask matt router 选择 skill implement-spec pr retro">
             <td>$ask-matt</td>
-            <td>不确定该用哪个 skill 或流程。User-invoked 路由器。</td>
+            <td>不确定该用哪个 skill 或流程。User-invoked 路由器；v1.3 起主流程以 <code>$retro</code> 收尾，并把 <code>$implement-spec</code> 列为逐个 <code>$implement</code> 的并发替代。main@49dd158 起它先读目标 skill 的 <code>SKILL.md</code> 再说「这个 skill 做什么」或建议跳过某步；自带的摘要只用于定向。</td>
             <td>我想做……应该怎么走？</td>
           </tr>
-          <tr class="searchable" data-keywords="wait what 看不懂 太啰嗦 重说 简化 verbosity">
+          <tr class="searchable" data-keywords="wait what 看不懂 太啰嗦 重说 简化 verbosity glossary">
             <td>$wait-what</td>
-            <td>上一句没落地。让它带上下文、用简化英语和项目术语重说。User-invoked。</td>
+            <td>上一句没落地。让它带上下文、用简化英语和 <code>GLOSSARY.md</code> 术语重说（多上下文顺着 <code>GLOSSARY-MAP.md</code> 找）。User-invoked。</td>
             <td>上一句没听懂，请重说。</td>
           </tr>
           <tr class="searchable" data-keywords="wayfinder decision mapping idea investigation tickets plan research greenfield huge feature">
             <td>$wayfinder</td>
-            <td>规划超过单轮上下文的大工作。产出 decision tickets，清完后走 $to-spec。</td>
+            <td>规划超过单轮上下文的大工作。产出 decision tickets，清完后走 $to-spec。main@49dd158 起：map 和 tickets 只带 <code>wayfinder:&lt;type&gt;</code> 标签，不再带 <code>ready-for-agent</code> 这类 triage 标签（它们是决策，不是实现工作）；第二遍连线时用真实 id 写交叉引用（占位 <code>#&lt;n&gt;</code> 会自动链到无关 issue）；处理 ticket 时按它的 <code>wayfinder:&lt;type&gt;</code> 标签判断类型；research 子 agent 推送 <code>research/&lt;name&gt;</code> 分支但不开 PR，因为永不合并。</td>
             <td>把这个目标做成 wayfinder map。</td>
           </tr>
-          <tr class="searchable" data-keywords="grill docs 需求 设计 context adr">
+          <tr class="searchable" data-keywords="grill docs 需求 设计 glossary adr">
             <td>$grill-with-docs</td>
-            <td>新功能、重要变更、需求不清楚。会边问边沉淀术语和 ADR。</td>
+            <td>新功能、重要变更、需求不清楚。会边问边把术语写进 <code>GLOSSARY.md</code>、把决定写成 ADR。</td>
             <td>我想做……先帮我把问题问清楚。</td>
           </tr>
           <tr class="searchable" data-keywords="grilling interview plan design stress test frontier round">
             <td>$grilling</td>
-            <td>底层追问循环。按 frontier 分轮提问；事实交给环境，决策留给人。</td>
+            <td>底层追问循环。按 frontier 分轮提问，连续问题之间用分隔线隔开；事实交给环境，决策留给人。main@49dd158 起每个问题要措辞成「回答 yes 就是接受推荐答案」。</td>
             <td>请按 frontier 分轮追问。</td>
           </tr>
           <tr class="searchable" data-keywords="grill me 非代码 计划 设计">
@@ -1159,12 +1203,12 @@
           </tr>
           <tr class="searchable" data-keywords="tdd 测试 red green refactor 实现 bug feature seam">
             <td>$tdd</td>
-            <td>写功能或修 bug。红绿循环，只在预先约定的 seam 上测。</td>
+            <td>写功能或修 bug。红绿循环，只在预先约定的 seam 上测；测试命名跟 <code>GLOSSARY.md</code> 术语走。main@49dd158 起，提议每个 seam 时要各写一行「抓得到什么、抓不到什么」。</td>
             <td>请用测试驱动实现……</td>
           </tr>
-          <tr class="searchable" data-keywords="diagnosing bugs debug performance slow failing 500 redact secrets">
+          <tr class="searchable" data-keywords="diagnosing bugs debug performance slow failing 500 redact secrets retro">
             <td>$diagnosing-bugs</td>
-            <td>问题复杂、偶发、报错、慢、难定位。展示命令和输出前先脱敏。</td>
+            <td>问题复杂、偶发、报错、慢、难定位。展示命令和输出前先脱敏。修好后建议同一会话跑 $retro。main@49dd158 起，如果红灯是靠改代码或 fixture 强行造出来的，要先和原始副本 <code>diff</code> 证明改动确实落地，再相信这个红。</td>
             <td>这个问题是……请按诊断流程定位。</td>
           </tr>
           <tr class="searchable" data-keywords="architecture improve codebase 架构 复杂度 yagni">
@@ -1177,9 +1221,9 @@
             <td>设计模块接口、边界、可测试性。含 design-it-twice。</td>
             <td>帮我设计这个模块的接口和边界。</td>
           </tr>
-          <tr class="searchable" data-keywords="domain modeling glossary ubiquitous language context adr">
+          <tr class="searchable" data-keywords="domain modeling glossary ubiquitous language adr 术语">
             <td>$domain-modeling</td>
-            <td>需要沉淀项目术语、领域模型、ADR。吸收了原 $ubiquitous-language。</td>
+            <td>讨论代码库术语、直接写或改 <code>GLOSSARY.md</code>、记录或修改 ADR 时触发。吸收了原 $ubiquitous-language。</td>
             <td>帮我梳理这个领域概念并更新文档。</td>
           </tr>
           <tr class="searchable" data-keywords="prototype throwaway UI state model 原型 html primary source">
@@ -1194,7 +1238,7 @@
           </tr>
           <tr class="searchable" data-keywords="to tickets to-issues 拆任务 issue ticket tickets vertical slice blocking edges">
             <td>$to-tickets</td>
-            <td>把 plan、spec 或 conversation 拆成 tracer-bullet tickets 和 blocking edges。</td>
+            <td>把 plan、spec 或 conversation 拆成 tracer-bullet tickets 和 blocking edges。main@49dd158 起：来源是已有 issue 时，每张 ticket 作为它的 sub-issue 发布；用原生 blocking 关系时，ticket 模板里省略 <code>Blocked by</code> 小节。</td>
             <td>把这个 spec 拆成可实现的 tickets。</td>
           </tr>
           <tr class="searchable" data-keywords="to questionnaire 问卷 async recipient stakeholder facts decisions">
@@ -1204,47 +1248,47 @@
           </tr>
           <tr class="searchable" data-keywords="triage issue label ready agent human info wontfix">
             <td>$triage</td>
-            <td>处理 issue 队列、分类和补充上下文。原 $qa 的职责并到这里和 $to-tickets。</td>
+            <td>处理 issue 队列、分类和补充上下文。只处理不是你自己建的 issue；$to-tickets 产出的 tickets 不用 triage。</td>
             <td>帮我 triage 当前 issues。</td>
           </tr>
-          <tr class="searchable" data-keywords="implement 实现 spec issue tickets tdd code-review">
+          <tr class="searchable" data-keywords="implement 实现 spec issue tickets tdd code-review 逐个">
             <td>$implement</td>
-            <td>已经有 spec 或 tickets。在约定 seam 上跑 $tdd，完成后 $code-review 再提交。</td>
+            <td>已经有 spec 或 tickets，逐个推进。在约定 seam 上跑 $tdd，完成后 $code-review 再提交；ticket 之间清上下文。main@49dd158 起：你传 ticket 引用时，先从 tracker 取下来并复述标题（引用含糊就问）；调用 $tdd / $code-review 改为明确要求通过 Skill 工具调用，而不是写 <code>/tdd</code>、<code>/code-review</code> 斜杠。</td>
             <td>请实现这个 spec 或 ticket。</td>
           </tr>
-          <tr class="searchable" data-keywords="implement-spec 实现 spec tickets worktree 并发 in-progress">
+          <tr class="searchable" data-keywords="implement-spec 实现 spec tickets worktree 并发 task graph frontier integration branch merger subagent">
             <td>$implement-spec</td>
-            <td>in-progress。用子 agent + worktree 按 ticket graph 并发实现整份 spec，收口成一个 PR。</td>
-            <td>请按 spec 和 tickets 实现并开 PR。</td>
+            <td>Engineering，user-invoked（v1.3 转正）。按 task graph 对 frontier 并发派 implementer 子 agent（各自 worktree + <code>$tdd</code>，完成前并入 integration 最新提交），merger 子 agent 合入一条 integration 分支，最后一次 <code>$code-review</code>。默认不开 PR；tracker 靠 PR 关单或你要求时，第一次合并后开 draft PR。</td>
+            <td>请把这份 spec 实现到一条 integration 分支上。</td>
           </tr>
           <tr class="searchable" data-keywords="review branch pr diff standards spec code review fowler smells">
             <td>$code-review</td>
-            <td>从固定点审查 diff：Standards 与 Spec 两条线并行。Standards 含 Fowler smell baseline。</td>
+            <td>从固定点审查 diff：Standards 与 Spec 两条线并行。Standards 含 Fowler smell baseline。main@49dd158 起：Standards 要搜索仓库里<strong>所有</strong>写代码规范的文件（有 <code>CODING_STANDARDS.md</code> / <code>CONTRIBUTING.md</code> 就必须列入）；两条 sub-agent 调用要同时在前台发出并汇总返回的报告；tracker 说明不再硬编码 <code>docs/agents/issue-tracker.md</code>，没提供就让你跑 setup。</td>
             <td>请 review 从 main 到当前 HEAD 的改动。</td>
           </tr>
-          <tr class="searchable" data-keywords="pr pull request body summary evidence merge danger blast radius one-way two-way door screenshot show-me format reference model-invoked in-progress openai.yaml">
+          <tr class="searchable" data-keywords="pr pull request body summary evidence merge danger blast radius one-way two-way door screenshot show-me format reference model-invoked">
             <td>$pr</td>
-            <td>in-progress，model-invoked。写 PR 正文的格式参考（非工作流）：模板先 Summary / Evidence / Merge Danger；Summary 最小视觉来自 primary source（非 diff 推断）；Evidence 要 before/after；Merge Danger 中 Door（one-way/two-way，可附说明）与 Blast Radius（先一词概括，再可选展开后果）分行便于扫读。配有 <code>agents/openai.yaml</code>。安装 <code>--skill=pr</code>。</td>
+            <td>Engineering，model-invoked（v1.3 转正，随插件安装）。写 PR 正文的格式参考（非工作流）：Summary / Evidence / Merge Danger；Summary 最小视觉来自 primary source；Evidence 要 before/after；Door 与 Blast Radius 分行。</td>
             <td>请按 Summary / Evidence / Merge Danger 写这份 PR 正文。</td>
+          </tr>
+          <tr class="searchable" data-keywords="retro retrospective 复盘 session environment steering AGENTS.md coding standards deterministic checks mechanical judgement guardrail automated checks linter pre-commit CI tool economy no-ops information access">
+            <td>$retro</td>
+            <td>Engineering，user-invoked（v1.3 转正，主流程最后一步）。对编码会话做 retrospective，按严重程度给环境改进候选：先读仓库已有 checks；无 guardrail 本身是 finding；机械 standards 落成 deterministic check，judgement calls 才进 <code>CODING_STANDARDS.md</code>。</td>
+            <td>请复盘刚才这轮会话；机械问题优先落成 deterministic checks。</td>
           </tr>
           <tr class="searchable" data-keywords="research primary sources official docs source code specs background agent cited markdown">
             <td>$research</td>
             <td>让后台 agent 基于 primary sources 调查问题，并写成带引用的 Markdown。</td>
             <td>请基于 primary sources 调查这个问题。</td>
           </tr>
-          <tr class="searchable" data-keywords="resolving merge conflicts rebase git 冲突">
-            <td>$resolving-merge-conflicts</td>
-            <td>当前处于 merge 或 rebase 冲突。按双方原始意图解决，不 --abort。</td>
-            <td>请解决当前冲突并解释取舍。</td>
-          </tr>
           <tr class="searchable" data-keywords="wizard bash manual procedure env github secrets setup dashboard">
             <td>$wizard</td>
-            <td>把只有人类能完成的步骤做成交互式 bash wizard。Model-invoked。</td>
+            <td>把只有人类能完成的步骤做成交互式 bash wizard。Model-invoked。main@49dd158 起模板更稳：<code>ask</code> 用 Readline 编辑并在 EOF 时失败；<code>.env</code> 值用单引号写入并能读回旧值（新建文件权限 0600，经 symlink 写、保留原权限）；开浏览器失败时给出手动链接；整段步骤包进 <code>run_wizard</code>，bash 会先解析完整个文件，运行中改文件不会弄坏脚本。</td>
             <td>帮我生成一个配置 X 的 wizard。</td>
           </tr>
           <tr class="searchable" data-keywords="git guardrails claude code hooks block push reset clean">
             <td>$git-guardrails-claude-code</td>
-            <td>misc（link-skills 不再自动链接）。为 Claude Code 设置 hooks，阻止危险 git 命令。</td>
+            <td>misc（需单独安装）。为 Claude Code 设置 hooks，阻止危险 git 命令。</td>
             <td>帮我设置 Claude Code 的 git guardrails。</td>
           </tr>
           <tr class="searchable" data-keywords="migrate shoehorn tests typescript as assertions">
@@ -1262,9 +1306,9 @@
             <td>misc（需单独安装）。配置 Husky pre-commit、lint-staged、Prettier、typecheck 和 tests。</td>
             <td>帮这个项目设置 pre-commit hooks。</td>
           </tr>
-          <tr class="searchable" data-keywords="setup ts deep modules typescript codebase design deep module in-progress">
+          <tr class="searchable" data-keywords="setup ts deep modules typescript dependency-cruiser codebase design deep module in-progress">
             <td>$setup-ts-deep-modules</td>
-            <td>in-progress。为 TypeScript 项目设置 deep modules 相关约定和脚手架。</td>
+            <td>in-progress。用 dependency-cruiser 让 TypeScript 仓库里每个 package 都是 deep module：实现藏在子目录，只能经入口文件访问。</td>
             <td>帮这个 TypeScript 项目设置 deep modules 约定。</td>
           </tr>
           <tr class="searchable" data-keywords="loop me workflow specs recurring loops delegate in-progress">
@@ -1272,24 +1316,24 @@
             <td>in-progress。梳理可重复、可委托的工作流规格。</td>
             <td>帮我把这个反复做的流程梳理成 workflow spec。</td>
           </tr>
-          <tr class="searchable" data-keywords="retro retrospective 复盘 session environment steering AGENTS.md coding standards deterministic checks mechanical judgement guardrail automated checks linter pre-commit CI tool economy no-ops information access openai.yaml stub in-progress">
-            <td>$retro</td>
-            <td>in-progress stub。对刚结束的编码会话做 retrospective：先读仓库已有 checks；无 guardrail 本身是 finding；机械 standards 默认落成 deterministic check，judgement calls 才进 <code>CODING_STANDARDS.md</code>。也覆盖导航、AGENTS.md、tool 经济性、no-ops、Information access。配有 <code>agents/openai.yaml</code>，显式调用。</td>
-            <td>请复盘刚才这轮会话；机械问题优先落成 deterministic checks。</td>
-          </tr>
           <tr class="searchable" data-keywords="handoff 交接 上下文 总结 another agent">
             <td>$handoff</td>
-            <td>上下文需要搬走时用：新 harness、新目录、同事、或中途分叉。同一会话内优先 /compact。</td>
+            <td>上下文需要搬走时用：新 harness、新目录、同事、或中途分叉。同一会话内优先 /compact。文件存到系统临时目录（<code>$TMPDIR</code>，否则 <code>/tmp</code>；Windows 为 <code>%TEMP%</code>），不放当前 workspace（main@49dd158 起写明解析顺序）。</td>
             <td>下一轮要继续……请写 handoff。</td>
           </tr>
-          <tr class="searchable" data-keywords="claude handoff 交接 claude code context summary in-progress">
+          <tr class="searchable" data-keywords="chief of staff 幕僚长 长期目标 subagent 子 agent 定时 strategic in-progress">
+            <td>$chief-of-staff</td>
+            <td>in-progress（main@49dd158 新增，实验性，user-invoked）。在一个长会话里围绕长期目标统筹子 agent 与定时任务：所有实际工作交给后台子 agent，自己保护上下文，只靠 context pointer 稀疏沟通；每次都先想「怎么改环境让下一个任务更顺」（受限 API、强制正确性的 lint、<code>CODING_STANDARDS.md</code>、日志 / 测试库 / 浏览器等数据源，以及不绕路 workaround 的规则）。</td>
+            <td>用 chief of staff 方式推进这个长期目标：……</td>
+          </tr>
+          <tr class="searchable" data-keywords="claude handoff 交接 claude code context summary background in-progress">
             <td>$claude-handoff</td>
-            <td>in-progress。面向 Claude Code 的 handoff 变体。</td>
+            <td>in-progress。把当前对话交给一个后台新 agent（<code>claude --bg</code>）立即接着做。main@49dd158 起先把摘要存成系统临时目录里的文件，再用 <code>claude --bg --name "…" -- "$(cat &lt;文件&gt;)"</code> 启动，避免摘要里的反引号或 <code>$</code> 被 shell 展开。</td>
             <td>帮我写一个 Claude handoff。</td>
           </tr>
           <tr class="searchable" data-keywords="teach learn concept stateful workspace">
             <td>$teach</td>
-            <td>让 agent 在当前 workspace 里持续教你一个概念或技能。</td>
+            <td>让 agent 在当前 workspace 里持续教你一个概念或技能。main@49dd158 起：<code>./lessons/</code> 等 workspace 路径从你运行 <code>/teach</code> 的目录解析，只有 <code>*-FORMAT.md</code> 链接从 skill 目录解析；测验正确答案的位置要在各题之间变化，不再给格式或顺序上的线索。</td>
             <td>教我……</td>
           </tr>
           <tr class="searchable" data-keywords="writing for agents skill authoring predictable AGENTS.md CLAUDE.md">
@@ -1320,12 +1364,12 @@
     <section>
       <div class="note-box">
         <strong>使用习惯</strong>
-        <p>在真实项目根目录中启动 Codex 或 Claude Code，然后先跑 <code>$setup-matt-pocock-skills</code>。不确定时用 <code>$ask-matt</code>。看不懂上一句用 <code>$wait-what</code>。同一 harness、同一目录、到了阶段边界时，优先继续或 <code>/compact</code>，<code>$handoff</code> 只在上下文需要搬走时用。实现并 <code>$code-review</code> 后、开 PR 前，可用 in-progress 的 <code>$pr</code> 写正文（model-invoked 格式参考：Summary 视觉来自 primary source，Evidence before/after，Merge Danger 的 Door / Blast Radius 分行可扫读；单独安装 <code>--skill=pr</code>）。一轮编码收工后，可用 <code>$retro</code> 复盘 steering、checks、tooling 与信息获取：先认清仓库已有的 lint/CI，再把机械 finding 建成 deterministic check，把真正需要判断的留给 <code>CODING_STANDARDS.md</code>。它仍是 in-progress stub，并配有 Codex 用的 <code>agents/openai.yaml</code>（显式调用，不隐式触发）。若你用仓库里的 <code>link-skills.sh</code> 做本地 symlink，现在只会链 promoted + in-progress，<code>misc/</code> 要单独安装。</p>
+        <p>在真实项目根目录中启动 Codex 或 Claude Code，然后先跑 <code>$setup-matt-pocock-skills</code>。不确定时用 <code>$ask-matt</code>。看不懂上一句用 <code>$wait-what</code>。grill → spec → tickets 尽量留在同一个上下文窗口；之后每个 <code>$implement</code> 从 ticket 重新开始，或者交给 <code>$implement-spec</code> 一次并发跑完。同一 harness、同一目录、到了阶段边界时，优先继续或 <code>/compact</code>，<code>$handoff</code> 只在上下文需要搬走时用。开 PR 时 agent 会自己套 <code>$pr</code> 模板。一轮编码收工后，在清上下文之前跑 <code>$retro</code>：先认清仓库已有的 lint/CI，再把机械 finding 建成 deterministic check，把真正需要判断的留给 <code>CODING_STANDARDS.md</code>。从 v1.2.x 升上来的项目，记得把 <code>CONTEXT.md</code> / <code>CONTEXT-MAP.md</code> 用 <code>git mv</code> 改成 <code>GLOSSARY.md</code> / <code>GLOSSARY-MAP.md</code>，否则 skills 读不到你的术语表。</p>
       </div>
     </section>
 
     <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/mattpocock/skills/releases/tag/v1.2.3" target="_blank" rel="noreferrer">mattpocock/skills v1.2.3</a> 整理，并于 2026-09-21 按 <a href="https://github.com/mattpocock/skills/commit/c55ee46073ed923f86ce59a5eb3b6d895095d1b7" target="_blank" rel="noreferrer">main@c55ee46</a> 校对（相对上一校对点 <code>74ca5fe</code>：仅 <code>$pr</code> Merge Danger 模板更易扫读——Door / Blast Radius 分行，Blast Radius 先一词再可选展开）；Codex 的通用 Skill 调用机制以 <a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noreferrer">OpenAI 文档</a> 为准。内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <p>非官方中文速查，依据 <a href="https://github.com/mattpocock/skills/releases/tag/v1.3.1" target="_blank" rel="noreferrer">mattpocock/skills v1.3.1</a> 整理，并于 2026-10-12 按 <a href="https://github.com/mattpocock/skills/commit/49dd158d1076134a641b33efb035946536778336" target="_blank" rel="noreferrer">main@49dd158</a> 校对（相对上一校对点 main@24fe0ef，release 仍为 v1.3.1：新增 <code>$chief-of-staff</code>、<code>SCOPE.md</code> 与托管安装优先的 README，多个 skill 措辞 / 流程修补；更早的 v1.2.3 / <code>c55ee46</code> → v1.3.1 变化见上，<code>$implement-spec</code>、<code>$pr</code>、<code>$retro</code> 转正，<code>CONTEXT.md</code> 改名 <code>GLOSSARY.md</code>）；Codex 的通用 Skill 调用机制以 <a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noreferrer">OpenAI 文档</a> 为准。内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

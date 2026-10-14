@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-09-21",
+  "updatedAtUtc": "2026-10-12",
   "sources": [
     {
       "id": "matt-pocock-skills",
@@ -11,11 +11,11 @@
       "noticeHeading": "## Matt Pocock Skills",
       "homepageVersionPattern": "基于 v{version}",
       "pinned": {
-        "version": "1.2.3",
-        "tag": "v1.2.3",
-        "commit": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7",
-        "commitShort": "c55ee46",
-        "checkedAtUtc": "2026-09-21"
+        "version": "1.3.1",
+        "tag": "v1.3.1",
+        "commit": "49dd158d1076134a641b33efb035946536778336",
+        "commitShort": "49dd158",
+        "checkedAtUtc": "2026-10-12"
       },
       "versionStrip": {
         "releasePillPrefix": "upstream v",
@@ -32,9 +32,9 @@
       "noticeHeading": "## Hermes Agent",
       "homepageVersionPattern": null,
       "pinned": {
-        "version": "0.21.3",
-        "tag": "v2026.9.14",
-        "checkedAtUtc": "2026-09-21"
+        "version": "0.21.6",
+        "tag": "v0.21.6",
+        "checkedAtUtc": "2026-10-12"
       },
       "versionStrip": {
         "releasePillPrefix": "v",
@@ -54,7 +54,7 @@
       "pinned": {
         "version": "0.6.17",
         "tag": "v0.6.17",
-        "checkedAtUtc": "2026-09-21"
+        "checkedAtUtc": "2026-10-12"
       },
       "versionStrip": {
         "releasePillPrefix": "v",

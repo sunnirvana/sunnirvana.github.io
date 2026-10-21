@@ -738,12 +738,12 @@
           <span class="kicker">Codex / Claude Code Cheatsheet</span>
           <h1>Matt Pocock Skills</h1>
         </div>
-        <p class="subtitle">按项目工作场景查命令。先初始化一次，再按“想清楚、拆 spec/tickets、写代码（逐个 ticket 或整份 spec 并发）、调问题、改结构、做 review、写 PR、收工复盘”选 skill。v1.3 起 <code>$implement-spec</code>、<code>$pr</code>、<code>$retro</code> 转正进 engineering，术语表改名 <code>GLOSSARY.md</code>。同一 v1.3.1 之上的 main 修补（见下方各项）：<code>$implement</code> 先取 ticket 并复述标题，<code>$tdd</code> 的 seam 标注能抓什么 / 漏什么，<code>$grilling</code> 的问题改成「答 yes 即采纳推荐」。</p>
+        <p class="subtitle">按项目工作场景查命令。先初始化一次，再按“想清楚、拆 spec/tickets、写代码（逐个 ticket 或整份 spec 并发）、调问题、改结构、做 review、写 PR、收工复盘”选 skill。v1.3 起 <code>$implement-spec</code>、<code>$pr</code>、<code>$retro</code> 转正进 engineering，术语表改名 <code>GLOSSARY.md</code>。同一 v1.3.1 之上的 main 修补（见下方各项）：<code>$implement</code> 先取 ticket 并复述标题，<code>$tdd</code> 的 seam 标注能抓什么 / 漏什么，<code>$grilling</code> 的问题改成「答 yes 即采纳推荐」。main@5beb35b：<code>$chief-of-staff</code> 把记忆放进带日期和提交引用的 wiki。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
             <span class="version-pill">upstream v1.3.1</span>
-            <span class="version-pill">main@49dd158</span>
-            <span class="version-pill">更新于 2026-10-12</span>
+            <span class="version-pill">main@5beb35b</span>
+            <span class="version-pill">更新于 2026-10-21</span>
           </div>
           <div class="top-actions">
             <button type="button" data-copy="$ask-matt 我现在要做的事是：">复制万能入口</button>
@@ -1154,7 +1154,7 @@
     <section>
       <div class="section-head">
         <h2>完整索引</h2>
-        <p>基于 upstream v1.3.1 / main@49dd158 整理的 38 个 skills（engineering 20 + productivity 7 + in-progress 7 + misc 4）。main@49dd158 相对上一校对点 main@24fe0ef（release 仍为 v1.3.1）：新增 in-progress 的 <code>$chief-of-staff</code>；<code>$ask-matt</code>、<code>$code-review</code>、<code>$diagnosing-bugs</code>、<code>$grilling</code>、<code>$handoff</code>、<code>$implement</code>、<code>$setup-matt-pocock-skills</code>、<code>$tdd</code>、<code>$teach</code>、<code>$to-tickets</code>、<code>$wayfinder</code>、<code>$wizard</code>、<code>$claude-handoff</code> 各有措辞或流程修补；新增 <code>SCOPE.md</code> 与 issue 分流自动化；README 改为托管安装优先。更早的 v1.2.3 / main@c55ee46 → v1.3.1 变化：<code>$implement-spec</code>、<code>$pr</code>、<code>$retro</code> 从 in-progress 转正进 engineering；移除 <code>$resolving-merge-conflicts</code>；领域文档约定 <code>CONTEXT.md</code> 改名 <code>GLOSSARY.md</code>；<code>$ask-matt</code> 路由同步更新。Claude Code 插件从 25 个增至 27 个 promoted skills；in-progress 与 misc 仍需单独安装（<code>npx skills@latest add mattpocock/skills --skill=&lt;name&gt;</code>）。日常优先用上面的主流程。</p>
+        <p>基于 upstream v1.3.1 / main@5beb35b 整理的 38 个 skills（engineering 20 + productivity 7 + in-progress 7 + misc 4）。main@5beb35b 相对 main@49dd158 只改了 in-progress 的 <code>$chief-of-staff</code>：长期记忆放进一份跨会话的 wiki。main@49dd158 相对上一校对点 main@24fe0ef（release 仍为 v1.3.1）：新增 in-progress 的 <code>$chief-of-staff</code>；<code>$ask-matt</code>、<code>$code-review</code>、<code>$diagnosing-bugs</code>、<code>$grilling</code>、<code>$handoff</code>、<code>$implement</code>、<code>$setup-matt-pocock-skills</code>、<code>$tdd</code>、<code>$teach</code>、<code>$to-tickets</code>、<code>$wayfinder</code>、<code>$wizard</code>、<code>$claude-handoff</code> 各有措辞或流程修补；新增 <code>SCOPE.md</code> 与 issue 分流自动化；README 改为托管安装优先。更早的 v1.2.3 / main@c55ee46 → v1.3.1 变化：<code>$implement-spec</code>、<code>$pr</code>、<code>$retro</code> 从 in-progress 转正进 engineering；移除 <code>$resolving-merge-conflicts</code>；领域文档约定 <code>CONTEXT.md</code> 改名 <code>GLOSSARY.md</code>；<code>$ask-matt</code> 路由同步更新。Claude Code 插件从 25 个增至 27 个 promoted skills；in-progress 与 misc 仍需单独安装（<code>npx skills@latest add mattpocock/skills --skill=&lt;name&gt;</code>）。日常优先用上面的主流程。</p>
       </div>
       <div class="table-wrap" tabindex="0" aria-label="完整 Skills 索引，可横向滚动">
       <table class="reference-table">
@@ -1321,9 +1321,9 @@
             <td>上下文需要搬走时用：新 harness、新目录、同事、或中途分叉。同一会话内优先 /compact。文件存到系统临时目录（<code>$TMPDIR</code>，否则 <code>/tmp</code>；Windows 为 <code>%TEMP%</code>），不放当前 workspace（main@49dd158 起写明解析顺序）。</td>
             <td>下一轮要继续……请写 handoff。</td>
           </tr>
-          <tr class="searchable" data-keywords="chief of staff 幕僚长 长期目标 subagent 子 agent 定时 strategic in-progress">
+          <tr class="searchable" data-keywords="chief of staff 幕僚长 长期目标 subagent 子 agent 定时 strategic in-progress wiki index ingest lint 日期 提交">
             <td>$chief-of-staff</td>
-            <td>in-progress（main@49dd158 新增，实验性，user-invoked）。在一个长会话里围绕长期目标统筹子 agent 与定时任务：所有实际工作交给后台子 agent，自己保护上下文，只靠 context pointer 稀疏沟通；每次都先想「怎么改环境让下一个任务更顺」（受限 API、强制正确性的 lint、<code>CODING_STANDARDS.md</code>、日志 / 测试库 / 浏览器等数据源，以及不绕路 workaround 的规则）。</td>
+            <td>in-progress（main@49dd158 新增，实验性，user-invoked）。在一个长会话里围绕长期目标统筹子 agent 与定时任务：所有实际工作交给后台子 agent，自己保护上下文，只靠 context pointer 稀疏沟通；每次都先想「怎么改环境让下一个任务更顺」（受限 API、强制正确性的 lint、<code>CODING_STANDARDS.md</code>、日志 / 测试库 / 浏览器等数据源，以及不绕路 workaround 的规则）。main@5beb35b：记忆放进一份跨会话的 wiki，第一次写之前先和用户约定位置。<code>index.md</code> 按类列出每页的链接和一行摘要，其余一页一事；来源（issue、PR、记录、子 agent 报告）只引用、不抄进来。用 ingest（学到 durable 事实就改所有相关页和索引）、query（决策前先读索引）、lint（定期查矛盾、孤儿页、过时主张）维护。写成历史记录：每条主张带日期，涉及代码的引用当时的提交（仓库@sha）；变化时追加新条目并把旧的标成被取代，不改写旧文。</td>
             <td>用 chief of staff 方式推进这个长期目标：……</td>
           </tr>
           <tr class="searchable" data-keywords="claude handoff 交接 claude code context summary background in-progress">
@@ -1369,7 +1369,7 @@
     </section>
 
     <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/mattpocock/skills/releases/tag/v1.3.1" target="_blank" rel="noreferrer">mattpocock/skills v1.3.1</a> 整理，并于 2026-10-12 按 <a href="https://github.com/mattpocock/skills/commit/49dd158d1076134a641b33efb035946536778336" target="_blank" rel="noreferrer">main@49dd158</a> 校对（相对上一校对点 main@24fe0ef，release 仍为 v1.3.1：新增 <code>$chief-of-staff</code>、<code>SCOPE.md</code> 与托管安装优先的 README，多个 skill 措辞 / 流程修补；更早的 v1.2.3 / <code>c55ee46</code> → v1.3.1 变化见上，<code>$implement-spec</code>、<code>$pr</code>、<code>$retro</code> 转正，<code>CONTEXT.md</code> 改名 <code>GLOSSARY.md</code>）；Codex 的通用 Skill 调用机制以 <a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noreferrer">OpenAI 文档</a> 为准。内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <p>非官方中文速查，依据 <a href="https://github.com/mattpocock/skills/releases/tag/v1.3.1" target="_blank" rel="noreferrer">mattpocock/skills v1.3.1</a> 整理，并于 2026-10-21 按 <a href="https://github.com/mattpocock/skills/commit/5beb35b040e3de97e54fa9e386d7e42d15c295c2" target="_blank" rel="noreferrer">main@5beb35b</a> 校对（相对 main@49dd158，release 仍为 v1.3.1：<code>$chief-of-staff</code> 把记忆放进带日期和提交引用的 wiki。main@49dd158 相对 main@24fe0ef：新增 <code>$chief-of-staff</code>、<code>SCOPE.md</code> 与托管安装优先的 README，多个 skill 措辞 / 流程修补；更早的 v1.2.3 / <code>c55ee46</code> → v1.3.1 变化见上，<code>$implement-spec</code>、<code>$pr</code>、<code>$retro</code> 转正，<code>CONTEXT.md</code> 改名 <code>GLOSSARY.md</code>）；Codex 的通用 Skill 调用机制以 <a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noreferrer">OpenAI 文档</a> 为准。内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

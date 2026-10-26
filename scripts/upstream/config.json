@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-10-21",
+  "updatedAtUtc": "2026-10-26",
   "sources": [
     {
       "id": "matt-pocock-skills",
@@ -32,9 +32,9 @@
       "noticeHeading": "## Hermes Agent",
       "homepageVersionPattern": null,
       "pinned": {
-        "version": "0.22.4",
-        "tag": "v0.22.4",
-        "checkedAtUtc": "2026-10-21"
+        "version": "0.22.5",
+        "tag": "v0.22.5",
+        "checkedAtUtc": "2026-10-26"
       },
       "versionStrip": {
         "releasePillPrefix": "v",

@@ -440,7 +440,7 @@ function replaceVersionStrip(html, source, latest, dateUtc) {
         `<span class="version-pill">${escapeHtml(tpl.replace("{short}", short))}</span>`,
       );
     }
-  } else if (source.id === "hermes-agent") {
+  } else if (source.id === "hermes-agent" || source.id === "claude-code") {
     const ver = latest.version;
     pills.push(
       `<span class="version-pill">${escapeHtml((vs.releasePillPrefix || "v") + ver)}</span>`,
@@ -510,6 +510,15 @@ function updateFooterProvenance(html, source, latest, dateUtc) {
     );
   } else if (source.id === "trellis") {
     p = p.replace(/@mindfoldhq\/trellis v[\w.-]+/g, `@mindfoldhq/trellis v${ver}`);
+  } else if (source.id === "claude-code") {
+    p = p.replace(
+      /claude-code\/releases\/tag\/v[\w.-]+/g,
+      `claude-code/releases/tag/${tag}`,
+    );
+    p = p.replace(
+      /Claude Code v[\w.-]+ \(v[\w.-]+\)/g,
+      `Claude Code v${ver} (${tag})`,
+    );
   }
 
   p = p.replace(/并于 \d{4}-\d{2}-\d{2}/g, `并于 ${dateUtc}`);
@@ -628,6 +637,13 @@ function updateNotices(md, source, latest, dateUtc) {
   } else if (source.id === "trellis") {
     section = section.replace(/\[v[\w.-]+ release\]/g, `[v${ver} release]`);
     section = section.replace(/using the \[v[\w.-]+ release\]/g, `using the [v${ver} release]`);
+    section = section.replace(/checked\s+\d{4}-\d{2}-\d{2}/gi, `checked ${dateUtc}`);
+  } else if (source.id === "claude-code") {
+    section = section.replace(/\[v[\w.-]+ release\]/g, `[${tag} release]`);
+    section = section.replace(
+      /\/releases\/tag\/v[\w.-]+/g,
+      `/releases/tag/${tag}`,
+    );
     section = section.replace(/checked\s+\d{4}-\d{2}-\d{2}/gi, `checked ${dateUtc}`);
   }
 

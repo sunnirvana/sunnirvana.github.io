@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Herdr 非官方中文速查：安装、频道、分离与接回、前缀键位、JSON CLI、HERDR_ENV 与远程机器。">
+  <meta name="description" content="Herdr 非官方中文速查：分离再接回、前缀键、命名会话、HERDR_ENV 与远程。">
   <meta name="theme-color" content="#fbfaf6">
   <meta property="og:title" content="Herdr — 中文速查">
-  <meta property="og:description" content="按场景查 Herdr 安装、Ctrl+B 前缀、会话、会打 JSON 的 CLI，以及 SSH 机器。">
+  <meta property="og:description" content="关掉客户端，pane 里的工作继续跑。分离用 prefix+q。">
   <meta property="og:type" content="article">
   <link rel="canonical" href="https://sunnirvana.github.io/cheatsheets/herdr/">
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
@@ -738,7 +738,7 @@
           <span class="kicker">Herdr Cheatsheet</span>
           <h1>Herdr</h1>
         </div>
-        <p class="subtitle">编码 agent 的终端运行时。关掉客户端，pane 里的工作继续跑。当前钉在 v0.9.5（2026-10-14 发布，提交 2ecf19a）。前缀默认 Ctrl+B，离开是前缀再按 q。</p>
+        <p class="subtitle">关掉客户端，pane 里的工作继续跑。前缀默认 Ctrl+B，离开是前缀再按 q。当前钉在 v0.9.5。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
             <span class="version-pill">v0.9.5</span>
@@ -755,14 +755,14 @@
       <aside class="command-primer">
         <p class="primer-label">只想记一个命令</p>
         <code class="primer-command">herdr</code>
-        <p class="primer-note">在项目目录启动，或接回已经在跑的默认会话。分离用 Ctrl+B，松开，再按 q。裸 <code>herdr</code> 会打开界面，查子命令用 <code>herdr --help</code>。</p>
+        <p class="primer-note">在项目目录启动，或接回已经在跑的默认会话。分离：Ctrl+B，松开，再按 q。</p>
       </aside>
     </header>
 
     <div class="toolbar">
       <label class="search-wrap">
         <span>⌕</span>
-        <input id="search" type="search" placeholder="搜索：安装、更新、stable、preview、分离、Ctrl+B、workspace、pane、agent、HERDR_ENV、config、SSH、machine">
+        <input id="search" type="search" placeholder="搜索：安装、分离、prefix、session、HERDR_ENV、config、remote、machine、update">
       </label>
       <span class="hint">复制按钮会复制可直接贴进终端的命令</span>
     </div>
@@ -770,13 +770,13 @@
     <section>
       <div class="section-head">
         <h2>最短记忆</h2>
-        <p>Herdr 是后台服务器加一个或多个终端客户端。服务器握着 pane 和进程；客户端只是接上去看。</p>
+        <p>服务器握着 pane 和进程。客户端只是接上去看，分离不会停工作。</p>
       </div>
       <div class="workflow">
         <article class="step searchable" data-step="01" data-keywords="安装 install curl macos linux windows powershell brew">
           <div>
             <h3>先装上</h3>
-            <p>Linux / macOS 用安装脚本。Windows PowerShell 用 <code>powershell -ExecutionPolicy Bypass -c "irm https://herdr.dev/install.ps1 | iex"</code>。新的直接安装走 stable 频道。装完新开终端，<code>herdr --version</code> 能打出版本号才算在 PATH 上。</p>
+            <p>Linux / macOS 用下面这条；Windows 用 <code>powershell -ExecutionPolicy Bypass -c "irm https://herdr.dev/install.ps1 | iex"</code>。已经用 Homebrew 就 <code>brew install herdr</code>。</p>
           </div>
           <div class="cmd">
             <code>curl -fsSL https://herdr.dev/install.sh | sh</code>
@@ -784,10 +784,10 @@
           </div>
         </article>
 
-        <article class="step searchable" data-step="02" data-keywords="启动 attach 会话 session 第一次 workspace">
+        <article class="step searchable" data-step="02" data-keywords="启动 attach 会话 session workspace">
           <div>
             <h3>在项目里打开</h3>
-            <p>进入仓库再跑。它会启动或接上默认后台会话，不用自己管 socket。会话里还没有 workspace 时，Herdr 会自动开一个。一个 workspace 放一个仓库或一件事。</p>
+            <p>进入仓库再跑。它会启动或接上默认会话；还没有 workspace 时会自动开一个。</p>
           </div>
           <div class="cmd">
             <code>herdr</code>
@@ -798,7 +798,7 @@
         <article class="step searchable" data-step="03" data-keywords="分离 detach prefix q ctrl+b 接回 reattach">
           <div>
             <h3>走了再回来</h3>
-            <p>前缀再按 <code>q</code>，或直接关掉终端窗口。服务器和里面的 agent、测试、服务都继续跑。之后再执行 <code>herdr</code>，接回同一场默认会话。这是最稳的持久化：原来的进程没有停。</p>
+            <p>前缀再按 <code>q</code>，或直接关掉终端。里面的进程继续跑；再执行 <code>herdr</code> 接回同一场。</p>
           </div>
           <div class="cmd">
             <code>herdr</code>
@@ -806,10 +806,10 @@
           </div>
         </article>
 
-        <article class="step searchable" data-step="04" data-keywords="停止 server stop 结束会话 进程">
+        <article class="step searchable" data-step="04" data-keywords="停止 server stop 结束会话">
           <div>
             <h3>真要停掉这场会话</h3>
-            <p><code>herdr server stop</code> 停掉服务器，pane 里的进程一起停。Linux 和 macOS 上服务器会忽略 SIGHUP，关掉启动它的那个 shell 并不会停 pane；要停就用这条，或发 SIGTERM。活跃会话里，只有你确实想结束工作时才跑它。</p>
+            <p>停掉服务器和 pane 里的进程。分离只卸下客户端，不会停工作。</p>
           </div>
           <div class="cmd">
             <code>herdr server stop</code>
@@ -822,85 +822,25 @@
     <section>
       <div class="section-head">
         <h2>按场景查</h2>
-        <p>命令和键位按 v0.9.5 文档整理。鼠标能点 pane、标签、workspace，也能拖分割线；键盘是可选的一层。</p>
+        <p>先找现在要做的事，复制那一条命令。键位表在下面。</p>
       </div>
       <div class="cards">
-        <article class="card strong accent-green searchable" data-keywords="安装 brew mise nix windows zip homebrew 手动">
+        <article class="card strong accent-green searchable" data-keywords="会话 session attach named 命名 default workspace">
           <div>
-            <h3>换一种安装方式</h3>
-            <p>已经在用包管理器就走它：<code>brew install herdr</code>，或 <code>mise use -g herdr</code>。mise 说注册表里没有时，先升级 mise；临时可以 <code>mise use -g github:herdrdev/herdr</code>。Nix 用带 tag 的 flake，例如 <code>nix profile install github:herdrdev/herdr/v0.9.5</code>。Windows 压缩包要整目录留在一起，只拷 <code>herdr.exe</code> 不够。Windows ARM64 跑的是 x86_64 包的模拟。</p>
-            <div class="tag-row"><span class="tag">brew</span><span class="tag">mise</span></div>
+            <h3>要另一场完全分开的运行时</h3>
+            <p>先用 workspace 分开项目。要另一套 pane 和 socket 时才用命名会话，配置仍共用；停掉用 <code>herdr session stop work</code>。</p>
+            <div class="tag-row"><span class="tag">--session</span><span class="tag">workspace</span></div>
           </div>
           <div class="cmd">
-            <code>brew install herdr</code>
-            <button class="copy" type="button" data-copy="brew install herdr">复制</button>
+            <code>herdr --session work</code>
+            <button class="copy" type="button" data-copy="herdr --session work">复制</button>
           </div>
         </article>
 
-        <article class="card strong accent-blue searchable" data-keywords="频道 channel stable preview 预览 更新通道">
+        <article class="card strong accent-blue searchable" data-keywords="HERDR_ENV skill agent 技能">
           <div>
-            <h3>stable，还是 preview</h3>
-            <p>直接安装默认 stable。<code>herdr channel show</code> 看当前频道。<code>herdr channel set preview</code> 改去跟 master 的预发布，修得早，也可能回退；<code>herdr channel set stable</code> 回到稳定版。换频道会去装该频道的最新二进制，失败再跑 <code>herdr update</code>。Homebrew、mise、Nix 不走这个 preview 频道。已经装在 Windows preview 上的，会一直留在 preview，直到你显式切回 stable。</p>
-            <div class="tag-row"><span class="tag">stable</span><span class="tag">preview</span></div>
-          </div>
-          <div class="cmd">
-            <code>herdr channel show</code>
-            <button class="copy" type="button" data-copy="herdr channel show">复制</button>
-          </div>
-        </article>
-
-        <article class="card strong accent-amber searchable" data-keywords="更新 update handoff 服务器 旧版本 SSH 机器">
-          <div>
-            <h3>更新已经装好的 Herdr</h3>
-            <p><code>herdr update</code> 只给 Herdr 自己的安装器用。Homebrew、mise、Nix 用各自的升级命令。默认会装上新二进制，并让仍兼容的旧服务器继续跑；客户端再开一次就接上。新的服务端能力要等那台服务器更新并重启。结束后它会列出还在旧版本上的服务器，以及各自的重启命令，并提醒你去每台已保存的 SSH 机器上再跑一次 <code>herdr update</code>。实验性的热切换要显式加 <code>--handoff</code>。</p>
-            <div class="tag-row"><span class="tag">update</span><span class="tag">handoff</span></div>
-          </div>
-          <div class="cmd">
-            <code>herdr update</code>
-            <button class="copy" type="button" data-copy="herdr update">复制</button>
-          </div>
-        </article>
-
-        <article class="card strong accent-red searchable" data-keywords="会话 session attach list named 命名 default json">
-          <div>
-            <h3>要完全分开的另一场运行时</h3>
-            <p>先用 workspace 分开项目。命名会话是另一套 pane、socket 和持久状态，配置文件仍然共用。<code>herdr session list</code> 看名字，<code>herdr session attach work</code> 接上。停掉某一场用 <code>herdr session stop work</code>；默认会话的名字是 <code>default</code>。删的时候大小写要和列表里一致。给脚本加 <code>--json</code>。</p>
-            <div class="tag-row"><span class="tag">session</span><span class="tag">--json</span></div>
-          </div>
-          <div class="cmd">
-            <code>herdr session list --json</code>
-            <button class="copy" type="button" data-copy="herdr session list --json">复制</button>
-          </div>
-        </article>
-
-        <article class="card accent-green searchable" data-keywords="前缀 prefix ctrl+b 键位 tab pane workspace detach q">
-          <div>
-            <h3>先记这五个键</h3>
-            <p>前缀默认 <code>ctrl+b</code>：按下，松开，再按动作键。下一键才归 Herdr，里面的 shell 和编辑器照常用自己的快捷键。<code>prefix+c</code> 新标签，<code>prefix+v</code> / <code>prefix+minus</code> 向右 / 向下分屏，<code>prefix+h/j/k/l</code> 在 pane 之间移动，<code>prefix+w</code> 进 workspace 导航，<code>prefix+q</code> 分离。随时 <code>prefix+?</code> 看当前生效的全部绑定，里面按 <code>/</code> 过滤。</p>
-            <div class="tag-row"><span class="tag">ctrl+b</span><span class="tag">prefix+q</span></div>
-          </div>
-          <div class="cmd">
-            <code>prefix+?</code>
-            <button class="copy" type="button" data-copy="prefix+?">复制</button>
-          </div>
-        </article>
-
-        <article class="card accent-blue searchable" data-keywords="json cli workspace tab pane agent status server 脚本">
-          <div>
-            <h3>给脚本的 JSON</h3>
-            <p><code>workspace</code>、<code>tab</code>、<code>pane</code>、<code>agent</code> 的控制命令成功时在 stdout 打 JSON，错误在 stderr、退出码 1；用法错误是 2。新建 workspace 的 ID 在 <code>.result.workspace.workspace_id</code>、<code>.result.tab.tab_id</code>、<code>.result.root_pane.pane_id</code>；分屏的新 pane 在 <code>.result.pane.pane_id</code>。公开 ID 形如 <code>w1</code>、<code>w1:t1</code>、<code>w1:p1</code>，关掉的不会复用。<code>pane read</code> 和 <code>agent read</code> 打的是终端文本。<code>herdr status</code>、<code>herdr status server</code>、<code>herdr status client</code> 默认给人读，加 <code>--json</code> 才是 JSON。<code>herdr server reload-config</code> 也回 JSON。</p>
-            <div class="tag-row"><span class="tag">JSON</span><span class="tag">status --json</span></div>
-          </div>
-          <div class="cmd">
-            <code>herdr status --json</code>
-            <button class="copy" type="button" data-copy="herdr status --json">复制</button>
-          </div>
-        </article>
-
-        <article class="card accent-amber searchable" data-keywords="HERDR_ENV skill agent 技能 只在内部 cli">
-          <div>
-            <h3>Agent 只在 HERDR_ENV=1 时驱动 CLI</h3>
-            <p>官方 skill 的不变量：先 <code>test "${HERDR_ENV:-}" = 1</code>。不是 1，就说明自己不在 Herdr pane 里，然后停。外面的 agent 不要去控一场它并不拥有的会话。检查通过后，用 PATH 里的 <code>herdr</code> 看布局、分屏、读输出、等状态。发现命令用 <code>herdr --help</code>，或单独跑 <code>herdr pane</code>、<code>herdr agent</code> 这类组名；省略参数的 <code>herdr workspace create</code> 会真的创建。装 skill：<code>npx skills add herdrdev/herdr --skill herdr -g</code>。已安装的二进制用 <code>herdr --skill</code> 打印和这一版匹配的副本。</p>
+            <h3>Agent 先确认自己在 pane 里</h3>
+            <p>先确认 <code>HERDR_ENV=1</code>，不是就停，别去控一场你不在里面的会话。给 agent 装说明：<code>npx skills add herdrdev/herdr --skill herdr -g</code>。</p>
             <div class="tag-row"><span class="tag">HERDR_ENV</span><span class="tag">skill</span></div>
           </div>
           <div class="cmd">
@@ -909,10 +849,10 @@
           </div>
         </article>
 
-        <article class="card accent-red searchable" data-keywords="config toml default-config 配置 键位 prefix reload">
+        <article class="card strong accent-amber searchable" data-keywords="config toml default-config 配置 reload prefix">
           <div>
             <h3>配置：默认可不写文件</h3>
-            <p>Linux / macOS 读 <code>~/.config/herdr/config.toml</code>，Windows 读 <code>%APPDATA%\herdr\config.toml</code>。<code>herdr --help</code> 会打出本机解析到的路径。<code>herdr --default-config</code> 打印完整默认配置，可重定向成起点。非法值会退回安全默认，并在启动时警告。改完用 <code>herdr server reload-config</code>，或界面里的 reload config。大多数界面设置不用重启 pane；只在启动时读的项仍要重启。前缀可以写成数组，例如 <code>prefix = ["ctrl+space", "ctrl+s"]</code>，每一项都进入同一个前缀模式。</p>
+            <p>Linux / macOS 是 <code>~/.config/herdr/config.toml</code>，Windows 是 <code>%APPDATA%\herdr\config.toml</code>。没有文件也能跑；改完 <code>herdr server reload-config</code>。</p>
             <div class="tag-row"><span class="tag">config.toml</span><span class="tag">--default-config</span></div>
           </div>
           <div class="cmd">
@@ -921,10 +861,10 @@
           </div>
         </article>
 
-        <article class="card accent-green searchable" data-keywords="SSH remote machine 远程 手机 多机器 --remote">
+        <article class="card strong accent-red searchable" data-keywords="SSH remote machine 远程 --remote">
           <div>
-            <h3>远程：SSH 里跑，或把机器收进同一窗口</h3>
-            <p>人已经在远端 shell 里，或用手机 SSH 客户端时：<code>ssh you@server</code> 然后 <code>herdr</code>。想要本机界面去画远端会话：<code>herdr --remote workbox</code>（SSH config 里的 Host），本机剪贴板里的图片可以桥过去。要把本机和多台 SSH 机器放在一个窗口里：先 <code>ssh workbox</code> 确认能登录，再在交互终端 <code>herdr machine add workbox</code>。每台机器有自己的服务器；断一台不会拆掉其他台。删掉或禁用一台机器只断开客户端，远端会话继续跑。</p>
+            <h3>远程：SSH，或收进同一窗口</h3>
+            <p>SSH 里再跑 <code>herdr</code>，或本机用 <code>herdr --remote workbox</code> 画远端。多台机器收进同一窗口用下面这条；删掉档案只断开客户端。</p>
             <div class="tag-row"><span class="tag">--remote</span><span class="tag">machine add</span></div>
           </div>
           <div class="cmd">
@@ -933,39 +873,39 @@
           </div>
         </article>
 
-        <article class="card accent-blue searchable" data-keywords="--machine JSON 远程 ID pane agent 转发">
+        <article class="card accent-green searchable" data-keywords="分屏 pane split agent start HERDR_ENV">
           <div>
-            <h3>CLI 打到某一台已保存的机器</h3>
-            <p>侧边栏选中哪台机器，不会改你在本机 pane 里跑的 CLI 目标。远程控制加全局前缀 <code>--machine</code>，值是已启用档案的 ID，或唯一、区分大小写的标签。workspace / pane ID 和 agent 名字都属于那一台服务器，两台机器都可以有 <code>w1:p1</code>。本机 ID 和 <code>--current</code> 指不到远端 pane。转发不会替你安装或重启远端服务器。诊断用 <code>herdr machine status</code>，脚本加 <code>--json</code>；补 SSH 认证用 <code>herdr machine reconnect</code>，这一步要在你自己的终端里完成。</p>
-            <div class="tag-row"><span class="tag">--machine</span><span class="tag">machine status</span></div>
+            <h3>旁边再开一个 pane</h3>
+            <p>只在 <code>HERDR_ENV=1</code> 时做。分屏默认不抢焦点；新 pane 停在空闲 shell 后再 <code>herdr agent start reviewer --kind claude --pane &lt;id&gt;</code>。</p>
+            <div class="tag-row"><span class="tag">pane split</span><span class="tag">agent start</span></div>
           </div>
           <div class="cmd">
-            <code>herdr --machine workbox agent list</code>
-            <button class="copy" type="button" data-copy="herdr --machine workbox agent list">复制</button>
+            <code>herdr pane split --current --direction right</code>
+            <button class="copy" type="button" data-copy="herdr pane split --current --direction right">复制</button>
           </div>
         </article>
 
-        <article class="card accent-amber searchable" data-keywords="状态 idle working blocked done unknown agent 侧边栏">
+        <article class="card accent-blue searchable" data-keywords="integration install claude codex 集成 resume">
           <div>
-            <h3>侧边栏上的五种状态</h3>
-            <p><code>blocked</code> 是它认出了批准、提问或权限界面。<code>working</code> 正在跑。<code>done</code> 做完了、你还没看过。<code>idle</code> 做完或在等，而且已经被看过。CLI 用的是服务器的“已看”状态，和某一个客户端上的 Done 徽章可以不一样；两者都表示可以接收输入。<code>unknown</code> 是认得出 agent、但分不清单前屏幕。Antigravity 和 Grok 回到提示符就算 idle，就算它们自己的后台任务还在跑。屏幕规则认错成 idle 时，自动化仍可能把字打进批准框里；没料到的提示先看一眼。</p>
-            <div class="tag-row"><span class="tag">blocked</span><span class="tag">idle</span></div>
+            <h3>重启后续上同一段对话</h3>
+            <p>分离再接回时进程还在，不用装这个。服务器停掉再启动，Claude 要装下面这条，才会用它上报的会话续上。</p>
+            <div class="tag-row"><span class="tag">integration</span><span class="tag">claude</span></div>
           </div>
           <div class="cmd">
-            <code>herdr agent list</code>
-            <button class="copy" type="button" data-copy="herdr agent list">复制</button>
+            <code>herdr integration install claude</code>
+            <button class="copy" type="button" data-copy="herdr integration install claude">复制</button>
           </div>
         </article>
 
-        <article class="card accent-red searchable" data-keywords="恢复 restart 快照 resume 分离 进程 历史 pane_history">
+        <article class="card accent-amber searchable" data-keywords="更新 update channel stable preview 频道">
           <div>
-            <h3>分离、停服务器、再启动，各留下什么</h3>
-            <p>分离再接回：进程、布局、屏幕、对话都还在。服务器停掉再启动：原来的进程没了，布局（workspace、标签、pane、目录、焦点）会回来；对话要靠集成上报的会话，或 agent 自己报的 resume 命令，这项默认开着。屏幕历史默认关，因为输出里可能有密钥；要回放最近屏幕再设 <code>[experimental] pane_history = true</code>。各平台最多留 48 份布局快照在会话目录的 <code>session-snapshots/</code>，不会自动恢复。更新时，兼容的旧服务器继续跑；<code>--handoff</code> 才是实验性的活切换。</p>
-            <div class="tag-row"><span class="tag">resume</span><span class="tag">snapshot</span></div>
+            <h3>更新，或改频道</h3>
+            <p><code>herdr update</code> 只给官方安装器：新客户端装上，兼容的旧服务器继续跑，再开一次就接上。预发布用 <code>herdr channel set preview</code>；Homebrew / mise / Nix 用各自的升级。</p>
+            <div class="tag-row"><span class="tag">update</span><span class="tag">stable</span></div>
           </div>
           <div class="cmd">
-            <code>herdr session list --json</code>
-            <button class="copy" type="button" data-copy="herdr session list --json">复制</button>
+            <code>herdr update</code>
+            <button class="copy" type="button" data-copy="herdr update">复制</button>
           </div>
         </article>
       </div>
@@ -974,20 +914,20 @@
     <section>
       <div class="section-head">
         <h2>常用流程</h2>
-        <p>把几条命令串起来。键位里的 prefix 默认是 Ctrl+B。</p>
+        <p>键位里的 prefix 默认是 Ctrl+B。</p>
       </div>
       <div class="recipes">
-        <article class="recipe searchable" data-keywords="第一次 安装 启动 agent claude 集成">
+        <article class="recipe searchable" data-keywords="第一次 安装 agent claude 集成">
           <h3>第一次把 agent 放进去</h3>
-          <p>装好后在仓库里打开 Herdr，在 pane 里照常跑你已经在用的 CLI。它从进程和屏幕认出 agent。想在服务器重启后续上同一段对话，再装对应集成。</p>
+          <p>在 pane 里照常跑你已经在用的 CLI。要在服务器重启后续上对话，再装集成。</p>
           <div class="flow-line">
-            <span>herdr</span><b>→</b><span>claude</span><b>→</b><span>herdr integration install claude</span>
+            <span>herdr</span><b>→</b><span>claude</span><b>→</b><span>integration install claude</span>
           </div>
         </article>
 
         <article class="recipe searchable" data-keywords="合盖 分离 接回 detach q">
           <h3>合上电脑，回来接着看</h3>
-          <p>分离只卸下客户端。再跑一次 <code>herdr</code> 接回。要结束进程才用 <code>herdr server stop</code>。</p>
+          <p>分离只卸下客户端。要结束进程才用 <code>herdr server stop</code>。</p>
           <div class="flow-line">
             <span>prefix+q</span><b>→</b><span>herdr</span><b>→</b><span>需要时 server stop</span>
           </div>
@@ -995,17 +935,9 @@
 
         <article class="recipe searchable" data-keywords="手机 ssh remote 远端">
           <h3>人在 SSH 或手机上</h3>
-          <p>先普通 SSH，再在那台机器上跑 Herdr。窄屏会改界面。本机想用自己的主题去画远端，改用 <code>herdr --remote</code>。</p>
+          <p>先普通 SSH，再在那台机器上跑 Herdr。本机想用自己的界面，改用 <code>herdr --remote</code>。</p>
           <div class="flow-line">
-            <span>ssh you@server</span><b>→</b><span>herdr</span><b>→</b><span>prefix+q 后再 SSH 回来</span>
-          </div>
-        </article>
-
-        <article class="recipe searchable" data-keywords="分屏 agent start prompt HERDR_ENV 旁边 pane">
-          <h3>pane 里的 agent 再开一个邻居</h3>
-          <p>只在 <code>HERDR_ENV=1</code> 时做。分屏默认不抢焦点，工作目录用调用方的 <code>$PWD</code>。新 pane ID 从 JSON 读，再在一个空闲 shell pane 里按名字启动 agent。</p>
-          <div class="flow-line">
-            <span>pane split --current --no-focus</span><b>→</b><span>agent start</span><b>→</b><span>agent prompt --wait</span>
+            <span>ssh you@server</span><b>→</b><span>herdr</span><b>→</b><span>prefix+q 后再回来</span>
           </div>
         </article>
       </div>
@@ -1014,7 +946,7 @@
     <section>
       <div class="section-head">
         <h2>键位</h2>
-        <p>写法是 prefix 加下一键。默认前缀 <code>ctrl+b</code>。全部可改，以 <code>prefix+?</code> 里看到的为准。</p>
+        <p>默认前缀 <code>ctrl+b</code>：按下、松开、再按动作键。先记 <code>prefix+c</code> 新标签、<code>prefix+v</code> / <code>prefix+minus</code> 分屏、<code>prefix+h/j/k/l</code> 移动、<code>prefix+w</code> 进 workspace、<code>prefix+q</code> 分离。全部以 <code>prefix+?</code> 为准。</p>
       </div>
       <div class="table-wrap" tabindex="0" aria-label="Herdr 键位，可横向滚动">
       <table class="reference-table">
@@ -1038,48 +970,43 @@
           </tr>
           <tr class="searchable" data-keywords="移动 pane hjkl focus">
             <td>prefix+h/j/k/l</td>
-            <td>焦点移到左 / 下 / 上 / 右 pane。</td>
+            <td>焦点移到左 / 下 / 上 / 右。</td>
             <td>交换位置是 <code>prefix+shift+h/j/k/l</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="workspace 导航 w 退出 esc">
+          <tr class="searchable" data-keywords="workspace 导航 w">
             <td>prefix+w</td>
             <td>进入 workspace 导航。</td>
-            <td>Esc 或 Ctrl+[ 离开。跨已连接的机器时，按侧边栏顺序移动；Esc 或前缀键取消，Enter 才切换。</td>
+            <td>Esc 离开。Enter 才切换。</td>
           </tr>
           <tr class="searchable" data-keywords="分离 detach q">
             <td>prefix+q</td>
             <td>分离客户端，工作继续跑。</td>
-            <td>关掉终端窗口同样是分离。直接附着（<code>herdr agent attach</code> / <code>terminal attach</code>）里，要送出字面的 Ctrl+B，就再按一次 Ctrl+B。</td>
+            <td>关掉终端窗口同样是分离。</td>
           </tr>
           <tr class="searchable" data-keywords="标签 n p 1 9 重命名 关闭">
             <td>prefix+n / prefix+p</td>
             <td>下一个 / 上一个标签。</td>
-            <td>跳到 1–9：<code>prefix+1..9</code>。重命名 <code>prefix+shift+t</code>。关闭标签 <code>prefix+shift+x</code>。</td>
+            <td>跳到 1–9：<code>prefix+1..9</code>。重命名 <code>prefix+shift+t</code>。关闭 <code>prefix+shift+x</code>。</td>
           </tr>
           <tr class="searchable" data-keywords="新 workspace 重命名 关闭 shift n w d">
             <td>prefix+shift+n</td>
             <td>新 workspace。</td>
             <td>重命名 <code>prefix+shift+w</code>。关闭 <code>prefix+shift+d</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="缩放 zoom 关闭 pane 调整大小 copy">
+          <tr class="searchable" data-keywords="缩放 zoom 关闭 pane copy">
             <td>prefix+z</td>
             <td>放大当前 pane。</td>
-            <td>关闭 pane <code>prefix+x</code>。进入调整大小 <code>prefix+r</code>。复制模式 <code>prefix+[</code>。</td>
+            <td>关闭 pane <code>prefix+x</code>。复制模式 <code>prefix+[</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="goto g 侧边栏 b 搜索">
+          <tr class="searchable" data-keywords="goto g 侧边栏 b">
             <td>prefix+g</td>
-            <td>打开 Go To，每行一个 agent 或终端。</td>
-            <td>按 <code>/</code> 搜名字、种类、路径。不在搜索时，<code>b/w/i/d</code> 过滤 blocked / working / idle / done，<code>a</code> 回到全部。侧边栏开关是 <code>prefix+b</code>。</td>
+            <td>打开 Go To。</td>
+            <td>按 <code>/</code> 搜索。侧边栏开关是 <code>prefix+b</code>。</td>
           </tr>
           <tr class="searchable" data-keywords="帮助 ? 键位">
             <td>prefix+?</td>
             <td>列出当前全部绑定。</td>
-            <td>多个前缀时，帮助面板会把它们都列出来。状态栏显示的是数组里的第一个。</td>
-          </tr>
-          <tr class="searchable" data-keywords="确认关闭 confirm_close 最后 pane 标签">
-            <td>关闭最后一个</td>
-            <td>默认会先问。</td>
-            <td><code>ui.confirm_close</code> 默认 true：键位或菜单关掉 workspace 的最后一个标签，或唯一的 pane，界面会确认。普通 CLI / API 关闭仍是立刻执行。关掉确认：<code>ui.confirm_close = false</code>。</td>
+            <td>改过键位以这里看到的为准。</td>
           </tr>
         </tbody>
       </table>
@@ -1089,7 +1016,7 @@
     <section>
       <div class="section-head">
         <h2>CLI 索引</h2>
-        <p>在系统终端运行。布局和控制命令打 JSON。读屏命令打文本。权威列表是 <code>herdr --help</code> 和各组不带子命令时的帮助。</p>
+        <p>在系统终端运行。布局命令打 JSON，读屏命令打文本。完整列表是 <code>herdr --help</code>。</p>
       </div>
       <div class="table-wrap" tabindex="0" aria-label="Herdr CLI 索引，可横向滚动">
       <table class="reference-table">
@@ -1104,67 +1031,67 @@
           <tr class="searchable" data-keywords="启动 attach 会话 session remote">
             <td>herdr</td>
             <td>启动或接上默认会话。</td>
-            <td><code>--session &lt;name&gt;</code> 指定命名会话。<code>--remote &lt;host&gt;</code> 用本机键位画远端。加 <code>--remote-keybindings server</code> 改用远端配置。</td>
+            <td><code>--session &lt;name&gt;</code> 指定命名会话。<code>--remote &lt;host&gt;</code> 用本机键位画远端。</td>
           </tr>
           <tr class="searchable" data-keywords="版本 version 频道 channel 更新">
             <td>herdr --version</td>
             <td>看客户端版本。</td>
-            <td><code>herdr channel show</code> 打 stable 或 preview。<code>herdr update</code> 按当前频道安装。</td>
+            <td><code>herdr channel show</code> 看 stable 或 preview。<code>herdr update</code> 按当前频道安装。</td>
           </tr>
-          <tr class="searchable" data-keywords="status json 服务器 客户端">
-            <td>herdr status --json</td>
-            <td>客户端、服务器、是否要重启，一次看完。</td>
-            <td>也有 <code>herdr status server --json</code> 和 <code>herdr status client --json</code>。不加 <code>--json</code> 是给人读的文本。</td>
+          <tr class="searchable" data-keywords="status json">
+            <td>herdr status</td>
+            <td>看客户端、服务器、是否要重启。</td>
+            <td>给脚本加 <code>--json</code>。也有 <code>status server</code> 和 <code>status client</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="server stop reload-config 无头">
+          <tr class="searchable" data-keywords="server stop reload-config">
             <td>herdr server stop</td>
             <td>停掉这场会话和它的 pane。</td>
-            <td><code>herdr server</code> 显式跑无头服务器。<code>herdr server reload-config</code> 重载可热更新的配置，回 JSON。<code>herdr server agent-manifests --json</code> 看检测清单。</td>
+            <td><code>herdr server reload-config</code> 重载可热更新的配置。</td>
           </tr>
-          <tr class="searchable" data-keywords="session list attach stop delete json">
-            <td>herdr session list --json</td>
+          <tr class="searchable" data-keywords="session list attach stop">
+            <td>herdr session list</td>
             <td>列出命名会话。</td>
-            <td><code>session attach &lt;name&gt;</code> 接上。<code>session stop</code> / <code>session delete</code> 给脚本时加 <code>--json</code>。</td>
+            <td><code>session attach &lt;name&gt;</code> 接上。<code>session stop</code> 停掉一场。默认会话名叫 <code>default</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="workspace list create get close json">
+          <tr class="searchable" data-keywords="workspace create close">
             <td>herdr workspace list</td>
-            <td>列出 workspace，输出 JSON。</td>
-            <td><code>workspace create --cwd ~/project --label api --no-focus</code> 创建且不抢焦点。关闭：<code>workspace close &lt;id&gt;</code>。主 workspace 还有挂着的 worktree 时要 <code>--group</code>，否则返回 <code>workspace_group_close_required</code>。</td>
+            <td>列出 workspace。</td>
+            <td>新建：<code>workspace create --cwd ~/project --label api</code>。默认不抢焦点。</td>
           </tr>
-          <tr class="searchable" data-keywords="tab list create close json">
+          <tr class="searchable" data-keywords="tab create">
             <td>herdr tab list</td>
-            <td>列出标签，输出 JSON。</td>
-            <td><code>tab create --no-focus</code>。不写 <code>--workspace</code> 时用当前 workspace。关掉一个 workspace 的最后一个标签，会把这个 workspace 也关掉。</td>
+            <td>列出标签。</td>
+            <td><code>tab create</code>。不写 <code>--workspace</code> 时用当前 workspace。</td>
           </tr>
-          <tr class="searchable" data-keywords="pane list split run read json">
+          <tr class="searchable" data-keywords="pane split run read">
             <td>herdr pane list</td>
-            <td>列出 pane，输出 JSON。</td>
-            <td>分屏：<code>pane split --current --direction right --cwd "$PWD" --no-focus</code>。在 shell 里跑命令用 <code>pane run &lt;id&gt; "just test"</code>，成功表示已经送入，不是命令已经跑完。读输出：<code>pane read &lt;id&gt; --source recent-unwrapped --lines 120</code>，这是文本。</td>
+            <td>列出 pane。</td>
+            <td>分屏：<code>pane split --current --direction right</code>。<code>pane run</code> 成功只表示命令已送入。读输出：<code>pane read &lt;id&gt;</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="agent list get start prompt wait json">
+          <tr class="searchable" data-keywords="agent list start prompt">
             <td>herdr agent list</td>
-            <td>列出认出来的 agent，输出 JSON。</td>
-            <td>目标是唯一的活名字，或当前托管它的 pane ID。名字匹配 <code>[a-z][a-z0-9_-]{0,31}</code>。<code>agent start reviewer --kind codex --pane &lt;id&gt;</code> 要求那个 pane 正停在空闲 shell。提交：<code>agent prompt reviewer "…" --wait --timeout 120000</code>。已经 blocked 时会直接 <code>agent_blocked</code>，一个字都不送。</td>
+            <td>列出认出来的 agent。</td>
+            <td><code>agent start &lt;name&gt; --kind claude --pane &lt;id&gt;</code> 要求 pane 正停在空闲 shell。提交：<code>agent prompt &lt;name&gt; "…" --wait</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="integration install claude codex 集成">
+          <tr class="searchable" data-keywords="integration install claude">
             <td>herdr integration install claude</td>
-            <td>装官方集成，重启后续上原生会话。</td>
-            <td>CLI reference 里的安装名还有 codex、copilot、cursor、opencode、pi、hermes、grok 等。<code>herdr integration status</code> 查看；<code>--outdated-only</code> 只留过期项。Claude Code、Codex 靠屏幕出状态；OMP 和 MastraCode 的状态要先装集成。服务器重启后续上对话，用集成上报的会话。</td>
+            <td>装官方集成，重启后续上会话。</td>
+            <td>codex、cursor 等把名字换掉。<code>herdr integration status</code> 查看。</td>
           </tr>
-          <tr class="searchable" data-keywords="machine list add status reconnect json ssh">
-            <td>herdr machine list --json</td>
-            <td>列出已保存的 SSH 档案，给脚本用 JSON。</td>
-            <td>交互式 <code>machine add</code> 会发现远端已经在跑的会话。非交互默认 <code>default</code>，除非写 <code>--remote-session</code>。<code>machine status &lt;label-or-id&gt; --json</code> 做不提问的检查。<code>reachable</code> 表示这次检查时远端服务器在，不是每个打开的界面都连着。</td>
+          <tr class="searchable" data-keywords="machine add status --machine ssh">
+            <td>herdr machine add workbox</td>
+            <td>把一台 SSH 机器收进同一窗口。</td>
+            <td>CLI 打到那台机器：<code>herdr --machine workbox agent list</code>。ID 属于那一台服务器。</td>
           </tr>
-          <tr class="searchable" data-keywords="default-config config check reset-keys">
+          <tr class="searchable" data-keywords="default-config config">
             <td>herdr --default-config</td>
             <td>打印默认 config.toml。</td>
-            <td><code>herdr config check</code> 检查当前文件。<code>herdr config reset-keys</code> 备份后清掉 <code>[keys]</code>，回到内置 v2 键位，再 reload 或重启才生效。</td>
+            <td><code>herdr config check</code> 检查当前文件。<code>herdr --help</code> 会打出本机配置路径。</td>
           </tr>
-          <tr class="searchable" data-keywords="skill 技能 HERDR_ENV">
+          <tr class="searchable" data-keywords="skill HERDR_ENV">
             <td>herdr --skill</td>
             <td>打印和当前二进制匹配的 skill。</td>
-            <td>全局安装：<code>npx skills add herdrdev/herdr --skill herdr -g</code>。仓库副本在 <code>skills/herdr/SKILL.md</code>。</td>
+            <td>全局安装：<code>npx skills add herdrdev/herdr --skill herdr -g</code>。</td>
           </tr>
         </tbody>
       </table>
@@ -1174,7 +1101,7 @@
     <section>
       <div class="section-head">
         <h2>这些路径和变量各管什么</h2>
-        <p>配置全机一份。命名会话各自有运行状态，仍读同一份 config。</p>
+        <p>没有配置文件也能跑。命名会话各自有运行状态，仍读同一份 config。</p>
       </div>
       <div class="table-wrap" tabindex="0" aria-label="Herdr 路径与环境变量，可横向滚动">
       <table class="reference-table">
@@ -1188,42 +1115,27 @@
         <tbody>
           <tr class="searchable" data-keywords="config.toml 配置 路径">
             <td>~/.config/herdr/config.toml</td>
-            <td>键位、主题、侧边栏、通知，以及终端默认值。Windows 是 <code>%APPDATA%\herdr\config.toml</code>。</td>
-            <td>你。没有这个文件也能跑。<code>HERDR_CONFIG_PATH</code> 可改路径。</td>
+            <td>键位、主题、侧边栏。Windows 是 <code>%APPDATA%\herdr\config.toml</code>。</td>
+            <td>你。<code>HERDR_CONFIG_PATH</code> 可改路径。</td>
           </tr>
-          <tr class="searchable" data-keywords="prefix keys 前缀 toml">
+          <tr class="searchable" data-keywords="prefix keys 前缀">
             <td>[keys] prefix</td>
-            <td>进入前缀模式的键。默认 <code>"ctrl+b"</code>，也可以是字符串数组。</td>
+            <td>进入前缀模式的键。默认 <code>"ctrl+b"</code>。</td>
             <td>你。改完 <code>herdr server reload-config</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="shell default_shell new_cwd terminal">
-            <td>[terminal] default_shell / new_cwd</td>
-            <td>新 pane 用哪个 shell，以及从哪起步。Unix 未设置时用 <code>$SHELL</code>，再退到 <code>/bin/sh</code>。Windows 优先 <code>pwsh.exe</code>，否则 Windows PowerShell。<code>new_cwd = "follow"</code> 跟着来源 pane 或 workspace。</td>
-            <td>你。已经存在的 pane 保持原来的 shell，直到重建。</td>
-          </tr>
-          <tr class="searchable" data-keywords="mouse_capture confirm_close ui">
-            <td>[ui] mouse_capture / confirm_close</td>
-            <td>鼠标捕获默认开：Ctrl+点击由 Herdr 处理。关掉后，点标签和拖分割线也一起停，链接交给外层终端。<code>confirm_close</code> 默认 true。</td>
-            <td>你。看远端机器时，主题、侧边栏和键位仍用客户端这份本地配置。</td>
-          </tr>
-          <tr class="searchable" data-keywords="HERDR_ENV PANE TAB WORKSPACE 环境变量">
+          <tr class="searchable" data-keywords="HERDR_ENV PANE TAB WORKSPACE">
             <td>HERDR_ENV / HERDR_PANE_ID / HERDR_TAB_ID / HERDR_WORKSPACE_ID</td>
-            <td><code>HERDR_ENV=1</code> 表示这个进程在 Herdr 管理的 pane 里。另外三个是启动时的公开 ID。pane 被移走后，进程里的这三个值不变，旧 pane ID 仍可作为别名。</td>
-            <td>Herdr 在启动 pane 进程时设置。调用方用 <code>--env</code> 盖不过这些名字。</td>
+            <td><code>HERDR_ENV=1</code> 表示进程在 Herdr 的 pane 里。另外三个是启动时的公开 ID。</td>
+            <td>Herdr 在启动 pane 时设置。</td>
           </tr>
-          <tr class="searchable" data-keywords="HERDR_SESSION socket 会话">
-            <td>HERDR_SESSION / HERDR_SOCKET_PATH</td>
-            <td>给 CLI 选命名会话，或直接指定 socket。日常用 <code>--session</code> 即可。</td>
-            <td>你，在需要固定目标的脚本里。</td>
+          <tr class="searchable" data-keywords="HERDR_SESSION socket">
+            <td>HERDR_SESSION</td>
+            <td>给 CLI 选命名会话。日常用 <code>--session</code> 即可。</td>
+            <td>你，在要固定目标的脚本里。</td>
           </tr>
-          <tr class="searchable" data-keywords="session.json snapshots 快照 恢复">
-            <td>session.json · session-snapshots/</td>
-            <td>布局和 agent 会话引用。快照最多 48 份，不含正在跑的进程，也不含屏幕历史。用 <code>herdr session list --json</code> 找目录。</td>
-            <td>Herdr。恢复要先停服务器，把选中的快照拷回 <code>session.json</code>，再启动。把它当成私人数据。</td>
-          </tr>
-          <tr class="searchable" data-keywords="remote ssh 机器 档案 密码">
+          <tr class="searchable" data-keywords="remote ssh 机器 档案">
             <td>已保存机器的档案</td>
-            <td>只存不透明 ID、标签、SSH 目标和启用状态。密码、私钥、agent ticket 不放进这份目录。</td>
+            <td>只存 ID、标签、SSH 目标和启用状态。密码和私钥不放这里。</td>
             <td><code>herdr machine add</code>。认证仍走 OpenSSH。</td>
           </tr>
         </tbody>
@@ -1234,7 +1146,7 @@
     <section>
       <div class="note-box">
         <strong>使用习惯</strong>
-        <p>一个仓库一个 workspace，命名会话留给真正要隔离的运行时。合盖用前缀 q，结束进程才 <code>herdr server stop</code>。脚本读 JSON 里的 ID，不从侧边栏顺序猜。Agent 驱动 Herdr 之前先确认 <code>HERDR_ENV=1</code>。分屏加 <code>--no-focus</code>，除非你就是要切过去。远程自动化写 <code>--machine</code>，并且用那台机器自己的 ID。<code>idle</code> 只表示可以输入，不表示可以替它点批准。客户端更新之后，新的服务端行为要等对应服务器重启；版本不同本身不是停掉远端服务器的理由。</p>
+        <p>一个仓库一个 workspace。合盖用前缀 q，结束进程才 <code>herdr server stop</code>。Agent 驱动 CLI 之前先确认 <code>HERDR_ENV=1</code>。远程用 <code>herdr --remote</code>，或多台机器用 <code>herdr machine add</code>。</p>
       </div>
     </section>
 

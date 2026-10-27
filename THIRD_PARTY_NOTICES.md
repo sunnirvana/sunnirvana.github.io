@@ -116,3 +116,22 @@ follow the upstream terms:
 [claude-code-release]: https://github.com/anthropics/claude-code/releases/tag/v2.1.311
 [claude-code-license]: https://github.com/anthropics/claude-code/blob/main/LICENSE.md
 [claude-code-terms]: https://www.anthropic.com/legal/commercial-terms
+
+## Herdr
+
+The content in `cheatsheets/herdr/` is an unofficial Simplified Chinese
+cheatsheet derived from the public [herdrdev/herdr][herdr] project
+and its [official documentation][herdr-docs], using the
+[v0.9.5 release][herdr-release] as a baseline (checked 2026-10-27). It is not an official Herdr publication.
+
+`herdr` is licensed under the Apache License 2.0. This site redistributes an
+independent Chinese reference summary of public commands, keybindings, and file
+paths; it does not redistribute Herdr binaries or source. For rights and
+obligations when using or modifying Herdr itself, follow the upstream license:
+
+- [LICENSE][herdr-license]
+
+[herdr]: https://github.com/herdrdev/herdr
+[herdr-docs]: https://herdr.dev/docs/
+[herdr-release]: https://github.com/herdrdev/herdr/releases/tag/v0.9.5
+[herdr-license]: https://github.com/herdrdev/herdr/blob/v0.9.5/LICENSE

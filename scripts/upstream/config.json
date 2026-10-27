@@ -78,6 +78,27 @@
         "releasePillPrefix": "v",
         "tagPillTemplate": "tag {tag}"
       }
+    },
+    {
+      "id": "herdr",
+      "displayName": "Herdr",
+      "githubRepo": "herdrdev/herdr",
+      "versionStrategy": "github-release",
+      "cheatsheetPath": "cheatsheets/herdr/index.html",
+      "noticeHeading": "## Herdr",
+      "homepageVersionPattern": "基于 v{version}",
+      "pinned": {
+        "version": "0.9.5",
+        "tag": "v0.9.5",
+        "commit": "2ecf19a92fc3a7fff75b6ce3655ef04f4625ec01",
+        "commitShort": "2ecf19a",
+        "checkedAtUtc": "2026-10-27"
+      },
+      "versionStrip": {
+        "releasePillPrefix": "v",
+        "tagPillTemplate": "tag {tag}"
+      },
+      "defaultBranch": "master"
     }
   ]
 }

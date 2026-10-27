@@ -11,7 +11,8 @@
 ├── cheatsheets/
 │   ├── matt-pocock-skills/index.html  # Matt Pocock Skills 中文 CheatSheet
 │   ├── hermes-agent/index.html        # Hermes Agent 中文 CheatSheet
-│   └── trellis/index.html             # Trellis 中文 CheatSheet
+│   ├── trellis/index.html             # Trellis 中文 CheatSheet
+│   └── claude-code/index.html         # Claude Code 中文 CheatSheet
 ├── tools/                             # 未来独立小工具放在 tools/<name>/
 ├── assets/                            # 共享图标、公开运行配置与脚本
 └── .github/workflows/deploy.yml       # master 自动发布到 GitHub Pages
@@ -65,6 +66,7 @@ Measurement ID 本身是公开站点配置，不是密钥。启用后，本站�
 | `matt-pocock-skills` | [mattpocock/skills](https://github.com/mattpocock/skills) | GitHub Releases |
 | `hermes-agent` | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | GitHub Releases |
 | `trellis` | [@mindfoldhq/trellis](https://www.npmjs.com/package/@mindfoldhq/trellis)（仓库 [mindfold-ai/Trellis](https://github.com/mindfold-ai/Trellis)） | npm `latest` |
+| `claude-code` | [anthropics/claude-code](https://github.com/anthropics/claude-code)（文档 [code.claude.com](https://code.claude.com/docs/en/overview)） | GitHub Releases |
 
 若发现更新，工作流会改写对应速查页的版本条 / 页脚出处、`index.html` 卡片上的「基于 v…」（若有）、`THIRD_PARTY_NOTICES.md`，并插入简短的「上游变更摘要」区块，然后**打开或更新 PR** 供人工审阅。
 

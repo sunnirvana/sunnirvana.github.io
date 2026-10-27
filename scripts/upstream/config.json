@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-10-26",
+  "updatedAtUtc": "2026-10-27",
   "sources": [
     {
       "id": "matt-pocock-skills",
@@ -59,6 +59,24 @@
       "versionStrip": {
         "releasePillPrefix": "v",
         "secondaryPill": "npm @mindfoldhq/trellis"
+      }
+    },
+    {
+      "id": "claude-code",
+      "displayName": "Claude Code",
+      "githubRepo": "anthropics/claude-code",
+      "versionStrategy": "github-release",
+      "cheatsheetPath": "cheatsheets/claude-code/index.html",
+      "noticeHeading": "## Claude Code",
+      "homepageVersionPattern": "基于 v{version}",
+      "pinned": {
+        "version": "2.1.311",
+        "tag": "v2.1.311",
+        "checkedAtUtc": "2026-10-27"
+      },
+      "versionStrip": {
+        "releasePillPrefix": "v",
+        "tagPillTemplate": "tag {tag}"
       }
     }
   ]

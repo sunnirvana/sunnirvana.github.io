@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Claude Code 非官方中文速查：安装、登录、CLI、slash、权限模式、CLAUDE.md、settings 与 MCP。">
+  <meta name="description" content="Claude Code 非官方中文速查：安装、登录、接着上次、plan、权限、CLAUDE.md。">
   <meta name="theme-color" content="#fbfaf6">
   <meta property="og:title" content="Claude Code — 中文速查">
-  <meta property="og:description" content="按场景查 Claude Code 安装、登录、plan / auto、CLAUDE.md 与 MCP。">
+  <meta property="og:description" content="在仓库里跑 claude，接着上次用 -c，大改动先 /plan。">
   <meta property="og:type" content="article">
   <link rel="canonical" href="https://sunnirvana.github.io/cheatsheets/claude-code/">
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
@@ -738,7 +738,7 @@
           <span class="kicker">Claude Code Cheatsheet</span>
           <h1>Claude Code</h1>
         </div>
-        <p class="subtitle">Anthropic 的终端编码 agent。当前钉在 v2.1.311（2026-10-26 发布）。原生安装会后台更新；交互会话默认从 auto 开始，<code>claude -p</code> 仍从 Manual 开始。大改动先 <code>/plan</code>。</p>
+        <p class="subtitle">终端里的编码 agent。在仓库里跑 <code>claude</code>，接着上次用 <code>-c</code>，大改动先 <code>/plan</code>。当前钉在 v2.1.311。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
             <span class="version-pill">v2.1.311</span>
@@ -755,14 +755,14 @@
       <aside class="command-primer">
         <p class="primer-label">只想记一个命令</p>
         <code class="primer-command">claude</code>
-        <p class="primer-note">在项目目录开一轮。第一次走浏览器登录。只要最终答案用 <code>claude -p</code>。先出方案不改代码：<code>--permission-mode plan</code>，或会话里 <code>/plan</code>。</p>
+        <p class="primer-note">在项目目录开一轮。第一次会打开浏览器登录。只要最终答案用 <code>claude -p</code>。</p>
       </aside>
     </header>
 
     <div class="toolbar">
       <label class="search-wrap">
         <span>⌕</span>
-        <input id="search" type="search" placeholder="搜索：安装、登录、update、plan、auto、权限、CLAUDE.md、settings、MCP、doctor、-p、worktree、compact">
+        <input id="search" type="search" placeholder="搜索：安装、登录、-c、-r、plan、权限、-p、CLAUDE.md、compact、worktree、MCP、doctor">
       </label>
       <span class="hint">复制按钮会复制可直接贴进终端或 Claude Code 会话的命令</span>
     </div>
@@ -770,13 +770,13 @@
     <section>
       <div class="section-head">
         <h2>最短记忆</h2>
-        <p>免费的 claude.ai 计划不含 Claude Code。需要 Pro、Max、Team、Enterprise 或 Console 账号；也可以走 Bedrock、Google Cloud Agent Platform 或 Microsoft Foundry。</p>
+        <p>免费 claude.ai 不含 Claude Code。需要 Pro、Max、Team、Enterprise 或 Console。</p>
       </div>
       <div class="workflow">
-        <article class="step searchable" data-step="01" data-keywords="安装 install macos linux wsl curl powershell winget brew">
+        <article class="step searchable" data-step="01" data-keywords="安装 install macos linux wsl curl powershell brew winget">
           <div>
             <h3>先装上</h3>
-            <p>推荐原生安装。macOS / Linux / WSL 用下面这条。Windows PowerShell 用 <code>irm https://claude.ai/install.ps1 | iex</code>。装完新开一个终端，<code>claude --version</code> 能打出版本号才算在 PATH 上。</p>
+            <p>macOS / Linux / WSL 用下面这条；Windows PowerShell 用 <code>irm https://claude.ai/install.ps1 | iex</code>。包管理器：<code>brew install --cask claude-code</code>，或 <code>winget install Anthropic.ClaudeCode</code>。</p>
           </div>
           <div class="cmd">
             <code>curl -fsSL https://claude.ai/install.sh | bash</code>
@@ -784,10 +784,10 @@
           </div>
         </article>
 
-        <article class="step searchable" data-step="02" data-keywords="登录 auth login console sso api key 订阅">
+        <article class="step searchable" data-step="02" data-keywords="登录 auth login console api key">
           <div>
             <h3>登录</h3>
-            <p>第一次跑 <code>claude</code> 会打开浏览器。已经设了 <code>ANTHROPIC_API_KEY</code> 并且你确认要用这把 key 时，会跳过登录。Console 按量计费加 <code>--console</code>；强制 SSO 加 <code>--sso</code>。</p>
+            <p>第一次 <code>claude</code> 会打开浏览器；已经决定用 <code>ANTHROPIC_API_KEY</code> 时会跳过。Console 按量计费加 <code>--console</code>。</p>
           </div>
           <div class="cmd">
             <code>claude auth login</code>
@@ -795,10 +795,10 @@
           </div>
         </article>
 
-        <article class="step searchable" data-step="03" data-keywords="第一次 会话 项目 claude init">
+        <article class="step searchable" data-step="03" data-keywords="第一次 会话 项目 claude init CLAUDE.md">
           <div>
-            <h3>在项目里开一轮</h3>
-            <p>进入仓库再启动。会话里 <code>/init</code> 会根据代码库起草 <code>CLAUDE.md</code>；文件已经存在时它提修改建议，不覆盖。想连技能和 hooks 一起走交互向导，先设 <code>CLAUDE_CODE_NEW_INIT=1</code>。</p>
+            <h3>在仓库里开一轮</h3>
+            <p>进入项目目录再启动。会话里 <code>/init</code> 起草 <code>CLAUDE.md</code>；文件已在时只提建议，不覆盖。</p>
           </div>
           <div class="cmd">
             <code>claude</code>
@@ -806,10 +806,138 @@
           </div>
         </article>
 
-        <article class="step searchable" data-step="04" data-keywords="doctor 排障 诊断 只读 status">
+        <article class="step searchable" data-step="04" data-keywords="继续 continue resume -c -r 会话">
+          <div>
+            <h3>接着上次</h3>
+            <p><code>claude -c</code> 打开当前目录最近一次对话；点名用 <code>claude -r "名字或 ID"</code>。默认不含 <code>claude -p</code> 的会话。</p>
+          </div>
+          <div class="cmd">
+            <code>claude -c</code>
+            <button class="copy" type="button" data-copy="claude -c">复制</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>按场景查</h2>
+        <p>先找现在要做的事，复制那一条命令。</p>
+      </div>
+      <div class="cards">
+        <article class="card strong accent-green searchable" data-keywords="CLAUDE.md init memory rules 200 行">
+          <div>
+            <h3>让它记住项目约定</h3>
+            <p><code>/init</code> 起草项目 <code>CLAUDE.md</code>（<code>./CLAUDE.md</code> 或 <code>./.claude/CLAUDE.md</code>）。个人跨项目放 <code>~/.claude/CLAUDE.md</code>，单文件尽量短于 200 行。</p>
+            <div class="tag-row"><span class="tag">/init</span><span class="tag">CLAUDE.md</span></div>
+          </div>
+          <div class="cmd">
+            <code>/init</code>
+            <button class="copy" type="button" data-copy="/init">复制</button>
+          </div>
+        </article>
+
+        <article class="card strong accent-blue searchable" data-keywords="plan 计划 Shift+Tab 方案">
+          <div>
+            <h3>先出方案，再改代码</h3>
+            <p>Plan 只读代码、不改源码，直到你批准。会话里 <code>/plan</code> 或 <code>Shift+Tab</code>；启动时用下面这条。</p>
+            <div class="tag-row"><span class="tag">plan</span><span class="tag">Shift+Tab</span></div>
+          </div>
+          <div class="cmd">
+            <code>claude --permission-mode plan</code>
+            <button class="copy" type="button" data-copy="claude --permission-mode plan">复制</button>
+          </div>
+        </article>
+
+        <article class="card strong accent-amber searchable" data-keywords="权限模式 auto manual acceptEdits dontAsk default Shift+Tab">
+          <div>
+            <h3>切权限模式</h3>
+            <p>交互默认 auto。<code>Shift+Tab</code>：auto → Manual（<code>default</code>）→ acceptEdits → plan → 回到 auto。<code>dontAsk</code> 不在这个循环里，只给 <code>claude -p</code>。</p>
+            <div class="tag-row"><span class="tag">auto</span><span class="tag">acceptEdits</span></div>
+          </div>
+          <div class="cmd">
+            <code>claude --permission-mode acceptEdits</code>
+            <button class="copy" type="button" data-copy="claude --permission-mode acceptEdits">复制</button>
+          </div>
+        </article>
+
+        <article class="card strong accent-red searchable" data-keywords="权限规则 allow deny ask permissions settings.local">
+          <div>
+            <h3>少被问，但别放开危险命令</h3>
+            <p>规则顺序 deny → ask → allow；宽的 deny 盖得住更窄的 allow，bypass 也绕不过 deny。Bash 的“不要再问”写进 <code>.claude/settings.local.json</code>，改文件的批准只留到这次会话结束。</p>
+            <div class="tag-row"><span class="tag">/permissions</span><span class="tag">deny</span></div>
+          </div>
+          <div class="cmd">
+            <code>/permissions</code>
+            <button class="copy" type="button" data-copy="/permissions">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-green searchable" data-keywords="print -p 脚本 json dontAsk allowedTools ci">
+          <div>
+            <h3>脚本里只要最终答案</h3>
+            <p><code>claude -p</code> 跑完就退出。没指定模式时从 Manual 起，要批准的调用会被拒绝；CI 改成 <code>dontAsk</code> 并加上 <code>--allowedTools</code>。</p>
+            <div class="tag-row"><span class="tag">-p</span><span class="tag">json</span></div>
+          </div>
+          <div class="cmd">
+            <code>claude -p "explain this function" --output-format json</code>
+            <button class="copy" type="button" data-copy="claude -p &quot;explain this function&quot; --output-format json">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-blue searchable" data-keywords="上下文 compact clear context 压缩">
+          <div>
+            <h3>上下文满了</h3>
+            <p><code>/compact</code> 总结后继续同一段对话。<code>/clear</code> 开新对话，CLAUDE.md 还在。</p>
+            <div class="tag-row"><span class="tag">/compact</span><span class="tag">/clear</span></div>
+          </div>
+          <div class="cmd">
+            <code>/compact</code>
+            <button class="copy" type="button" data-copy="/compact">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-amber searchable" data-keywords="worktree 后台 background --bg agents attach">
+          <div>
+            <h3>并行：worktree 或后台</h3>
+            <p><code>claude -w name</code> 在 <code>.claude/worktrees/</code> 开隔离检出。整段丢到后台用 <code>claude --bg "task"</code>，再 <code>claude attach &lt;id&gt;</code>；不能和 <code>-p</code> 一起用。</p>
+            <div class="tag-row"><span class="tag">-w</span><span class="tag">--bg</span></div>
+          </div>
+          <div class="cmd">
+            <code>claude -w feature-auth</code>
+            <button class="copy" type="button" data-copy="claude -w feature-auth">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-red searchable" data-keywords="MCP mcp.json scope http">
+          <div>
+            <h3>接上 MCP</h3>
+            <p>远程 HTTP 用下面这条。<code>--scope project</code> 写进仓库 <code>.mcp.json</code>，默认 local 只给你；密钥别提交，登录用 <code>/mcp</code>。</p>
+            <div class="tag-row"><span class="tag">mcp</span><span class="tag">.mcp.json</span></div>
+          </div>
+          <div class="cmd">
+            <code>claude mcp add --transport http notion https://mcp.notion.com/mcp</code>
+            <button class="copy" type="button" data-copy="claude mcp add --transport http notion https://mcp.notion.com/mcp">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-green searchable" data-keywords="更新 update stable latest 频道">
+          <div>
+            <h3>立刻更新</h3>
+            <p>原生安装会后台更新，这条立刻装当前频道（<code>latest</code> 或 <code>stable</code>）。Homebrew / WinGet 用各自的升级命令。</p>
+            <div class="tag-row"><span class="tag">update</span><span class="tag">stable</span></div>
+          </div>
+          <div class="cmd">
+            <code>claude update</code>
+            <button class="copy" type="button" data-copy="claude update">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-blue searchable" data-keywords="doctor safe-mode 排障 诊断">
           <div>
             <h3>坏了先诊断</h3>
-            <p>终端里的 <code>claude doctor</code> 只读：安装、设置校验、Remote Control 资格，不改文件。会话里的 <code>/doctor</code> 会给出修复建议，你确认后才改。<code>/status</code> 看版本、模型、账号和加载了哪些设置来源。</p>
+            <p><code>claude doctor</code> 只读，不改文件。怀疑是 CLAUDE.md、插件或 hooks，用 <code>claude --safe-mode</code> 先把它们关掉。</p>
+            <div class="tag-row"><span class="tag">doctor</span><span class="tag">safe-mode</span></div>
           </div>
           <div class="cmd">
             <code>claude doctor</code>
@@ -821,239 +949,31 @@
 
     <section>
       <div class="section-head">
-        <h2>按场景查</h2>
-        <p>先找当前要做的事。命令表是 v2.1.311 文档的操作摘要，不是发布说明全文。</p>
-      </div>
-      <div class="cards">
-        <article class="card strong accent-green searchable" data-keywords="安装 brew winget homebrew stable latest cask apt windows git bash">
-          <div>
-            <h3>换一种安装方式</h3>
-            <p>Homebrew：<code>brew install --cask claude-code</code> 跟 stable（大约晚一周，并跳过有严重回归的版本）；<code>claude-code@latest</code> 跟最新。WinGet：<code>winget install Anthropic.ClaudeCode</code>。原生 Windows 建议装 Git for Windows，否则 shell 走 PowerShell；沙箱只在 WSL 2 上支持，原生 Windows 和 WSL 1 都不支持。</p>
-            <div class="tag-row"><span class="tag">brew</span><span class="tag">winget</span></div>
-          </div>
-          <div class="cmd">
-            <code>brew install --cask claude-code</code>
-            <button class="copy" type="button" data-copy="brew install --cask claude-code">复制</button>
-          </div>
-        </article>
-
-        <article class="card strong accent-blue searchable" data-keywords="更新 update 频道 stable latest autoupdate minimumVersion DISABLE_AUTOUPDATER">
-          <div>
-            <h3>更新，或钉住频道</h3>
-            <p>原生安装启动时和运行中会在后台检查，装好后下次启动才生效。<code>claude update</code> 立刻更新。频道写在设置里：<code>autoUpdatesChannel</code> 为 <code>latest</code>（默认）或 <code>stable</code>。Homebrew 的频道看 cask 名字，不看这个键。只停后台检查用 <code>DISABLE_AUTOUPDATER=1</code>，<code>claude update</code> 仍可用；连手动更新也要禁，用 <code>DISABLE_UPDATES</code>。</p>
-            <div class="tag-row"><span class="tag">update</span><span class="tag">stable</span></div>
-          </div>
-          <div class="cmd">
-            <code>claude update</code>
-            <button class="copy" type="button" data-copy="claude update">复制</button>
-          </div>
-        </article>
-
-        <article class="card strong accent-amber searchable" data-keywords="登录 status logout setup-token ci 令牌 authMethod">
-          <div>
-            <h3>看登录状态，或给 CI 发令牌</h3>
-            <p><code>claude auth status</code> 打 JSON，退出码 0 表示已登录、1 表示没有。<code>--text</code> 给人读。<code>authMethod</code> 会是 <code>none</code>、<code>claude.ai</code>、<code>oauth_token</code>、<code>api_key</code>、<code>api_key_helper</code> 或 <code>third_party</code>。CI 用订阅账号生成长效 OAuth：<code>claude setup-token</code>，令牌只打印、不落盘。</p>
-            <div class="tag-row"><span class="tag">auth</span><span class="tag">ci</span></div>
-          </div>
-          <div class="cmd">
-            <code>claude auth status --text</code>
-            <button class="copy" type="button" data-copy="claude auth status --text">复制</button>
-          </div>
-        </article>
-
-        <article class="card strong accent-red searchable" data-keywords="继续 continue resume -c -r 会话 名称 fork">
-          <div>
-            <h3>接着上次，或点名恢复</h3>
-            <p><code>claude -c</code> 打开当前目录最近一次对话，包括已结束的后台会话。它默认跳过 <code>claude -p</code>、Agent SDK，以及第一条提示是 <code>/loop</code> 的会话；要连那些也续上，用 <code>claude -p --continue</code>。按名字或 ID：<code>claude -r "auth-refactor"</code>。想分叉出新会话 ID，加上 <code>--fork-session</code>。</p>
-            <div class="tag-row"><span class="tag">-c</span><span class="tag">resume</span></div>
-          </div>
-          <div class="cmd">
-            <code>claude -c</code>
-            <button class="copy" type="button" data-copy="claude -c">复制</button>
-          </div>
-        </article>
-
-        <article class="card accent-green searchable" data-keywords="print -p 脚本 json stream-json 管道 budget max-turns dontAsk">
-          <div>
-            <h3>脚本里只要最终答案</h3>
-            <p><code>claude -p</code> 跑完就退出，不进交互界面。从 v2.1.302 起，没指定权限模式的 <code>-p</code> 从 Manual 开始：需要批准的调用会被拒绝，除非你有 allow 规则、hook，或改成 <code>--permission-mode auto</code>。<code>--output-format json</code> 给程序读。<code>--max-turns</code> 和 <code>--max-budget-usd</code> 只在 print 模式生效；预算是客户端估算，子代理花费也计入，实际可能略超。</p>
-            <div class="tag-row"><span class="tag">-p</span><span class="tag">json</span></div>
-          </div>
-          <div class="cmd">
-            <code>claude -p "explain this function" --output-format json</code>
-            <button class="copy" type="button" data-copy="claude -p &quot;explain this function&quot; --output-format json">复制</button>
-          </div>
-        </article>
-
-        <article class="card accent-blue searchable" data-keywords="plan 计划 Shift+Tab 方案 Ctrl+G 批准">
-          <div>
-            <h3>先出方案，再改代码</h3>
-            <p>Plan 模式读文件、跑只读探索命令，不改你的源码，直到你批准方案。启动时加 <code>--permission-mode plan</code>，或会话里 <code>/plan</code>，或 <code>Shift+Tab</code> 切过去。方案出来后可选：用 auto 模式执行、逐条批准编辑，或继续改方案。<code>Ctrl+G</code> 用外部编辑器改方案文本。再按一次 <code>Shift+Tab</code> 可以不批准就离开。</p>
-            <div class="tag-row"><span class="tag">plan</span><span class="tag">Shift+Tab</span></div>
-          </div>
-          <div class="cmd">
-            <code>claude --permission-mode plan</code>
-            <button class="copy" type="button" data-copy="claude --permission-mode plan">复制</button>
-          </div>
-        </article>
-
-        <article class="card accent-amber searchable" data-keywords="权限模式 auto manual acceptEdits dontAsk bypass defaultMode">
-          <div>
-            <h3>选对权限模式</h3>
-            <p>v2.1.283 起，交互终端和 VS Code 的内置起点是 <code>auto</code>（分类器在后台看 shell 和网络，而不是每步问你）。<code>Shift+Tab</code> 从 auto 先到 Manual（配置值 <code>default</code>），再是 <code>acceptEdits</code>，再到 <code>plan</code>。<code>dontAsk</code> 不在这个循环里，只给 <code>-p</code> / CI。 <code>--dangerously-skip-permissions</code> 等于 <code>bypassPermissions</code>，只适合容器或 VM。deny 规则在所有模式里仍然生效，包括 bypass。</p>
-            <div class="tag-row"><span class="tag">auto</span><span class="tag">manual</span></div>
-          </div>
-          <div class="cmd">
-            <code>claude --permission-mode default</code>
-            <button class="copy" type="button" data-copy="claude --permission-mode default">复制</button>
-          </div>
-        </article>
-
-        <article class="card accent-red searchable" data-keywords="权限规则 allow deny ask permissions settings.local 不要再问">
-          <div>
-            <h3>少被问，但别放行危险命令</h3>
-            <p>规则顺序是 deny，然后 ask，然后 allow。宽的 <code>Bash(git push *)</code> deny 盖得住更窄的 allow，allow 挖不出例外。<code>/permissions</code> 管理规则。Bash 上选 “Yes, and don't ask again” 会写进仓库根的 <code>.claude/settings.local.json</code>（v2.1.211 起，worktree 记在主检出根上）。文件编辑的批准只持续到这次会话结束，不写进文件。<code>CLAUDE.md</code> 说服不了权限系统。</p>
-            <div class="tag-row"><span class="tag">deny</span><span class="tag">allow</span></div>
-          </div>
-          <div class="cmd">
-            <code>/permissions</code>
-            <button class="copy" type="button" data-copy="/permissions">复制</button>
-          </div>
-        </article>
-
-        <article class="card accent-green searchable" data-keywords="CLAUDE.md AGENTS.md init memory rules 200 行 auto memory">
-          <div>
-            <h3>让它记住项目约定</h3>
-            <p><code>CLAUDE.md</code> 是你写的上下文，不是强制配置。放构建命令、目录约定、可核对的规则；单文件尽量短于 200 行。项目用 <code>./CLAUDE.md</code> 或 <code>./.claude/CLAUDE.md</code>，个人跨项目用 <code>~/.claude/CLAUDE.md</code>，只给自己的用 <code>CLAUDE.local.md</code> 并 gitignore。仓库里已有 <code>AGENTS.md</code> 时，Claude Code 可以把它当作项目说明来读。自动记忆由 Claude 自己写，每次会话加载前 200 行或 25KB。只对部分路径生效的说明放 <code>.claude/rules/</code>，用 <code>paths</code> frontmatter。</p>
-            <div class="tag-row"><span class="tag">CLAUDE.md</span><span class="tag">rules</span></div>
-          </div>
-          <div class="cmd">
-            <code>/init</code>
-            <button class="copy" type="button" data-copy="/init">复制</button>
-          </div>
-        </article>
-
-        <article class="card accent-blue searchable" data-keywords="settings.json 优先级 local managed model schema JSON">
-          <div>
-            <h3>设置放哪一份文件</h3>
-            <p>从高到低：组织托管设置，然后本次 <code>--settings</code>，然后 <code>.claude/settings.local.json</code>，然后提交的 <code>.claude/settings.json</code>，最后 <code>~/.claude/settings.json</code>。写在 <code>.claude/settings.json</code> 或 <code>.claude/settings.local.json</code> 里的 <code>defaultMode: auto</code> 和 <code>bypassPermissions</code> 不会当起点；用户文件里的 <code>auto</code> 可以。严格 JSON：注释和尾逗号会在下次启动报 Settings Error。多数键改完即重载；<code>model</code> 要改用 <code>/model</code>。换模型会使下一次请求重新读整段对话。</p>
-            <div class="tag-row"><span class="tag">settings</span><span class="tag">precedence</span></div>
-          </div>
-          <div class="cmd">
-            <code>/status</code>
-            <button class="copy" type="button" data-copy="/status">复制</button>
-          </div>
-        </article>
-
-        <article class="card accent-amber searchable" data-keywords="MCP mcp.json scope http stdio oauth login list">
-          <div>
-            <h3>接上 MCP</h3>
-            <p>远程 HTTP 是推荐传输。<code>--scope local</code>（默认）只给你、只在当前项目；<code>project</code> 写到仓库根 <code>.mcp.json</code>；<code>user</code> 跨项目。密钥不要写进会提交的 <code>.mcp.json</code>。有 <code>url</code> 却没有 <code>type</code> 会被跳过。本地进程的参数放在 <code>--</code> 后面。项目级服务器要在本机跑 <code>claude</code> 并批准；未信任目录里，提交进仓库的启用开关不会自己生效。会话里用 <code>/mcp</code> 做 OAuth。</p>
-            <div class="tag-row"><span class="tag">mcp</span><span class="tag">.mcp.json</span></div>
-          </div>
-          <div class="cmd">
-            <code>claude mcp add --transport http notion https://mcp.notion.com/mcp</code>
-            <button class="copy" type="button" data-copy="claude mcp add --transport http notion https://mcp.notion.com/mcp">复制</button>
-          </div>
-        </article>
-
-        <article class="card accent-red searchable" data-keywords="worktree 后台 background agents attach daemon 并行">
-          <div>
-            <h3>并行：worktree 与后台会话</h3>
-            <p><code>claude -w feature-auth</code> 在 <code>.claude/worktrees/</code> 里开隔离检出。整段会话丢到后台：<code>claude --bg "investigate the flaky test"</code>，再用 <code>claude agents</code> 看、<code>claude attach &lt;id&gt;</code> 接回来、<code>claude stop &lt;id&gt;</code> 停。<code>--bg</code> 不能和 <code>-p</code> 一起用。后台主管无响应时，文档现在建议 <code>claude daemon stop --any</code>，这会结束它托管的后台会话；不要用已经停用的 <code>daemon restart</code>。</p>
-            <div class="tag-row"><span class="tag">worktree</span><span class="tag">--bg</span></div>
-          </div>
-          <div class="cmd">
-            <code>claude -w feature-auth</code>
-            <button class="copy" type="button" data-copy="claude -w feature-auth">复制</button>
-          </div>
-        </article>
-
-        <article class="card accent-green searchable" data-keywords="上下文 compact context clear rewind btw usage 压缩">
-          <div>
-            <h3>上下文满了，或想旁问一句</h3>
-            <p><code>/context</code> 看窗口被什么占满。<code>/compact</code> 总结后继续同一段对话；<code>/clear</code>（别名 <code>/new</code>、<code>/reset</code>）开新对话，项目记忆还在。<code>/btw</code> 旁问一句，不写进对话历史。<code>/rewind</code> 把对话和/或代码退回检查点。<code>/usage</code> 看用量和限额。v2.1.311：标准上下文会话在请求超过 200K token 时会压缩后继续，不再停在 “Usage credits required for 1M context”。</p>
-            <div class="tag-row"><span class="tag">compact</span><span class="tag">/btw</span></div>
-          </div>
-          <div class="cmd">
-            <code>/compact</code>
-            <button class="copy" type="button" data-copy="/compact">复制</button>
-          </div>
-        </article>
-
-        <article class="card accent-blue searchable" data-keywords="safe-mode bare 排障 插件 hooks 坏配置">
-          <div>
-            <h3>怀疑是配置把它弄坏了</h3>
-            <p><code>claude --safe-mode</code> 不加载 CLAUDE.md、skills、插件、hooks、MCP、自定义命令和自动记忆，但登录、模型、内置工具和权限还在，用来判断是不是某项自定义触发了异常。脚本要更快、少做自动发现用 <code>--bare</code>：它会设 <code>CLAUDE_CODE_SIMPLE</code>，工具只留 Bash、读文件和改文件。两者不是一回事。<code>/doctor prompt-audit</code> 检查说明文件是否过时或互相打架，你点头之前不改文件。</p>
-            <div class="tag-row"><span class="tag">safe-mode</span><span class="tag">bare</span></div>
-          </div>
-          <div class="cmd">
-            <code>claude --safe-mode</code>
-            <button class="copy" type="button" data-copy="claude --safe-mode">复制</button>
-          </div>
-        </article>
-
-        <article class="card accent-amber searchable" data-keywords="模型 model effort sonnet opus haiku fable ultrathink 别名">
-          <div>
-            <h3>换模型或推理档</h3>
-            <p>别名有 <code>sonnet</code>、<code>opus</code>、<code>haiku</code>、<code>fable</code>，也可以写完整 ID，例如文档里的 <code>claude-sonnet-5</code>。<code>/model</code> 会把选择存成之后新会话的默认；在选择器里按 <code>s</code> 只改当前会话。<code>--effort</code> 可选 <code>low</code>、<code>medium</code>、<code>high</code>、<code>xhigh</code>、<code>max</code>、<code>ultracode</code>，不写入设置。v2.1.311：交互终端里的 <code>ultrathink</code> 会把这一轮提到 xhigh（Opus 5.5、Sonnet 5.5、Haiku 5.5、Fable 5.1，走 Anthropic API）；引号里或路径里的这个词不会触发。</p>
-            <div class="tag-row"><span class="tag">model</span><span class="tag">effort</span></div>
-          </div>
-          <div class="cmd">
-            <code>claude --model sonnet --effort high</code>
-            <button class="copy" type="button" data-copy="claude --model sonnet --effort high">复制</button>
-          </div>
-        </article>
-
-        <article class="card accent-red searchable" data-keywords="v2.1.311 卡顿 CLAUDE.md 列表 压缩 MCP 子代理 daemon">
-          <div>
-            <h3>钉在 v2.1.311 时值得记住的修复</h3>
-            <p>这一版修了几件日常会踩到的事：CLAUDE.md 里超长列表项导致启动和读写后长时间卡住；压缩之后仍读到更早改过的 MEMORY.md / CLAUDE.md 旧内容；子代理用不上启动之后才连上的 MCP 工具；在仓库子目录里 <code>claude mcp add</code> 把服务器记到当前文件夹而不是 <code>~/.claude.json</code> 里的项目条目。说明文件仍建议单份 CLAUDE.md 控制在大约 200 行内。发布说明的其余修复以 changelog 为准。</p>
-            <div class="tag-row"><span class="tag">2.1.311</span><span class="tag">changelog</span></div>
-          </div>
-          <div class="cmd">
-            <code>claude --version</code>
-            <button class="copy" type="button" data-copy="claude --version">复制</button>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <div class="section-head">
         <h2>常用流程</h2>
-        <p>把几条命令串起来。具体工具名以你仓库的脚本为准。</p>
+        <p>把几条命令串起来。</p>
       </div>
       <div class="recipes">
-        <article class="recipe searchable" data-keywords="第一次 仓库 init memory permissions trust">
+        <article class="recipe searchable" data-keywords="第一次 仓库 init permissions trust">
           <h3>第一次进一个仓库</h3>
-          <p>先信任工作区，再起草说明、看记忆、收紧权限。提交的项目设置要等你信任这个目录才完全生效。</p>
+          <p>先信任工作区。提交的项目设置要等你信任这个目录才完全生效。</p>
           <div class="flow-line">
-            <span>cd repo &amp;&amp; claude</span><b>→</b><span>/init</span><b>→</b><span>/memory</span><b>→</b><span>/permissions</span>
+            <span>cd repo &amp;&amp; claude</span><b>→</b><span>/init</span><b>→</b><span>/permissions</span>
           </div>
         </article>
 
         <article class="recipe searchable" data-keywords="大改动 plan 批准 diff">
           <h3>大改动先出方案</h3>
-          <p>计划批准之后才会改文件。做完用 <code>/diff</code> 看工作区，<code>/code-review</code> 查正确性（<code>/review</code> 是它的别名）。</p>
+          <p>批准之前不改源码。做完用 <code>/diff</code> 看工作区。</p>
           <div class="flow-line">
             <span>--permission-mode plan</span><b>→</b><span>批准方案</span><b>→</b><span>/diff</span>
           </div>
         </article>
 
-        <article class="recipe searchable" data-keywords="管道 ci dontAsk allowedTools 测试">
+        <article class="recipe searchable" data-keywords="管道 ci dontAsk allowedTools setup-token">
           <h3>管道或 CI 里跑</h3>
-          <p>精确允许名单用 <code>dontAsk</code>。想让分类器决定、又不用事先列命令，改成 <code>--permission-mode auto</code>。</p>
+          <p>精确允许名单用 <code>dontAsk</code>。订阅账号的长效令牌：<code>claude setup-token</code>，只打印、不落盘。</p>
           <div class="flow-line">
             <span>claude -p</span><b>→</b><span>--permission-mode dontAsk</span><b>→</b><span>--allowedTools</span>
-          </div>
-        </article>
-
-        <article class="recipe searchable" data-keywords="云端 teleport remote-control desktop 手机">
-          <h3>换一台设备接着做</h3>
-          <p><code>claude --teleport</code> 把云端会话拉回本机终端，需要 claude.ai 订阅。本机这一轮想在手机或网页上接着控，用 <code>claude --remote-control</code>。macOS 和 x64 Windows、且是订阅登录时，<code>claude --desktop</code> 会把当前目录交给桌面应用后退出。</p>
-          <div class="flow-line">
-            <span>claude --teleport</span><b>→</b><span>或 --remote-control</span><b>→</b><span>或 --desktop</span>
           </div>
         </article>
       </div>
@@ -1062,7 +982,7 @@
     <section>
       <div class="section-head">
         <h2>CLI 索引</h2>
-        <p>在系统终端运行。权威来源是官方 CLI reference；<code>claude --help</code> 不会列出每一个 flag。</p>
+        <p>在系统终端运行。完整列表以官方 CLI reference 为准。</p>
       </div>
       <div class="table-wrap" tabindex="0" aria-label="Claude Code CLI 索引，可横向滚动">
       <table class="reference-table">
@@ -1082,54 +1002,54 @@
           <tr class="searchable" data-keywords="print -p 脚本">
             <td>claude -p "query"</td>
             <td>非交互，跑完退出。</td>
-            <td>可接管道。<code>--output-format text|json|stream-json</code>。</td>
+            <td><code>--output-format text|json|stream-json</code>。</td>
           </tr>
           <tr class="searchable" data-keywords="continue -c">
             <td>claude -c</td>
             <td>继续当前目录最近的对话。</td>
-            <td>默认不含 <code>-p</code> / SDK / 以 <code>/loop</code> 开头的会话。</td>
+            <td>默认不含 <code>-p</code> 会话。连那些也续上：<code>claude -p --continue</code>。</td>
           </tr>
           <tr class="searchable" data-keywords="resume -r 名字">
             <td>claude -r "name"</td>
-            <td>按 ID 或名字恢复；不带参数则打开选择器。</td>
-            <td>仍在跑的后台会话会 attach 到这个终端。</td>
+            <td>按 ID 或名字恢复。</td>
+            <td>不带参数则打开选择器。<code>--fork-session</code> 分叉出新会话。</td>
           </tr>
           <tr class="searchable" data-keywords="update install 版本">
             <td>claude update</td>
-            <td>立刻更新到当前频道的最新版。</td>
-            <td><code>claude install stable</code>，或 <code>claude install</code> 加版本号。全新安装给安装脚本传 <code>stable</code> 或版本号，例如 <code>bash -s stable</code>。</td>
+            <td>立刻更新到当前频道。</td>
+            <td>钉 stable 或版本号用 <code>claude install</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="auth login logout status">
+          <tr class="searchable" data-keywords="auth login logout status setup-token">
             <td>claude auth login</td>
-            <td>登录、登出、看状态。</td>
-            <td><code>logout</code>；<code>status</code> 加 <code>--text</code>。CI 用 <code>claude setup-token</code>。</td>
+            <td>登录。</td>
+            <td><code>logout</code> 登出。<code>status --text</code> 看是否已登录。CI 令牌：<code>claude setup-token</code>。</td>
           </tr>
           <tr class="searchable" data-keywords="doctor">
             <td>claude doctor</td>
             <td>不启动会话的只读诊断。</td>
-            <td>要它提议并应用修复，在会话里跑 <code>/doctor</code>。</td>
+            <td>要它提议并改文件，在会话里跑 <code>/doctor</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="permission-mode plan auto">
+          <tr class="searchable" data-keywords="permission-mode plan auto acceptEdits dontAsk">
             <td>claude --permission-mode plan</td>
             <td>指定这一次的起点模式。</td>
             <td><code>default</code>（别名 <code>manual</code>）、<code>acceptEdits</code>、<code>auto</code>、<code>dontAsk</code>、<code>bypassPermissions</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="model effort">
+          <tr class="searchable" data-keywords="model effort sonnet opus">
             <td>claude --model sonnet</td>
-            <td>这一次用哪个模型和推理档。</td>
-            <td>别名或完整 ID。档位用 <code>--effort high</code>，不持久化。</td>
+            <td>这一次用哪个模型。</td>
+            <td>别名 <code>sonnet</code>、<code>opus</code>、<code>haiku</code>、<code>fable</code>。<code>--effort high</code> 不写入设置。</td>
           </tr>
           <tr class="searchable" data-keywords="add-dir 目录">
             <td>claude --add-dir ../lib</td>
             <td>额外授予读写目录。</td>
-            <td>默认不加载那里的 <code>.claude/</code> 与 CLAUDE.md。要加载记忆，设 <code>CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1</code>。</td>
+            <td>默认不加载那里的 CLAUDE.md。</td>
           </tr>
           <tr class="searchable" data-keywords="worktree -w">
             <td>claude -w name</td>
             <td>在隔离 git worktree 里启动。</td>
-            <td>路径在 <code>.claude/worktrees/&lt;name&gt;</code>。可加 <code>--tmux</code>。</td>
+            <td>路径在 <code>.claude/worktrees/&lt;name&gt;</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="background bg agents attach">
+          <tr class="searchable" data-keywords="background bg agents attach stop">
             <td>claude --bg "task"</td>
             <td>后台跑，马上把终端还你。</td>
             <td>随后 <code>claude agents</code>、<code>attach</code>、<code>logs</code>、<code>stop</code>。不能和 <code>-p</code> 并用。</td>
@@ -1137,32 +1057,27 @@
           <tr class="searchable" data-keywords="mcp add list">
             <td>claude mcp add …</td>
             <td>配置 MCP 服务器。</td>
-            <td><code>list</code> / <code>get</code> 看状态。<code>login &lt;name&gt;</code> 走 OAuth，SSH 加 <code>--no-browser</code>。</td>
+            <td><code>list</code> 看状态。<code>login &lt;name&gt;</code> 走 OAuth。</td>
           </tr>
           <tr class="searchable" data-keywords="plugin 插件">
             <td>claude plugin</td>
-            <td>安装和管理插件。别名 <code>claude plugins</code>。</td>
-            <td>例：<code>claude plugin install code-review@claude-plugins-official</code>。会话里用 <code>/plugin</code>。</td>
+            <td>安装和管理插件。</td>
+            <td>会话里用 <code>/plugin</code>。</td>
           </tr>
           <tr class="searchable" data-keywords="safe-mode bare">
             <td>claude --safe-mode</td>
             <td>关掉自定义项来排障。</td>
-            <td>脚本瘦启动用 <code>--bare</code>，工具集更窄。</td>
+            <td>脚本瘦启动用 <code>--bare</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="settings allowedTools disallowedTools">
+          <tr class="searchable" data-keywords="settings allowedTools">
             <td>claude --settings ./settings.json</td>
             <td>这一次盖过同名设置键。</td>
-            <td>免询问用 <code>--allowedTools</code>；从上下文拿掉工具用 <code>--disallowedTools</code>。</td>
+            <td>免询问用 <code>--allowedTools</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="import codex cursor gemini">
-            <td>claude import codex --dry-run</td>
-            <td>从 Codex、Gemini CLI 或 Cursor 带入说明、MCP、命令和 skills。</td>
-            <td><code>--yes</code> 跳过选择器。Bedrock / Vertex / Foundry 不可用。Cursor 需要 v2.1.265+。</td>
-          </tr>
-          <tr class="searchable" data-keywords="desktop teleport remote-control">
-            <td>claude --desktop</td>
-            <td>把目录交给桌面应用，或接云端 / 远程控制。</td>
-            <td><code>--teleport</code>、<code>--remote-control</code>。桌面交接需要订阅，且限于 macOS 与 x64 Windows（v2.1.285+）。</td>
+          <tr class="searchable" data-keywords="teleport remote-control desktop">
+            <td>claude --teleport</td>
+            <td>把云端会话拉回本机。</td>
+            <td>需要订阅。本机这一轮给手机接着控：<code>--remote-control</code>。</td>
           </tr>
           <tr class="searchable" data-keywords="version 版本">
             <td>claude --version</td>
@@ -1177,7 +1092,7 @@
     <section>
       <div class="section-head">
         <h2>Slash 与模式</h2>
-        <p>只在消息开头生效。输入 <code>/</code> 看你这个账号实际有的命令；组织和套餐会藏掉一部分。<code>/help</code> 列出当前会话能用的。</p>
+        <p>只在消息开头生效。输入 <code>/</code> 看你这个账号实际有的命令。</p>
       </div>
       <div class="table-wrap" tabindex="0" aria-label="Claude Code slash 命令，可横向滚动">
       <table class="reference-table">
@@ -1192,82 +1107,82 @@
           <tr class="searchable" data-keywords="init CLAUDE.md">
             <td>/init</td>
             <td>起草项目 CLAUDE.md。</td>
-            <td>已有文件时给改进建议。<code>CLAUDE_CODE_NEW_INIT=1</code> 会多问 skills 和 hooks。</td>
+            <td>已有文件只给建议。<code>/memory</code> 用来编辑说明。</td>
           </tr>
           <tr class="searchable" data-keywords="plan 计划">
-            <td>/plan [描述]</td>
-            <td>进入 plan 模式，可选地带上任务。</td>
+            <td>/plan</td>
+            <td>进入 plan 模式。</td>
             <td>也可 <code>Shift+Tab</code>。批准前不改源码。</td>
           </tr>
           <tr class="searchable" data-keywords="permissions allowed-tools">
             <td>/permissions</td>
-            <td>管理 allow / ask / deny，以及工作目录。</td>
-            <td>别名 <code>/allowed-tools</code>。Claude 正在回复时打开，下一次工具调用就生效。</td>
+            <td>管理 allow / ask / deny。</td>
+            <td>别名 <code>/allowed-tools</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="config settings status">
+          <tr class="searchable" data-keywords="config status">
             <td>/config</td>
-            <td>主题、模型、输出风格等少数个人项。</td>
-            <td>别名 <code>/settings</code>。<code>/config model=sonnet</code> 可不打开菜单。<code>/status</code> 是同一对话框的 Status 页。</td>
+            <td>主题、模型等少数个人项。</td>
+            <td>别名 <code>/settings</code>。<code>/status</code> 看版本、账号、加载了哪些设置。</td>
           </tr>
           <tr class="searchable" data-keywords="model effort">
-            <td>/model [模型]</td>
+            <td>/model</td>
             <td>换模型，并存成新会话默认。</td>
-            <td>选择器里按 <code>s</code> 只改这一次。<code>/effort</code> 调推理档；<code>max</code> 只对当前会话。</td>
+            <td>选择器里按 <code>s</code> 只改这一次。推理档用 <code>/effort</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="memory context compact clear">
-            <td>/memory</td>
-            <td>编辑 CLAUDE.md，开关自动记忆。</td>
-            <td><code>/context</code> 看占用。<code>/compact</code> 总结。<code>/clear</code> 开新对话。</td>
+          <tr class="searchable" data-keywords="compact clear context memory">
+            <td>/compact</td>
+            <td>总结后继续同一段对话。</td>
+            <td><code>/clear</code> 开新对话。<code>/context</code> 看窗口被什么占满。</td>
           </tr>
-          <tr class="searchable" data-keywords="rewind undo diff review">
+          <tr class="searchable" data-keywords="rewind undo diff">
             <td>/rewind</td>
             <td>把对话和/或代码退回检查点。</td>
-            <td>别名 <code>/undo</code>、<code>/checkpoint</code>。<code>/diff</code> 看改动。<code>/code-review</code> 查正确性。</td>
+            <td><code>/diff</code> 看工作区改动。</td>
           </tr>
-          <tr class="searchable" data-keywords="mcp reconnect">
+          <tr class="searchable" data-keywords="mcp">
             <td>/mcp</td>
-            <td>连接、OAuth、启用或停用 MCP。</td>
-            <td><code>/mcp reconnect all</code> 重试失败或待认证的服务器（v2.1.284+）。</td>
+            <td>连接、登录、启用或停用 MCP。</td>
+            <td>OAuth 在这里完成。</td>
           </tr>
           <tr class="searchable" data-keywords="resume continue 会话">
-            <td>/resume [会话]</td>
+            <td>/resume</td>
             <td>按 ID 或名字继续，或打开选择器。</td>
-            <td>别名 <code>/continue</code>。后台会话标着 <code>bg</code>。</td>
+            <td>别名 <code>/continue</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="doctor prompt-audit checkup">
+          <tr class="searchable" data-keywords="doctor">
             <td>/doctor</td>
-            <td>检查安装、设置、扩展和 CLAUDE.md，确认后才改。</td>
-            <td>别名 <code>/checkup</code>。<code>/doctor prompt-audit</code> 审说明文件（v2.1.283+）。</td>
+            <td>检查安装和设置，确认后才改。</td>
+            <td>终端里的 <code>claude doctor</code> 只读。</td>
           </tr>
           <tr class="searchable" data-keywords="btw 旁问">
-            <td>/btw [问题]</td>
+            <td>/btw</td>
             <td>旁问一句，不写进对话历史。</td>
             <td>不带问题则翻最近一次旁问。</td>
           </tr>
-          <tr class="searchable" data-keywords="add-dir cd 目录">
-            <td>/add-dir &lt;路径&gt;</td>
+          <tr class="searchable" data-keywords="add-dir 目录">
+            <td>/add-dir</td>
             <td>这一轮额外授予一个目录。</td>
-            <td><code>/cd</code> 把整个会话挪到新目录，对话保留，并从新目录重读项目设置。</td>
+            <td><code>/cd</code> 把整个会话挪到新目录，对话保留。</td>
           </tr>
-          <tr class="searchable" data-keywords="background tasks fork">
-            <td>/background [提示]</td>
-            <td>把当前会话拆到后台，腾出终端。</td>
-            <td>别名 <code>/bg</code>。看后台任务用 <code>/tasks</code>。<code>/fork</code> 复制一份去后台，这里继续。</td>
+          <tr class="searchable" data-keywords="background bg tasks">
+            <td>/background</td>
+            <td>把当前会话拆到后台。</td>
+            <td>别名 <code>/bg</code>。看后台任务用 <code>/tasks</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="usage cost stats 用量">
+          <tr class="searchable" data-keywords="usage cost 用量">
             <td>/usage</td>
-            <td>会话花费、套餐限额和活动统计。</td>
-            <td><code>/cost</code> 与 <code>/stats</code> 是别名。撞限额时看 <code>/rate-limit-options</code>。</td>
+            <td>看用量和限额。</td>
+            <td>别名 <code>/cost</code>、<code>/stats</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="plugin skills hooks sandbox">
+          <tr class="searchable" data-keywords="plugin skills">
             <td>/plugin</td>
-            <td>插件菜单。自写技能放 <code>.claude/skills/&lt;name&gt;/SKILL.md</code>，用 <code>/name</code> 调用。</td>
-            <td><code>/skills</code> 列出技能。<code>/hooks</code> 看钩子。<code>/sandbox</code> 在支持的平台上开关沙箱。</td>
+            <td>插件菜单。</td>
+            <td>自写技能放 <code>.claude/skills/&lt;name&gt;/SKILL.md</code>，用 <code>/name</code> 调用。</td>
           </tr>
-          <tr class="searchable" data-keywords="login logout exit vim terminal-setup">
-            <td>/login</td>
-            <td>会话内登录或登出。</td>
-            <td><code>/logout</code>。<code>/exit</code> 离开；接在后台会话上时只是 detach。编辑模式在 <code>/config</code>，<code>/vim</code> 已在 v2.1.92 移除。部分终端的换行键位用 <code>/terminal-setup</code>。</td>
+          <tr class="searchable" data-keywords="login logout exit">
+            <td>/exit</td>
+            <td>离开会话。</td>
+            <td>接在后台会话上时只是 detach。登录、登出用 <code>/login</code>、<code>/logout</code>。</td>
           </tr>
         </tbody>
       </table>
@@ -1277,7 +1192,7 @@
     <section>
       <div class="section-head">
         <h2>这些路径各管什么</h2>
-        <p>说明、权限和密钥不要放进同一个文件。Windows 上 <code>~/.claude</code> 是 <code>%USERPROFILE%\.claude</code>；设了 <code>CLAUDE_CONFIG_DIR</code> 就改到那里。</p>
+        <p>同名设置键从高到低：组织托管、本次 <code>--settings</code>、<code>.claude/settings.local.json</code>、<code>.claude/settings.json</code>、<code>~/.claude/settings.json</code>。</p>
       </div>
       <div class="table-wrap" tabindex="0" aria-label="Claude Code 路径地图，可横向滚动">
       <table class="reference-table">
@@ -1289,65 +1204,50 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="searchable" data-keywords="用户设置 settings.json 主题 模型">
+          <tr class="searchable" data-keywords="用户设置 settings.json">
             <td>~/.claude/settings.json</td>
-            <td>你在这台机器上所有项目的偏好：主题、默认模型、个人权限。</td>
-            <td>你，或 <code>/config</code>。优先级最低的一份自有设置。</td>
+            <td>这台机器上所有项目的偏好。</td>
+            <td>你，或 <code>/config</code>。自有设置里优先级最低。</td>
           </tr>
-          <tr class="searchable" data-keywords="项目设置 settings.json 团队">
+          <tr class="searchable" data-keywords="项目设置 settings.json 团队 defaultMode">
             <td>.claude/settings.json</td>
-            <td>团队共享的权限、hooks、插件、环境变量。</td>
-            <td>提交进 git。要等每个人信任该目录。</td>
+            <td>团队共享的权限、hooks、环境变量。</td>
+            <td>提交进 git。这里的 <code>defaultMode: auto</code> 不会当起点。</td>
           </tr>
-          <tr class="searchable" data-keywords="settings.local 个人 批准">
+          <tr class="searchable" data-keywords="settings.local 不要再问">
             <td>.claude/settings.local.json</td>
-            <td>只对你、只在这个项目。Bash 的“不要再问”写在这里。</td>
-            <td>Claude Code 第一次写入时会加进全局 git exclude。你手工创建的话，自己写进 <code>.gitignore</code>。</td>
+            <td>只对你、只在这个项目。</td>
+            <td>Bash 的“不要再问”写在这里。别提交。这里的 <code>defaultMode: auto</code> 也不会当起点。</td>
           </tr>
-          <tr class="searchable" data-keywords="claude.json MCP 信任 账号">
+          <tr class="searchable" data-keywords="claude.json MCP 信任">
             <td>~/.claude.json</td>
-            <td>账号、MCP 配置、每个项目的信任决定。不用手改。</td>
-            <td>Claude Code 自己写。解析失败会备份到 <code>~/.claude/backups/</code>。</td>
+            <td>账号、MCP、每个项目的信任决定。</td>
+            <td>Claude Code 自己写。不用手改。</td>
           </tr>
-          <tr class="searchable" data-keywords="CLAUDE.md 项目 用户 本地">
-            <td>CLAUDE.md · .claude/CLAUDE.md · ~/.claude/CLAUDE.md · CLAUDE.local.md</td>
-            <td>持久说明。祖先目录在启动时加载并拼接，越靠近启动目录越靠后。子目录的文件要等 Claude 读写那里才加载。</td>
-            <td>你。<code>/init</code> 可起草项目文件。<code>@path</code> 会导入，放进反引号则只是字面量。导入最多四层。</td>
+          <tr class="searchable" data-keywords="CLAUDE.md AGENTS.md">
+            <td>CLAUDE.md · .claude/CLAUDE.md · ~/.claude/CLAUDE.md</td>
+            <td>持久说明。越靠近启动目录越靠后。</td>
+            <td>你。<code>/init</code> 起草项目文件。已有 <code>AGENTS.md</code> 也会当项目说明读。</td>
           </tr>
-          <tr class="searchable" data-keywords="AGENTS.md">
-            <td>AGENTS.md</td>
-            <td>给其他编码 agent 的说明。Claude Code 可以把它当作项目说明来读。</td>
-            <td>仓库已有的文件。和 CLAUDE.md 同时存在时，以官方 memory 文档的加载规则为准。</td>
-          </tr>
-          <tr class="searchable" data-keywords="rules paths frontmatter">
+          <tr class="searchable" data-keywords="rules paths">
             <td>.claude/rules/*.md</td>
-            <td>按主题拆开的说明。带 <code>paths</code> 的只在碰到匹配文件时加载。</td>
-            <td>你。没有 <code>paths</code> 的和 <code>.claude/CLAUDE.md</code> 一样在启动时加载。</td>
+            <td>按主题拆开的说明。</td>
+            <td>带 <code>paths</code> 的只在碰到匹配文件时加载。</td>
           </tr>
-          <tr class="searchable" data-keywords="skills 命令">
+          <tr class="searchable" data-keywords="skills">
             <td>.claude/skills/&lt;name&gt;/SKILL.md</td>
-            <td>可复用流程，用 <code>/name</code> 调用，或由 Claude 判断要不要用。</td>
-            <td>你或插件。个人技能放 <code>~/.claude/skills/</code>。</td>
+            <td>用 <code>/name</code> 调用的流程。</td>
+            <td>个人技能放 <code>~/.claude/skills/</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="agents 子代理">
-            <td>.claude/agents/*.md</td>
-            <td>带独立工具集的子代理定义。</td>
-            <td>你。个人定义在 <code>~/.claude/agents/</code>。</td>
-          </tr>
-          <tr class="searchable" data-keywords="mcp.json 项目服务器">
+          <tr class="searchable" data-keywords="mcp.json">
             <td>.mcp.json</td>
-            <td>团队共享的 MCP 服务器。只在项目根这一份。</td>
-            <td><code>claude mcp add --scope project</code>，或手写后提交。本机要批准。</td>
+            <td>团队共享的 MCP。只在项目根。</td>
+            <td><code>claude mcp add --scope project</code>。本机要批准。密钥别放这里。</td>
           </tr>
-          <tr class="searchable" data-keywords="managed 组织 CLAUDE.md policy">
-            <td>/Library/Application Support/ClaudeCode/CLAUDE.md · /etc/claude-code/CLAUDE.md · C:\Program Files\ClaudeCode\CLAUDE.md</td>
-            <td>组织级说明，所有用户都会读到。</td>
-            <td>IT / 管理员。对应的强制设置走 managed settings，个人文件盖不过。</td>
-          </tr>
-          <tr class="searchable" data-keywords="worktrees 隔离">
+          <tr class="searchable" data-keywords="worktrees">
             <td>.claude/worktrees/</td>
-            <td><code>claude -w</code> 创建的隔离检出。</td>
-            <td>Claude Code。个人的 <code>CLAUDE.local.md</code> 不会自动跟到别的 worktree。</td>
+            <td><code>claude -w</code> 的隔离检出。</td>
+            <td>Claude Code 创建。</td>
           </tr>
         </tbody>
       </table>
@@ -1357,7 +1257,7 @@
     <section>
       <div class="note-box">
         <strong>使用习惯</strong>
-        <p>先 <code>/init</code> 把会重复解释的事实写进 CLAUDE.md，再开业务任务。大改动用 plan，小改动留在 auto 或 Manual。权限靠规则和模式，不靠提示词。密钥留在 local / user scope，不要进 <code>.mcp.json</code>。配置抽风先 <code>claude --safe-mode</code>，再 <code>claude doctor</code>。原生安装不用天天手动升；Homebrew、WinGet、apt、dnf、apk 要自己升，或给 Homebrew / WinGet 设 <code>CLAUDE_CODE_PACKAGE_MANAGER_AUTO_UPDATE=1</code>。HTML 块注释在注入上下文前会被剥掉，给人看的备注可以写在那里；代码块里的注释会保留。</p>
+        <p>大改动 <code>/plan</code>，小改动留在 auto。权限靠 <code>/permissions</code>，不靠 CLAUDE.md。密钥留在 local，别进 <code>.mcp.json</code>。上下文满了 <code>/compact</code>，重来用 <code>/clear</code>。</p>
       </div>
     </section>
 

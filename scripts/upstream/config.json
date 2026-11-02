@@ -32,9 +32,11 @@
       "noticeHeading": "## Hermes Agent",
       "homepageVersionPattern": null,
       "pinned": {
-        "version": "0.22.5",
-        "tag": "v0.22.5",
-        "checkedAtUtc": "2026-10-26"
+        "version": "0.22.6",
+        "tag": "v0.22.6",
+        "commit": "f0d94882e89ab8d4098b5bb2f166adfb9ee0a0ab",
+        "commitShort": "f0d9488",
+        "checkedAtUtc": "2026-11-02"
       },
       "versionStrip": {
         "releasePillPrefix": "v",

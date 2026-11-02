@@ -738,12 +738,12 @@
           <span class="kicker">Codex / Claude Code Cheatsheet</span>
           <h1>Matt Pocock Skills</h1>
         </div>
-        <p class="subtitle">按项目工作场景查命令。先初始化一次，再按“想清楚、拆 spec/tickets、写代码（逐个 ticket 或整份 spec 并发）、调问题、改结构、做 review、写 PR、收工复盘”选 skill。v1.3 起 <code>$implement-spec</code>、<code>$pr</code>、<code>$retro</code> 转正进 engineering，术语表改名 <code>GLOSSARY.md</code>。v1.3.2 收进此前 main 上的这些修补（见下方各项）：<code>$implement</code> 先取 ticket 并复述标题，<code>$tdd</code> 的 seam 标注能抓什么 / 漏什么，<code>$grilling</code> 的问题改成「答 yes 即采纳推荐」。main@5beb35b：<code>$chief-of-staff</code> 把记忆放进带日期和提交引用的 wiki。</p>
+        <p class="subtitle">按项目工作场景查命令。先初始化一次，再按“想清楚、拆 spec/tickets、写代码（逐个 ticket 或整份 spec 并发）、调问题、改结构、做 review、写 PR、收工复盘”选 skill。v1.3 起 <code>$implement-spec</code>、<code>$pr</code>、<code>$retro</code> 转正进 engineering，术语表改名 <code>GLOSSARY.md</code>。v1.3.2 收进此前 main 上的这些修补（见下方各项）：<code>$implement</code> 先取 ticket 并复述标题，<code>$tdd</code> 的 seam 标注能抓什么 / 漏什么，<code>$grilling</code> 的问题改成「答 yes 即采纳推荐」。main@4ae2317：新增 in-progress 的 <code>$software-factory</code> 术语表；<code>$chief-of-staff</code> 优先复用共享 wiki，并把 retro / implement-spec 写成 procedures；<code>$implement-spec</code> 每个 ticket 派新的 implementer 子 agent；派子 agent 的 skill 统一要求<strong>新开上下文</strong>，不要 fork 当前会话；<code>$setup-matt-pocock-skills</code> 补齐可达仓库、legacy CONTEXT.md 与 tracker 模板。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
             <span class="version-pill">upstream v1.3.2</span>
-            <span class="version-pill">main@5beb35b</span>
-            <span class="version-pill">更新于 2026-10-31</span>
+            <span class="version-pill">main@4ae2317</span>
+            <span class="version-pill">更新于 2026-11-02</span>
           </div>
           <div class="top-actions">
             <button type="button" data-copy="$ask-matt 我现在要做的事是：">复制万能入口</button>
@@ -876,7 +876,7 @@
         <article class="card strong accent-blue searchable" data-keywords="implement-spec 整份 spec 并发 parallel task graph frontier worktree integration branch subagent 子 agent 合并 merger">
           <div>
             <h3>一次跑完整份 spec</h3>
-            <p>已有 spec + 带 blocking edges 的 tickets 时用（user-invoked）。把 tickets 当 <strong>task graph</strong>：对已就绪的 <strong>frontier</strong> 并发派 implementer 子 agent，各自在独立 worktree/分支上用 <code>$tdd</code> 实现，完成前先把 integration 分支最新提交并进自己分支，再由 merger 子 agent 合入同一条 <strong>integration branch</strong>；全部完成后跑一次 <code>$code-review</code> 并统一修复。目标是 integration 分支，不是 PR：只有 tracker 靠 PR 关单或你要求时，才在第一次合并后开 draft PR。没配 tracker 会让你先跑 <code>$setup-matt-pocock-skills</code>。</p>
+            <p>已有 spec + 带 blocking edges 的 tickets 时用（user-invoked）。把 tickets 当 <strong>task graph</strong>：对已就绪的 <strong>frontier</strong> 并发派 implementer 子 agent——<strong>每个 ticket 一个全新上下文的 implementer</strong>（不要 fork 当前会话），各自在独立 worktree/分支上用 <code>$tdd</code> 实现，完成前先把 integration 分支最新提交并进自己分支，再由 merger 子 agent 合入同一条 <strong>integration branch</strong>；全部完成后跑一次 <code>$code-review</code>，并用一个新的 implementer 统一修复。目标是 integration 分支，不是 PR：只有 tracker 靠 PR 关单或你要求时，才在第一次合并后开 draft PR。没配 tracker 会让你先跑 <code>$setup-matt-pocock-skills</code>。</p>
             <div class="tag-row"><span class="tag">implement-spec</span><span class="tag">并发</span><span class="tag">worktree</span></div>
           </div>
           <div class="cmd">
@@ -888,7 +888,7 @@
         <article class="card strong accent-green searchable" data-keywords="review code-review pr branch diff standards spec pull request 代码审查">
           <div>
             <h3>Code review 一个分支或 PR</h3>
-            <p>从指定 commit、branch、tag 或 merge-base 开始，对 diff 做 standards 和 spec 两条线审查。</p>
+            <p>从指定 commit、branch、tag 或 merge-base 开始，对 diff 做 standards 和 spec 两条线审查。两条线并行派子 agent，各自<strong>新开上下文</strong>，再汇总。</p>
             <div class="tag-row"><span class="tag">code-review</span><span class="tag">PR</span><span class="tag">diff</span></div>
           </div>
           <div class="cmd">
@@ -924,7 +924,7 @@
         <article class="card accent-amber searchable" data-keywords="架构 复杂 模块 deep module codebase design 重构 seam">
           <div>
             <h3>代码开始变乱</h3>
-            <p>扫描正在改的区域，找 deepening 机会。先看你指定的方向，否则沿 commit 历史找热点，不扫没人动的角落。领域命名以 <code>GLOSSARY.md</code> 为准。</p>
+            <p>扫描正在改的区域，找 deepening 机会。先看你指定的方向，否则沿 commit 历史找热点，不扫没人动的角落。领域命名以 <code>GLOSSARY.md</code> 为准。探索子 agent <strong>新开上下文</strong>。</p>
             <div class="tag-row"><span class="tag">架构</span><span class="tag">复杂度</span><span class="tag">模块边界</span></div>
           </div>
           <div class="cmd">
@@ -972,7 +972,7 @@
         <article class="card accent-blue searchable" data-keywords="wayfinder huge feature greenfield large project planning decision map 大项目">
           <div>
             <h3>规划很大的工作</h3>
-            <p>工作超出单轮上下文时，用 wayfinder 画 <strong>decision tickets</strong> 地图。地图清完后走 <code>$to-spec</code>，不要直接 <code>$implement</code>。</p>
+            <p>工作超出单轮上下文时，用 wayfinder 画 <strong>decision tickets</strong> 地图。地图清完后走 <code>$to-spec</code>，不要直接 <code>$implement</code>。research 子 agent 各自<strong>新开上下文</strong>。</p>
             <div class="tag-row"><span class="tag">wayfinder</span><span class="tag">大项目</span></div>
           </div>
           <div class="cmd">
@@ -984,7 +984,7 @@
         <article class="card accent-green searchable" data-keywords="research primary sources docs source specs background agent">
           <div>
             <h3>让后台 agent 做研究</h3>
-            <p>针对官方文档、源码、规范、第一方 API 做 primary-source research，并留下引用文档。</p>
+            <p>针对官方文档、源码、规范、第一方 API 做 primary-source research，并留下引用文档。后台研究子 agent <strong>新开上下文</strong>，不 fork 当前会话。</p>
             <div class="tag-row"><span class="tag">research</span><span class="tag">primary sources</span></div>
           </div>
           <div class="cmd">
@@ -1062,6 +1062,19 @@
           <div class="cmd">
             <code>$triage</code>
             <button class="copy" type="button" data-copy="$triage">复制</button>
+          </div>
+        </article>
+
+
+        <article class="card accent-blue searchable" data-keywords="software factory 软件工厂 glossary task run runner orchestrator ticket tracker git host observability in-progress 术语表">
+          <div>
+            <h3>设计一套 software factory</h3>
+            <p>in-progress（main@4ae2317 新增，user-invoked）。给「由 agent 把 tickets / PR / 定时任务变成合并后的代码并部署」的系统设计统一术语：Task / Trigger / Run / Runner，以及 Ticket tracker、Ticket source、Git host、Orchestrator、Observability platform。从用户真实问题起步（未分流 tickets、等自动 review 的 PR、要迁移的更严检查），一次只加一个自动触发并配齐刹车；填槽位时读附带的 trackers / git hosts / runners / observability 调查。可与 grilling 同开。</p>
+            <div class="tag-row"><span class="tag">software-factory</span><span class="tag">术语表</span><span class="tag">in-progress</span></div>
+          </div>
+          <div class="cmd">
+            <code>$software-factory 我想设计……</code>
+            <button class="copy" type="button" data-copy="$software-factory 我想设计一套 software factory，请用统一术语帮我白板：">复制</button>
           </div>
         </article>
 
@@ -1154,7 +1167,7 @@
     <section>
       <div class="section-head">
         <h2>完整索引</h2>
-        <p>基于 upstream v1.3.2（含 main@5beb35b）整理的 38 个 skills（engineering 20 + productivity 7 + in-progress 7 + misc 4）。main@5beb35b 相对 main@49dd158 只改了 in-progress 的 <code>$chief-of-staff</code>：长期记忆放进一份跨会话的 wiki。main@49dd158 相对上一校对点 main@24fe0ef（release 仍为 v1.3.1）：新增 in-progress 的 <code>$chief-of-staff</code>；<code>$ask-matt</code>、<code>$code-review</code>、<code>$diagnosing-bugs</code>、<code>$grilling</code>、<code>$handoff</code>、<code>$implement</code>、<code>$setup-matt-pocock-skills</code>、<code>$tdd</code>、<code>$teach</code>、<code>$to-tickets</code>、<code>$wayfinder</code>、<code>$wizard</code>、<code>$claude-handoff</code> 各有措辞或流程修补；新增 <code>SCOPE.md</code> 与 issue 分流自动化；README 改为托管安装优先。更早的 v1.2.3 / main@c55ee46 → v1.3.1 变化：<code>$implement-spec</code>、<code>$pr</code>、<code>$retro</code> 从 in-progress 转正进 engineering；移除 <code>$resolving-merge-conflicts</code>；领域文档约定 <code>CONTEXT.md</code> 改名 <code>GLOSSARY.md</code>；<code>$ask-matt</code> 路由同步更新。Claude Code 插件从 25 个增至 27 个 promoted skills；in-progress 与 misc 仍需单独安装（<code>npx skills@latest add mattpocock/skills --skill=&lt;name&gt;</code>）。日常优先用上面的主流程。</p>
+        <p>基于 upstream v1.3.2（含 main@4ae2317）整理的 39 个 skills（engineering 20 + productivity 7 + in-progress 8 + misc 4）。main@4ae2317 相对上一校对点 main@5beb35b（release 仍为 v1.3.2）：新增 in-progress 的 <code>$software-factory</code> 术语表；<code>$chief-of-staff</code> 优先复用共享 wiki，并把 retro / implement-spec 写成 procedures；<code>$implement-spec</code> 每个 ticket 派全新 implementer；多个派子 agent 的 skill（code-review / research / wayfinder / grilling / improve-codebase-architecture / DESIGN-IT-TWICE / chief-of-staff）统一写明<strong>新开上下文、不 fork</strong>；<code>$setup-matt-pocock-skills</code> 补可达仓库、legacy CONTEXT.md 改名提示，以及 GitHub/GitLab tracker 模板（原生 blocking、关单评论、自有仓库、glab 链接查询等）。main@5beb35b 相对 main@49dd158：chief-of-staff 引入带日期与提交引用的 wiki。更早的 v1.3 / v1.2 变化见各条目。Claude Code 插件仍是 27 个 promoted skills；in-progress 与 misc 仍需单独安装（<code>npx skills@latest add mattpocock/skills --skill=&lt;name&gt;</code>）。日常优先用上面的主流程。</p>
       </div>
       <div class="table-wrap" tabindex="0" aria-label="完整 Skills 索引，可横向滚动">
       <table class="reference-table">
@@ -1168,7 +1181,7 @@
         <tbody>
           <tr class="searchable" data-keywords="setup 初始化 配置 issue tracker labels domain docs glossary">
             <td>$setup-matt-pocock-skills</td>
-            <td>每个项目第一次使用这套工程 skills 前。User-invoked。配置 tracker、labels，以及 <code>GLOSSARY.md</code>（多上下文用 <code>GLOSSARY-MAP.md</code>）和 ADR 的位置。main@49dd158 起，在 GitHub / GitLab 上跑完 triage 配置段后会把 tracker 里缺的 label 自动建出来（<code>gh label create</code> / <code>glab label create</code>）；GitHub 列外部 PR 改走 REST pulls 接口，GitLab 列表改用 <code>-O json</code>。</td>
+            <td>每个项目第一次使用这套工程 skills 前。User-invoked。配置 tracker、labels，以及 <code>GLOSSARY.md</code>（多上下文用 <code>GLOSSARY-MAP.md</code>）和 ADR 的位置。main@49dd158 起，在 GitHub / GitLab 上跑完 triage 配置段后会把 tracker 里缺的 label 自动建出来（<code>gh label create</code> / <code>glab label create</code>）；GitHub 列外部 PR 改走 REST pulls 接口，GitLab 列表改用 <code>-O json</code>。main@4ae2317：探测到 legacy <code>CONTEXT.md</code> / <code>CONTEXT-MAP.md</code> 时主动提议 <code>git mv</code> 并改写 <code>docs/agents/domain.md</code>；选 GitHub/GitLab 但 remote 不可达时，先要仓库 URL 并接线（必要时 <code>git init</code> + <code>remote add</code>），直到 <code>gh/glab repo view</code> 能打出项目；GitHub 模板补原生 blocking / 统计 open blockers、关单先评论再 close、只往用户自有仓库提单（勿误提进 <code>mattpocock/skills</code>）；GitLab 模板补 child 与 map 的 relates_to 链接，以及按 map links 查 frontier。</td>
             <td>配置 issue tracker、triage labels、domain docs。</td>
           </tr>
           <tr class="searchable" data-keywords="ask matt router 选择 skill implement-spec pr retro">
@@ -1183,7 +1196,7 @@
           </tr>
           <tr class="searchable" data-keywords="wayfinder decision mapping idea investigation tickets plan research greenfield huge feature">
             <td>$wayfinder</td>
-            <td>规划超过单轮上下文的大工作。产出 decision tickets，清完后走 $to-spec。main@49dd158 起：map 和 tickets 只带 <code>wayfinder:&lt;type&gt;</code> 标签，不再带 <code>ready-for-agent</code> 这类 triage 标签（它们是决策，不是实现工作）；第二遍连线时用真实 id 写交叉引用（占位 <code>#&lt;n&gt;</code> 会自动链到无关 issue）；处理 ticket 时按它的 <code>wayfinder:&lt;type&gt;</code> 标签判断类型；research 子 agent 推送 <code>research/&lt;name&gt;</code> 分支但不开 PR，因为永不合并。</td>
+            <td>规划超过单轮上下文的大工作。产出 decision tickets，清完后走 $to-spec。main@49dd158 起：map 和 tickets 只带 <code>wayfinder:&lt;type&gt;</code> 标签，不再带 <code>ready-for-agent</code> 这类 triage 标签（它们是决策，不是实现工作）；第二遍连线时用真实 id 写交叉引用（占位 <code>#&lt;n&gt;</code> 会自动链到无关 issue）；处理 ticket 时按它的 <code>wayfinder:&lt;type&gt;</code> 标签判断类型；research 子 agent 推送 <code>research/&lt;name&gt;</code> 分支但不开 PR，因为永不合并。main@4ae2317：每个 research 子 agent <strong>新开上下文</strong>。</td>
             <td>把这个目标做成 wayfinder map。</td>
           </tr>
           <tr class="searchable" data-keywords="grill docs 需求 设计 glossary adr">
@@ -1193,7 +1206,7 @@
           </tr>
           <tr class="searchable" data-keywords="grilling interview plan design stress test frontier round">
             <td>$grilling</td>
-            <td>底层追问循环。按 frontier 分轮提问，连续问题之间用分隔线隔开；事实交给环境，决策留给人。main@49dd158 起每个问题要措辞成「回答 yes 就是接受推荐答案」。</td>
+            <td>底层追问循环。按 frontier 分轮提问，连续问题之间用分隔线隔开；事实交给环境，决策留给人。main@49dd158 起每个问题要措辞成「回答 yes 就是接受推荐答案」。main@4ae2317：查事实的子 agent <strong>新开上下文</strong>。</td>
             <td>请按 frontier 分轮追问。</td>
           </tr>
           <tr class="searchable" data-keywords="grill me 非代码 计划 设计">
@@ -1213,7 +1226,7 @@
           </tr>
           <tr class="searchable" data-keywords="architecture improve codebase 架构 复杂度 yagni">
             <td>$improve-codebase-architecture</td>
-            <td>扫描正在改的区域，找 deepening 机会，再选一个深入讨论。</td>
+            <td>扫描正在改的区域，找 deepening 机会，再选一个深入讨论。main@4ae2317：探索子 agent <strong>新开上下文</strong>；DESIGN-IT-TWICE 的并行设计子 agent 同样各自新开上下文。</td>
             <td>扫描这个项目，找出最值得改进的点。</td>
           </tr>
           <tr class="searchable" data-keywords="codebase design deep module 模块 边界 接口 design it twice">
@@ -1258,12 +1271,12 @@
           </tr>
           <tr class="searchable" data-keywords="implement-spec 实现 spec tickets worktree 并发 task graph frontier integration branch merger subagent">
             <td>$implement-spec</td>
-            <td>Engineering，user-invoked（v1.3 转正）。按 task graph 对 frontier 并发派 implementer 子 agent（各自 worktree + <code>$tdd</code>，完成前并入 integration 最新提交），merger 子 agent 合入一条 integration 分支，最后一次 <code>$code-review</code>。默认不开 PR；tracker 靠 PR 关单或你要求时，第一次合并后开 draft PR。</td>
+            <td>Engineering，user-invoked（v1.3 转正）。按 task graph 对 frontier 并发派 implementer 子 agent（各自 worktree + <code>$tdd</code>，完成前并入 integration 最新提交），merger 子 agent 合入一条 integration 分支，最后一次 <code>$code-review</code>。默认不开 PR；tracker 靠 PR 关单或你要求时，第一次合并后开 draft PR。main@4ae2317：<strong>每个 ticket 一个全新上下文的 implementer</strong>（不要 fork）；review 修复也用一个新的 implementer。</td>
             <td>请把这份 spec 实现到一条 integration 分支上。</td>
           </tr>
           <tr class="searchable" data-keywords="review branch pr diff standards spec code review fowler smells">
             <td>$code-review</td>
-            <td>从固定点审查 diff：Standards 与 Spec 两条线并行。Standards 含 Fowler smell baseline。main@49dd158 起：Standards 要搜索仓库里<strong>所有</strong>写代码规范的文件（有 <code>CODING_STANDARDS.md</code> / <code>CONTRIBUTING.md</code> 就必须列入）；两条 sub-agent 调用要同时在前台发出并汇总返回的报告；tracker 说明不再硬编码 <code>docs/agents/issue-tracker.md</code>，没提供就让你跑 setup。</td>
+            <td>从固定点审查 diff：Standards 与 Spec 两条线并行。Standards 含 Fowler smell baseline。main@49dd158 起：Standards 要搜索仓库里<strong>所有</strong>写代码规范的文件（有 <code>CODING_STANDARDS.md</code> / <code>CONTRIBUTING.md</code> 就必须列入）；两条 sub-agent 调用要同时在前台发出并汇总返回的报告；tracker 说明不再硬编码 <code>docs/agents/issue-tracker.md</code>，没提供就让你跑 setup。main@4ae2317：每条 sub-agent <strong>新开上下文</strong>。</td>
             <td>请 review 从 main 到当前 HEAD 的改动。</td>
           </tr>
           <tr class="searchable" data-keywords="pr pull request body summary evidence merge danger blast radius one-way two-way door screenshot show-me format reference model-invoked">
@@ -1278,7 +1291,7 @@
           </tr>
           <tr class="searchable" data-keywords="research primary sources official docs source code specs background agent cited markdown">
             <td>$research</td>
-            <td>让后台 agent 基于 primary sources 调查问题，并写成带引用的 Markdown。</td>
+            <td>让后台 agent 基于 primary sources 调查问题，并写成带引用的 Markdown。main@4ae2317：研究子 agent <strong>新开上下文</strong>。</td>
             <td>请基于 primary sources 调查这个问题。</td>
           </tr>
           <tr class="searchable" data-keywords="wizard bash manual procedure env github secrets setup dashboard">
@@ -1323,7 +1336,7 @@
           </tr>
           <tr class="searchable" data-keywords="chief of staff 幕僚长 长期目标 subagent 子 agent 定时 strategic in-progress wiki index ingest lint 日期 提交">
             <td>$chief-of-staff</td>
-            <td>in-progress（main@49dd158 新增，实验性，user-invoked）。在一个长会话里围绕长期目标统筹子 agent 与定时任务：所有实际工作交给后台子 agent，自己保护上下文，只靠 context pointer 稀疏沟通；每次都先想「怎么改环境让下一个任务更顺」（受限 API、强制正确性的 lint、<code>CODING_STANDARDS.md</code>、日志 / 测试库 / 浏览器等数据源，以及不绕路 workaround 的规则）。main@5beb35b：记忆放进一份跨会话的 wiki，第一次写之前先和用户约定位置。<code>index.md</code> 按类列出每页的链接和一行摘要，其余一页一事；来源（issue、PR、记录、子 agent 报告）只引用、不抄进来。用 ingest（学到 durable 事实就改所有相关页和索引）、query（决策前先读索引）、lint（定期查矛盾、孤儿页、过时主张）维护。写成历史记录：每条主张带日期，涉及代码的引用当时的提交（仓库@sha）；变化时追加新条目并把旧的标成被取代，不改写旧文。</td>
+            <td>in-progress（main@49dd158 新增，实验性，user-invoked）。在一个长会话里围绕长期目标统筹子 agent 与定时任务：所有实际工作交给后台子 agent（各自<strong>新开上下文</strong>），自己保护上下文，只靠 context pointer 稀疏沟通；每次都先想「怎么改环境让下一个任务更顺」（受限 API、强制正确性的 lint、<code>CODING_STANDARDS.md</code>、日志 / 测试库 / 浏览器等数据源，以及不绕路 workaround 的规则）。main@5beb35b：记忆放进一份跨会话的 wiki。main@4ae2317：先找用户或其他 agent 已有的<strong>共享 wiki</strong>并按它的约定写入；没有才和用户约定位置。新增 Procedures：约 1/5 的子 agent 会话（含 implement-spec 派发的）跑 <code>$retro</code>（自己决定哪些候选值得追）；大块工作走 <code>$to-spec</code> → <code>$to-tickets</code> → 发布 → <code>$implement-spec</code>。<code>index.md</code> 按类列出每页的链接和一行摘要，其余一页一事；来源只引用、不抄进来。用 ingest / query / lint 维护；主张带日期与提交引用，变化时追加新条目并标旧文被取代。</td>
             <td>用 chief of staff 方式推进这个长期目标：……</td>
           </tr>
           <tr class="searchable" data-keywords="claude handoff 交接 claude code context summary background in-progress">
@@ -1364,12 +1377,12 @@
     <section>
       <div class="note-box">
         <strong>使用习惯</strong>
-        <p>在真实项目根目录中启动 Codex 或 Claude Code，然后先跑 <code>$setup-matt-pocock-skills</code>。不确定时用 <code>$ask-matt</code>。看不懂上一句用 <code>$wait-what</code>。grill → spec → tickets 尽量留在同一个上下文窗口；之后每个 <code>$implement</code> 从 ticket 重新开始，或者交给 <code>$implement-spec</code> 一次并发跑完。同一 harness、同一目录、到了阶段边界时，优先继续或 <code>/compact</code>，<code>$handoff</code> 只在上下文需要搬走时用。开 PR 时 agent 会自己套 <code>$pr</code> 模板。一轮编码收工后，在清上下文之前跑 <code>$retro</code>：先认清仓库已有的 lint/CI，再把机械 finding 建成 deterministic check，把真正需要判断的留给 <code>CODING_STANDARDS.md</code>。从 v1.2.x 升上来的项目，记得把 <code>CONTEXT.md</code> / <code>CONTEXT-MAP.md</code> 用 <code>git mv</code> 改成 <code>GLOSSARY.md</code> / <code>GLOSSARY-MAP.md</code>，否则 skills 读不到你的术语表。</p>
+        <p>在真实项目根目录中启动 Codex 或 Claude Code，然后先跑 <code>$setup-matt-pocock-skills</code>。不确定时用 <code>$ask-matt</code>。看不懂上一句用 <code>$wait-what</code>。grill → spec → tickets 尽量留在同一个上下文窗口；之后每个 <code>$implement</code> 从 ticket 重新开始，或者交给 <code>$implement-spec</code> 一次并发跑完（每个 ticket 一个全新上下文的 implementer，不要 fork）。派子 agent 的 skill 一律新开上下文。同一 harness、同一目录、到了阶段边界时，优先继续或 <code>/compact</code>，<code>$handoff</code> 只在上下文需要搬走时用。开 PR 时 agent 会自己套 <code>$pr</code> 模板。一轮编码收工后，在清上下文之前跑 <code>$retro</code>：先认清仓库已有的 lint/CI，再把机械 finding 建成 deterministic check，把真正需要判断的留给 <code>CODING_STANDARDS.md</code>。从 v1.2.x 升上来的项目，记得把 <code>CONTEXT.md</code> / <code>CONTEXT-MAP.md</code> 用 <code>git mv</code> 改成 <code>GLOSSARY.md</code> / <code>GLOSSARY-MAP.md</code>，否则 skills 读不到你的术语表。</p>
       </div>
     </section>
 
     <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/mattpocock/skills/releases/tag/v1.3.2" target="_blank" rel="noreferrer">mattpocock/skills v1.3.2</a> 整理，并于 2026-10-31 校对（v1.3.2 含 <a href="https://github.com/mattpocock/skills/commit/5beb35b040e3de97e54fa9e386d7e42d15c295c2" target="_blank" rel="noreferrer">main@5beb35b</a>：<code>$chief-of-staff</code> 把记忆放进带日期和提交引用的 wiki。main@49dd158 相对 main@24fe0ef：新增 <code>$chief-of-staff</code>、<code>SCOPE.md</code> 与托管安装优先的 README，多个 skill 措辞 / 流程修补；更早的 v1.2.3 / <code>c55ee46</code> → v1.3.1 变化见上，<code>$implement-spec</code>、<code>$pr</code>、<code>$retro</code> 转正，<code>CONTEXT.md</code> 改名 <code>GLOSSARY.md</code>）；Codex 的通用 Skill 调用机制以 <a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noreferrer">OpenAI 文档</a> 为准。内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <p>非官方中文速查，依据 <a href="https://github.com/mattpocock/skills/releases/tag/v1.3.2" target="_blank" rel="noreferrer">mattpocock/skills v1.3.2</a> 整理，并于 2026-11-02 校对（v1.3.2 含 <a href="https://github.com/mattpocock/skills/commit/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d" target="_blank" rel="noreferrer">main@4ae2317</a>：新增 <code>$software-factory</code>；<code>$chief-of-staff</code> 共享 wiki 优先并挂 retro / implement-spec procedures；<code>$implement-spec</code> 每票新 implementer；派子 agent 统一新开上下文；<code>$setup-matt-pocock-skills</code> 可达仓库与 tracker 模板修补。更早的 main@5beb35b / v1.3 变化见上）；Codex 的通用 Skill 调用机制以 <a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noreferrer">OpenAI 文档</a> 为准。内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

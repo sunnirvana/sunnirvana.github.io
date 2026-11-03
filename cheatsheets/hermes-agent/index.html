@@ -739,12 +739,12 @@
           <span class="kicker">Hermes Agent Cheatsheet</span>
           <h1>Hermes Agent</h1>
         </div>
-        <p class="subtitle">Nous Research 的自改进 agent。先装好、先聊通，再叠 gateway、Bot Mode、skills、cron。当前钉在 v0.22.6。v0.22.0「Threshold Release」仍是这条线的主版本，并收编 0.21.1–0.21.7：全新桌面安装先进引导聊天（免费试用模型 <code>nous/welcome</code>，不用 key）；Connectors 直连 Linear、Notion 等应用；本地模型一键跑（自动装 llama.cpp）；源码安装默认跟测试过的 SemVer；桌面端是签名包，依赖由 <code>hermes pm</code> 管；一台机器一个 gateway 和一个桌面后端。0.22.1 打错了提交，已被 0.22.2 取代。0.22.3 把其后约 620 个 PR 滚成 patch，完整说明留给 v0.23.0；操作者先记住 <code>sessions.auto_prune</code> 改回默认关闭，磁盘低时才一次性询问。0.22.4 去掉桌面输入框上方的建议胶囊，没有依赖的插件不再弹空确认，Dashboard 里登出后的 WhatsApp 可以重新配对。0.22.5 再滚进约 81 个 PR：登录一律走设备登录并把免费身份交接到账号；用量窗口方案有仪表和限额卡；子代理可按模型映射或 profile 路由；<code>hermes import-agent</code> 含 OpenClaw 迁移；桌面侧栏可拖拽固定，插件可一键安装并带层级徽章。0.22.6 再滚进约 776 个 PR，完整说明仍留给 v0.23.0：<code>hermes webapp</code> 用浏览器打开桌面工作区；<code>/model reset</code> 清掉会话模型钉；<code>hermes migrate</code> 迁 Grok Bot / OpenBot；<code>hermes cron cancel</code>；可按 skill 锁住自动写入。升级前先看「从 0.21 升到 0.22」「0.22.3 / 0.22.4」「0.22.5」和「0.22.6」四张卡片。</p>
+        <p class="subtitle">Nous Research 的自改进 agent。先装好、先聊通，再叠 gateway、Bot Mode、skills、cron。当前钉在 v0.22.7。v0.22.0「Threshold Release」仍是这条线的主版本，并收编 0.21.1–0.21.7：全新桌面安装先进引导聊天（免费试用模型 <code>nous/welcome</code>，不用 key）；Connectors 直连 Linear、Notion 等应用；本地模型一键跑（自动装 llama.cpp）；源码安装默认跟测试过的 SemVer；桌面端是签名包，依赖由 <code>hermes pm</code> 管；一台机器一个 gateway 和一个桌面后端。0.22.1 打错了提交，已被 0.22.2 取代。0.22.3 把其后约 620 个 PR 滚成 patch，完整说明留给 v0.23.0；操作者先记住 <code>sessions.auto_prune</code> 改回默认关闭，磁盘低时才一次性询问。0.22.4 去掉桌面输入框上方的建议胶囊，没有依赖的插件不再弹空确认，Dashboard 里登出后的 WhatsApp 可以重新配对。0.22.5 再滚进约 81 个 PR：登录一律走设备登录并把免费身份交接到账号；用量窗口方案有仪表和限额卡；子代理可按模型映射或 profile 路由；<code>hermes import-agent</code> 含 OpenClaw 迁移；桌面侧栏可拖拽固定，插件可一键安装并带层级徽章。0.22.6 再滚进约 776 个 PR：<code>hermes webapp</code>、<code>/model reset</code>、<code>hermes migrate</code>（Grok Bot / OpenBot）、<code>hermes cron cancel</code>、按 skill 锁自动写入。0.22.7 再滚进约 174 个 PR，完整说明仍留给 v0.23.0：群聊 Lead 路由、cron 可发到群聊、置顶 Kanban 快速切换、Slack <code>thread_followup_silence</code>、Daybreak 订阅模型开关。升级前先看「从 0.21 升到 0.22」「0.22.3 / 0.22.4」「0.22.5」「0.22.6」和「0.22.7」几张卡片。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
-            <span class="version-pill">v0.22.6</span>
-            <span class="version-pill">tag v0.22.6</span>
-            <span class="version-pill">更新于 2026-11-02</span>
+            <span class="version-pill">v0.22.7</span>
+            <span class="version-pill">tag v0.22.7</span>
+            <span class="version-pill">更新于 2026-11-03</span>
           </div>
           <div class="top-actions">
             <button type="button" data-copy="hermes setup --portal">复制最快安装路径</button>
@@ -763,7 +763,7 @@
     <div class="toolbar">
       <label class="search-wrap">
         <span>⌕</span>
-        <input id="search" type="search" placeholder="搜索：安装、升级须知、model、本地模型、Connectors、gateway、state.db、auto_prune、recover、Desktop、pm、stream-json、auto_load、MCP、peer、plugins、memory、cron、doctor、SOUL、reasoning、频道、子代理、WhatsApp、建议胶囊、/loop、登录、用量窗口、import-agent、OpenClaw、侧栏、webapp、migrate、/model reset、/delegation、cron cancel、skill 锁">
+        <input id="search" type="search" placeholder="搜索：安装、升级须知、model、本地模型、Connectors、gateway、state.db、auto_prune、recover、Desktop、pm、stream-json、auto_load、MCP、peer、plugins、memory、cron、doctor、SOUL、reasoning、频道、子代理、WhatsApp、建议胶囊、/loop、登录、用量窗口、import-agent、OpenClaw、侧栏、webapp、migrate、/model reset、/delegation、cron cancel、skill 锁、Lead、Kanban、Daybreak、thread_followup_silence、Pele">
       </label>
       <span class="hint">复制按钮会复制可直接贴进终端或 Hermes 会话的命令</span>
     </div>
@@ -823,13 +823,13 @@
     <section>
       <div class="section-head">
         <h2>按场景查</h2>
-        <p>先找当前要做的事，再复制对应命令。v0.22.0 是带完整说明的大版本（收编并补全 0.21.1–0.21.7）；0.22.2 修正了打错提交的 0.22.1；0.22.3 滚进约 620 个 PR，完整说明留给 v0.23.0；0.22.4 是几项小修复；0.22.5 再滚进约 81 个 PR；0.22.6 再滚进约 776 个 PR，完整说明仍留给 v0.23.0。下面把 0.21.7→0.22.6 操作者会摸到的变化折进各张卡片，不逐条抄发布说明。</p>
+        <p>先找当前要做的事，再复制对应命令。v0.22.0 是带完整说明的大版本（收编并补全 0.21.1–0.21.7）；0.22.2 修正了打错提交的 0.22.1；0.22.3 滚进约 620 个 PR，完整说明留给 v0.23.0；0.22.4 是几项小修复；0.22.5 再滚进约 81 个 PR；0.22.6 再滚进约 776 个 PR；0.22.7 再滚进约 174 个 PR，完整说明仍留给 v0.23.0。下面把 0.21.7→0.22.7 操作者会摸到的变化折进各张卡片，不逐条抄发布说明。</p>
       </div>
       <div class="cards">
         <article class="card strong accent-green searchable" data-keywords="linux macos wsl termux install.sh 安装 update channel 频道">
           <div>
             <h3>在 Linux / macOS / WSL 安装</h3>
-            <p>官方一键脚本。装完 <code>source ~/.bashrc</code> 或对应 shell rc。0.22 起 musl Linux（Alpine、Void）也能装，托管安装的运行时是 Python 3.14（由 <code>hermes pm</code> 自动装）。已有安装用 <code>hermes update</code>，默认跟最新稳定版。Docker / Cloud 镜像跟 <code>nousresearch/hermes-agent:stable</code>（tag 形如 <code>v0.22.6</code>）；0.22 起基础镜像钉在 Debian 13 并带完整 Chromium，<code>stable</code> / <code>latest</code> 只在正式发布时移动。</p>
+            <p>官方一键脚本。装完 <code>source ~/.bashrc</code> 或对应 shell rc。0.22 起 musl Linux（Alpine、Void）也能装，托管安装的运行时是 Python 3.14（由 <code>hermes pm</code> 自动装）。已有安装用 <code>hermes update</code>，默认跟最新稳定版。Docker / Cloud 镜像跟 <code>nousresearch/hermes-agent:stable</code>（tag 形如 <code>v0.22.7</code>）；0.22 起基础镜像钉在 Debian 13 并带完整 Chromium，<code>stable</code> / <code>latest</code> 只在正式发布时移动。</p>
             <div class="tag-row"><span class="tag">install</span><span class="tag">unix</span></div>
           </div>
           <div class="cmd">
@@ -841,7 +841,7 @@
         <article class="card strong accent-blue searchable" data-keywords="model 换模型 provider oauth api key auth reasoning effort openrouter pkce">
           <div>
             <h3>换模型或加 provider</h3>
-            <p>终端跑 <code>hermes model</code> / <code>hermes auth</code> 才能加 provider。保存模型后会跟一步 reasoning effort。OpenRouter：<code>hermes auth add openrouter --type oauth</code>。会话里 <code>/model</code> 只切已配置模型。0.22：picker 可给常用模型加星，直接显示订阅余量（如「17% left · resets 3:00 PM」）和限流何时解除；新进 Claude Opus / Sonnet / Haiku 5.5、GPT-6 Astra / Sol / Luna、Gemini 4 Argon、DeepSeek V4.1 Flash 等。provider 抽风（503 / 529 / 超时）时会按 <code>agent.auto_recovery_cycles</code>（默认 5）可见地等待重试，不再直接结束回合；自动路由不会悄悄计费到你没选的 provider。0.22.5：按用量窗口计费的方案会显示计划仪表和限额卡片，撞限后可以切模型恢复。0.22.6：会话里 <code>/model reset</code> 清掉本会话的模型钉，回到 <code>config.yaml</code> 默认，不丢历史。</p>
+            <p>终端跑 <code>hermes model</code> / <code>hermes auth</code> 才能加 provider。保存模型后会跟一步 reasoning effort。OpenRouter：<code>hermes auth add openrouter --type oauth</code>。会话里 <code>/model</code> 只切已配置模型。0.22：picker 可给常用模型加星，直接显示订阅余量（如「17% left · resets 3:00 PM」）和限流何时解除；新进 Claude Opus / Sonnet / Haiku 5.5、GPT-6 Astra / Sol / Luna、Gemini 4 Argon、DeepSeek V4.1 Flash 等。provider 抽风（503 / 529 / 超时）时会按 <code>agent.auto_recovery_cycles</code>（默认 5）可见地等待重试，不再直接结束回合；自动路由不会悄悄计费到你没选的 provider。0.22.5：按用量窗口计费的方案会显示计划仪表和限额卡片，撞限后可以切模型恢复。0.22.6：会话里 <code>/model reset</code> 清掉本会话的模型钉，回到 <code>config.yaml</code> 默认，不丢历史。0.22.7：Daybreak 开关可让目录里列出的 ChatGPT 订阅模型出现在 picker。</p>
             <div class="tag-row"><span class="tag">model</span><span class="tag">reasoning</span></div>
           </div>
           <div class="cmd">
@@ -850,10 +850,10 @@
           </div>
         </article>
 
-        <article class="card strong accent-amber searchable" data-keywords="gateway telegram discord slack whatsapp signal bot 消息 重新配对 topic 话题">
+        <article class="card strong accent-amber searchable" data-keywords="gateway telegram discord slack whatsapp signal bot 消息 重新配对 topic 话题 Team Gateway thread_followup_silence">
           <div>
             <h3>接到 Telegram / Discord / Slack</h3>
-            <p>先保证 CLI 能聊。WSL / Docker / Termux 用 <code>hermes gateway run</code>，不要用 <code>start</code>。未授权私信可设 <code>unauthorized_dm_behavior: decline</code>（礼貌拒一次），也支持 <code>pair</code> / <code>ignore</code>。0.22：聊天不再按空闲 / 每日计时自动重置（<code>session_reset</code> 的 idle / daily 模式退役，还设着会打警告），只有 <code>/new</code>、<code>/reset</code> 开新会话；Discord / Telegram / Slack / Matrix 上 <code>/branch</code> 开一个兄弟线程（<code>--here</code> 保留旧行为）；Email 平台现在必须钉 <code>authserv_id</code>，没设之前收到的邮件会被丢弃。0.22.3：Telegram 私聊的话题转移要手动开。0.22.4：Dashboard 里 WhatsApp 登出后可以安全地重新配对。</p>
+            <p>先保证 CLI 能聊。WSL / Docker / Termux 用 <code>hermes gateway run</code>，不要用 <code>start</code>。未授权私信可设 <code>unauthorized_dm_behavior: decline</code>（礼貌拒一次），也支持 <code>pair</code> / <code>ignore</code>。0.22：聊天不再按空闲 / 每日计时自动重置（<code>session_reset</code> 的 idle / daily 模式退役，还设着会打警告），只有 <code>/new</code>、<code>/reset</code> 开新会话；Discord / Telegram / Slack / Matrix 上 <code>/branch</code> 开一个兄弟线程（<code>--here</code> 保留旧行为）；Email 平台现在必须钉 <code>authserv_id</code>，没设之前收到的邮件会被丢弃。0.22.3：Telegram 私聊的话题转移要手动开。0.22.4：Dashboard 里 WhatsApp 登出后可以安全地重新配对。0.22.7：Team Gateway 上的 Telegram 通过把账号链到共享 bot 来接入；Slack 可选用 <code>thread_followup_silence</code>，压住未 @ 的线程跟帖。</p>
             <div class="tag-row"><span class="tag">gateway</span><span class="tag">decline</span></div>
           </div>
           <div class="cmd">
@@ -889,7 +889,7 @@
         <article class="card strong accent-red searchable" data-keywords="state.db recover doctor 会话库 损坏 corrupt FTS shared-state WAL writer handle registry cross-VM auto_prune 自动清理 repair-profiles">
           <div>
             <h3>state.db 报错 / 会话列表挂了</h3>
-            <p>先停 gateway，再 doctor；结构损坏用 recover（不改源库）。跨 VM / 共享盘要把 WAL 换成 rollback journal 时用 <code>hermes sessions set-journal-mode delete</code>（先停所有占用进程）。0.22：锁超时会点名持有锁的进程，数据库忙不再直接杀掉回合；profile 串了用 <code>hermes sessions repair-profiles</code>。0.22.0–0.22.2 里 <code>sessions.auto_prune</code> 默认开启，启动时删除 90 天未活跃的已结束会话（置顶和打开的不动）。0.22.3 起改回默认关闭，磁盘空间低时会一次性询问要不要打开。0.22.2 的已知问题在 0.22.3 / 0.22.4 / 0.22.5 / 0.22.6 发布说明里没有宣布修复：在 0.22.1 gateway 下跑过的会话删不掉。</p>
+            <p>先停 gateway，再 doctor；结构损坏用 recover（不改源库）。跨 VM / 共享盘要把 WAL 换成 rollback journal 时用 <code>hermes sessions set-journal-mode delete</code>（先停所有占用进程）。0.22：锁超时会点名持有锁的进程，数据库忙不再直接杀掉回合；profile 串了用 <code>hermes sessions repair-profiles</code>。0.22.0–0.22.2 里 <code>sessions.auto_prune</code> 默认开启，启动时删除 90 天未活跃的已结束会话（置顶和打开的不动）。0.22.3 起改回默认关闭，磁盘空间低时会一次性询问要不要打开。0.22.2 的已知问题在 0.22.3 / 0.22.4 / 0.22.5 / 0.22.6 / 0.22.7 发布说明里没有宣布修复：在 0.22.1 gateway 下跑过的会话删不掉。</p>
             <div class="tag-row"><span class="tag">state.db</span><span class="tag">recover</span></div>
           </div>
           <div class="cmd">
@@ -910,10 +910,10 @@
           </div>
         </article>
 
-        <article class="card accent-blue searchable" data-keywords="bot mode peer 多 agent 群聊 desktop 机器人 multiplex profile bot screen 接管 migrate">
+        <article class="card accent-blue searchable" data-keywords="bot mode peer 多 agent 群聊 desktop 机器人 multiplex profile bot screen 接管 migrate Lead 房间 purpose notes Web Access">
           <div>
             <h3>Bot Mode / 让 bot 互聊</h3>
-            <p>Desktop 内置 Bot Mode。0.22 起一台机器一个 gateway 服务所有 profile：<code>hermes update</code> 会把旧的每 profile gateway 自动合并（无冲突时），也可手动 <code>hermes gateway migrate --multiplex</code>；只停一个 profile 用 <code>hermes -p X gateway stop</code>；webhook 平台按 <code>/p/&lt;profile&gt;/</code> 分路径。<strong>Bot Screen</strong>：Linux gateway 上的 bot 可以有自己的桌面，Desktop 实时串流，碰到登录、2FA 或验证码时你接管、做完再交还（默认关闭，需要主机装包）。临时豁免仍是 <code>gateway.standalone: true</code>。跨机 bot DM 用 <code>hermes peer</code>。0.22.5：Desktop 群聊会再显示是哪个 bot 正在干活。0.22.6：每个 profile 都是侧栏一段；群聊可改名、解散、@ 与粘贴附件；gateway 自带 Webapp，用 <code>hermes webapp</code> 或 Desktop Web Access 在浏览器打开同一工作区。</p>
+            <p>Desktop 内置 Bot Mode。0.22 起一台机器一个 gateway 服务所有 profile：<code>hermes update</code> 会把旧的每 profile gateway 自动合并（无冲突时），也可手动 <code>hermes gateway migrate --multiplex</code>；只停一个 profile 用 <code>hermes -p X gateway stop</code>；webhook 平台按 <code>/p/&lt;profile&gt;/</code> 分路径。<strong>Bot Screen</strong>：Linux gateway 上的 bot 可以有自己的桌面，Desktop 实时串流，碰到登录、2FA 或验证码时你接管、做完再交还（默认关闭，需要主机装包）。临时豁免仍是 <code>gateway.standalone: true</code>。跨机 bot DM 用 <code>hermes peer</code>。0.22.5：Desktop 群聊会再显示是哪个 bot 正在干活。0.22.6：每个 profile 都是侧栏一段；群聊可改名、解散、@ 与粘贴附件；gateway 自带 Webapp，用 <code>hermes webapp</code> 或 Desktop Web Access 在浏览器打开同一工作区。0.22.7：可选 Lead 路由（房间头有 Lead 徽章）；群房单列布局并显示各成员实时状态；可写房间 purpose 与共享笔记；Web Access 会标出 Start 停在哪一步并跑计时。</p>
             <div class="tag-row"><span class="tag">bot-mode</span><span class="tag">standalone</span></div>
           </div>
           <div class="cmd">
@@ -925,7 +925,7 @@
         <article class="card accent-amber searchable" data-keywords="skills browse install hub 技能 plugins 插件 catalog mcp oauth issuer reauth plugins update 空依赖 bwrap import-agent post_compaction openclaw 层级 一键 slash 选项 mcp serve">
           <div>
             <h3>装 skill / plugin / MCP</h3>
-            <p>已安装 skill 会变成 <code>/skill-name</code>。要用同一批 skill 开每个新会话：在 <code>config.yaml</code> 设 <code>skills.auto_load</code>。插件走 <code>hermes plugins</code>；0.22 的插件目录有 600 个经审核插件，每个钉在审核过的提交上，Desktop 或 CLI 一键装，有已知问题的安装时会提示。<code>hermes sync</code>（Skill Sync）和内置 tirith 扫描已移除；curator 30 天未用的 skill 会归档（原为 90 天）。MCP 同时连接数用 <code>mcp.discovery_concurrency</code>（默认 4）；OAuth 过期 <code>hermes mcp login &lt;server&gt;</code>，无头终端加 <code>--flow device</code>。0.22.3：<code>hermes plugins update</code> 列出所有可更新项，Desktop 对 git 安装的插件有 Update 按钮；插件自己声明的 OAuth 客户端由 Hermes 登录并刷新；插件作者可用 <code>post_compaction</code> hook。0.22.4：声明了零依赖、或 <code>pyproject.toml</code> 什么都不装的插件，启用时不再弹空的依赖确认。目录新增 bubblewrap（Linux 上的 bwrap 终端后端）、Singularity/Apptainer、mcp-serve、agent-importers（<code>hermes import-agent</code>，现含 Cursor），以及 Hermes Labs 的 inbox、workflow-record；Telegram Business 改到 Hermes Labs 社区层。0.22.5：插件 slash 命令可以让你选一项；Desktop 一键安装会显示层级徽章。<code>hermes mcp serve</code> 和 Singularity 后端从核心挪进插件；setup 发现另一套 agent 时会提供导入器；<code>hermes import-agent</code> 加上 OpenClaw 迁移。0.22.6：Desktop Capabilities 可按 skill 锁住自动写入；目录的 <code>requires_hermes</code> 在装/更新插件时强制检查；浏览器标签页也能加载桌面插件。</p>
+            <p>已安装 skill 会变成 <code>/skill-name</code>。要用同一批 skill 开每个新会话：在 <code>config.yaml</code> 设 <code>skills.auto_load</code>。插件走 <code>hermes plugins</code>；0.22 的插件目录有 600 个经审核插件，每个钉在审核过的提交上，Desktop 或 CLI 一键装，有已知问题的安装时会提示。<code>hermes sync</code>（Skill Sync）和内置 tirith 扫描已移除；curator 30 天未用的 skill 会归档（原为 90 天）。MCP 同时连接数用 <code>mcp.discovery_concurrency</code>（默认 4）；OAuth 过期 <code>hermes mcp login &lt;server&gt;</code>，无头终端加 <code>--flow device</code>。0.22.3：<code>hermes plugins update</code> 列出所有可更新项，Desktop 对 git 安装的插件有 Update 按钮；插件自己声明的 OAuth 客户端由 Hermes 登录并刷新；插件作者可用 <code>post_compaction</code> hook。0.22.4：声明了零依赖、或 <code>pyproject.toml</code> 什么都不装的插件，启用时不再弹空的依赖确认。目录新增 bubblewrap（Linux 上的 bwrap 终端后端）、Singularity/Apptainer、mcp-serve、agent-importers（<code>hermes import-agent</code>，现含 Cursor），以及 Hermes Labs 的 inbox、workflow-record；Telegram Business 改到 Hermes Labs 社区层。0.22.5：插件 slash 命令可以让你选一项；Desktop 一键安装会显示层级徽章。<code>hermes mcp serve</code> 和 Singularity 后端从核心挪进插件；setup 发现另一套 agent 时会提供导入器；<code>hermes import-agent</code> 加上 OpenClaw 迁移。0.22.6：Desktop Capabilities 可按 skill 锁住自动写入；目录的 <code>requires_hermes</code> 在装/更新插件时强制检查；浏览器标签页也能加载桌面插件。0.22.7：插件目录又进了一批新条目。</p>
             <div class="tag-row"><span class="tag">auto_load</span><span class="tag">mcp</span></div>
           </div>
           <div class="cmd">
@@ -946,10 +946,10 @@
           </div>
         </article>
 
-        <article class="card accent-green searchable" data-keywords="cron 定时 自动化 heartbeat 调度 continuity monitor DST timezone IANA">
+        <article class="card accent-green searchable" data-keywords="cron 定时 自动化 heartbeat 调度 continuity monitor DST timezone IANA 群聊 Group Chat">
           <div>
             <h3>定时任务（会记住上次）</h3>
-            <p>cron 会加载持久记忆；可开 continuity、每任务 notepad、monitor 模式；时区按 IANA，跨 DST 不漂。0.22：没钉模型的任务在触发时跟随你当前的主模型（要锁定就 pinned）；没送达模型的触发（如机器刚醒）会在 5 / 15 / 30 分钟后重跑；失败告警每次事故只发一条；<code>--paused</code> 建任务但先不启用；agent 可输出 <code>[CRON_FAILURE]</code> 主动判失败。会话内心跳仍用 <code>/heartbeat</code>。0.22.6：<code>hermes cron cancel</code>；每任务可设漏跑策略；Desktop cron 编辑器有 Stop。</p>
+            <p>cron 会加载持久记忆；可开 continuity、每任务 notepad、monitor 模式；时区按 IANA，跨 DST 不漂。0.22：没钉模型的任务在触发时跟随你当前的主模型（要锁定就 pinned）；没送达模型的触发（如机器刚醒）会在 5 / 15 / 30 分钟后重跑；失败告警每次事故只发一条；<code>--paused</code> 建任务但先不启用；agent 可输出 <code>[CRON_FAILURE]</code> 主动判失败。会话内心跳仍用 <code>/heartbeat</code>。0.22.6：<code>hermes cron cancel</code>；每任务可设漏跑策略；Desktop cron 编辑器有 Stop。0.22.7：定时任务也可以发到 Desktop 群聊。</p>
             <div class="tag-row"><span class="tag">cron</span><span class="tag">DST</span></div>
           </div>
           <div class="cmd">
@@ -1033,7 +1033,7 @@
         <article class="card accent-green searchable" data-keywords="update 更新 升级 backup docker cloud store 防火墙 firewall github token pm gc 重启 reboot pid">
           <div>
             <h3>更新到最新版</h3>
-            <p><code>--check</code> / <code>--plan</code> 只预览。<code>--backup</code> 拉取前给 <code>HERMES_HOME</code> 快照。Cloud / Docker：拉 <code>nousresearch/hermes-agent:stable</code>（或 <code>:latest</code>）；镜像安装会拒绝原地 <code>hermes update</code>；Microsoft Store 版走 Store 更新。0.22：更新会先建一套新的依赖环境，自检通过才切换，所以失败或被杀掉的更新不会半途生效，下次启动会自修复；只重建改动的部分，更快；旧环境用 <code>hermes pm gc</code> 回收。0.22.2：修掉了系统重启后 gateway 把被复用的 PID 当成自己、拒绝启动的问题（systemd / launchd / Docker 托管尤其会碰到）；装了 0.22.1 的跑一次 <code>hermes update</code> 就回到正式发布线。0.22.3：Store 构建在 release 发布时自动上架。0.22.3 和 0.22.4 都会进 CLI、Store、Docker / Cloud；用安装器装的桌面 App（.exe / .dmg）这两版没有新包，要等下一次捆绑发布。0.22.5 / 0.22.6 同样进 CLI、Store、Docker / Cloud，安装器桌面仍没有新包。<code>hermes update</code> 如果拒绝某个稳定版，会把那个版本压住、不再拿出来推荐；Windows 在 Python 重新钉版本之后不再卡在旧启动器；<code>.git</code> 损坏时会把暂停的 gateway 拉回来。0.22.6：包管理器下载可续传。防火墙后更新检查失败时，先 <code>gh auth login</code> 或设置 <code>GITHUB_TOKEN</code>。</p>
+            <p><code>--check</code> / <code>--plan</code> 只预览。<code>--backup</code> 拉取前给 <code>HERMES_HOME</code> 快照。Cloud / Docker：拉 <code>nousresearch/hermes-agent:stable</code>（或 <code>:latest</code>）；镜像安装会拒绝原地 <code>hermes update</code>；Microsoft Store 版走 Store 更新。0.22：更新会先建一套新的依赖环境，自检通过才切换，所以失败或被杀掉的更新不会半途生效，下次启动会自修复；只重建改动的部分，更快；旧环境用 <code>hermes pm gc</code> 回收。0.22.2：修掉了系统重启后 gateway 把被复用的 PID 当成自己、拒绝启动的问题（systemd / launchd / Docker 托管尤其会碰到）；装了 0.22.1 的跑一次 <code>hermes update</code> 就回到正式发布线。0.22.3：Store 构建在 release 发布时自动上架。0.22.3 和 0.22.4 都会进 CLI、Store、Docker / Cloud；用安装器装的桌面 App（.exe / .dmg）这两版没有新包，要等下一次捆绑发布。0.22.5 / 0.22.6 / 0.22.7 同样进 CLI、Store、Docker / Cloud，安装器桌面仍没有新包。<code>hermes update</code> 如果拒绝某个稳定版，会把那个版本压住、不再拿出来推荐；Windows 在 Python 重新钉版本之后不再卡在旧启动器；<code>.git</code> 损坏时会把暂停的 gateway 拉回来。0.22.6：包管理器下载可续传。0.22.7：Desktop 更新失败会弹出错误框，显示失败输出并带报告链接。防火墙后更新检查失败时，先 <code>gh auth login</code> 或设置 <code>GITHUB_TOKEN</code>。</p>
             <div class="tag-row"><span class="tag">update</span></div>
           </div>
           <div class="cmd">
@@ -1087,6 +1087,18 @@
           <div class="cmd">
             <code>hermes webapp</code>
             <button class="copy" type="button" data-copy="hermes webapp">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-amber searchable" data-keywords="0.22.7 patch Lead 群聊 Group Chat purpose notes Kanban Pele TeX mermaid Daybreak thread_followup_silence Team Gateway Telegram Web Access update error plugin catalog">
+          <div>
+            <h3>0.22.7：又一个说明延后的 patch</h3>
+            <p>0.22.7 把 0.22.6 之后约 174 个 PR 滚进稳定版（发布说明计量点 <code>b200f5b</code>），完整 curated notes 仍留给 v0.23.0，本页只收说明里点了名的项。Desktop 群聊：可选 Lead 路由（房间头 Lead 徽章）；cron 可发到群聊；房间有 purpose 与共享笔记；群房单列并显示各成员实时状态。置顶的 Kanban 看板可当快速切换标签。<code>$$TeX$$</code> 图注与 mermaid 经 Pele 渲染。Web Access 标出 Start 当前步骤并跑计时；Desktop 更新失败框会带输出与报告链接。Team Gateway 上 Telegram 靠链到共享 bot 接入；Slack 可选 <code>thread_followup_silence</code> 压未 @ 的线程跟帖。Daybreak 开关让目录里的 ChatGPT 订阅模型出现在 picker；插件目录再进一批新条目。安装器桌面（.exe / .dmg）本版没有新包。0.22.2「删不掉 0.22.1 会话」这次说明里也没有宣布修复。</p>
+            <div class="tag-row"><span class="tag">0.22.7</span><span class="tag">0.23.0</span></div>
+          </div>
+          <div class="cmd">
+            <code>hermes update</code>
+            <button class="copy" type="button" data-copy="hermes update">复制</button>
           </div>
         </article>
 
@@ -1350,10 +1362,10 @@
             <td>浏览 Skills Hub、安装 skill；会话常驻用 <code>skills.auto_load</code>。</td>
             <td>安装前会跑安全扫描；缺/禁用的 auto_load 名会跳过并打警告。</td>
           </tr>
-          <tr class="searchable" data-keywords="cron 定时 continuity DST cancel missed">
+          <tr class="searchable" data-keywords="cron 定时 continuity DST cancel missed 群聊">
             <td>hermes cron</td>
             <td>持久定时任务；含 memory / continuity / monitor / notepad。</td>
-            <td>会话内心跳用 /heartbeat；时区按 IANA；<code>cron doctor</code> 查舰队健康。0.22.6：<code>cron cancel</code>；每任务可设漏跑策略。</td>
+            <td>会话内心跳用 /heartbeat；时区按 IANA；<code>cron doctor</code> 查舰队健康。0.22.6：<code>cron cancel</code>；每任务可设漏跑策略。0.22.7：也可发到 Desktop 群聊。</td>
           </tr>
           <tr class="searchable" data-keywords="doctor 诊断 fix state.db">
             <td>hermes doctor [--fix]</td>
@@ -1368,7 +1380,7 @@
           <tr class="searchable" data-keywords="update 升级 plan channel 频道 set-channel 防火墙">
             <td>hermes update</td>
             <td>按更新频道拉代码并重装依赖。</td>
-            <td>官方源码安装默认跟最新稳定版；追每个提交用 <code>--set-channel main</code>。<code>--check</code> / <code>--plan</code> 预览，<code>--backup</code> 先快照；镜像安装拒绝原地更新。0.22 起新环境自检通过才切换，不会半途生效。0.22.3–0.22.6：安装器桌面（.exe / .dmg）本版无新包。0.22.5：拒绝的稳定版会被压住、不再推荐；Windows 在 Python 重新钉版本后不再卡在旧启动器；<code>.git</code> 损坏时会拉回暂停的 gateway。0.22.6：包管理器下载可续传。</td>
+            <td>官方源码安装默认跟最新稳定版；追每个提交用 <code>--set-channel main</code>。<code>--check</code> / <code>--plan</code> 预览，<code>--backup</code> 先快照；镜像安装拒绝原地更新。0.22 起新环境自检通过才切换，不会半途生效。0.22.3–0.22.7：安装器桌面（.exe / .dmg）本版无新包。0.22.5：拒绝的稳定版会被压住、不再推荐；Windows 在 Python 重新钉版本后不再卡在旧启动器；<code>.git</code> 损坏时会拉回暂停的 gateway。0.22.6：包管理器下载可续传。0.22.7：Desktop 更新失败框带输出与报告链接。</td>
           </tr>
           <tr class="searchable" data-keywords="backup import 迁移 snapshot">
             <td>hermes backup / import</td>
@@ -1405,10 +1417,10 @@
             <td>多套隔离实例：不同模型、记忆、bot、state.db。</td>
             <td>主机网关单例；可对单 profile 停/启/重启。勿新建依赖 <code>gateway.standalone</code> 的拓扑。</td>
           </tr>
-          <tr class="searchable" data-keywords="kanban 多 agent">
+          <tr class="searchable" data-keywords="kanban 多 agent 置顶 pin tab">
             <td>hermes kanban</td>
-            <td>多 profile 协作看板。</td>
-            <td><code>promote</code> 会拒未完成父任务。0.22：<code>kanban edit --title/--body/--priority</code>、<code>create --body-file</code>。</td>
+            <td>多 profile 协作看板；会话里同义 <code>/kanban</code>。</td>
+            <td><code>promote</code> 会拒未完成父任务。0.22：<code>kanban edit --title/--body/--priority</code>、<code>create --body-file</code>。0.22.7：Desktop 置顶看板可当快速切换标签。</td>
           </tr>
           <tr class="searchable" data-keywords="send 发消息 脚本">
             <td>hermes send --to telegram "…"</td>
@@ -1470,9 +1482,9 @@
             <td>会话内登 Nous。离回合：链接与码进会话，浏览器确认后生效。群聊会拒绝；Slack 用 /hermes login。0.22：免费身份用户在 DM 里 /login 升级成完整账号。0.22.5：登录一律是设备登录，免费身份交接到你的账号，结果会显示是谁登入。</td>
             <td>/login</td>
           </tr>
-          <tr class="searchable" data-keywords="model 切换 会话 reasoning effort reset">
+          <tr class="searchable" data-keywords="model 切换 会话 reasoning effort reset Daybreak">
             <td>/model</td>
-            <td>在已配置模型之间切换。无参数打开模糊搜索 picker；可一步带 reasoning effort。0.22：大会话里换模型会破坏提示缓存时先确认。0.22.6：<code>/model reset</code> 清掉本会话的模型钉，不丢历史。</td>
+            <td>在已配置模型之间切换。无参数打开模糊搜索 picker；可一步带 reasoning effort。0.22：大会话里换模型会破坏提示缓存时先确认。0.22.6：<code>/model reset</code> 清掉本会话的模型钉，不丢历史。0.22.7：Daybreak 打开后，目录里的 ChatGPT 订阅模型会出现在 picker。</td>
             <td>/model reset</td>
           </tr>
           <tr class="searchable" data-keywords="new reset 新会话">
@@ -1595,10 +1607,15 @@
             <td>CLI only。把当前会话交到 messenger，要求 gateway 已运行。</td>
             <td>/handoff telegram</td>
           </tr>
-          <tr class="searchable" data-keywords="plan skill 计划">
+          <tr class="searchable" data-keywords="plan skill 计划 built-in">
             <td>/plan</td>
-            <td>捆绑 skill：打开 plan mode，计划写到 <code>.hermes/plans/</code>。</td>
+            <td>内置：只写计划到 <code>.hermes/plans/</code>，不执行（原为捆绑 skill）。</td>
             <td>/plan</td>
+          </tr>
+          <tr class="searchable" data-keywords="kanban 看板 协作 boards">
+            <td>/kanban</td>
+            <td>会话里驱动协作看板，参数面与 <code>hermes kanban</code> 相同。0.22.7：Desktop 置顶看板可当快速切换标签。</td>
+            <td>/kanban list</td>
           </tr>
         </tbody>
       </table>
@@ -1613,7 +1630,7 @@
     </section>
 
 <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.6" target="_blank" rel="noreferrer">Hermes Agent v0.22.6</a>（<code>f0d9488</code>；自 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.21.7" target="_blank" rel="noreferrer">v0.21.7</a> 起，经 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.0" target="_blank" rel="noreferrer">v0.22.0「Threshold Release」</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.2" target="_blank" rel="noreferrer">v0.22.2</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.3" target="_blank" rel="noreferrer">v0.22.3</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.4" target="_blank" rel="noreferrer">v0.22.4</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.5" target="_blank" rel="noreferrer">v0.22.5</a>；0.22.1 已被 0.22.2 取代）与 <a href="https://hermes-agent.nousresearch.com/docs/" target="_blank" rel="noreferrer">官方文档</a> 整理，并于 2026-11-02 校对。v0.22.0 的完整说明收编了 0.21.1–0.21.7；v0.22.3 约 620 个 PR、v0.22.5 约 81 个 PR、v0.22.6 约 776 个 PR 的完整 curated notes 都留给 v0.23.0，本页只收发布说明点名的操作者变化。命令与行为以官方文档为准；内容为静态快照。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <p>非官方中文速查，依据 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.7" target="_blank" rel="noreferrer">Hermes Agent v0.22.7</a>（<code>b200f5b</code>；自 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.21.7" target="_blank" rel="noreferrer">v0.21.7</a> 起，经 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.0" target="_blank" rel="noreferrer">v0.22.0「Threshold Release」</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.2" target="_blank" rel="noreferrer">v0.22.2</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.3" target="_blank" rel="noreferrer">v0.22.3</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.4" target="_blank" rel="noreferrer">v0.22.4</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.5" target="_blank" rel="noreferrer">v0.22.5</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.6" target="_blank" rel="noreferrer">v0.22.6</a>；0.22.1 已被 0.22.2 取代）与 <a href="https://hermes-agent.nousresearch.com/docs/" target="_blank" rel="noreferrer">官方文档</a> 整理，并于 2026-11-03 校对。v0.22.0 的完整说明收编了 0.21.1–0.21.7；v0.22.3 约 620 个 PR、v0.22.5 约 81 个 PR、v0.22.6 约 776 个 PR、v0.22.7 约 174 个 PR 的完整 curated notes 都留给 v0.23.0，本页只收发布说明点名的操作者变化。命令与行为以官方文档为准；内容为静态快照。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

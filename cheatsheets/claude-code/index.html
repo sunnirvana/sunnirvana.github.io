@@ -738,12 +738,12 @@
           <span class="kicker">Claude Code Cheatsheet</span>
           <h1>Claude Code</h1>
         </div>
-        <p class="subtitle">终端里的编码 agent。在仓库里跑 <code>claude</code>，接着上次用 <code>-c</code>，大改动先 <code>/plan</code>。当前钉在 v2.1.316。</p>
+        <p class="subtitle">终端里的编码 agent。在仓库里跑 <code>claude</code>，接着上次用 <code>-c</code>，大改动先 <code>/plan</code>。当前钉在 v2.1.318。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
-            <span class="version-pill">v2.1.316</span>
-            <span class="version-pill">tag v2.1.316</span>
-            <span class="version-pill">更新于 2026-10-31</span>
+            <span class="version-pill">v2.1.318</span>
+            <span class="version-pill">tag v2.1.318</span>
+            <span class="version-pill">更新于 2026-11-04</span>
           </div>
           <div class="top-actions">
             <button type="button" data-copy="claude">复制启动命令</button>
@@ -806,10 +806,10 @@
           </div>
         </article>
 
-        <article class="step searchable" data-step="04" data-keywords="继续 continue resume -c -r 会话">
+        <article class="step searchable" data-step="04" data-keywords="继续 continue resume -c -r 会话 chrome --resume">
           <div>
             <h3>接着上次</h3>
-            <p><code>claude -c</code> 打开当前目录最近一次对话；点名用 <code>claude -r "名字或 ID"</code>。默认不含 <code>claude -p</code> 的会话。</p>
+            <p><code>claude -c</code> 打开当前目录最近一次对话；点名用 <code>claude -r "名字或 ID"</code>。默认不含 <code>claude -p</code> 的会话。退出时的续跑提示会先重复启动参数（如 <code>--chrome</code>），再接 <code>--resume</code>。</p>
           </div>
           <div class="cmd">
             <code>claude -c</code>
@@ -861,10 +861,10 @@
           </div>
         </article>
 
-        <article class="card strong accent-red searchable" data-keywords="权限规则 allow deny ask permissions settings.local blockWritesOutsideWorkingDirectories 工作目录外">
+        <article class="card strong accent-red searchable" data-keywords="权限规则 allow deny ask permissions settings.local blockWritesOutsideWorkingDirectories 工作目录外 邮箱 email">
           <div>
             <h3>少被问，但别放开危险命令</h3>
-            <p>规则顺序 deny → ask → allow；宽的 deny 盖得住更窄的 allow，bypass 也绕不过 deny。Bash 的“不要再问”写进 <code>.claude/settings.local.json</code>，改文件的批准只留到这次会话结束。<code>permissions.blockWritesOutsideWorkingDirectories</code> 设上之后，任何权限模式下 Write、Edit、NotebookEdit 都拒绝工作目录外的路径。</p>
+            <p>规则顺序 deny → ask → allow；宽的 deny 盖得住更窄的 allow，bypass 也绕不过 deny。Bash 的“不要再问”写进 <code>.claude/settings.local.json</code>，改文件的批准只留到这次会话结束。<code>permissions.blockWritesOutsideWorkingDirectories</code> 设上之后，任何权限模式下 Write、Edit、NotebookEdit 都拒绝工作目录外的路径。Web 或 shell 要把账号邮箱发到网上时，会先问你。</p>
             <div class="tag-row"><span class="tag">/permissions</span><span class="tag">deny</span></div>
           </div>
           <div class="cmd">
@@ -873,10 +873,10 @@
           </div>
         </article>
 
-        <article class="card accent-green searchable" data-keywords="print -p 脚本 json dontAsk allowedTools ci">
+        <article class="card accent-green searchable" data-keywords="print -p 脚本 json dontAsk allowedTools ci 磁盘 stderr 登录到期 credential_expires_at">
           <div>
             <h3>脚本里只要最终答案</h3>
-            <p><code>claude -p</code> 跑完就退出。没指定模式时从 Manual 起，要批准的调用会被拒绝；CI 改成 <code>dontAsk</code> 并加上 <code>--allowedTools</code>。</p>
+            <p><code>claude -p</code> 跑完就退出。没指定模式时从 Manual 起，要批准的调用会被拒绝；CI 改成 <code>dontAsk</code> 并加上 <code>--allowedTools</code>。写不了 transcript 或 <code>~/.claude.json</code> 时，文本和 JSON 以 1 退出。claude.ai 登录到期前 10 天，文本会在 stderr 提醒一行。</p>
             <div class="tag-row"><span class="tag">-p</span><span class="tag">json</span></div>
           </div>
           <div class="cmd">
@@ -897,10 +897,10 @@
           </div>
         </article>
 
-        <article class="card accent-amber searchable" data-keywords="worktree 后台 background --bg agents attach">
+        <article class="card accent-amber searchable" data-keywords="worktree 后台 background --bg agents attach 子 agent 3 分钟">
           <div>
             <h3>并行：worktree 或后台</h3>
-            <p><code>claude -w name</code> 在 <code>.claude/worktrees/</code> 开隔离检出。整段丢到后台用 <code>claude --bg "task"</code>，再 <code>claude attach &lt;id&gt;</code>；不能和 <code>-p</code> 一起用。</p>
+            <p><code>claude -w name</code> 在 <code>.claude/worktrees/</code> 开隔离检出。整段丢到后台用 <code>claude --bg "task"</code>，再 <code>claude attach &lt;id&gt;</code>；不能和 <code>-p</code> 一起用。子 agent 的 shell 超过 3 分钟会转后台（各提供商一样），免得提示缓存过期。给正在跑的后台 agent 发消息时，它手头的命令转后台继续跑。</p>
             <div class="tag-row"><span class="tag">-w</span><span class="tag">--bg</span></div>
           </div>
           <div class="cmd">
@@ -909,10 +909,10 @@
           </div>
         </article>
 
-        <article class="card accent-red searchable" data-keywords="MCP mcp.json scope http">
+        <article class="card accent-red searchable" data-keywords="MCP mcp.json scope http deniedMcpServers">
           <div>
             <h3>接上 MCP</h3>
-            <p>远程 HTTP 用下面这条。<code>--scope project</code> 写进仓库 <code>.mcp.json</code>，默认 local 只给你；密钥别提交，登录用 <code>/mcp</code>。</p>
+            <p>远程 HTTP 用下面这条。<code>--scope project</code> 写进仓库 <code>.mcp.json</code>，默认 local 只给你；密钥别提交，登录用 <code>/mcp</code>。<code>deniedMcpServers</code> 里的 URL 也会拦住上游相同的 Anthropic 服务器；云端会话和自托管 runner 上的 connector 同样按 URL 拦，否则按名字拒绝。</p>
             <div class="tag-row"><span class="tag">mcp</span><span class="tag">.mcp.json</span></div>
           </div>
           <div class="cmd">
@@ -921,10 +921,10 @@
           </div>
         </article>
 
-        <article class="card accent-green searchable" data-keywords="更新 update stable latest 频道">
+        <article class="card accent-green searchable" data-keywords="更新 update stable latest 频道 IDE 扩展 /ide">
           <div>
             <h3>立刻更新</h3>
-            <p>原生安装会后台更新，这条立刻装当前频道（<code>latest</code> 或 <code>stable</code>）。Homebrew / WinGet 用各自的升级命令。</p>
+            <p>原生安装会后台更新，这条立刻装当前频道（<code>latest</code> 或 <code>stable</code>）。Homebrew / WinGet 用各自的升级命令。在 IDE 终端里启动不会再安装或更新 IDE 扩展；用外面终端的 <code>/ide</code>，或编辑器的扩展页。</p>
             <div class="tag-row"><span class="tag">update</span><span class="tag">stable</span></div>
           </div>
           <div class="cmd">
@@ -1002,7 +1002,7 @@
           <tr class="searchable" data-keywords="print -p 脚本">
             <td>claude -p "query"</td>
             <td>非交互，跑完退出。</td>
-            <td><code>--output-format text|json|stream-json</code>。</td>
+            <td><code>--output-format text|json|stream-json</code>。JSON 里 claude.ai 登录到期时间是 <code>credential_expires_at</code>。</td>
           </tr>
           <tr class="searchable" data-keywords="continue -c">
             <td>claude -c</td>
@@ -1019,10 +1019,10 @@
             <td>立刻更新到当前频道。</td>
             <td>钉 stable 或版本号用 <code>claude install</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="auth login logout status setup-token">
+          <tr class="searchable" data-keywords="auth login logout status setup-token loginExpiresAt 到期">
             <td>claude auth login</td>
             <td>登录。</td>
-            <td><code>logout</code> 登出。<code>status --text</code> 看是否已登录。CI 令牌：<code>claude setup-token</code>。</td>
+            <td><code>logout</code> 登出。<code>status --text</code> 看是否已登录；<code>loginExpiresAt</code> 是 claude.ai 登录何时到期。到期后再跑会说明已过期，<code>-p</code> 会点名 <code>claude auth login</code> 和 <code>claude setup-token</code>。CI 令牌：<code>claude setup-token</code>。</td>
           </tr>
           <tr class="searchable" data-keywords="doctor">
             <td>claude doctor</td>
@@ -1034,10 +1034,10 @@
             <td>指定这一次的起点模式。</td>
             <td><code>default</code>（别名 <code>manual</code>）、<code>acceptEdits</code>、<code>auto</code>、<code>dontAsk</code>、<code>bypassPermissions</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="model effort sonnet opus ultrathink fast CLAUDE_CODE_SUBAGENT_EFFORT CLAUDE_CODE_DISABLE_ULTRATHINK">
+          <tr class="searchable" data-keywords="model effort sonnet opus ultrathink fast CLAUDE_CODE_SUBAGENT_EFFORT CLAUDE_CODE_DISABLE_ULTRATHINK switchModelsOnFlag teammate">
             <td>claude --model sonnet</td>
             <td>这一次用哪个模型。</td>
-            <td>别名 <code>sonnet</code>、<code>opus</code>、<code>haiku</code>、<code>fable</code>。<code>--effort high</code> 不写入设置。子 agent 没人另外指定推理档时用 <code>CLAUDE_CODE_SUBAGENT_EFFORT</code>，不再继承本会话。<code>CLAUDE_CODE_DISABLE_ULTRATHINK</code> 关掉 <code>ultrathink</code> 关键字。Opus 4.8 的 fast mode 已弃用，2026-11-30 移除；之后对该模型的 fast 请求报错，且不回退到普通 Opus 4.8。要保住加速，改用 Opus 5.5。</td>
+            <td>别名 <code>sonnet</code>、<code>opus</code>、<code>haiku</code>、<code>fable</code>。<code>--effort high</code> 不写入设置。跟本会话同一模型、又没写 <code>effort</code> 时，子 agent 和 teammate 用本会话的档。换了模型则用那个模型已保存的档或默认档。要给没写 <code>effort</code> 的子 agent 指定推理档，用 <code>CLAUDE_CODE_SUBAGENT_EFFORT</code>。<code>switchModelsOnFlag</code> 设成 false（每次询问）时，子 agent 遇到被标出的消息会停，不再换模型。<code>CLAUDE_CODE_DISABLE_ULTRATHINK</code> 关掉 <code>ultrathink</code> 关键字。Opus 4.8 的 fast mode 已弃用，2026-11-30 移除；之后对该模型的 fast 请求报错，且不回退到普通 Opus 4.8。要保住加速，改用 Opus 5.5。</td>
           </tr>
           <tr class="searchable" data-keywords="add-dir 目录">
             <td>claude --add-dir ../lib</td>
@@ -1054,10 +1054,10 @@
             <td>后台跑，马上把终端还你。</td>
             <td>随后 <code>claude agents</code>、<code>attach</code>、<code>logs</code>、<code>stop</code>。不能和 <code>-p</code> 并用。</td>
           </tr>
-          <tr class="searchable" data-keywords="mcp add list">
+          <tr class="searchable" data-keywords="mcp add list remove 锁">
             <td>claude mcp add …</td>
             <td>配置 MCP 服务器。</td>
-            <td><code>list</code> 看状态。<code>login &lt;name&gt;</code> 走 OAuth。</td>
+            <td><code>list</code> 看状态。<code>login &lt;name&gt;</code> 走 OAuth。<code>add</code> / <code>remove</code> 会等配置锁，拿不到就以 1 退出；别的任务后写入仍可能盖掉刚保存的服务器。</td>
           </tr>
           <tr class="searchable" data-keywords="plugin 插件">
             <td>claude plugin</td>
@@ -1082,7 +1082,7 @@
           <tr class="searchable" data-keywords="version 版本">
             <td>claude --version</td>
             <td>打印已安装版本。</td>
-            <td>本页钉的上游发布是 v2.1.316。</td>
+            <td>本页钉的上游发布是 v2.1.318。</td>
           </tr>
         </tbody>
       </table>
@@ -1114,10 +1114,10 @@
             <td>进入 plan 模式。</td>
             <td>也可 <code>Shift+Tab</code>。批准前不改源码。</td>
           </tr>
-          <tr class="searchable" data-keywords="permissions allowed-tools">
+          <tr class="searchable" data-keywords="permissions allowed-tools Ctrl+C">
             <td>/permissions</td>
             <td>管理 allow / ask / deny。</td>
-            <td>别名 <code>/allowed-tools</code>。</td>
+            <td>别名 <code>/allowed-tools</code>。规则详情里连按两次 Ctrl+C 会返回或取消。</td>
           </tr>
           <tr class="searchable" data-keywords="config status">
             <td>/config</td>
@@ -1219,10 +1219,10 @@
             <td>只对你、只在这个项目。</td>
             <td>Bash 的“不要再问”写在这里。别提交。这里的 <code>defaultMode: auto</code> 也不会当起点。</td>
           </tr>
-          <tr class="searchable" data-keywords="claude.json MCP 信任">
+          <tr class="searchable" data-keywords="claude.json MCP 信任 JSON 损坏 网络家目录">
             <td>~/.claude.json</td>
             <td>账号、MCP、每个项目的信任决定。</td>
-            <td>Claude Code 自己写。不用手改。</td>
+            <td>Claude Code 自己写。不用手改。不是合法 JSON 时，非交互启动会失败并说明怎么恢复，文件保持原样；空文件且没有备份则按缺失启动。网络家目录写不进去时，登出和 <code>mcp remove</code> 会失败。</td>
           </tr>
           <tr class="searchable" data-keywords="CLAUDE.md AGENTS.md">
             <td>CLAUDE.md · .claude/CLAUDE.md · ~/.claude/CLAUDE.md</td>
@@ -1262,7 +1262,7 @@
     </section>
 
     <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.316" target="_blank" rel="noreferrer">Claude Code v2.1.316 (v2.1.316)</a> 与 <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noreferrer">官方文档</a>（含 <a href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noreferrer">CLI reference</a>、<a href="https://code.claude.com/docs/en/commands" target="_blank" rel="noreferrer">commands</a>、<a href="https://code.claude.com/docs/en/changelog" target="_blank" rel="noreferrer">changelog</a>）整理，并于 2026-10-31 校对。命令与行为以官方文档为准；内容为静态快照。上游由 Anthropic PBC 发布，使用受其商业条款约束。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <p>非官方中文速查，依据 <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.318" target="_blank" rel="noreferrer">Claude Code v2.1.318 (v2.1.318)</a> 与 <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noreferrer">官方文档</a>（含 <a href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noreferrer">CLI reference</a>、<a href="https://code.claude.com/docs/en/commands" target="_blank" rel="noreferrer">commands</a>、<a href="https://code.claude.com/docs/en/changelog" target="_blank" rel="noreferrer">changelog</a>）整理，并于 2026-11-04 校对。命令与行为以官方文档为准；内容为静态快照。上游由 Anthropic PBC 发布，使用受其商业条款约束。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

@@ -97,7 +97,7 @@ the upstream AGPL-3.0 terms.
 The content in `cheatsheets/claude-code/` is an unofficial Simplified Chinese
 cheatsheet derived from the public [anthropics/claude-code][claude-code] project
 and its [official documentation][claude-code-docs], using the
-[v2.1.316 release][claude-code-release] as a baseline (checked 2026-10-31). It is not an official Anthropic publication.
+[v2.1.318 release][claude-code-release] as a baseline (checked 2026-11-04). It is not an official Anthropic publication.
 
 Claude Code is published by Anthropic PBC. The upstream repository states:
 
@@ -113,7 +113,7 @@ follow the upstream terms:
 
 [claude-code]: https://github.com/anthropics/claude-code
 [claude-code-docs]: https://code.claude.com/docs/en/overview
-[claude-code-release]: https://github.com/anthropics/claude-code/releases/tag/v2.1.316
+[claude-code-release]: https://github.com/anthropics/claude-code/releases/tag/v2.1.318
 [claude-code-license]: https://github.com/anthropics/claude-code/blob/main/LICENSE.md
 [claude-code-terms]: https://www.anthropic.com/legal/commercial-terms
 

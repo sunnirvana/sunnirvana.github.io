@@ -738,12 +738,12 @@
           <span class="kicker">Claude Code Cheatsheet</span>
           <h1>Claude Code</h1>
         </div>
-        <p class="subtitle">终端里的编码 agent。在仓库里跑 <code>claude</code>，接着上次用 <code>-c</code>，大改动先 <code>/plan</code>。当前钉在 v2.1.318。</p>
+        <p class="subtitle">终端里的编码 agent。在仓库里跑 <code>claude</code>，接着上次用 <code>-c</code>，大改动先 <code>/plan</code>。当前钉在 v2.1.319。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
-            <span class="version-pill">v2.1.318</span>
-            <span class="version-pill">tag v2.1.318</span>
-            <span class="version-pill">更新于 2026-11-04</span>
+            <span class="version-pill">v2.1.319</span>
+            <span class="version-pill">tag v2.1.319</span>
+            <span class="version-pill">更新于 2026-11-07</span>
           </div>
           <div class="top-actions">
             <button type="button" data-copy="claude">复制启动命令</button>
@@ -784,10 +784,10 @@
           </div>
         </article>
 
-        <article class="step searchable" data-step="02" data-keywords="登录 auth login console api key">
+        <article class="step searchable" data-step="02" data-keywords="登录 auth login console api key ant 计费">
           <div>
             <h3>登录</h3>
-            <p>第一次 <code>claude</code> 会打开浏览器；已经决定用 <code>ANTHROPIC_API_KEY</code> 时会跳过。Console 按量计费加 <code>--console</code>。</p>
+            <p>第一次 <code>claude</code> 会打开浏览器；已经决定用 <code>ANTHROPIC_API_KEY</code> 时会跳过。Console 按量计费加 <code>--console</code>。用 <code>ant auth login</code> 的登录时，启动会点名被计费的 Console 组织；claude.ai 登录结束后接着用它，还会警告。</p>
           </div>
           <div class="cmd">
             <code>claude auth login</code>
@@ -849,10 +849,10 @@
           </div>
         </article>
 
-        <article class="card strong accent-amber searchable" data-keywords="权限模式 auto manual acceptEdits dontAsk default Shift+Tab">
+        <article class="card strong accent-amber searchable" data-keywords="权限模式 auto manual acceptEdits dontAsk default Shift+Tab 遥测 feature flag gateway 分类器 AUTO_MODE_SERVER">
           <div>
             <h3>切权限模式</h3>
-            <p>交互默认 auto。<code>Shift+Tab</code>：auto → Manual（<code>default</code>）→ acceptEdits → plan → 回到 auto。<code>dontAsk</code> 不在这个循环里，只给 <code>claude -p</code>。</p>
+            <p>交互默认 auto。<code>Shift+Tab</code>：auto → Manual（<code>default</code>）→ acceptEdits → plan → 回到 auto。<code>dontAsk</code> 不在这个循环里，只给 <code>claude -p</code>。关掉遥测或 feature flag 时（含 LLM gateway），服务器核不过的调用会问你或拒绝，不再退回内置分类器。Bedrock、Vertex、Foundry 仍走原来的路。要留着分类器，设 <code>CLAUDE_CODE_AUTO_MODE_SERVER=0</code>。gateway 上要强制做服务器复查，设 <code>CLAUDE_CODE_AUTO_MODE_SERVER=1</code>；托管设置里若关了实验性 beta，这一项也得写上。项目或插件不能把你在项目外关掉的复查重新打开。</p>
             <div class="tag-row"><span class="tag">auto</span><span class="tag">acceptEdits</span></div>
           </div>
           <div class="cmd">
@@ -861,10 +861,10 @@
           </div>
         </article>
 
-        <article class="card strong accent-red searchable" data-keywords="权限规则 allow deny ask permissions settings.local blockWritesOutsideWorkingDirectories 工作目录外 邮箱 email">
+        <article class="card strong accent-red searchable" data-keywords="权限规则 allow deny ask permissions settings.local blockWritesOutsideWorkingDirectories 工作目录外 邮箱 email denyInsteadOfPrompting 引号">
           <div>
             <h3>少被问，但别放开危险命令</h3>
-            <p>规则顺序 deny → ask → allow；宽的 deny 盖得住更窄的 allow，bypass 也绕不过 deny。Bash 的“不要再问”写进 <code>.claude/settings.local.json</code>，改文件的批准只留到这次会话结束。<code>permissions.blockWritesOutsideWorkingDirectories</code> 设上之后，任何权限模式下 Write、Edit、NotebookEdit 都拒绝工作目录外的路径。Web 或 shell 要把账号邮箱发到网上时，会先问你。</p>
+            <p>规则顺序 deny → ask → allow；宽的 deny 盖得住更窄的 allow，bypass 也绕不过 deny。Bash 的“不要再问”写进 <code>.claude/settings.local.json</code>，改文件的批准只留到这次会话结束。<code>permissions.blockWritesOutsideWorkingDirectories</code> 设上之后，任何权限模式下 Write、Edit、NotebookEdit 都拒绝工作目录外的路径。Web 或 shell 要把账号邮箱发到网上时，会先问你。<code>permissions.denyInsteadOfPrompting</code> 设上之后，本该停下等批准的调用直接拒绝，这一轮继续，终端、子 agent 和 teammate 都一样。带引号的 Bash 词也会命中 deny / ask；更宽的 deny 盖住精确的 Bash 或 PowerShell ask 时，直接拒绝，不再问。</p>
             <div class="tag-row"><span class="tag">/permissions</span><span class="tag">deny</span></div>
           </div>
           <div class="cmd">
@@ -873,10 +873,10 @@
           </div>
         </article>
 
-        <article class="card accent-green searchable" data-keywords="print -p 脚本 json dontAsk allowedTools ci 磁盘 stderr 登录到期 credential_expires_at">
+        <article class="card accent-green searchable" data-keywords="print -p 脚本 json dontAsk allowedTools ci 磁盘 stderr 登录到期 credential_expires_at auto 安全检查 exit">
           <div>
             <h3>脚本里只要最终答案</h3>
-            <p><code>claude -p</code> 跑完就退出。没指定模式时从 Manual 起，要批准的调用会被拒绝；CI 改成 <code>dontAsk</code> 并加上 <code>--allowedTools</code>。写不了 transcript 或 <code>~/.claude.json</code> 时，文本和 JSON 以 1 退出。claude.ai 登录到期前 10 天，文本会在 stderr 提醒一行。</p>
+            <p><code>claude -p</code> 跑完就退出。没指定模式时从 Manual 起，要批准的调用会被拒绝；CI 改成 <code>dontAsk</code> 并加上 <code>--allowedTools</code>。写不了 transcript 或 <code>~/.claude.json</code> 时，文本和 JSON 以 1 退出。auto 模式下因为没有可用的安全检查而拒绝动作时，同样以 1 退出。claude.ai 登录到期前 10 天，文本会在 stderr 提醒一行。</p>
             <div class="tag-row"><span class="tag">-p</span><span class="tag">json</span></div>
           </div>
           <div class="cmd">
@@ -885,10 +885,10 @@
           </div>
         </article>
 
-        <article class="card accent-blue searchable" data-keywords="上下文 compact clear context 压缩">
+        <article class="card accent-blue searchable" data-keywords="上下文 compact clear context 压缩 后台 agent teammate workflow">
           <div>
             <h3>上下文满了</h3>
-            <p><code>/compact</code> 总结后继续同一段对话。<code>/clear</code> 开新对话，CLAUDE.md 还在。</p>
+            <p><code>/compact</code> 总结后继续同一段对话。<code>/clear</code> 开新对话，CLAUDE.md 还在，也不会停掉仍在跑的后台 agent、teammate，以及会继续跑的 workflow 的命令。</p>
             <div class="tag-row"><span class="tag">/compact</span><span class="tag">/clear</span></div>
           </div>
           <div class="cmd">
@@ -909,10 +909,10 @@
           </div>
         </article>
 
-        <article class="card accent-red searchable" data-keywords="MCP mcp.json scope http deniedMcpServers">
+        <article class="card accent-red searchable" data-keywords="MCP mcp.json scope http deniedMcpServers task 后台 DISABLE_MCP_TASK">
           <div>
             <h3>接上 MCP</h3>
-            <p>远程 HTTP 用下面这条。<code>--scope project</code> 写进仓库 <code>.mcp.json</code>，默认 local 只给你；密钥别提交，登录用 <code>/mcp</code>。<code>deniedMcpServers</code> 里的 URL 也会拦住上游相同的 Anthropic 服务器；云端会话和自托管 runner 上的 connector 同样按 URL 拦，否则按名字拒绝。</p>
+            <p>远程 HTTP 用下面这条。<code>--scope project</code> 写进仓库 <code>.mcp.json</code>，默认 local 只给你；密钥别提交，登录用 <code>/mcp</code>。<code>deniedMcpServers</code> 里的 URL 也会拦住上游相同的 Anthropic 服务器；云端会话和自托管 runner 上的 connector 同样按 URL 拦，否则按名字拒绝。MCP 的 task 在终端里会立刻转后台（不依赖 feature flag 拉取），做完再把结果告诉 Claude。要在这次调用里等完，设 <code>CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND</code>；整项关掉用 <code>CLAUDE_CODE_DISABLE_MCP_TASKS=1</code>。</p>
             <div class="tag-row"><span class="tag">mcp</span><span class="tag">.mcp.json</span></div>
           </div>
           <div class="cmd">
@@ -1059,10 +1059,10 @@
             <td>配置 MCP 服务器。</td>
             <td><code>list</code> 看状态。<code>login &lt;name&gt;</code> 走 OAuth。<code>add</code> / <code>remove</code> 会等配置锁，拿不到就以 1 退出；别的任务后写入仍可能盖掉刚保存的服务器。</td>
           </tr>
-          <tr class="searchable" data-keywords="plugin 插件">
+          <tr class="searchable" data-keywords="plugin 插件 update 依赖">
             <td>claude plugin</td>
             <td>安装和管理插件。</td>
-            <td>会话里用 <code>/plugin</code>。</td>
+            <td>会话里用 <code>/plugin</code>。<code>claude plugin update</code>、<code>/plugin</code> 的 Update now，以及后台自动更新，都会装上新版本新增的依赖。</td>
           </tr>
           <tr class="searchable" data-keywords="safe-mode bare">
             <td>claude --safe-mode</td>
@@ -1074,15 +1074,15 @@
             <td>这一次盖过同名设置键。</td>
             <td>免询问用 <code>--allowedTools</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="teleport remote-control desktop">
+          <tr class="searchable" data-keywords="teleport remote-control desktop 首次提问 exit y">
             <td>claude --teleport</td>
             <td>把云端会话拉回本机。</td>
-            <td>需要订阅。本机这一轮给手机接着控：<code>--remote-control</code>。</td>
+            <td>需要订阅。本机这一轮给手机接着控：<code>--remote-control</code>。<code>claude remote-control</code> 在首次提问没人答时说明原因并以 1 退出；管道里没有换行的 <code>y</code> 也算同意。</td>
           </tr>
           <tr class="searchable" data-keywords="version 版本">
             <td>claude --version</td>
             <td>打印已安装版本。</td>
-            <td>本页钉的上游发布是 v2.1.318。</td>
+            <td>本页钉的上游发布是 v2.1.319。</td>
           </tr>
         </tbody>
       </table>
@@ -1119,20 +1119,20 @@
             <td>管理 allow / ask / deny。</td>
             <td>别名 <code>/allowed-tools</code>。规则详情里连按两次 Ctrl+C 会返回或取消。</td>
           </tr>
-          <tr class="searchable" data-keywords="config status">
+          <tr class="searchable" data-keywords="config status Auto mode server">
             <td>/config</td>
             <td>主题、模型等少数个人项。</td>
-            <td>别名 <code>/settings</code>。<code>/status</code> 看版本、账号、加载了哪些设置。</td>
+            <td>别名 <code>/settings</code>。<code>/status</code> 看版本、账号、加载了哪些设置。Auto mode server 显示已开启，只代表服务器复查真的到了这一轮。</td>
           </tr>
           <tr class="searchable" data-keywords="model effort">
             <td>/model</td>
             <td>换模型，并存成新会话默认。</td>
             <td>选择器里按 <code>s</code> 只改这一次。推理档用 <code>/effort</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="compact clear context memory">
+          <tr class="searchable" data-keywords="compact clear context memory 短表">
             <td>/compact</td>
             <td>总结后继续同一段对话。</td>
-            <td><code>/clear</code> 开新对话。<code>/context</code> 看窗口被什么占满。</td>
+            <td><code>/clear</code> 开新对话。<code>/context</code> 看窗口被什么占满；之后 Claude 只读短表，每类留最大的 10 行，按需加载的 MCP 工具在调用前每个服务器一行。</td>
           </tr>
           <tr class="searchable" data-keywords="rewind undo diff">
             <td>/rewind</td>
@@ -1164,15 +1164,15 @@
             <td>这一轮额外授予一个目录。</td>
             <td><code>/cd</code> 把整个会话挪到新目录，对话保留。</td>
           </tr>
-          <tr class="searchable" data-keywords="background bg tasks">
+          <tr class="searchable" data-keywords="background bg tasks Earlier 子 agent">
             <td>/background</td>
             <td>把当前会话拆到后台。</td>
-            <td>别名 <code>/bg</code>。看后台任务用 <code>/tasks</code>。</td>
+            <td>别名 <code>/bg</code>。<code>/tasks</code> 的 Earlier in this session 列出已结束的子 agent，离开列表或重启后仍可再打开并留言。</td>
           </tr>
-          <tr class="searchable" data-keywords="usage cost 用量">
+          <tr class="searchable" data-keywords="usage cost 用量 gateway 花费 spend">
             <td>/usage</td>
             <td>看用量和限额。</td>
-            <td>别名 <code>/cost</code>、<code>/stats</code>。</td>
+            <td>别名 <code>/cost</code>、<code>/stats</code>。走 Claude apps gateway、没有花费上限、且 gateway 不低于这个版本时，会多出今天、本周和本月的花费。</td>
           </tr>
           <tr class="searchable" data-keywords="plugin skills">
             <td>/plugin</td>
@@ -1219,10 +1219,10 @@
             <td>只对你、只在这个项目。</td>
             <td>Bash 的“不要再问”写在这里。别提交。这里的 <code>defaultMode: auto</code> 也不会当起点。</td>
           </tr>
-          <tr class="searchable" data-keywords="claude.json MCP 信任 JSON 损坏 网络家目录">
+          <tr class="searchable" data-keywords="claude.json MCP 信任 JSON 损坏 网络家目录 两份配置 stderr">
             <td>~/.claude.json</td>
             <td>账号、MCP、每个项目的信任决定。</td>
-            <td>Claude Code 自己写。不用手改。不是合法 JSON 时，非交互启动会失败并说明怎么恢复，文件保持原样；空文件且没有备份则按缺失启动。网络家目录写不进去时，登出和 <code>mcp remove</code> 会失败。</td>
+            <td>Claude Code 自己写。不用手改。不是合法 JSON 时，非交互启动会失败并说明怎么恢复，文件保持原样；空文件且没有备份则按缺失启动。网络家目录写不进去时，登出和 <code>mcp remove</code> 会失败。家里同时有两份配置时，stderr 会说明哪一份在用。</td>
           </tr>
           <tr class="searchable" data-keywords="CLAUDE.md AGENTS.md">
             <td>CLAUDE.md · .claude/CLAUDE.md · ~/.claude/CLAUDE.md</td>
@@ -1234,10 +1234,10 @@
             <td>按主题拆开的说明。</td>
             <td>带 <code>paths</code> 的只在碰到匹配文件时加载。</td>
           </tr>
-          <tr class="searchable" data-keywords="skills">
+          <tr class="searchable" data-keywords="skills 沙箱 sandbox /cd">
             <td>.claude/skills/&lt;name&gt;/SKILL.md</td>
             <td>用 <code>/name</code> 调用的流程。</td>
-            <td>个人技能放 <code>~/.claude/skills/</code>。</td>
+            <td>个人技能放 <code>~/.claude/skills/</code>。Bash 沙箱开着时，启动目录下面更深的 <code>.claude/skills</code> 只有在那里启动，或 <code>/cd</code> 过去，才会加载。</td>
           </tr>
           <tr class="searchable" data-keywords="mcp.json">
             <td>.mcp.json</td>
@@ -1262,7 +1262,7 @@
     </section>
 
     <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.318" target="_blank" rel="noreferrer">Claude Code v2.1.318 (v2.1.318)</a> 与 <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noreferrer">官方文档</a>（含 <a href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noreferrer">CLI reference</a>、<a href="https://code.claude.com/docs/en/commands" target="_blank" rel="noreferrer">commands</a>、<a href="https://code.claude.com/docs/en/changelog" target="_blank" rel="noreferrer">changelog</a>）整理，并于 2026-11-04 校对。命令与行为以官方文档为准；内容为静态快照。上游由 Anthropic PBC 发布，使用受其商业条款约束。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <p>非官方中文速查，依据 <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.319" target="_blank" rel="noreferrer">Claude Code v2.1.319 (v2.1.319)</a> 与 <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noreferrer">官方文档</a>（含 <a href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noreferrer">CLI reference</a>、<a href="https://code.claude.com/docs/en/commands" target="_blank" rel="noreferrer">commands</a>、<a href="https://code.claude.com/docs/en/changelog" target="_blank" rel="noreferrer">changelog</a>）整理，并于 2026-11-07 校对。命令与行为以官方文档为准；内容为静态快照。上游由 Anthropic PBC 发布，使用受其商业条款约束。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

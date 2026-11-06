@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-11-05",
+  "updatedAtUtc": "2026-11-07",
   "sources": [
     {
       "id": "matt-pocock-skills",
@@ -72,9 +72,9 @@
       "noticeHeading": "## Claude Code",
       "homepageVersionPattern": "基于 v{version}",
       "pinned": {
-        "version": "2.1.318",
-        "tag": "v2.1.318",
-        "checkedAtUtc": "2026-11-04"
+        "version": "2.1.319",
+        "tag": "v2.1.319",
+        "checkedAtUtc": "2026-11-07"
       },
       "versionStrip": {
         "releasePillPrefix": "v",

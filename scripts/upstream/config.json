@@ -72,9 +72,9 @@
       "noticeHeading": "## Claude Code",
       "homepageVersionPattern": "基于 v{version}",
       "pinned": {
-        "version": "2.1.319",
-        "tag": "v2.1.319",
-        "checkedAtUtc": "2026-11-07"
+        "version": "2.1.322",
+        "tag": "v2.1.322",
+        "checkedAtUtc": "2026-11-10"
       },
       "versionStrip": {
         "releasePillPrefix": "v",

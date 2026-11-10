@@ -738,12 +738,12 @@
           <span class="kicker">Claude Code Cheatsheet</span>
           <h1>Claude Code</h1>
         </div>
-        <p class="subtitle">终端里的编码 agent。在仓库里跑 <code>claude</code>，接着上次用 <code>-c</code>，大改动先 <code>/plan</code>。当前钉在 v2.1.319。</p>
+        <p class="subtitle">终端里的编码 agent。在仓库里跑 <code>claude</code>，接着上次用 <code>-c</code>，大改动先 <code>/plan</code>。当前钉在 v2.1.322。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
-            <span class="version-pill">v2.1.319</span>
-            <span class="version-pill">tag v2.1.319</span>
-            <span class="version-pill">更新于 2026-11-07</span>
+            <span class="version-pill">v2.1.322</span>
+            <span class="version-pill">tag v2.1.322</span>
+            <span class="version-pill">更新于 2026-11-10</span>
           </div>
           <div class="top-actions">
             <button type="button" data-copy="claude">复制启动命令</button>
@@ -770,7 +770,7 @@
     <section>
       <div class="section-head">
         <h2>最短记忆</h2>
-        <p>免费 claude.ai 不含 Claude Code。需要 Pro、Max、Team、Enterprise 或 Console。</p>
+        <p>免费 claude.ai 不含 Claude Code。需要 Pro、Max、Ultra、Team、Enterprise 或 Console。</p>
       </div>
       <div class="workflow">
         <article class="step searchable" data-step="01" data-keywords="安装 install macos linux wsl curl powershell brew winget">
@@ -864,7 +864,7 @@
         <article class="card strong accent-red searchable" data-keywords="权限规则 allow deny ask permissions settings.local blockWritesOutsideWorkingDirectories 工作目录外 邮箱 email denyInsteadOfPrompting 引号">
           <div>
             <h3>少被问，但别放开危险命令</h3>
-            <p>规则顺序 deny → ask → allow；宽的 deny 盖得住更窄的 allow，bypass 也绕不过 deny。Bash 的“不要再问”写进 <code>.claude/settings.local.json</code>，改文件的批准只留到这次会话结束。<code>permissions.blockWritesOutsideWorkingDirectories</code> 设上之后，任何权限模式下 Write、Edit、NotebookEdit 都拒绝工作目录外的路径。Web 或 shell 要把账号邮箱发到网上时，会先问你。<code>permissions.denyInsteadOfPrompting</code> 设上之后，本该停下等批准的调用直接拒绝，这一轮继续，终端、子 agent 和 teammate 都一样。带引号的 Bash 词也会命中 deny / ask；更宽的 deny 盖住精确的 Bash 或 PowerShell ask 时，直接拒绝，不再问。</p>
+            <p>规则顺序 deny → ask → allow；宽的 deny 盖得住更窄的 allow，bypass 也绕不过 deny。Bash 的“不要再问”写进 <code>.claude/settings.local.json</code>，改文件的批准只留到这次会话结束。<code>permissions.blockWritesOutsideWorkingDirectories</code> 设上之后，任何权限模式下 Write、Edit、NotebookEdit 都拒绝工作目录外的路径。带上账号邮箱、又写了 User-Agent 的 shell 命令会直接拒绝，不再询问；别的命令和定时任务不会因此停下。<code>permissions.denyInsteadOfPrompting</code> 设上之后，本该停下等批准的调用直接拒绝，这一轮继续，终端、子 agent 和 teammate 都一样。带引号的 Bash 词也会命中 deny / ask；更宽的 deny 盖住精确的 Bash 或 PowerShell ask 时，直接拒绝，不再问。</p>
             <div class="tag-row"><span class="tag">/permissions</span><span class="tag">deny</span></div>
           </div>
           <div class="cmd">
@@ -876,7 +876,7 @@
         <article class="card accent-green searchable" data-keywords="print -p 脚本 json dontAsk allowedTools ci 磁盘 stderr 登录到期 credential_expires_at auto 安全检查 exit">
           <div>
             <h3>脚本里只要最终答案</h3>
-            <p><code>claude -p</code> 跑完就退出。没指定模式时从 Manual 起，要批准的调用会被拒绝；CI 改成 <code>dontAsk</code> 并加上 <code>--allowedTools</code>。写不了 transcript 或 <code>~/.claude.json</code> 时，文本和 JSON 以 1 退出。auto 模式下因为没有可用的安全检查而拒绝动作时，同样以 1 退出。claude.ai 登录到期前 10 天，文本会在 stderr 提醒一行。</p>
+            <p><code>claude -p</code> 跑完就退出。没指定模式时从 Manual 起，要批准的调用会被拒绝；CI 改成 <code>dontAsk</code> 并加上 <code>--allowedTools</code>。写不了 transcript 或 <code>~/.claude.json</code> 时，文本和 JSON 以 1 退出。auto 模式下因为没有可用的安全检查而拒绝动作时，同样以 1 退出。后台命令按 10 分钟停。claude.ai 登录到期前 10 天，文本会在 stderr 提醒一行。</p>
             <div class="tag-row"><span class="tag">-p</span><span class="tag">json</span></div>
           </div>
           <div class="cmd">
@@ -1034,10 +1034,10 @@
             <td>指定这一次的起点模式。</td>
             <td><code>default</code>（别名 <code>manual</code>）、<code>acceptEdits</code>、<code>auto</code>、<code>dontAsk</code>、<code>bypassPermissions</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="model effort sonnet opus ultrathink fast CLAUDE_CODE_SUBAGENT_EFFORT CLAUDE_CODE_DISABLE_ULTRATHINK switchModelsOnFlag teammate">
+          <tr class="searchable" data-keywords="model effort sonnet opus ultrathink fast CLAUDE_CODE_SUBAGENT_EFFORT CLAUDE_CODE_DISABLE_ULTRATHINK switchModelsOnFlag teammate fable Fable 5.2 Vertex">
             <td>claude --model sonnet</td>
             <td>这一次用哪个模型。</td>
-            <td>别名 <code>sonnet</code>、<code>opus</code>、<code>haiku</code>、<code>fable</code>。<code>--effort high</code> 不写入设置。跟本会话同一模型、又没写 <code>effort</code> 时，子 agent 和 teammate 用本会话的档。换了模型则用那个模型已保存的档或默认档。要给没写 <code>effort</code> 的子 agent 指定推理档，用 <code>CLAUDE_CODE_SUBAGENT_EFFORT</code>。<code>switchModelsOnFlag</code> 设成 false（每次询问）时，子 agent 遇到被标出的消息会停，不再换模型。<code>CLAUDE_CODE_DISABLE_ULTRATHINK</code> 关掉 <code>ultrathink</code> 关键字。Opus 4.8 的 fast mode 已弃用，2026-11-30 移除；之后对该模型的 fast 请求报错，且不回退到普通 Opus 4.8。要保住加速，改用 Opus 5.5。</td>
+            <td>别名 <code>sonnet</code>、<code>opus</code>、<code>haiku</code>、<code>fable</code>。<code>fable</code> 指向 Fable 5.2（1M）；Claude apps gateway 会话里仍是 Fable 5，除非设了 <code>ANTHROPIC_DEFAULT_FABLE_MODEL</code>。它不是套餐默认模型，用 <code>/model fable</code> 或 <code>claude --model fable</code> 来选；gateway 上用 <code>/model claude-fable-5-2</code>。用户设置里保存的 <code>claude-fable-5-1</code> 会改到 <code>fable</code>：Pro / Max 在 v2.1.321 起第一次启动就改，Team / Enterprise 等组织允许；退回用 <code>/model claude-fable-5-1</code>。Console、第三方，以及项目、local、托管设置里的 5.1 不动。<code>--effort high</code> 不写入设置。跟本会话同一模型、又没写 <code>effort</code> 时，子 agent 和 teammate 用本会话的档。换了模型则用那个模型已保存的档或默认档。要给没写 <code>effort</code> 的子 agent 指定推理档，用 <code>CLAUDE_CODE_SUBAGENT_EFFORT</code>。<code>switchModelsOnFlag</code> 设成 false（每次询问）时，子 agent 遇到被标出的消息会停，不再换模型。<code>CLAUDE_CODE_DISABLE_ULTRATHINK</code> 关掉 <code>ultrathink</code> 关键字。Opus 4.8 的 fast mode 已弃用，2026-11-30 移除；之后对该模型的 fast 请求报错，且不回退到普通 Opus 4.8。要保住加速，改用 Opus 5.5。别的模型上，fast 被限流、过载或失败时，先在同一模型改走普通速度。Vertex 的 global、us、eu 也可以开 fast，Vertex 拒绝时同样退回普通速度。</td>
           </tr>
           <tr class="searchable" data-keywords="add-dir 目录">
             <td>claude --add-dir ../lib</td>
@@ -1074,15 +1074,15 @@
             <td>这一次盖过同名设置键。</td>
             <td>免询问用 <code>--allowedTools</code>。</td>
           </tr>
-          <tr class="searchable" data-keywords="teleport remote-control desktop 首次提问 exit y">
+          <tr class="searchable" data-keywords="teleport remote-control desktop 首次提问 exit y settings 目录">
             <td>claude --teleport</td>
             <td>把云端会话拉回本机。</td>
-            <td>需要订阅。本机这一轮给手机接着控：<code>--remote-control</code>。<code>claude remote-control</code> 在首次提问没人答时说明原因并以 1 退出；管道里没有换行的 <code>y</code> 也算同意。</td>
+            <td>需要订阅。本机这一轮给手机接着控：<code>--remote-control</code>。<code>claude remote-control</code> 在首次提问没人答时说明原因并以 1 退出；管道里没有换行的 <code>y</code> 也算同意。<code>claude remote-control --settings ./settings.json</code> 把这份设置套到它开出的每一轮；文件改了要重启才会再开新会话。连上的客户端不能把会话挪到别的目录。</td>
           </tr>
           <tr class="searchable" data-keywords="version 版本">
             <td>claude --version</td>
             <td>打印已安装版本。</td>
-            <td>本页钉的上游发布是 v2.1.319。</td>
+            <td>本页钉的上游发布是 v2.1.322。</td>
           </tr>
         </tbody>
       </table>
@@ -1119,10 +1119,10 @@
             <td>管理 allow / ask / deny。</td>
             <td>别名 <code>/allowed-tools</code>。规则详情里连按两次 Ctrl+C 会返回或取消。</td>
           </tr>
-          <tr class="searchable" data-keywords="config status Auto mode server">
+          <tr class="searchable" data-keywords="config status Auto mode server Don't Ask 空格">
             <td>/config</td>
             <td>主题、模型等少数个人项。</td>
-            <td>别名 <code>/settings</code>。<code>/status</code> 看版本、账号、加载了哪些设置。Auto mode server 显示已开启，只代表服务器复查真的到了这一轮。</td>
+            <td>别名 <code>/settings</code>。<code>/status</code> 看版本、账号、加载了哪些设置。Auto mode server 显示已开启，只代表服务器复查真的到了这一轮。在 Auto (default) 上按空格，存成 Don't Ask，不是 Plan。</td>
           </tr>
           <tr class="searchable" data-keywords="model effort">
             <td>/model</td>
@@ -1234,10 +1234,10 @@
             <td>按主题拆开的说明。</td>
             <td>带 <code>paths</code> 的只在碰到匹配文件时加载。</td>
           </tr>
-          <tr class="searchable" data-keywords="skills 沙箱 sandbox /cd">
+          <tr class="searchable" data-keywords="skills 沙箱 sandbox /cd plugins">
             <td>.claude/skills/&lt;name&gt;/SKILL.md</td>
             <td>用 <code>/name</code> 调用的流程。</td>
-            <td>个人技能放 <code>~/.claude/skills/</code>。Bash 沙箱开着时，启动目录下面更深的 <code>.claude/skills</code> 只有在那里启动，或 <code>/cd</code> 过去，才会加载。</td>
+            <td>个人技能放 <code>~/.claude/skills/</code>。Bash 沙箱开着时，启动目录下面更深的 <code>.claude/skills</code> 只有在那里启动，或 <code>/cd</code> 过去，才会加载。<code>~/.claude/plugins</code> 里面的 <code>.claude/skills</code> 不会加载。</td>
           </tr>
           <tr class="searchable" data-keywords="mcp.json">
             <td>.mcp.json</td>
@@ -1262,7 +1262,7 @@
     </section>
 
     <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.319" target="_blank" rel="noreferrer">Claude Code v2.1.319 (v2.1.319)</a> 与 <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noreferrer">官方文档</a>（含 <a href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noreferrer">CLI reference</a>、<a href="https://code.claude.com/docs/en/commands" target="_blank" rel="noreferrer">commands</a>、<a href="https://code.claude.com/docs/en/changelog" target="_blank" rel="noreferrer">changelog</a>）整理，并于 2026-11-07 校对。命令与行为以官方文档为准；内容为静态快照。上游由 Anthropic PBC 发布，使用受其商业条款约束。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <p>非官方中文速查，依据 <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.322" target="_blank" rel="noreferrer">Claude Code v2.1.322 (v2.1.322)</a> 与 <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noreferrer">官方文档</a>（含 <a href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noreferrer">CLI reference</a>、<a href="https://code.claude.com/docs/en/commands" target="_blank" rel="noreferrer">commands</a>、<a href="https://code.claude.com/docs/en/changelog" target="_blank" rel="noreferrer">changelog</a>）整理，并于 2026-11-10 校对。命令与行为以官方文档为准；内容为静态快照。上游由 Anthropic PBC 发布，使用受其商业条款约束。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

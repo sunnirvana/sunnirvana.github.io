@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-11-13",
+  "updatedAtUtc": "2026-11-16",
   "sources": [
     {
       "id": "matt-pocock-skills",
@@ -13,9 +13,9 @@
       "pinned": {
         "version": "1.3.2",
         "tag": "v1.3.2",
-        "commit": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
-        "commitShort": "4ae2317",
-        "checkedAtUtc": "2026-11-02"
+        "commit": "5863806dd4e15c63174bee4e7515a4256792ecfa",
+        "commitShort": "5863806",
+        "checkedAtUtc": "2026-11-16"
       },
       "versionStrip": {
         "releasePillPrefix": "upstream v",

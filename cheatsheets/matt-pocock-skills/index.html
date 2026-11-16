@@ -738,12 +738,12 @@
           <span class="kicker">Codex / Claude Code Cheatsheet</span>
           <h1>Matt Pocock Skills</h1>
         </div>
-        <p class="subtitle">按项目工作场景查命令。先初始化一次，再按“想清楚、拆 spec/tickets、写代码（逐个 ticket 或整份 spec 并发）、调问题、改结构、做 review、写 PR、收工复盘”选 skill。v1.3 起 <code>$implement-spec</code>、<code>$pr</code>、<code>$retro</code> 转正进 engineering，术语表改名 <code>GLOSSARY.md</code>。v1.3.2 收进此前 main 上的这些修补（见下方各项）：<code>$implement</code> 先取 ticket 并复述标题，<code>$tdd</code> 的 seam 标注能抓什么 / 漏什么，<code>$grilling</code> 的问题改成「答 yes 即采纳推荐」。main@4ae2317：新增 in-progress 的 <code>$software-factory</code> 术语表；<code>$chief-of-staff</code> 优先复用共享 wiki，并把 retro / implement-spec 写成 procedures；<code>$implement-spec</code> 每个 ticket 派新的 implementer 子 agent；派子 agent 的 skill 统一要求<strong>新开上下文</strong>，不要 fork 当前会话；<code>$setup-matt-pocock-skills</code> 补齐可达仓库、legacy CONTEXT.md 与 tracker 模板。</p>
+        <p class="subtitle">按项目工作场景查命令。先初始化一次，再按“想清楚、拆 spec/tickets、写代码（逐个 ticket 或整份 spec 并发）、调问题、改结构、做 review、写 PR、收工复盘”选 skill。v1.3 起 <code>$implement-spec</code>、<code>$pr</code>、<code>$retro</code> 转正进 engineering，术语表改名 <code>GLOSSARY.md</code>。v1.3.2 收进此前 main 上的这些修补（见下方各项）：<code>$implement</code> 先取 ticket 并复述标题，<code>$tdd</code> 的 seam 标注能抓什么 / 漏什么，<code>$grilling</code> 的问题改成「答 yes 即采纳推荐」。main@4ae2317：新增 in-progress 的 <code>$software-factory</code> 术语表；<code>$chief-of-staff</code> 优先复用共享 wiki，并把 retro / implement-spec 写成 procedures；<code>$implement-spec</code> 每个 ticket 派新的 implementer 子 agent；派子 agent 的 skill 统一要求<strong>新开上下文</strong>，不要 fork 当前会话；<code>$setup-matt-pocock-skills</code> 补齐可达仓库、legacy CONTEXT.md 与 tracker 模板。main@5863806：<code>$software-factory</code> 的 Task 旧版只写避免叫 job / workflow / action，新版说明那些是 CI 厂商工作流里把任务接上的接线，不是任务本身；Explore 旧版只把 ticket 分成 easy call / needs a human / not a bug，新版还会对照代码库核验主张（能复现就复现），把发现留在 ticket 上给 implementer，并且从不 push。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
             <span class="version-pill">upstream v1.3.2</span>
-            <span class="version-pill">main@4ae2317</span>
-            <span class="version-pill">更新于 2026-11-02</span>
+            <span class="version-pill">main@5863806</span>
+            <span class="version-pill">更新于 2026-11-16</span>
           </div>
           <div class="top-actions">
             <button type="button" data-copy="$ask-matt 我现在要做的事是：">复制万能入口</button>
@@ -1066,10 +1066,10 @@
         </article>
 
 
-        <article class="card accent-blue searchable" data-keywords="software factory 软件工厂 glossary task run runner orchestrator ticket tracker git host observability in-progress 术语表">
+        <article class="card accent-blue searchable" data-keywords="software factory 软件工厂 glossary task run runner orchestrator ticket tracker git host observability in-progress 术语表 explore job workflow action CI 复现 implementer push">
           <div>
             <h3>设计一套 software factory</h3>
-            <p>in-progress（main@4ae2317 新增，user-invoked）。给「由 agent 把 tickets / PR / 定时任务变成合并后的代码并部署」的系统设计统一术语：Task / Trigger / Run / Runner，以及 Ticket tracker、Ticket source、Git host、Orchestrator、Observability platform。从用户真实问题起步（未分流 tickets、等自动 review 的 PR、要迁移的更严检查），一次只加一个自动触发并配齐刹车；填槽位时读附带的 trackers / git hosts / runners / observability 调查。可与 grilling 同开。</p>
+            <p>in-progress（main@4ae2317 新增，user-invoked）。给「由 agent 把 tickets / PR / 定时任务变成合并后的代码并部署」的系统设计统一术语：Task / Trigger / Run / Runner，以及 Ticket tracker、Ticket source、Git host、Orchestrator、Observability platform。Task 不要叫 job / workflow / action—那些是 CI 厂商工作流里把任务接上的接线，不是任务本身。Explore 任务会对照代码库核验 ticket 主张（能复现就复现），分类后把发现留在 ticket 上给 implementer，并且从不 push。从用户真实问题起步（未分流 tickets、等自动 review 的 PR、要迁移的更严检查），一次只加一个自动触发并配齐刹车；填槽位时读附带的 trackers / git hosts / runners / observability 调查。可与 grilling 同开。</p>
             <div class="tag-row"><span class="tag">software-factory</span><span class="tag">术语表</span><span class="tag">in-progress</span></div>
           </div>
           <div class="cmd">
@@ -1167,7 +1167,7 @@
     <section>
       <div class="section-head">
         <h2>完整索引</h2>
-        <p>基于 upstream v1.3.2（含 main@4ae2317）整理的 39 个 skills（engineering 20 + productivity 7 + in-progress 8 + misc 4）。main@4ae2317 相对上一校对点 main@5beb35b（release 仍为 v1.3.2）：新增 in-progress 的 <code>$software-factory</code> 术语表；<code>$chief-of-staff</code> 优先复用共享 wiki，并把 retro / implement-spec 写成 procedures；<code>$implement-spec</code> 每个 ticket 派全新 implementer；多个派子 agent 的 skill（code-review / research / wayfinder / grilling / improve-codebase-architecture / DESIGN-IT-TWICE / chief-of-staff）统一写明<strong>新开上下文、不 fork</strong>；<code>$setup-matt-pocock-skills</code> 补可达仓库、legacy CONTEXT.md 改名提示，以及 GitHub/GitLab tracker 模板（原生 blocking、关单评论、自有仓库、glab 链接查询等）。main@5beb35b 相对 main@49dd158：chief-of-staff 引入带日期与提交引用的 wiki。更早的 v1.3 / v1.2 变化见各条目。Claude Code 插件仍是 27 个 promoted skills；in-progress 与 misc 仍需单独安装（<code>npx skills@latest add mattpocock/skills --skill=&lt;name&gt;</code>）。日常优先用上面的主流程。</p>
+        <p>基于 upstream v1.3.2（含 main@5863806）整理的 39 个 skills（engineering 20 + productivity 7 + in-progress 8 + misc 4）。main@5863806 相对上一校对点 main@4ae2317（release 仍为 v1.3.2）：<code>$software-factory</code> 的 Task 旧版只写避免叫 job / workflow / action，新版说明那些是 CI 厂商工作流里把任务接上的接线，不是任务本身；Explore 旧版只分类（easy call / needs a human / not a bug），新版还会对照代码库核验并尽可能复现 ticket 主张，把发现留在 ticket 上给 implementer，并且从不 push。无新增 skill。main@4ae2317 相对上一校对点 main@5beb35b（release 仍为 v1.3.2）：新增 in-progress 的 <code>$software-factory</code> 术语表；<code>$chief-of-staff</code> 优先复用共享 wiki，并把 retro / implement-spec 写成 procedures；<code>$implement-spec</code> 每个 ticket 派全新 implementer；多个派子 agent 的 skill（code-review / research / wayfinder / grilling / improve-codebase-architecture / DESIGN-IT-TWICE / chief-of-staff）统一写明<strong>新开上下文、不 fork</strong>；<code>$setup-matt-pocock-skills</code> 补可达仓库、legacy CONTEXT.md 改名提示，以及 GitHub/GitLab tracker 模板（原生 blocking、关单评论、自有仓库、glab 链接查询等）。main@5beb35b 相对 main@49dd158：chief-of-staff 引入带日期与提交引用的 wiki。更早的 v1.3 / v1.2 变化见各条目。Claude Code 插件仍是 27 个 promoted skills；in-progress 与 misc 仍需单独安装（<code>npx skills@latest add mattpocock/skills --skill=&lt;name&gt;</code>）。日常优先用上面的主流程。</p>
       </div>
       <div class="table-wrap" tabindex="0" aria-label="完整 Skills 索引，可横向滚动">
       <table class="reference-table">
@@ -1382,7 +1382,7 @@
     </section>
 
     <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/mattpocock/skills/releases/tag/v1.3.2" target="_blank" rel="noreferrer">mattpocock/skills v1.3.2</a> 整理，并于 2026-11-02 校对（v1.3.2 含 <a href="https://github.com/mattpocock/skills/commit/4ae2317ddb22b046e26455e4f9c9b3aaaf62212d" target="_blank" rel="noreferrer">main@4ae2317</a>：新增 <code>$software-factory</code>；<code>$chief-of-staff</code> 共享 wiki 优先并挂 retro / implement-spec procedures；<code>$implement-spec</code> 每票新 implementer；派子 agent 统一新开上下文；<code>$setup-matt-pocock-skills</code> 可达仓库与 tracker 模板修补。更早的 main@5beb35b / v1.3 变化见上）；Codex 的通用 Skill 调用机制以 <a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noreferrer">OpenAI 文档</a> 为准。内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <p>非官方中文速查，依据 <a href="https://github.com/mattpocock/skills/releases/tag/v1.3.2" target="_blank" rel="noreferrer">mattpocock/skills v1.3.2</a> 整理，并于 2026-11-16 校对（v1.3.2 含 <a href="https://github.com/mattpocock/skills/commit/5863806dd4e15c63174bee4e7515a4256792ecfa" target="_blank" rel="noreferrer">main@5863806</a>：<code>$software-factory</code> 的 Task 旧版只避免叫 job / workflow / action，新版说明那些是 CI 厂商工作流里把任务接上的接线，不是任务本身；Explore 旧版只分类 ticket，新版对照代码库核验主张（能复现就复现），把发现留在 ticket 上给 implementer，并且从不 push。更早的 main@4ae2317：新增 <code>$software-factory</code>；<code>$chief-of-staff</code> 共享 wiki 优先并挂 retro / implement-spec procedures；<code>$implement-spec</code> 每票新 implementer；派子 agent 统一新开上下文；<code>$setup-matt-pocock-skills</code> 可达仓库与 tracker 模板修补。更早的 main@5beb35b / v1.3 变化见上）；Codex 的通用 Skill 调用机制以 <a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noreferrer">OpenAI 文档</a> 为准。内容为静态快照，更新时会在源项目校对后手动同步。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

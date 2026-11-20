@@ -739,12 +739,12 @@
           <span class="kicker">Hermes Agent Cheatsheet</span>
           <h1>Hermes Agent</h1>
         </div>
-        <p class="subtitle">Nous Research 的自改进 agent。先装好、先聊通，再叠 gateway、Bot Mode、skills、cron。当前钉在 v0.23.1（patch；自 v0.23.0 起约 618 个 PR，完整 curated notes 留给 v0.24.0）。v0.23.0「The Hearth Release」仍是带完整说明的小版本，并收编、补全 0.22.1–0.22.7：gateway 自带 Webapp（默认关），本机一个 gateway 拥有全部会话，多机 Desktop，终端内联图片与 <code>/rewind</code>；插件可批量/自动更新（目录 1,050+、Verified），付费 MCP 标价，<code>hermes curator lock</code>。0.23.1 操作者先记住：11 月 9 日起线上 <code>plugin-catalog.json</code> 超过旧 2 MiB 上限，装插件会静默回退到发行自带目录；本版把上限提到 16 MiB。升级前先看「从 0.22 升到 0.23」：旧 <code>browser_*</code> 只剩 <code>browser_exec</code>；Desktop 需 macOS 13+ / 64 位 Windows（Electron 44）；<code>hermes mcp serve</code> 改成 <code>hermes mcp-serve</code>。</p>
+        <p class="subtitle">Nous Research 的自改进 agent。先装好、先聊通，再叠 gateway、Bot Mode、skills、cron。当前钉在 v0.23.3（patch；0.23.2 与 0.23.3 的完整 curated notes 仍留给 v0.24.0）。v0.23.0「The Hearth Release」仍是带完整说明的小版本，并收编、补全 0.22.1–0.22.7：gateway 自带 Webapp（默认关），本机一个 gateway 拥有全部会话，多机 Desktop，终端内联图片与 <code>/rewind</code>；插件可批量/自动更新（目录 1,050+、Verified），付费 MCP 标价，<code>hermes curator lock</code>。0.23.1 操作者先记住：11 月 9 日起线上 <code>plugin-catalog.json</code> 超过旧 2 MiB 上限，装插件会静默回退到发行自带目录；本版把上限提到 16 MiB。升级前先看「从 0.22 升到 0.23」：旧 <code>browser_*</code> 只剩 <code>browser_exec</code>；Desktop 需 macOS 13+ / 64 位 Windows（Electron 44）；<code>hermes mcp serve</code> 改成 <code>hermes mcp-serve</code>。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
-            <span class="version-pill">v0.23.1</span>
-            <span class="version-pill">tag v0.23.1</span>
-            <span class="version-pill">更新于 2026-11-10</span>
+            <span class="version-pill">v0.23.3</span>
+            <span class="version-pill">tag v0.23.3</span>
+            <span class="version-pill">更新于 2026-11-20</span>
           </div>
           <div class="top-actions">
             <button type="button" data-copy="hermes setup --portal">复制最快安装路径</button>
@@ -823,13 +823,13 @@
     <section>
       <div class="section-head">
         <h2>按场景查</h2>
-        <p>先找当前要做的事，再复制对应命令。v0.23.0「The Hearth Release」是带完整说明的小版本，收编并补全 0.22.1–0.22.7；v0.23.1 再滚进约 618 个 PR，完整 curated notes 留给 v0.24.0；v0.22.0「Threshold」仍是上一大版本（收编 0.21.1–0.21.7）。下面把 0.22.7→0.23.1 操作者会摸到的变化折进各张卡片，并保留仍准确的 0.22 / 0.23.0 线卡片；不逐条抄发布说明，也不臆造留给 v0.24.0 的清单。</p>
+        <p>先找当前要做的事，再复制对应命令。v0.23.0「The Hearth Release」是带完整说明的小版本，收编并补全 0.22.1–0.22.7；v0.23.1–v0.23.3 都是说明延后的 patch，完整 curated notes 留给 v0.24.0；v0.22.0「Threshold」仍是上一大版本（收编 0.21.1–0.21.7）。下面把 0.22.7→0.23.1 操作者会摸到的变化折进各张卡片，并保留仍准确的 0.22 / 0.23.0 线卡片；不逐条抄发布说明，也不臆造留给 v0.24.0 的清单。</p>
       </div>
       <div class="cards">
         <article class="card strong accent-green searchable" data-keywords="linux macos wsl termux install.sh 安装 update channel 频道">
           <div>
             <h3>在 Linux / macOS / WSL 安装</h3>
-            <p>官方一键脚本。装完 <code>source ~/.bashrc</code> 或对应 shell rc。0.22 起 musl Linux（Alpine、Void）也能装，托管安装的运行时是 Python 3.14（由 <code>hermes pm</code> 自动装）。已有安装用 <code>hermes update</code>，默认跟最新稳定版。Docker / Cloud 镜像跟 <code>nousresearch/hermes-agent:stable</code>（tag 形如 <code>v0.23.1</code>）；0.22 起基础镜像钉在 Debian 13 并带完整 Chromium，<code>stable</code> / <code>latest</code> 只在正式发布时移动。</p>
+            <p>官方一键脚本。装完 <code>source ~/.bashrc</code> 或对应 shell rc。0.22 起 musl Linux（Alpine、Void）也能装，托管安装的运行时是 Python 3.14（由 <code>hermes pm</code> 自动装）。已有安装用 <code>hermes update</code>，默认跟最新稳定版。Docker / Cloud 镜像跟 <code>nousresearch/hermes-agent:stable</code>（tag 形如 <code>v0.23.3</code>）；0.22 起基础镜像钉在 Debian 13 并带完整 Chromium，<code>stable</code> / <code>latest</code> 只在正式发布时移动。</p>
             <div class="tag-row"><span class="tag">install</span><span class="tag">unix</span></div>
           </div>
           <div class="cmd">
@@ -1033,7 +1033,7 @@
         <article class="card accent-green searchable" data-keywords="update 更新 升级 backup docker cloud store 防火墙 firewall github token pm gc 重启 reboot pid">
           <div>
             <h3>更新到最新版</h3>
-            <p><code>--check</code> / <code>--plan</code> 只预览。<code>--backup</code> 拉取前给 <code>HERMES_HOME</code> 快照。Cloud / Docker：拉 <code>nousresearch/hermes-agent:stable</code>（或 <code>:latest</code>）；镜像安装会拒绝原地 <code>hermes update</code>；Microsoft Store 版走 Store 更新。0.22：更新会先建一套新的依赖环境，自检通过才切换；旧环境用 <code>hermes pm gc</code> 回收。0.22.3–0.22.7 的安装器桌面（.exe / .dmg）曾无新包；0.23.0 是带完整说明的捆绑发布（Electron 44）。0.23.1 进 CLI、Store、Docker / Cloud；安装器桌面（.exe / .dmg）本版没有新包，等下一次捆绑发布。更新会先问要不要 stash 本地改动；Desktop 更新框显示阶段与真实 release notes，失败带输出与一键诊断上传。拒绝的稳定版会被压住、不再推荐。防火墙后更新检查失败时，先 <code>gh auth login</code> 或设置 <code>GITHUB_TOKEN</code>。</p>
+            <p><code>--check</code> / <code>--plan</code> 只预览。<code>--backup</code> 拉取前给 <code>HERMES_HOME</code> 快照。Cloud / Docker：拉 <code>nousresearch/hermes-agent:stable</code>（或 <code>:latest</code>）；镜像安装会拒绝原地 <code>hermes update</code>；Microsoft Store 版走 Store 更新。0.22：更新会先建一套新的依赖环境，自检通过才切换；旧环境用 <code>hermes pm gc</code> 回收。0.22.3–0.22.7 的安装器桌面（.exe / .dmg）曾无新包；0.23.0 是带完整说明的捆绑发布（Electron 44）。0.23.1–0.23.3 进 CLI、Store、Docker / Cloud；安装器桌面（.exe / .dmg）这几版都没有新包，等下一次捆绑发布。<code>hermes update --force</code> 立刻停 gateway，不再排空。更新会先问要不要 stash 本地改动；Desktop 更新框显示阶段与真实 release notes，失败带输出与一键诊断上传。拒绝的稳定版会被压住、不再推荐。防火墙后更新检查失败时，先 <code>gh auth login</code> 或设置 <code>GITHUB_TOKEN</code>。</p>
             <div class="tag-row"><span class="tag">update</span></div>
           </div>
           <div class="cmd">
@@ -1087,6 +1087,18 @@
           <div class="cmd">
             <code>hermes update</code>
             <button class="copy" type="button" data-copy="hermes update">复制</button>
+          </div>
+        </article>
+
+        <article class="card accent-green searchable" data-keywords="0.23.2 0.23.3 patch fallback check update --force durable subagent 免费档 prune GPT-6.2 Astra Sol GHSA">
+          <div>
+            <h3>0.23.2 / 0.23.3：仍是留给 v0.24.0 的 patch</h3>
+            <p>两版都明确把完整 curated notes 留给 v0.24.0，这里只写发布说明点了名的操作。更新仍走 <code>hermes update</code>、Store、Docker / Cloud；安装器桌面（.exe / .dmg）没有新包。<code>hermes update --force</code> 立刻停 gateway，不再排空。0.23.2：子 agent 可以熬过 gateway 重启再续；<code>hermes fallback check</code> 看回退链是否就绪；Bot Desktop 在 docker / ssh 终端后端里，屏幕 env 改为白名单（GHSA-p22p-9ph6-gmrh）。0.23.3：首次 CLI 设置收成一个问题，并带上免费档；工具结果的主动裁剪默认开启；OpenRouter 和 Nous Portal 上有 GPT-6.2 Astra 与 Sol（含 Pro）。计量点分别是 <code>ae2a81c</code>、<code>caafe53</code>。</p>
+            <div class="tag-row"><span class="tag">0.23.3</span><span class="tag">v0.24.0</span></div>
+          </div>
+          <div class="cmd">
+            <code>hermes update --force</code>
+            <button class="copy" type="button" data-copy="hermes update --force">复制</button>
           </div>
         </article>
 
@@ -1421,7 +1433,7 @@
           <tr class="searchable" data-keywords="update 升级 plan channel 频道 set-channel 防火墙">
             <td>hermes update</td>
             <td>按更新频道拉代码并重装依赖。</td>
-            <td>官方源码安装默认跟最新稳定版；追每个提交用 <code>--set-channel main</code>。<code>--check</code> / <code>--plan</code> 预览，<code>--backup</code> 先快照；镜像安装拒绝原地更新。0.22 起新环境自检通过才切换。0.23.0：Electron 44 捆绑桌面；更新前提问 stash；Desktop 失败框带输出与诊断上传。0.23.1：进 CLI / Store / Docker，安装器桌面无新包。拒绝的稳定版会被压住、不再推荐。</td>
+            <td>官方源码安装默认跟最新稳定版；追每个提交用 <code>--set-channel main</code>。<code>--check</code> / <code>--plan</code> 预览，<code>--backup</code> 先快照；镜像安装拒绝原地更新。0.22 起新环境自检通过才切换。0.23.0：Electron 44 捆绑桌面；更新前提问 stash；Desktop 失败框带输出与诊断上传。0.23.1–0.23.3：进 CLI / Store / Docker，安装器桌面无新包。<code>--force</code> 立刻停 gateway。拒绝的稳定版会被压住、不再推荐。</td>
           </tr>
           <tr class="searchable" data-keywords="backup import 迁移 snapshot">
             <td>hermes backup / import</td>
@@ -1676,7 +1688,7 @@
     </section>
 
 <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.23.1" target="_blank" rel="noreferrer">Hermes Agent v0.23.1</a>（<code>3b42157</code>；自 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.21.7" target="_blank" rel="noreferrer">v0.21.7</a> 起，经 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.0" target="_blank" rel="noreferrer">v0.22.0「Threshold Release」</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.2" target="_blank" rel="noreferrer">v0.22.2</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.3" target="_blank" rel="noreferrer">v0.22.3</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.4" target="_blank" rel="noreferrer">v0.22.4</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.5" target="_blank" rel="noreferrer">v0.22.5</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.6" target="_blank" rel="noreferrer">v0.22.6</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.7" target="_blank" rel="noreferrer">v0.22.7</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.23.0" target="_blank" rel="noreferrer">v0.23.0「The Hearth Release」</a>；0.22.1 已被 0.22.2 取代）与 <a href="https://hermes-agent.nousresearch.com/docs/" target="_blank" rel="noreferrer">官方文档</a> 整理，并于 2026-11-10 校对。v0.23.0 收编并补全了 0.22.1–0.22.7 的 curated notes；v0.23.1 约 618 个 PR 的完整 curated notes 留给 v0.24.0，本页只收发布说明点名的操作者变化（含插件目录 2→16 MiB）。命令与行为以官方文档为准；内容为静态快照。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <p>非官方中文速查，依据 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.23.3" target="_blank" rel="noreferrer">Hermes Agent v0.23.3</a>（<code>caafe53</code>；经 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.23.2" target="_blank" rel="noreferrer">v0.23.2</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.23.1" target="_blank" rel="noreferrer">v0.23.1</a>（<code>3b42157</code>）；自 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.21.7" target="_blank" rel="noreferrer">v0.21.7</a> 起，经 <a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.0" target="_blank" rel="noreferrer">v0.22.0「Threshold Release」</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.2" target="_blank" rel="noreferrer">v0.22.2</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.3" target="_blank" rel="noreferrer">v0.22.3</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.4" target="_blank" rel="noreferrer">v0.22.4</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.5" target="_blank" rel="noreferrer">v0.22.5</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.6" target="_blank" rel="noreferrer">v0.22.6</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.22.7" target="_blank" rel="noreferrer">v0.22.7</a>、<a href="https://github.com/NousResearch/hermes-agent/releases/tag/v0.23.0" target="_blank" rel="noreferrer">v0.23.0「The Hearth Release」</a>；0.22.1 已被 0.22.2 取代）与 <a href="https://hermes-agent.nousresearch.com/docs/" target="_blank" rel="noreferrer">官方文档</a> 整理，并于 2026-11-20 校对。v0.23.0 收编并补全了 0.22.1–0.22.7 的 curated notes；v0.23.1–v0.23.3 的完整 curated notes 留给 v0.24.0，本页只收发布说明点名的操作者变化（含插件目录 2→16 MiB，以及 0.23.2 / 0.23.3 点名的更新、回退链和模型）。命令与行为以官方文档为准；内容为静态快照。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>

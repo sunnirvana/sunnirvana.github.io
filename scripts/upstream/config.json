@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAtUtc": "2026-11-13",
+  "updatedAtUtc": "2026-11-20",
   "sources": [
     {
       "id": "matt-pocock-skills",
@@ -32,11 +32,11 @@
       "noticeHeading": "## Hermes Agent",
       "homepageVersionPattern": null,
       "pinned": {
-        "version": "0.23.1",
-        "tag": "v0.23.1",
-        "commit": "3b421578588243f920886e6fe79a6faa87ea026e",
-        "commitShort": "3b42157",
-        "checkedAtUtc": "2026-11-10"
+        "version": "0.23.3",
+        "tag": "v0.23.3",
+        "commit": "caafe5389ae585ef77387a962aee05b1bcf17029",
+        "commitShort": "caafe53",
+        "checkedAtUtc": "2026-11-20"
       },
       "versionStrip": {
         "releasePillPrefix": "v",
@@ -72,9 +72,9 @@
       "noticeHeading": "## Claude Code",
       "homepageVersionPattern": "基于 v{version}",
       "pinned": {
-        "version": "2.1.323",
-        "tag": "v2.1.323",
-        "checkedAtUtc": "2026-11-13"
+        "version": "2.1.329",
+        "tag": "v2.1.329",
+        "checkedAtUtc": "2026-11-20"
       },
       "versionStrip": {
         "releasePillPrefix": "v",

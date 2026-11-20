@@ -738,12 +738,12 @@
           <span class="kicker">Claude Code Cheatsheet</span>
           <h1>Claude Code</h1>
         </div>
-        <p class="subtitle">终端里的编码 agent。在仓库里跑 <code>claude</code>，接着上次用 <code>-c</code>，大改动先 <code>/plan</code>。当前钉在 v2.1.323。</p>
+        <p class="subtitle">终端里的编码 agent。在仓库里跑 <code>claude</code>，接着上次用 <code>-c</code>，大改动先 <code>/plan</code>。当前钉在 v2.1.329。</p>
         <div class="meta-row">
           <div class="version-strip" aria-label="version information">
-            <span class="version-pill">v2.1.323</span>
-            <span class="version-pill">tag v2.1.323</span>
-            <span class="version-pill">更新于 2026-11-13</span>
+            <span class="version-pill">v2.1.329</span>
+            <span class="version-pill">tag v2.1.329</span>
+            <span class="version-pill">更新于 2026-11-20</span>
           </div>
           <div class="top-actions">
             <button type="button" data-copy="claude">复制启动命令</button>
@@ -852,7 +852,7 @@
         <article class="card strong accent-amber searchable" data-keywords="权限模式 auto manual acceptEdits dontAsk default Shift+Tab 遥测 feature flag gateway 分类器 AUTO_MODE_SERVER">
           <div>
             <h3>切权限模式</h3>
-            <p>交互默认 auto。<code>Shift+Tab</code>：auto → Manual（<code>default</code>）→ acceptEdits → plan → 回到 auto。<code>dontAsk</code> 不在这个循环里，只给 <code>claude -p</code>。选了 auto 但这一轮用不了（设置关掉、模型不支持，或服务端暂时关掉）时，从 Manual 起，先问你。关掉遥测或 feature flag 时（含 LLM gateway），服务器核不过的调用会问你或拒绝，不再退回内置分类器。Bedrock、Vertex、Foundry 仍走原来的路。要留着分类器，设 <code>CLAUDE_CODE_AUTO_MODE_SERVER=0</code>。gateway 上要强制做服务器复查，设 <code>CLAUDE_CODE_AUTO_MODE_SERVER=1</code>；托管设置里若关了实验性 beta，这一项也得写上。项目或插件不能把你在项目外关掉的复查重新打开。</p>
+            <p>交互默认 auto。<code>Shift+Tab</code>：auto → Manual（<code>default</code>）→ acceptEdits → plan → 回到 auto。<code>dontAsk</code> 不在这个循环里，只给 <code>claude -p</code>。选了 auto 但这一轮用不了（设置关掉、模型不支持，或服务端暂时关掉）时，从 Manual 起，先问你。关掉遥测或 feature flag 时（含 LLM gateway），服务器核不过的调用会问你或拒绝，不再退回内置分类器。Bedrock、Vertex、Foundry 在分类器回退上仍走原来的路。v2.1.328 起，Bedrock、Google Cloud Agent Platform、Foundry 和 Claude apps gateway 上，Opus 4.6 与 Sonnet 4.6 的交互会话没指定模式时也从 auto 起。要留着分类器，设 <code>CLAUDE_CODE_AUTO_MODE_SERVER=0</code>。gateway 上要强制做服务器复查，设 <code>CLAUDE_CODE_AUTO_MODE_SERVER=1</code>；托管设置里若关了实验性 beta，这一项也得写上。项目或插件不能把你在项目外关掉的复查重新打开。</p>
             <div class="tag-row"><span class="tag">auto</span><span class="tag">acceptEdits</span></div>
           </div>
           <div class="cmd">
@@ -900,7 +900,7 @@
         <article class="card accent-amber searchable" data-keywords="worktree 后台 background --bg agents attach 子 agent 3 分钟">
           <div>
             <h3>并行：worktree 或后台</h3>
-            <p><code>claude -w name</code> 在 <code>.claude/worktrees/</code> 开隔离检出。整段丢到后台用 <code>claude --bg "task"</code>，再 <code>claude attach &lt;id&gt;</code>；不能和 <code>-p</code> 一起用。子 agent 的 shell 超过 3 分钟会转后台（各提供商一样），免得提示缓存过期。给正在跑的后台 agent 发消息时，它手头的命令转后台继续跑。沙箱开着时，<code>git worktree add</code>、<code>move</code>、<code>remove</code> 按只读失败；本会话没在里面启动、也没被授予的 worktree 里，提交同样失败。</p>
+            <p><code>claude -w name</code> 在 <code>.claude/worktrees/</code> 开隔离检出。整段丢到后台用 <code>claude --bg "task"</code>，再 <code>claude attach &lt;id&gt;</code>；不能和 <code>-p</code> 一起用。子 agent 的 shell 超过 3 分钟会转后台（各提供商一样），免得提示缓存过期。给正在跑的后台 agent 发消息时，它手头的命令转后台继续跑。沙箱开着时，<code>git worktree add</code>、<code>move</code>、<code>remove</code> 按只读失败；本会话没在里面启动、也没被授予的 worktree 里，提交同样失败。沙箱里的 Bash 默认仍走正常权限；要免询问，设 <code>sandbox.autoAllowBashIfSandboxed: true</code>。离开 worktree 时如果可能有未保存的改动会先问；<code>dontAsk</code> 里没人答就拒绝，除非 allow、auto 或 bypass。</p>
             <div class="tag-row"><span class="tag">-w</span><span class="tag">--bg</span></div>
           </div>
           <div class="cmd">
@@ -912,7 +912,7 @@
         <article class="card accent-red searchable" data-keywords="MCP mcp.json scope http deniedMcpServers task 后台 DISABLE_MCP_TASK">
           <div>
             <h3>接上 MCP</h3>
-            <p>远程 HTTP 用下面这条。<code>--scope project</code> 写进仓库 <code>.mcp.json</code>，默认 local 只给你；密钥别提交，登录用 <code>/mcp</code>。<code>deniedMcpServers</code> 里的 URL 也会拦住上游相同的 Anthropic 服务器；云端会话和自托管 runner 上的 connector 同样按 URL 拦，否则按名字拒绝。MCP 的 task 在终端里会立刻转后台（不依赖 feature flag 拉取），做完再把结果告诉 Claude。要在这次调用里等完，设 <code>CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND</code>；整项关掉用 <code>CLAUDE_CODE_DISABLE_MCP_TASKS=1</code>。完成登录的那一步，bypass 和 auto 里也会先问你；<code>dontAsk</code> 里改用 <code>/mcp</code>。</p>
+            <p>远程 HTTP 用下面这条。<code>--scope project</code> 写进仓库 <code>.mcp.json</code>，默认 local 只给你；密钥别提交，登录用 <code>/mcp</code>。<code>deniedMcpServers</code> 里的 URL 也会拦住上游相同的 Anthropic 服务器；云端会话和自托管 runner 上的 connector 同样按 URL 拦，否则按名字拒绝。MCP 的 task 在终端里会立刻转后台（不依赖 feature flag 拉取），做完再把结果告诉 Claude。要在这次调用里等完，设 <code>CLAUDE_CODE_DISABLE_MCP_TASK_BACKGROUND</code>；整项关掉用 <code>CLAUDE_CODE_DISABLE_MCP_TASKS=1</code>。完成登录的那一步，bypass 和 auto 里也会先问你；<code>dontAsk</code> 里改用 <code>/mcp</code>。令牌不要出现在命令行上时，在系统终端用 <code>claude mcp add-json -</code> 从标准输入读 JSON；会话里没有这条。<code>--scope project</code> 碰到顶层没有 <code>mcpServers</code> 的 <code>.mcp.json</code> 会停下来，不覆盖文件。</p>
             <div class="tag-row"><span class="tag">mcp</span><span class="tag">.mcp.json</span></div>
           </div>
           <div class="cmd">
@@ -1037,7 +1037,7 @@
           <tr class="searchable" data-keywords="model effort sonnet opus ultrathink fast CLAUDE_CODE_SUBAGENT_EFFORT CLAUDE_CODE_DISABLE_ULTRATHINK switchModelsOnFlag teammate fable Fable 5.2 Vertex">
             <td>claude --model sonnet</td>
             <td>这一次用哪个模型。</td>
-            <td>别名 <code>sonnet</code>、<code>opus</code>、<code>haiku</code>、<code>fable</code>。<code>fable</code> 指向 Fable 5.2（1M）；Claude apps gateway 会话里仍是 Fable 5，除非设了 <code>ANTHROPIC_DEFAULT_FABLE_MODEL</code>。它不是套餐默认模型，用 <code>/model fable</code> 或 <code>claude --model fable</code> 来选；gateway 上用 <code>/model claude-fable-5-2</code>。用户设置里保存的 <code>claude-fable-5-1</code> 会改到 <code>fable</code>：Pro / Max 在 v2.1.321 起第一次启动就改，Team / Enterprise 等组织允许；退回用 <code>/model claude-fable-5-1</code>。Console、第三方，以及项目、local、托管设置里的 5.1 不动。<code>--effort high</code> 不写入设置。跟本会话同一模型、又没写 <code>effort</code> 时，子 agent 和 teammate 用本会话的档。换了模型则用那个模型已保存的档或默认档。要给没写 <code>effort</code> 的子 agent 指定推理档，用 <code>CLAUDE_CODE_SUBAGENT_EFFORT</code>。<code>switchModelsOnFlag</code> 设成 false（每次询问）时，子 agent 遇到被标出的消息会停，不再换模型。<code>CLAUDE_CODE_DISABLE_ULTRATHINK</code> 关掉 <code>ultrathink</code> 关键字。Opus 4.8 的 fast mode 已弃用，2026-11-30 移除；之后对该模型的 fast 请求报错，且不回退到普通 Opus 4.8。要保住加速，改用 Opus 5.5。别的模型上，fast 被限流、过载或失败时，先在同一模型改走普通速度。Vertex 的 global、us、eu 也可以开 fast，Vertex 拒绝时同样退回普通速度。认不出的模型 ID 按 1M 上下文算；要留在 200K，设 <code>CLAUDE_CODE_DISABLE_1M_CONTEXT=1</code>。别家窗口更小的模型一旦写满，每轮都会失败，直到 <code>/clear</code>。</td>
+            <td>别名 <code>sonnet</code>、<code>opus</code>、<code>haiku</code>、<code>fable</code>。<code>fable</code> 指向 Fable 5.2（1M）；Claude apps gateway 会话里仍是 Fable 5，除非设了 <code>ANTHROPIC_DEFAULT_FABLE_MODEL</code>。它不是套餐默认模型，用 <code>/model fable</code> 或 <code>claude --model fable</code> 来选；gateway 上用 <code>/model claude-fable-5-2</code>。用户设置里保存的 <code>claude-fable-5-1</code> 会改到 <code>fable</code>：Pro / Max 在 v2.1.321 起第一次启动就改，Team / Enterprise 等组织允许；退回用 <code>/model claude-fable-5-1</code>。Console、第三方，以及项目、local、托管设置里的 5.1 不动。<code>--effort high</code> 不写入设置。跟本会话同一模型、又没写 <code>effort</code> 时，子 agent 和 teammate 用本会话的档。换了模型则用那个模型已保存的档或默认档。要给没写 <code>effort</code> 的子 agent 指定推理档，用 <code>CLAUDE_CODE_SUBAGENT_EFFORT</code>。<code>switchModelsOnFlag</code> 设成 false（每次询问）时，子 agent 遇到被标出的消息会停，不再换模型。<code>CLAUDE_CODE_DISABLE_ULTRATHINK</code> 关掉 <code>ultrathink</code> 关键字。Opus 4.8 的 fast mode 已弃用，2026-11-30 移除；之后对该模型的 fast 请求报错，且不回退到普通 Opus 4.8。要保住加速，改用 Opus 5.5。别的模型上，fast 被限流、过载或失败时，先在同一模型改走普通速度。Vertex 的 global、us、eu 也可以开 fast，Vertex 拒绝时同样退回普通速度。认不出的模型 ID 按 1M 上下文算；要留在 200K，设 <code>CLAUDE_CODE_DISABLE_1M_CONTEXT=1</code>。别家窗口更小的模型一旦写满，每轮都会失败，直到 <code>/clear</code>。gateway 上模型输出上限更小时，设 <code>CLAUDE_CODE_MAX_OUTPUT_TOKENS</code> 为那个上限；v2.1.326 的自动重试已去掉。</td>
           </tr>
           <tr class="searchable" data-keywords="add-dir 目录">
             <td>claude --add-dir ../lib</td>
@@ -1057,7 +1057,7 @@
           <tr class="searchable" data-keywords="mcp add list remove 锁">
             <td>claude mcp add …</td>
             <td>配置 MCP 服务器。</td>
-            <td><code>list</code> 看状态。<code>login &lt;name&gt;</code> 走 OAuth。<code>add</code> / <code>remove</code> 会等配置锁，拿不到就以 1 退出；别的任务后写入仍可能盖掉刚保存的服务器。</td>
+            <td><code>list</code> 看状态。<code>login &lt;name&gt;</code> 走 OAuth。<code>add-json -</code> 从标准输入读服务器 JSON，会话里不可用。<code>add</code> / <code>remove</code> 会等配置锁，拿不到就以 1 退出；别的任务后写入仍可能盖掉刚保存的服务器。</td>
           </tr>
           <tr class="searchable" data-keywords="plugin 插件 update 依赖">
             <td>claude plugin</td>
@@ -1077,12 +1077,12 @@
           <tr class="searchable" data-keywords="teleport remote-control desktop 首次提问 exit y settings 目录">
             <td>claude --teleport</td>
             <td>把云端会话拉回本机。</td>
-            <td>需要订阅。本机这一轮给手机接着控：<code>--remote-control</code>。<code>claude remote-control</code> 在首次提问没人答时说明原因并以 1 退出；管道里没有换行的 <code>y</code> 也算同意。<code>claude remote-control --settings ./settings.json</code> 把这份设置套到它开出的每一轮；文件改了要重启才会再开新会话。连上的客户端不能把会话挪到别的目录。</td>
+            <td>需要订阅。在 <code>/teleport</code> 里点一个云端会话会像 <code>/clear</code> 一样新开一轮，原来的用 <code>/resume</code> 找回来。本机这一轮给手机接着控：<code>--remote-control</code>。<code>claude remote-control</code> 在首次提问没人答时说明原因并以 1 退出；管道里没有换行的 <code>y</code> 也算同意。<code>claude remote-control --settings ./settings.json</code> 把这份设置套到它开出的每一轮；文件改了要重启才会再开新会话。连上的客户端不能把会话挪到别的目录。</td>
           </tr>
           <tr class="searchable" data-keywords="version 版本">
             <td>claude --version</td>
             <td>打印已安装版本。</td>
-            <td>本页钉的上游发布是 v2.1.323。</td>
+            <td>本页钉的上游发布是 v2.1.329。没有 v2.1.324；中间的 v2.1.325–328 已折进上面的卡片。</td>
           </tr>
         </tbody>
       </table>
@@ -1167,12 +1167,12 @@
           <tr class="searchable" data-keywords="background bg tasks Earlier 子 agent">
             <td>/background</td>
             <td>把当前会话拆到后台。</td>
-            <td>别名 <code>/bg</code>。<code>/tasks</code> 的 Earlier in this session 列出已结束的子 agent，离开列表或重启后仍可再打开并留言。</td>
+            <td>别名 <code>/bg</code>。<code>/tasks</code> 的 Earlier in this session 列出已结束的子 agent，离开列表或重启后仍可再打开并留言。同一页还有本会话的定时任务、<code>/loop</code>、目标和分叉；<code>x</code> 会先问再停一个。更早版本存下的大多数定时任务，在新登录的会话里要重新排程；<code>--resume</code> 它们自己的会话仍会跑。</td>
           </tr>
           <tr class="searchable" data-keywords="usage cost 用量 gateway 花费 spend">
             <td>/usage</td>
             <td>看用量和限额。</td>
-            <td>别名 <code>/cost</code>、<code>/stats</code>。走 Claude apps gateway、没有花费上限、且 gateway 不低于这个版本时，会多出今天、本周和本月的花费。终端里 Fable 的周限额会写出何时重置。</td>
+            <td>别名 <code>/cost</code>、<code>/stats</code>。走 Claude apps gateway、没有花费上限、且 gateway 不低于这个版本时，会多出今天、本周和本月的花费。终端里 Fable 的周限额会写出何时重置。用量额度用完或到了月上限时，不再显示成没开。</td>
           </tr>
           <tr class="searchable" data-keywords="plugin skills">
             <td>/plugin</td>
@@ -1182,7 +1182,7 @@
           <tr class="searchable" data-keywords="login logout exit">
             <td>/exit</td>
             <td>离开会话。</td>
-            <td>接在后台会话上时只是 detach。登录、登出用 <code>/login</code>、<code>/logout</code>。后台会话里的 <code>/logout</code> 会登出这台机器上的全部会话，并删掉存着的 MCP 登录和插件密钥。</td>
+            <td>接在后台会话上时只是 detach。选「Exit and stop tasks」会停掉本会话的定时任务，恢复后不再跑，除非退出时 Claude 还在回答。登录、登出用 <code>/login</code>、<code>/logout</code>。后台会话里的 <code>/logout</code> 会登出这台机器上的全部会话，并删掉存着的 MCP 登录和插件密钥。</td>
           </tr>
         </tbody>
       </table>
@@ -1237,7 +1237,7 @@
           <tr class="searchable" data-keywords="skills 沙箱 sandbox /cd plugins">
             <td>.claude/skills/&lt;name&gt;/SKILL.md</td>
             <td>用 <code>/name</code> 调用的流程。</td>
-            <td>个人技能放 <code>~/.claude/skills/</code>。Bash 沙箱开着时，启动目录下面更深的 <code>.claude/skills</code> 只有在那里启动，或 <code>/cd</code> 过去，才会加载。<code>~/.claude/plugins</code> 里面的 <code>.claude/skills</code> 不会加载。</td>
+            <td>个人技能放 <code>~/.claude/skills/</code>。Bash 沙箱开着时，启动目录下面更深的 <code>.claude/skills</code> 只有在那里启动，或 <code>/cd</code> 过去，才会加载。<code>~/.claude/plugins</code> 里面的 <code>.claude/skills</code> 不会加载。<code>--plugin-dir</code> 插件里的技能也不会从上层会话加载，要在插件目录里启动。</td>
           </tr>
           <tr class="searchable" data-keywords="mcp.json">
             <td>.mcp.json</td>
@@ -1257,12 +1257,12 @@
     <section>
       <div class="note-box searchable" data-keywords="Code Mode 实验 JavaScript 工具 code-mode">
         <strong>使用习惯</strong>
-        <p>大改动 <code>/plan</code>，小改动留在 auto。权限靠 <code>/permissions</code>，不靠 CLAUDE.md。密钥留在 local，别进 <code>.mcp.json</code>。上下文满了 <code>/compact</code>，重来用 <code>/clear</code>。实验性的 Code Mode 里，Claude 写 JavaScript 来调用工具；打开和给组织关掉见 <a href="https://code.claude.com/docs/en/code-mode" target="_blank" rel="noreferrer">官方文档</a>。</p>
+        <p>大改动 <code>/plan</code>，小改动留在 auto。权限靠 <code>/permissions</code>，不靠 CLAUDE.md。密钥留在 local，别进 <code>.mcp.json</code>。上下文满了 <code>/compact</code>，重来用 <code>/clear</code>。实验性 Code Mode：<code>CLAUDE_CODE_EXPERIMENTAL_CODE_MODE=1</code> 写在 shell 或 <code>~/.claude/settings.json</code>（项目设置无效），第一次会先问。组织要关掉，在托管设置里写 <code>0</code>。不走 gateway、Bedrock、Vertex、Foundry。v2.1.326 起已经开着时，agent teams 会话也会进去；v2.1.329 起关掉遥测或 feature flag 也能开，tracing 仍会把它关掉。见 <a href="https://code.claude.com/docs/en/code-mode" target="_blank" rel="noreferrer">官方文档</a>。</p>
       </div>
     </section>
 
     <footer class="page-footer">
-      <p>非官方中文速查，依据 <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.323" target="_blank" rel="noreferrer">Claude Code v2.1.323 (v2.1.323)</a> 与 <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noreferrer">官方文档</a>（含 <a href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noreferrer">CLI reference</a>、<a href="https://code.claude.com/docs/en/commands" target="_blank" rel="noreferrer">commands</a>、<a href="https://code.claude.com/docs/en/changelog" target="_blank" rel="noreferrer">changelog</a>）整理，并于 2026-11-13 校对。命令与行为以官方文档为准；内容为静态快照。上游由 Anthropic PBC 发布，使用受其商业条款约束。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
+      <p>非官方中文速查，依据 <a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.329" target="_blank" rel="noreferrer">Claude Code v2.1.329 (v2.1.329)</a> 与 <a href="https://code.claude.com/docs/en/overview" target="_blank" rel="noreferrer">官方文档</a>（含 <a href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noreferrer">CLI reference</a>、<a href="https://code.claude.com/docs/en/commands" target="_blank" rel="noreferrer">commands</a>、<a href="https://code.claude.com/docs/en/changelog" target="_blank" rel="noreferrer">changelog</a>）整理，并于 2026-11-20 校对。命令与行为以官方文档为准；内容为静态快照。上游由 Anthropic PBC 发布，使用受其商业条款约束。本站使用 GA4 做匿名访问与功能使用统计，不收集搜索词、复制内容或个人输入。</p>
       <span class="footer-mark">TOOLS / CHEATSHEETS</span>
     </footer>
   </main>
